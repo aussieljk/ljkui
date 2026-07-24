@@ -69,7 +69,7 @@
     "generate:palettes": "bun scripts/generate-palettes.ts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf styles.css && rm -rf styles.lite.css && rm -rf theme.css",
     "prepublishOnly": "bun scripts/check-version.ts && bun run lint && bun run build",
-    "release": "npm version prerelease --no-git-tag-version && npm publish --tag latest",
+    "release": "npm version prerelease --no-git-tag-version --no-workspaces-update && npm publish --tag latest",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

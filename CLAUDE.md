@@ -51,6 +51,8 @@ The pipeline is two root scripts, shared by `bun run prod` and the Release workf
 
 `--tag latest` is required: npm refuses to publish a prerelease to the default tag, and without it `latest` would never move, so plain `bun add @aussieljk/frosted` would fail to resolve.
 
+**`--no-workspaces-update` on the `npm version` is also required.** After bumping, npm otherwise reifies the whole workspace to sync `package-lock.json` — and dies on `packages/docs`' `"@aussieljk/frosted": "workspace:*"` with `EUNSUPPORTEDPROTOCOL: Unsupported URL Type "workspace:"`, since the `workspace:` protocol is a bun/pnpm thing npm never implemented. npm has no business touching the tree here anyway: bun owns the lockfile, and `release.ts` refreshes `bun.lock` itself afterwards. The failure is a half-finished release — the bump lands in `package.json` but nothing publishes, so revert that before retrying or the next run bumps twice.
+
 `prepublishOnly` runs `scripts/check-version.ts` (hard-fails on any version that isn't `0.0.1-<n>`), then lint + build.
 
 Never publish a plain `0.0.1`: it outranks every later `0.0.1-N`, and `^0.0.1` ranges don't match prereleases, so consumers would be stuck on that one release. Installing normally (`bun add @aussieljk/frosted`) resolves the `latest` dist-tag and records `^0.0.1-N`, which does pick up subsequent `0.0.1-N` releases.
