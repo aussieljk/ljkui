@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Theme } from '@aussieljk/frosted';
 import { demos } from '@/demos/registry';
+import { DemoBoundary } from './demo-boundary';
 
 /**
  * Renders a live usage demo from the frosted-ui package inside a `<Theme>` (so accent/gray tokens
@@ -30,9 +31,11 @@ export function Demo({ name }: { name: string }) {
     <figure className="not-prose my-6 overflow-hidden rounded-lg border border-fd-border">
       <Theme appearance="inherit" className="flex min-h-16 flex-wrap items-center gap-3 bg-fd-card p-6">
         {mounted ? (
-          <React.Suspense fallback={<div className="text-sm text-fd-muted-foreground">Loading…</div>}>
-            <Component />
-          </React.Suspense>
+          <DemoBoundary name={name}>
+            <React.Suspense fallback={<div className="text-sm text-fd-muted-foreground">Loading…</div>}>
+              <Component />
+            </React.Suspense>
+          </DemoBoundary>
         ) : (
           <div className="text-sm text-fd-muted-foreground">Loading…</div>
         )}

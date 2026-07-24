@@ -11,27 +11,12 @@
 import { readdirSync, existsSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { componentLabel } from '../src/lib/component-label';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const demosDir = join(here, '../../frosted-ui/demos');
+const examplesDir = join(here, '../../frosted-ui/examples');
 const outDir = join(here, '../content/docs/components');
-
-// kebab -> display label, keeping the library's CamelStack names intact.
-const SPECIAL: Record<string, string> = {
-  'h-stack': 'HStack',
-  'v-stack': 'VStack',
-  'z-stack': 'ZStack',
-  'input-otp': 'InputOTP',
-  'aspect-ratio': 'AspectRatio',
-};
-
-function label(name: string): string {
-  if (SPECIAL[name]) return SPECIAL[name];
-  return name
-    .split('-')
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(' ');
-}
 
 mkdirSync(outDir, { recursive: true });
 
@@ -40,12 +25,20 @@ const demos = readdirSync(demosDir)
   .map((f) => f.replace('.demo.tsx', ''))
   .sort();
 
+// A component only gets an `## Examples` section if it actually has a variant gallery.
+const withExamples = new Set(
+  readdirSync(examplesDir)
+    .filter((f) => f.endsWith('.examples.tsx'))
+    .map((f) => f.replace('.examples.tsx', '')),
+);
+
 let created = 0;
 for (const name of demos) {
   const file = join(outDir, `${name}.mdx`);
   if (existsSync(file)) continue;
 
-  const title = label(name);
+  const title = componentLabel(name);
+  const examples = withExamples.has(name) ? `## Examples\n\n<Examples name="${name}" />\n\n` : '';
   writeFileSync(
     file,
     `---
@@ -55,7 +48,7 @@ description: ${title} component.
 
 <Demo name="${name}" />
 
-## Props
+${examples}## Props
 
 <PropsTable component="${name}" />
 `,

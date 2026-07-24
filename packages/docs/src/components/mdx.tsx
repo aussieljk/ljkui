@@ -3,6 +3,7 @@ import type { MDXComponents } from 'mdx/types';
 import { Demo } from './demo';
 import { PropsTable } from './props-table';
 import { AllExamples } from './all-examples';
+import { Examples } from './examples';
 
 export function getMDXComponents(components?: MDXComponents) {
   return {
@@ -10,6 +11,7 @@ export function getMDXComponents(components?: MDXComponents) {
     Demo,
     PropsTable,
     AllExamples,
+    Examples,
     ...components,
   } satisfies MDXComponents;
 }

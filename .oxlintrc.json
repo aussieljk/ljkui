@@ -19,7 +19,7 @@
   },
   "overrides": [
     {
-      "files": ["**/*.fixture.ts", "**/*.fixture.tsx", "**/widget-stack/widget-stack.tsx"],
+      "files": ["**/*.examples.tsx", "**/widget-stack/widget-stack.tsx"],
       "rules": {
         "react-hooks/rules-of-hooks": "off"
       }

@@ -16,7 +16,7 @@
     "build:docs": "turbo run build --filter=@aussieljk/docs",
     "check": "bun run workflows:check && bun run format:check && turbo run lint typecheck build && bun run --filter=@aussieljk/frosted health",
     "deploy": "bun scripts/deploy.ts",
-    "dev": "bun run --filter=@aussieljk/docs dev",
+    "dev": "turbo run build --filter=@aussieljk/frosted --output-logs=errors-only && cd packages/docs && portless frosted vite dev",
     "doctor": "bun scripts/doctor.ts",
     "format": "oxfmt \"**/*.{ts,tsx,js,jsx,mjs,cjs}\"",
     "format:check": "oxfmt --check \"**/*.{ts,tsx,js,jsx,mjs,cjs}\"",
@@ -34,6 +34,7 @@
     "lefthook": "^2.1.10",
     "oxfmt": "^0.60.0",
     "oxlint": "^1.75.0",
+    "portless": "^0.15.4",
     "turbo": "^2.10.6",
     "typescript": "^7.0.2",
     "vercel": "^56.5.0"

@@ -1,20 +1,21 @@
 /*
  * Inter, for everyone who doesn't get SF Pro. Apple platforms resolve
  * -apple-system first and never reach this; everyone else lands on
- * InterVariable/Inter. Served from rsms.me (Inter's own host) — it defines
- * `InterVariable` inside an @supports (font-variation-settings: normal) block
- * and plain `Inter` outside it, so listing both in --default-font-family
- * (tokens/typography.css) picks the variable file wherever it's supported.
+ * InterVariable/Inter, which --default-font-family (tokens/typography.css)
+ * names but this stylesheet deliberately does not load.
  *
- * Consumers who care about the extra request-chain hop can preload it in their
- * document head instead — this @import stays harmless either way:
+ * Inter is served from rsms.me (Inter's own host) and has to be loaded from the
+ * document head, not from here:
  *   <link rel="preconnect" href="https://rsms.me/">
  *   <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
  *
+ * A remote `@import url(...)` would only be legal at the very top of the final
+ * stylesheet, and consumers concatenate styles.css after their own CSS (Tailwind,
+ * a theme preset, …), which pushes it into the middle of the bundle where every
+ * CSS parser rejects it. The <link> also avoids the extra request-chain hop.
+ *
  * 'Consolas (Custom)' below is metric-adjusted and used by --code-font-family.
  */
-
-@import url('https://rsms.me/inter/inter.css');
 
 @font-face {
   font-family: 'Consolas (Custom)';

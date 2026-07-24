@@ -31,6 +31,17 @@ export function App({ children }: { children: React.ReactNode }) {
 }
 ```
 
+### Fonts
+
+Apple platforms get SF Pro automatically. Everywhere else the type scale expects
+[Inter](https://rsms.me/inter/), which the stylesheet names but does not load — add it to your
+document head:
+
+```html
+<link rel="preconnect" href="https://rsms.me/" />
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+```
+
 ## Your first component
 
 ```tsx
