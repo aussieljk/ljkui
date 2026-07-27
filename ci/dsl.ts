@@ -12,13 +12,7 @@
  * the point of doing this in TypeScript at all.
  */
 
-type Vcpu = 2 | 4 | 8 | 16 | 32;
-
-/** Blacksmith instance types — https://docs.blacksmith.sh/blacksmith-runners/overview */
-export type Runner =
-  | `blacksmith-${Vcpu}vcpu-ubuntu-${2404 | 2204}${'' | '-arm'}`
-  | `blacksmith-${6 | 12}vcpu-macos-${'latest' | 26 | 15}`
-  | 'ubuntu-latest';
+export type Runner = 'ubuntu-latest' | 'macos-latest';
 
 export type Permissions = Partial<
   Record<'actions' | 'contents' | 'id-token' | 'packages' | 'pull-requests', 'read' | 'write' | 'none'>
@@ -97,10 +91,6 @@ export const setupNode = (version: string): Step => ({
   with: { 'node-version': version },
 });
 
-/**
- * Blacksmith serves the stock `actions/cache` from a colocated cache, so there
- * is nothing vendor-specific to do here — the standard action is the fast path.
- */
 export const cache = (name: string, path: string, key: string, restoreKeys: string): Step => ({
   name: `Cache ${name}`,
   uses: 'actions/cache@v6',

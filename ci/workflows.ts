@@ -13,8 +13,7 @@
  *                0.0.1-N → N+1, publishes to npm, pushes the version commit and
  *                deploys production. The CI-side equivalent of `bun run prod`.
  *
- * Both run on Blacksmith runners, which are a drop-in `runs-on` swap: the cache
- * actions and everything else stay stock.
+ * Both run on GitHub-hosted `ubuntu-latest` runners.
  *
  * npm needs no token at all: the release publishes over OIDC (trusted
  * publishing), configured against this repo + `release.yml` on npmjs.com.
@@ -37,19 +36,8 @@ import {
 } from './dsl.ts';
 import root from '../package.json' with { type: 'json' };
 
-/** 4 vCPU is the sweet spot here: turbo fans lint/typecheck/build out across cores. */
-const RUNNER: Runner = 'blacksmith-4vcpu-ubuntu-2404';
-
-/**
- * The release runs GitHub-hosted, NOT on Blacksmith — deliberately.
- *
- * npm's trusted publishing rejects self-hosted runners ("Trusted publishing
- * currently supports only cloud-hosted runners"), and Blacksmith registers its
- * boxes through GitHub's org-level *self-hosted* runner API, so an OIDC token
- * minted on one is refused by the registry. A release is manual and occasional,
- * so the slower runner costs nothing here. Do not "unify" this with RUNNER.
- */
-const RELEASE_RUNNER: Runner = 'ubuntu-latest';
+/** GitHub-hosted; also what npm's trusted publishing requires (cloud-hosted only). */
+const RUNNER: Runner = 'ubuntu-latest';
 
 /** Trusted publishing needs npm >= 11.5.1 / node >= 22.14.0; node 24 ships npm 11. */
 const NODE_VERSION = '24';
@@ -138,7 +126,7 @@ const release: Workflow = {
   jobs: {
     release: {
       name: 'Publish + deploy',
-      'runs-on': RELEASE_RUNNER,
+      'runs-on': RUNNER,
       'timeout-minutes': 30,
       if: ON_MASTER,
       steps: [

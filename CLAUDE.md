@@ -72,9 +72,7 @@ Keep every `run:` a single line: Bun's YAML writer emits multi-line strings as q
 - **CI** — every PR and every push to master. `check` job: workflows-in-sync, format, lint, typecheck, build (turbo builds the library and the docs site), package health (publint + attw). Then `deploy`: preview on PRs (URL commented on the PR), production on master.
 - **Release** — manual `workflow_dispatch` on master, with a `deploy` input. Runs `bun run check`, then `scripts/release.ts` and `scripts/deploy.ts --prod`.
 
-**Runners are [Blacksmith](https://docs.blacksmith.sh/blacksmith-runners/overview)** (`blacksmith-4vcpu-ubuntu-2404`) — a drop-in `runs-on` swap. Blacksmith serves the stock `actions/cache` from a colocated cache, so there is nothing vendor-specific in the workflows and `actions/*` stays upstream. `Runner` in `ci/dsl.ts` types the full label set. `actionlint` flags these labels as unknown; that's expected.
-
-**Except the release job, which runs on `ubuntu-latest` on purpose.** npm's trusted publishing only accepts cloud-hosted runners, and Blacksmith registers its boxes through GitHub's org-level *self-hosted* runner API — so an OIDC token minted on a Blacksmith runner is refused by the registry. Releases are manual and rare, so the slower runner costs nothing. Don't "unify" `RELEASE_RUNNER` with `RUNNER`.
+**All jobs run on GitHub-hosted `ubuntu-latest`.** This is also what npm's trusted publishing requires — it only accepts cloud-hosted runners, so an OIDC token minted on a self-hosted runner would be refused by the registry.
 
 **npm auth is trusted publishing (OIDC) — there is no npm token anywhere.** The release job's `id-token: write` mints an OIDC token that npm trades for short-lived, scoped publish rights, and provenance is attached automatically (public repo + public package). It is configured on npmjs.com under the package's Settings → Trusted publisher: org `aussieljk`, repo `ljkui`, workflow `release.yml`, no environment. Consequences worth knowing:
 

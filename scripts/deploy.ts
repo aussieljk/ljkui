@@ -10,8 +10,8 @@
  *
  * The docs app is TanStack Start + nitro's `vercel` preset, so `vite build`
  * emits a complete `.vercel/output` (Build Output API) under packages/docs. We
- * build here on the runner and upload it with `vercel deploy --prebuilt`, so a
- * Blacksmith box does the work rather than Vercel's builder — no `vercel build`.
+ * build here on the runner and upload it with `vercel deploy --prebuilt`, so the
+ * CI runner does the work rather than Vercel's builder — no `vercel build`.
  *
  * Needs VERCEL_TOKEN / VERCEL_ORG_ID / VERCEL_PROJECT_ID in CI; locally it uses
  * the .vercel link and your `vercel login` session. A pull request from a fork
