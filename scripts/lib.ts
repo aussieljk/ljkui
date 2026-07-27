@@ -9,7 +9,7 @@ import { appendFileSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
 export const ROOT = resolve(import.meta.dir, '..');
-export const PKG = join(ROOT, 'packages/frosted-ui');
+export const PKG = join(ROOT, 'packages/ljkui');
 export const CI = !!process.env.CI;
 
 export function fail(message: string): never {

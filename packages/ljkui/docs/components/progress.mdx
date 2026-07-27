@@ -1,0 +1,43 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as ProgressStories from '../../../src/components/progress/progress.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={ProgressStories} />
+
+# Progress
+
+Visualize a value against a maximum as a horizontal bar.
+
+<Demo id="progress" />
+
+## Usage
+
+```tsx
+import { Progress } from 'ljkui';
+
+<Progress value={40} max={100} aria-label="40% complete" />;
+```
+
+`value` defaults to 0 and `max` to 100; the indicator width is clamped to 0–100% of `max`.
+
+## Props
+
+Progress is built on Base UI's `Meter` and also accepts its root props (`value`, `max`, …).
+
+<PropsTable component="Progress" />
+
+## Related
+
+`CircularProgress` for a ring-shaped indicator and `Spinner` for indeterminate loading.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

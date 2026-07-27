@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from '@tanstack/react-router';
-import { Theme } from '@aussieljk/frosted';
+import { Theme } from 'ljkui';
 import { demos } from '@/demos/registry';
 import { componentLabel } from '@/lib/component-label';
 import { DemoBoundary } from './demo-boundary';

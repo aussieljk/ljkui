@@ -1,0 +1,55 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as CalendarStories from '../../../src/components/calendar/calendar.stories';
+import { Demo } from '../../components/demo';
+
+<Meta of={CalendarStories} />
+
+# Calendar
+
+Display a month grid for choosing a date.
+
+<Demo id="calendar" />
+
+## Usage
+
+Date values come from [`@internationalized/date`](https://react-spectrum.adobe.com/internationalized/date/):
+
+```tsx
+import { Calendar } from 'ljkui';
+import { parseDate } from '@internationalized/date';
+
+<Calendar
+  aria-label="Appointment date"
+  defaultValue={parseDate('2020-02-03')}
+  onChange={(date) => console.log(date.toString())}
+/>;
+```
+
+## Props
+
+Calendar wraps [React Aria's calendar](https://react-spectrum.adobe.com/react-aria/Calendar.html) and accepts its
+props directly. The most common ones:
+
+- `value` / `defaultValue` / `onChange` — the selected date (a `DateValue`).
+- `minValue` / `maxValue` — clamp the selectable range.
+- `isDisabled` — disable the whole calendar.
+- `isDateUnavailable` — a `(date: DateValue) => boolean` predicate to mark individual dates unavailable.
+- `focusedValue` / `onFocusChange` — control which date has keyboard focus.
+
+`RangeCalendar` is the same grid for `{ start, end }` range selection — see its stories under Controls/Dates.
+
+## Related
+
+`DatePicker` and `DateRangePicker` combine a calendar with a segmented input in a popover; `DateField` is the
+keyboard-only input.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

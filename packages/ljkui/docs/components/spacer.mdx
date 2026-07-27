@@ -1,0 +1,46 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as SpacerStories from '../../../src/components/spacer/spacer.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={SpacerStories} />
+
+# Spacer
+
+Push siblings apart along a stack's axis.
+
+<Demo id="spacer" />
+
+## Usage
+
+```tsx
+import { HStack, Spacer } from 'ljkui';
+
+<HStack>
+  <Logo />
+  <Spacer minLength={16} />
+  <Button>Sign in</Button>
+</HStack>;
+```
+
+## Props
+
+Spacer extends the native `div` element — it is a flexible, invisible element that
+expands along its stack's main axis, like SwiftUI's `Spacer`.
+
+<PropsTable component="Spacer" />
+
+## Related
+
+`HStack` and `VStack` provide the axis a Spacer expands along.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

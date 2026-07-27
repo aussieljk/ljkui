@@ -3,7 +3,7 @@ title: "Render Prop (Composition)"
 description: "Customize the underlying element with the render prop."
 ---
 
-Several @aussieljk/frosted components support a `render` prop that allows you to customize the underlying element while preserving the component's functionality and styling. This is useful for integrating with routing libraries, using semantic HTML elements, or composing with other components.
+Several ljkui components support a `render` prop that allows you to customize the underlying element while preserving the component's functionality and styling. This is useful for integrating with routing libraries, using semantic HTML elements, or composing with other components.
 
 ## What is the render prop?
 
@@ -18,7 +18,7 @@ For example, `<Text>` renders a `<span>` by default, but you might want it to re
 The simplest way to use the `render` prop is to pass a React element:
 
 ```tsx
-import { Text } from '@aussieljk/frosted';
+import { Text } from 'ljkui';
 
 // Text renders as a <label> instead of <span>
 <Text render={<label htmlFor="email" />}>Email address</Text>;
@@ -31,7 +31,7 @@ The component will clone your element and merge its props onto it. Your element'
 For more control, you can pass a function that receives the merged props:
 
 ```tsx
-import { Text } from '@aussieljk/frosted';
+import { Text } from 'ljkui';
 
 <Text render={(props) => <label {...props} htmlFor="email" />}>Email address</Text>;
 ```
@@ -60,7 +60,7 @@ One of the most common use cases is integrating with routing libraries like Next
 
 ```tsx
 import Link from 'next/link';
-import { Text, Card, Heading } from '@aussieljk/frosted';
+import { Text, Card, Heading } from 'ljkui';
 
 // Text as a Next.js Link
 <Text render={<Link href="/about" />}>
@@ -78,7 +78,7 @@ import { Text, Card, Heading } from '@aussieljk/frosted';
 
 ```tsx
 import { Link } from 'react-router-dom';
-import { Text } from '@aussieljk/frosted';
+import { Text } from 'ljkui';
 
 <Text render={<Link to="/dashboard" />}>Go to Dashboard</Text>;
 ```
@@ -87,7 +87,7 @@ import { Text } from '@aussieljk/frosted';
 
 ```tsx
 import { Link } from '@tanstack/react-router';
-import { Card } from '@aussieljk/frosted';
+import { Card } from 'ljkui';
 
 <Card render={<Link to="/users/$userId" params={{ userId: '123' }} />}>User Profile Card</Card>;
 ```
@@ -171,7 +171,7 @@ Not all props follow the "render element wins" rule. Some are merged specially:
 Some components also support an `as` prop for simple element changes without needing `render`:
 
 ```tsx
-import { Text, Heading } from '@aussieljk/frosted';
+import { Text, Heading } from 'ljkui';
 
 // Simple element change with `as`
 <Text as="label">Email</Text>
@@ -203,7 +203,7 @@ import { Text, Heading } from '@aussieljk/frosted';
 ### Form Labels with Text
 
 ```tsx
-import { Text, TextField } from '@aussieljk/frosted';
+import { Text, TextField } from 'ljkui';
 
 <div>
   <Text as="label" htmlFor="username" size="2" weight="medium">
@@ -217,7 +217,7 @@ import { Text, TextField } from '@aussieljk/frosted';
 
 ```tsx
 import Link from 'next/link';
-import { Card, Heading, Text } from '@aussieljk/frosted';
+import { Card, Heading, Text } from 'ljkui';
 
 function ProductCard({ product }) {
   return (
@@ -232,7 +232,7 @@ function ProductCard({ product }) {
 ### Custom Navigation Buttons
 
 ```tsx
-import { WidgetStack, IconButton } from '@aussieljk/frosted';
+import { WidgetStack, IconButton } from 'ljkui';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 <WidgetStack.Root>
@@ -251,7 +251,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 ### Nested Theme with Custom Element
 
 ```tsx
-import { Theme } from '@aussieljk/frosted';
+import { Theme } from 'ljkui';
 
 // Theme as a section element
 <Theme render={<section aria-label="Dark mode preview" />} appearance="dark">
@@ -369,7 +369,7 @@ const myRef = useRef(null);
 
 ## Migration from asChild
 
-If you're migrating from an older version of @aussieljk/frosted that used `asChild`, here's how to update:
+If you're migrating from an older version of ljkui that used `asChild`, here's how to update:
 
 ```tsx
 // ❌ OLD: asChild pattern

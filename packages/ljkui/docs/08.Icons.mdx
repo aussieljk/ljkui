@@ -1,0 +1,93 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { Demo } from '../components/demo';
+
+<Meta title="Guides/8. Icons" />
+
+# Icons
+
+ljkui ships no icon set of its own — bring the icon library you already use.
+Components render a small set of built-in inline icons (checkmarks, chevrons, …)
+out of the box, and an icon **adapter** swaps those for your library so everything
+matches: Phosphor, Lucide, Hugeicons, Heroicons, or Tabler.
+
+<Demo id="icons" />
+
+## Register an icon set globally
+
+Import the adapter for the set you want, once, at your app root. Each adapter lives on its own
+subpath so only the set you use ends up in your bundle:
+
+```tsx
+// pick ONE:
+import 'ljkui/icons/lucide';
+import 'ljkui/icons/phosphor';
+import 'ljkui/icons/hugeicons';
+import 'ljkui/icons/heroicons';
+import 'ljkui/icons/tabler';
+```
+
+The underlying icon library is an optional peer dependency — install the one that matches your
+adapter (`lucide-react`, `@phosphor-icons/react`, `@hugeicons/react` +
+`@hugeicons/core-free-icons`, `@heroicons/react`, or `@tabler/icons-react`).
+
+## Use icons
+
+Icons are consumed through the `Icons` namespace using **canonical names** that are normalized
+across sets — swapping Lucide for Phosphor is a one-line change of the adapter import, with no
+component changes:
+
+```tsx
+import { Button, Icons } from 'ljkui';
+
+export function SearchButton() {
+  return (
+    <Button variant="surface">
+      <Icons.Search />
+      Search
+    </Button>
+  );
+}
+```
+
+Canonical names include `Search`, `Settings`, `Bell`, `Calendar`, `Check`, `Close`, `Copy`,
+`Download`, `Upload`, `Edit`, `Trash`, `Heart`, `Star`, `Home`, `Mail`, `Menu`, `Plus`,
+`Minus`, `User`, `Users`, `Warning`, arrow/chevron directions, and more — the full list is
+exported as `CANONICAL_ICON_NAMES`.
+
+For your own UI you can also import icons straight from the library:
+
+```tsx
+import { Store } from 'lucide-react';
+
+function MyComponent() {
+  return <Store size={16} />;
+}
+```
+
+## Scoped sets with `IconProvider`
+
+To use an icon set in just a subtree (it takes precedence over the global registration), pass
+the adapter object to `IconProvider`:
+
+```tsx
+import { IconProvider } from 'ljkui';
+import { lucideAdapter } from 'ljkui/icons/lucide';
+
+<IconProvider library={lucideAdapter}>
+  <Sidebar />
+</IconProvider>;
+```
+
+Every adapter subpath exports its adapter object: `lucideAdapter`, `phosphorAdapter`,
+`hugeiconsAdapter`, `heroiconsAdapter`, `tablerAdapter`, `ljkuiAdapter`.
+
+## Supported sets
+
+| Set       | Adapter subpath                      | Icon library                                      |
+| --------- | ------------------------------------ | ------------------------------------------------- |
+| Phosphor  | `ljkui/icons/phosphor`  | `@phosphor-icons/react`                           |
+| Lucide    | `ljkui/icons/lucide`    | `lucide-react`                                    |
+| Hugeicons | `ljkui/icons/hugeicons` | `@hugeicons/react` + `@hugeicons/core-free-icons` |
+| Heroicons | `ljkui/icons/heroicons` | `@heroicons/react`                                |
+| Tabler    | `ljkui/icons/tabler`    | `@tabler/icons-react`                             |

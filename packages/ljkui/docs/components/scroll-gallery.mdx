@@ -1,0 +1,90 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as ScrollGalleryStories from '../../../src/components/scroll-gallery/scroll-gallery.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={ScrollGalleryStories} />
+
+# ScrollGallery
+
+Build a scroll-snap carousel with markers and previous/next controls.
+
+<Demo id="scroll-gallery" />
+
+## Usage
+
+```tsx
+import { ScrollGallery } from 'ljkui';
+
+<ScrollGallery.Root defaultValue={0}>
+  <ScrollGallery.Viewport style={{ display: 'flex', overflowX: 'auto', scrollSnapType: 'x mandatory' }}>
+    <ScrollGallery.Item style={{ scrollSnapAlign: 'start' }}>…</ScrollGallery.Item>
+    <ScrollGallery.Item style={{ scrollSnapAlign: 'start' }}>…</ScrollGallery.Item>
+  </ScrollGallery.Viewport>
+  <ScrollGallery.Previous>Prev</ScrollGallery.Previous>
+  <ScrollGallery.Next>Next</ScrollGallery.Next>
+  <ScrollGallery.ScrollMarkerGroup>
+    <ScrollGallery.ScrollMarker index={0} />
+    <ScrollGallery.ScrollMarker index={1} />
+  </ScrollGallery.ScrollMarkerGroup>
+</ScrollGallery.Root>;
+```
+
+## API reference
+
+### ScrollGallery.Root
+
+State container for the gallery.
+
+<PropsTable component="ScrollGallery.Root" />
+
+### ScrollGallery.Viewport
+
+The scrollable strip of items — you own its layout (flex, gap, scroll-snap).
+
+<PropsTable component="ScrollGallery.Viewport" />
+
+### ScrollGallery.Item
+
+One snap target inside the viewport.
+
+<PropsTable component="ScrollGallery.Item" />
+
+### ScrollGallery.Previous
+
+Scrolls to the previous item.
+
+<PropsTable component="ScrollGallery.Previous" />
+
+### ScrollGallery.Next
+
+Scrolls to the next item.
+
+<PropsTable component="ScrollGallery.Next" />
+
+### ScrollGallery.ScrollMarkerGroup
+
+Container for the marker dots.
+
+<PropsTable component="ScrollGallery.ScrollMarkerGroup" />
+
+### ScrollGallery.ScrollMarker
+
+Jumps to the item at `index`; its render prop exposes the active state.
+
+<PropsTable component="ScrollGallery.ScrollMarker" />
+
+## Related
+
+`Lightbox` for a fullscreen image gallery.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

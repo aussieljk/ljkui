@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Theme } from '@aussieljk/frosted';
+import { Theme } from 'ljkui';
 import { exampleModules, type Example, type ExampleRecord } from '@/examples/registry';
 import { DemoBoundary } from './demo-boundary';
 
@@ -26,7 +26,7 @@ function Gallery({ examples }: { examples: ExampleRecord }) {
 
 /**
  * The variant gallery for one component — every named example from
- * `packages/frosted-ui/examples/<name>.examples.tsx`, in declared order.
+ * `packages/ljkui/examples/<name>.examples.tsx`, in declared order.
  *
  * Client-only for the same reason as `<Demo>`: these are real component trees that touch browser
  * globals (CSS.supports, portals, ResizeObserver) and throw during prerender. The page shell still

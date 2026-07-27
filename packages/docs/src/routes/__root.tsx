@@ -14,13 +14,13 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'Frosted — component docs',
+        title: 'ljkui — component docs',
       },
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
       // Inter, the non-Apple half of --default-font-family. The library can't @import it
-      // (see frosted-ui/src/styles/fonts.css) so every consumer links it here instead.
+      // (see ljkui/src/styles/fonts.css) so every consumer links it here instead.
       { rel: 'preconnect', href: 'https://rsms.me/' },
       { rel: 'stylesheet', href: 'https://rsms.me/inter/inter.css' },
     ],

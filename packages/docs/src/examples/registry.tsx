@@ -1,14 +1,14 @@
 import * as React from 'react';
 
 /**
- * Every `examples/*.examples.tsx` in the frosted-ui package becomes an addressable gallery, keyed
+ * Every `examples/*.examples.tsx` in the ljkui package becomes an addressable gallery, keyed
  * by its kebab-case base name (`button.examples.tsx` -> `button`). These modules are the variant
  * showcases the component library has always had (they were react-cosmos fixtures until the docs
  * site replaced cosmos) — one record of named examples per component.
  *
  * Loaded lazily and never eagerly: some are thousands of lines, and a page only ever needs its own.
  */
-const modules = import.meta.glob('../../../frosted-ui/examples/*.examples.tsx');
+const modules = import.meta.glob('../../../ljkui/examples/*.examples.tsx');
 
 /** Fixtures wrote examples either way — `Name() { … }` (needed for hooks) or `Name: <X />`. */
 export type Example = React.ReactElement | React.ComponentType;

@@ -1,0 +1,96 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as SheetStories from '../../../src/components/sheet/sheet.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={SheetStories} />
+
+# Sheet
+
+A panel that slides in from the edge of the screen.
+
+<Demo id="sheet" />
+
+## Usage
+
+```tsx
+import { Button, Sheet } from 'ljkui';
+
+<Sheet.Root>
+  <Sheet.Trigger>
+    <Button>Edit profile</Button>
+  </Sheet.Trigger>
+  <Sheet.Content>
+    <Sheet.Header>
+      <Sheet.Title>Edit profile</Sheet.Title>
+      <Sheet.Description>Make changes to your profile.</Sheet.Description>
+    </Sheet.Header>
+    <Sheet.Body>
+      …
+      <Sheet.Close>
+        <Button>Save</Button>
+      </Sheet.Close>
+    </Sheet.Body>
+  </Sheet.Content>
+</Sheet.Root>;
+```
+
+## API reference
+
+### Sheet.Root
+
+State container for the sheet.
+
+<PropsTable component="Sheet.Root" />
+
+### Sheet.Trigger
+
+Opens the sheet; wraps your own element.
+
+<PropsTable component="Sheet.Trigger" />
+
+### Sheet.Content
+
+The sliding panel. Structure its children with `Sheet.Header` and `Sheet.Body`.
+
+<PropsTable component="Sheet.Content" />
+
+### Sheet.Title
+
+Accessible title, rendered inside `Sheet.Header`.
+
+<PropsTable component="Sheet.Title" />
+
+### Sheet.Description
+
+Accessible description, rendered inside `Sheet.Header`.
+
+<PropsTable component="Sheet.Description" />
+
+### Sheet.Close
+
+Closes the sheet; wraps your own element.
+
+<PropsTable component="Sheet.Close" />
+
+### Sheet.NestedRoot
+
+State container for a sheet stacked on top of an open sheet.
+
+<PropsTable component="Sheet.NestedRoot" />
+
+## Related
+
+`Drawer` for a bottom drawer, `Dialog` for centered modals, `AlertDialog` for
+confirmations.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

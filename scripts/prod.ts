@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Full production release from this laptop: publish @aussieljk/frosted to npm,
+// Full production release from this laptop: publish ljkui to npm,
 // then deploy the docs site to vercel. Sequential — a failing step aborts the
 // rest. The Release workflow (`ci/workflows.ts`) runs these same two scripts, so
 // this is an escape hatch rather than a second implementation.

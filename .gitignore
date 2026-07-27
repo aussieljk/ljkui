@@ -10,9 +10,9 @@ coverage
 
 # build output
 dist/
-packages/frosted-ui/styles.css
-packages/frosted-ui/styles.lite.css
-packages/frosted-ui/theme.css
+packages/ljkui/styles.css
+packages/ljkui/styles.lite.css
+packages/ljkui/theme.css
 
 # misc
 .DS_Store
@@ -35,5 +35,5 @@ yarn-error.log*
 # cosmos
 cosmos-export
 screenshots
-packages/frosted-ui/cosmos/generated
+packages/ljkui/cosmos/generated
 .vercel

@@ -1,0 +1,58 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as TabsNavStories from '../../../src/components/tabs-nav/tabs-nav.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={TabsNavStories} />
+
+# TabsNav
+
+Navigate between pages with a link-based tab bar.
+
+<Demo id="tabs-nav" />
+
+## Usage
+
+```tsx
+import { TabsNav } from 'ljkui';
+
+<TabsNav.Root>
+  <TabsNav.Link active href="/account">
+    Account
+  </TabsNav.Link>
+  <TabsNav.Link href="/settings">Settings</TabsNav.Link>
+</TabsNav.Root>;
+```
+
+Use the `render` prop on `TabsNav.Link` to integrate with your framework's router, e.g.
+`render={<NextLink href="/account" />}`.
+
+## API reference
+
+### TabsNav.Root
+
+Container for the tab links.
+
+<PropsTable component="TabsNav.Root" />
+
+### TabsNav.Link
+
+An individual navigation link; mark the current page with `active`.
+
+<PropsTable component="TabsNav.Link" />
+
+## Related
+
+`Tabs` for in-page (state-based) tabs and `SegmentedControlNav` for a filled link-based
+toggle group.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

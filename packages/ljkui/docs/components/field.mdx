@@ -1,0 +1,88 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as FieldStories from '../../../src/components/field/field.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={FieldStories} />
+
+# Field
+
+Label, describe, and validate a single form control.
+
+<Demo id="field" />
+
+## Usage
+
+```tsx
+import { Field, TextField } from 'ljkui';
+
+<Field.Root name="username">
+  <Field.Label>Username</Field.Label>
+  <Field.Description>Must be at least 3 characters</Field.Description>
+  <TextField.Root>
+    <TextField.Input placeholder="johndoe" required minLength={3} />
+  </TextField.Root>
+  <Field.Error match="valueMissing">Username is required</Field.Error>
+</Field.Root>;
+```
+
+## API reference
+
+### Field.Root
+
+State container for one field — associates the label, description, control, and errors, and
+runs validation.
+
+<PropsTable component="Field.Root" />
+
+### Field.Label
+
+An accessible label for the control.
+
+<PropsTable component="Field.Label" />
+
+### Field.Description
+
+Supporting text shown below the label.
+
+<PropsTable component="Field.Description" />
+
+### Field.Error
+
+An error message shown when the control's validity matches the `match` prop.
+
+<PropsTable component="Field.Error" />
+
+### Field.Control
+
+A plain native input wired into the field — use a ljkui control like `TextField` instead
+when one exists.
+
+<PropsTable component="Field.Control" />
+
+### Field.Item
+
+Wraps one option in a group of checkboxes or radios.
+
+<PropsTable component="Field.Item" />
+
+### Field.Validity
+
+Render-prop access to the field's `ValidityState` for fully custom messages.
+
+<PropsTable component="Field.Validity" />
+
+## Related
+
+`Form` for whole-form submission and errors, and `Fieldset` for grouping related fields.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

@@ -1,0 +1,41 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as PortalStories from '../../../src/components/portal/portal.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={PortalStories} />
+
+# Portal
+
+Render children into a different part of the DOM.
+
+<Demo id="portal" />
+
+## Usage
+
+```tsx
+import { Portal } from 'ljkui';
+
+<Portal>
+  <Toast>Saved!</Toast>
+</Portal>;
+```
+
+## Props
+
+Portal is SSR-safe: it renders nothing until mounted on the client, then appends to
+`document.body` unless a `container` is provided. Children are wrapped in a `div` by
+default (override via the `render` prop).
+
+<PropsTable component="Portal" />
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Theme } from '@aussieljk/frosted';
+import { Theme } from 'ljkui';
 import { demos } from '@/demos/registry';
 import { DemoBoundary } from './demo-boundary';
 
 /**
- * Renders a live usage demo from the frosted-ui package inside a `<Theme>` (so accent/gray tokens
+ * Renders a live usage demo from the ljkui package inside a `<Theme>` (so accent/gray tokens
  * resolve) and offers its verbatim source for copy-paste. `appearance="inherit"` means the demo
  * follows Fumadocs' own light/dark toggle rather than pinning one.
  */

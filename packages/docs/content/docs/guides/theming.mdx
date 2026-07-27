@@ -6,7 +6,7 @@ description: "Accent, gray, semantic colors, appearance, and fonts — all throu
 All theming happens through the `Theme` component and CSS variables.
 
 ```tsx
-import { Theme } from '@aussieljk/frosted';
+import { Theme } from 'ljkui';
 
 <Theme accentColor="blue" grayColor="gray" appearance="inherit">
   <App />
@@ -64,7 +64,7 @@ For brand colors not covered by the Tailwind palettes, generate a custom 12-step
 scale (light + dark + alpha variants) with the palette helpers:
 
 ```tsx
-import { createPaletteCss, createPaletteFromColor } from '@aussieljk/frosted';
+import { createPaletteCss, createPaletteFromColor } from 'ljkui';
 
 // 1. Expand a single brand color into a full Tailwind-style 50–950 palette…
 const palette = createPaletteFromColor('#5b3df5');
@@ -100,10 +100,10 @@ used as the Theme `grayColor`.
 
 ## Fonts
 
-@aussieljk/frosted components read typography from CSS variables, so overriding fonts is a one-liner:
+ljkui components read typography from CSS variables, so overriding fonts is a one-liner:
 
 ```css
-.frosted-ui {
+.ljkui {
   --default-font-family: 'Inter', sans-serif;
   --heading-font-family: 'Inter', sans-serif;
   --code-font-family: 'JetBrains Mono', monospace;

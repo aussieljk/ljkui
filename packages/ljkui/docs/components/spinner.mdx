@@ -1,0 +1,45 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as SpinnerStories from '../../../src/components/spinner/spinner.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={SpinnerStories} />
+
+# Spinner
+
+Indicate that content or an action is loading.
+
+<Demo id="spinner" />
+
+## Usage
+
+```tsx
+import { Spinner } from 'ljkui';
+
+<Spinner size="3" />
+
+// Swap children for a spinner while `loading` is true —
+// their dimensions are preserved and interaction is disabled.
+<Spinner loading={isLoading}>
+  <Switch defaultChecked />
+</Spinner>;
+```
+
+## Props
+
+<PropsTable component="Spinner" />
+
+## Related
+
+`Skeleton` for placeholder shapes while page content loads.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

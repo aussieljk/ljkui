@@ -1,0 +1,120 @@
+/* prettier-ignore */
+:where(.ljkui) {
+  --shadow-1:
+    inset 0 0 0 1px var(--gray-alpha-300),
+    inset 0 1.5px 2px 0 var(--gray-alpha-50),
+    inset 0 1.5px 2px 0 var(--black-alpha-50);
+
+  --shadow-2:
+    0 0 0 1px var(--gray-alpha-100),
+    0 0 0 0.5px var(--black-alpha-10),
+    0 1px 1px 0 var(--gray-alpha-200),
+    0 2px 1px -1px var(--black-alpha-10),
+    0 1px 3px 0 var(--black-alpha-10);
+
+  --shadow-3:
+    0 0 0 1px var(--gray-alpha-100),
+    0 2px 3px -2px var(--gray-alpha-100),
+    0 3px 12px -4px var(--black-alpha-50),
+    0 4px 16px -8px var(--black-alpha-50);
+
+  --shadow-4:
+    0 0 0 1px var(--gray-alpha-400),
+    0 8px 40px var(--black-alpha-10),
+    0 12px 32px -16px var(--gray-alpha-100);
+
+  --shadow-5:
+    0 0 0 1px var(--gray-alpha-300),
+    0 12px 60px var(--black-alpha-100),
+    0 12px 32px -16px var(--gray-alpha-300);
+
+  --shadow-6:
+    0 0 0 1px var(--gray-alpha-100),
+    0 12px 60px var(--black-alpha-100),
+    0 16px 64px var(--gray-alpha-50),
+    0 16px 36px -20px var(--gray-alpha-500);
+}
+
+/* prettier-ignore */
+.dark,
+.dark-theme,
+.dark :where(.ljkui:not(.light, .light-theme)),
+.dark-theme :where(.ljkui:not(.light, .light-theme)) {
+  --shadow-1:
+    inset 0 -1px 1px 0 var(--gray-alpha-100),
+    inset 0 0 0 1px var(--gray-alpha-100),
+    inset 0 3px 4px 0 var(--black-alpha-300),
+    inset 0 0 0 1px var(--gray-alpha-200);
+
+  --shadow-2:
+    0 0 0 1px var(--gray-alpha-400),
+    0 0 0 0.5px var(--black-alpha-100),
+    0 1px 1px 0 var(--black-alpha-400),
+    0 2px 1px -1px var(--black-alpha-400),
+    0 1px 3px 0 var(--black-alpha-600);
+
+  --shadow-3:
+    0 0 0 1px var(--gray-alpha-400),
+    0 2px 3px -2px var(--black-alpha-100),
+    0 3px 8px -2px var(--black-alpha-400),
+    0 4px 12px -4px var(--black-alpha-500);
+
+  --shadow-4:
+    0 0 0 1px var(--gray-alpha-400),
+    0 8px 40px var(--black-alpha-100),
+    0 12px 32px -16px var(--black-alpha-300);
+
+  --shadow-5:
+    0 0 0 1px var(--gray-alpha-400) inset,
+    0 12px 60px var(--black-alpha-300),
+    0 12px 32px -16px var(--black-alpha-500);
+
+  --shadow-6:
+    0 0 0 1px var(--gray-alpha-400),
+    0 12px 60px var(--black-alpha-200),
+    0 16px 64px var(--black-alpha-400),
+    0 16px 36px -20px var(--black-alpha-900);
+}
+
+/* prettier-ignore */
+@supports (color: color-mix(in oklab, white, black)) {
+  .dark,
+  .dark-theme,
+  .dark :where(.ljkui:not(.light, .light-theme)),
+  .dark-theme :where(.ljkui:not(.light, .light-theme)) {
+    --shadow-1:
+      inset 0 -1px 1px 0 var(--gray-alpha-100),
+      inset 0 0 0 1px var(--gray-alpha-100),
+      inset 0 3px 4px 0 var(--black-alpha-300),
+      inset 0 0 0 1px var(--gray-alpha-200);
+
+    --shadow-2:
+      0 0 0 1px color-mix(in oklab, var(--gray-alpha-400), var(--gray-400)),
+      0 0 1px 1px var(--gray-alpha-300),
+      0 1px 1px 0 var(--black-alpha-400),
+      0 2px 1px -1px var(--black-alpha-400),
+      0 1px 3px 0 var(--black-alpha-600);
+
+    --shadow-3:
+      0 0 0 1px color-mix(in oklab, var(--gray-alpha-400), var(--gray-400)),
+      0 2px 3px -2px var(--black-alpha-100),
+      0 3px 8px -2px var(--black-alpha-400),
+      0 4px 12px -4px var(--black-alpha-500);
+
+    --shadow-4:
+      0 0 0 1px color-mix(in oklab, var(--gray-alpha-400), var(--gray-400)),
+      0 8px 40px var(--black-alpha-100),
+      0 12px 32px -16px var(--black-alpha-300);
+
+    --shadow-5:
+      0 0 0 1px color-mix(in oklab, var(--gray-alpha-400), var(--gray-400)) inset,
+      0 12px 60px var(--black-alpha-300),
+      0 12px 32px -16px var(--black-alpha-500);
+
+    --shadow-6:
+      0 0 0 1px color-mix(in oklab, var(--gray-alpha-400), var(--gray-400)),
+      0 12px 60px var(--black-alpha-200),
+      0 16px 64px var(--black-alpha-400),
+      0 16px 36px -20px var(--black-alpha-900);
+  }
+}

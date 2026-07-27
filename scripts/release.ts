@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Publish @aussieljk/frosted to npm and push the version bump.
+ * Publish ljkui to npm and push the version bump.
  *
  *   bun scripts/release.ts
  *
@@ -67,7 +67,5 @@ run(['git', 'commit', '-am', `chore: release ${released}`]);
 const branch = process.env.GITHUB_REF_NAME ?? capture(['git', 'rev-parse', '--abbrev-ref', 'HEAD']);
 run(['git', 'push', 'origin', `HEAD:${branch}`]);
 
-summary(
-  `### 📦 Published \`@aussieljk/frosted@${released}\`\n\nhttps://www.npmjs.com/package/@aussieljk/frosted/v/${released}`,
-);
-console.log(`\n✓ published @aussieljk/frosted@${released}`);
+summary(`### 📦 Published \`ljkui@${released}\`\n\nhttps://www.npmjs.com/package/ljkui/v/${released}`);
+console.log(`\n✓ published ljkui@${released}`);

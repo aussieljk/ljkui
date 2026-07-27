@@ -11,7 +11,7 @@ export const Route = createFileRoute('/')({
   component: Home,
 });
 
-const INSTALL = 'bun add @aussieljk/frosted';
+const INSTALL = 'bun add ljkui';
 
 function InstallCommand() {
   const [copied, setCopied] = React.useState(false);
@@ -46,7 +46,7 @@ function Home() {
     <HomeLayout {...baseOptions()}>
       <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:py-24">
         <section className="flex flex-col items-center text-center">
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Frosted</h1>
+          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">ljkui</h1>
           <p className="mt-4 max-w-xl text-fd-muted-foreground sm:text-lg">
             A themeable React component library built on{' '}
             <a href="https://base-ui.com" className="underline underline-offset-4 hover:text-fd-foreground">

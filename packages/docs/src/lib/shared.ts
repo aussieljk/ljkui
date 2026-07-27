@@ -1,10 +1,10 @@
-export const appName = 'Frosted';
+export const appName = 'ljkui';
 export const docsRoute = '/docs';
 export const docsImageRoute = '/og/docs';
 
 export const gitConfig = {
-  user: 'ljknight-com',
-  repo: 'frosted',
+  user: 'aussieljk',
+  repo: 'ljkui',
   branch: 'master',
 };
 

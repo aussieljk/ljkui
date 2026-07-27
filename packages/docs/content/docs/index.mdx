@@ -4,14 +4,14 @@ description: A themeable React component library, built on Base UI.
 icon: Rocket
 ---
 
-Frosted is the `@aussieljk/frosted` design system — a themeable set of React components
+ljkui is the `ljkui` design system — a themeable set of React components
 built on [Base UI](https://base-ui.com). Every component is driven by a single `<Theme>`
 that controls appearance (light/dark), accent color, and gray scale.
 
 ## Installation
 
 ```bash
-bun add @aussieljk/frosted
+bun add ljkui
 ```
 
 ## Setup
@@ -19,8 +19,8 @@ bun add @aussieljk/frosted
 Import the stylesheet once at the root of your app, then wrap it in a `<Theme>`:
 
 ```tsx
-import '@aussieljk/frosted/styles.css';
-import { Theme } from '@aussieljk/frosted';
+import 'ljkui/styles.css';
+import { Theme } from 'ljkui';
 
 export function App({ children }: { children: React.ReactNode }) {
   return (
@@ -45,7 +45,7 @@ document head:
 ## Your first component
 
 ```tsx
-import { Button } from '@aussieljk/frosted';
+import { Button } from 'ljkui';
 
 <Button variant="classic" size="2">
   Get started

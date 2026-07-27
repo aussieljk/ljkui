@@ -1,0 +1,39 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as CodeStories from '../../../src/components/code/code.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={CodeStories} />
+
+# Code
+
+Mark an inline snippet of code.
+
+<Demo id="code" />
+
+## Usage
+
+```tsx
+import { Code } from 'ljkui';
+
+<Code variant="soft">console.log()</Code>;
+```
+
+## Props
+
+<PropsTable component="Code" />
+
+## Related
+
+`Kbd` for keyboard input rather than code.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

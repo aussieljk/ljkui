@@ -1,0 +1,73 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as CalloutStories from '../../../src/components/callout/callout.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={CalloutStories} />
+
+# Callout
+
+Draw attention to a short message, like a warning or info banner.
+
+<Demo id="callout" />
+
+## Usage
+
+```tsx
+import { Callout } from 'ljkui';
+
+<Callout.Root color="warning">
+  <Callout.Icon>
+    <InfoIcon />
+  </Callout.Icon>
+  <Callout.Title>Your trial ends soon</Callout.Title>
+  <Callout.Description>Upgrade to keep access to premium features.</Callout.Description>
+</Callout.Root>;
+```
+
+## API reference
+
+### Callout.Root
+
+The container; its `color` is shared with all parts.
+
+<PropsTable component="Callout.Root" />
+
+### Callout.Icon
+
+A slot for the callout's leading icon, colored to match the callout. Accepts the native `div`
+attributes.
+
+### Callout.Title
+
+The title, rendered as semi-bold high-contrast text.
+
+<PropsTable component="Callout.Title" />
+
+### Callout.Description
+
+The supporting text, rendered as a paragraph in the callout color.
+
+<PropsTable component="Callout.Description" />
+
+### Callout.Actions
+
+A layout container for one or more `Callout.Action` buttons. Accepts the native `div` attributes.
+
+### Callout.Action
+
+An action button inside `Callout.Actions`, with a built-in `loading` state. Use `render` to compose it
+with another element, e.g. `render={<a href="..." />}`.
+
+<PropsTable component="Callout.Action" />
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

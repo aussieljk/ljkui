@@ -3,7 +3,7 @@ title: "Icons"
 description: "Bring your own icon set via adapters and the Icons namespace."
 ---
 
-@aussieljk/frosted ships no icon set of its own — bring the icon library you already use.
+ljkui ships no icon set of its own — bring the icon library you already use.
 Components render a small set of built-in inline icons (checkmarks, chevrons, …)
 out of the box, and an icon **adapter** swaps those for your library so everything
 matches: Phosphor, Lucide, Hugeicons, Heroicons, or Tabler.
@@ -17,11 +17,11 @@ subpath so only the set you use ends up in your bundle:
 
 ```tsx
 // pick ONE:
-import '@aussieljk/frosted/icons/lucide';
-import '@aussieljk/frosted/icons/phosphor';
-import '@aussieljk/frosted/icons/hugeicons';
-import '@aussieljk/frosted/icons/heroicons';
-import '@aussieljk/frosted/icons/tabler';
+import 'ljkui/icons/lucide';
+import 'ljkui/icons/phosphor';
+import 'ljkui/icons/hugeicons';
+import 'ljkui/icons/heroicons';
+import 'ljkui/icons/tabler';
 ```
 
 The underlying icon library is an optional peer dependency — install the one that matches your
@@ -35,7 +35,7 @@ across sets — swapping Lucide for Phosphor is a one-line change of the adapter
 component changes:
 
 ```tsx
-import { Button, Icons } from '@aussieljk/frosted';
+import { Button, Icons } from 'ljkui';
 
 export function SearchButton() {
   return (
@@ -68,8 +68,8 @@ To use an icon set in just a subtree (it takes precedence over the global regist
 the adapter object to `IconProvider`:
 
 ```tsx
-import { IconProvider } from '@aussieljk/frosted';
-import { lucideAdapter } from '@aussieljk/frosted/icons/lucide';
+import { IconProvider } from 'ljkui';
+import { lucideAdapter } from 'ljkui/icons/lucide';
 
 <IconProvider library={lucideAdapter}>
   <Sidebar />
@@ -77,14 +77,14 @@ import { lucideAdapter } from '@aussieljk/frosted/icons/lucide';
 ```
 
 Every adapter subpath exports its adapter object: `lucideAdapter`, `phosphorAdapter`,
-`hugeiconsAdapter`, `heroiconsAdapter`, `tablerAdapter`, `frostedAdapter`.
+`hugeiconsAdapter`, `heroiconsAdapter`, `tablerAdapter`, `ljkuiAdapter`.
 
 ## Supported sets
 
 | Set       | Adapter subpath                      | Icon library                                      |
 | --------- | ------------------------------------ | ------------------------------------------------- |
-| Phosphor  | `@aussieljk/frosted/icons/phosphor`  | `@phosphor-icons/react`                           |
-| Lucide    | `@aussieljk/frosted/icons/lucide`    | `lucide-react`                                    |
-| Hugeicons | `@aussieljk/frosted/icons/hugeicons` | `@hugeicons/react` + `@hugeicons/core-free-icons` |
-| Heroicons | `@aussieljk/frosted/icons/heroicons` | `@heroicons/react`                                |
-| Tabler    | `@aussieljk/frosted/icons/tabler`    | `@tabler/icons-react`                             |
+| Phosphor  | `ljkui/icons/phosphor`  | `@phosphor-icons/react`                           |
+| Lucide    | `ljkui/icons/lucide`    | `lucide-react`                                    |
+| Hugeicons | `ljkui/icons/hugeicons` | `@hugeicons/react` + `@hugeicons/core-free-icons` |
+| Heroicons | `ljkui/icons/heroicons` | `@heroicons/react`                                |
+| Tabler    | `ljkui/icons/tabler`    | `@tabler/icons-react`                             |

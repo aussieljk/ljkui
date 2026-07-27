@@ -1,0 +1,109 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as CreditCardStories from '../../../src/components/credit-card/credit-card.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={CreditCardStories} />
+
+# CreditCard
+
+Display a flippable payment card with front artwork and back details.
+
+<Demo id="credit-card" />
+
+## Usage
+
+```tsx
+import { CreditCard } from 'ljkui';
+
+<CreditCard.Root defaultFace="front">
+  <CreditCard.Content>
+    <CreditCard.Front>
+      <CreditCard.FrontHeader>
+        <CreditCard.Logo>ljkui</CreditCard.Logo>
+        <CreditCard.Brand>
+          <CreditCard.BrandLogo brand="visa" />
+        </CreditCard.Brand>
+      </CreditCard.FrontHeader>
+      <CreditCard.FrontFooter>
+        <CreditCard.Title>Claude credits</CreditCard.Title>
+        <CreditCard.LastFour>•••• 0991</CreditCard.LastFour>
+      </CreditCard.FrontFooter>
+    </CreditCard.Front>
+    <CreditCard.Back>
+      <CreditCard.MagStripe />
+      <CreditCard.BackContent>…</CreditCard.BackContent>
+    </CreditCard.Back>
+  </CreditCard.Content>
+  <CreditCard.Trigger>Flip card</CreditCard.Trigger>
+</CreditCard.Root>;
+```
+
+## API reference
+
+The core parts are below. The front is composed with `FrontHeader` / `FrontFooter` / `Logo` / `Brand` / `Title` / `LastFour`, and the back with `MagStripe` / `BackContent` / `Fieldset` / `FieldGroup` / `Field` / `FieldLabel` / `FieldError` / `TextField` — see the stories for full compositions, including editable payment forms.
+
+### CreditCard.Root
+
+State container; controls which face is showing (`face`, `defaultFace`, `onFaceChange`).
+
+<PropsTable component="CreditCard.Root" />
+
+### CreditCard.Content
+
+The card itself — holds the front and back faces and animates the flip.
+
+<PropsTable component="CreditCard.Content" />
+
+### CreditCard.Front
+
+The front face of the card.
+
+<PropsTable component="CreditCard.Front" />
+
+### CreditCard.Back
+
+The back face of the card.
+
+<PropsTable component="CreditCard.Back" />
+
+### CreditCard.Trigger
+
+Flips the card to the other face.
+
+<PropsTable component="CreditCard.Trigger" />
+
+### CreditCard.NumberField
+
+Formatted card-number input; detects the brand as the user types.
+
+<PropsTable component="CreditCard.NumberField" />
+
+### CreditCard.ExpiryField
+
+Formatted MM/YY expiry input.
+
+<PropsTable component="CreditCard.ExpiryField" />
+
+### CreditCard.CVVField
+
+CVV input, sized to the detected brand's code length.
+
+<PropsTable component="CreditCard.CVVField" />
+
+### CreditCard.BrandLogo
+
+The monochrome logo of the detected (or forced, via `brand`) card brand.
+
+<PropsTable component="CreditCard.BrandLogo" />
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

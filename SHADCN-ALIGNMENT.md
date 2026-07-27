@@ -9,7 +9,7 @@ This document covers five changes made in one pass:
 1. Every dependency updated to latest.
 2. Components renamed to their shadcn/ui equivalents.
 3. Dot-namespacing (`<Tabs.List>`) extended to the remaining multi-part components.
-4. The twelve shadcn components frosted was missing, added.
+4. The twelve shadcn components ljkui was missing, added.
 5. The default theme gray changed to `neutral`.
 
 The library went from **78 → 84 barrel exports** (88 component directories, including internal `base-*`
@@ -29,14 +29,14 @@ tables are now empty.
 | `turbo` | 2.10.5 | 2.10.6 | root |
 | `@types/react` | 19.1.10 | 19.2.17 | root `overrides` |
 | `@types/react-dom` | 19.1.10 | 19.2.3 | root `overrides` |
-| `lucide-react` | 1.25.0 | 1.26.0 | frosted-ui |
-| `postcss` | 8.5.21 | 8.5.22 | frosted-ui |
-| `react` / `react-dom` | 19.2.7 | 19.2.8 | frosted-ui |
-| `tsdown` | 0.22.12 | 0.22.13 | frosted-ui |
+| `lucide-react` | 1.25.0 | 1.26.0 | ljkui |
+| `postcss` | 8.5.21 | 8.5.22 | ljkui |
+| `react` / `react-dom` | 19.2.7 | 19.2.8 | ljkui |
+| `tsdown` | 0.22.12 | 0.22.13 | ljkui |
 
 ### Two things to know
 
-**The `@types/react` lag was the root `overrides`, not the package.** `packages/frosted-ui` already
+**The `@types/react` lag was the root `overrides`, not the package.** `packages/ljkui` already
 declared `^19.2.17`, but the root override pinned the whole workspace to `19.1.10`. Bumping the
 package alone would have changed nothing — the override has to move too.
 
@@ -69,7 +69,7 @@ standalone demos that go with each.
 
 ### Judgment calls inside the renames
 
-**`Input.Control`, not `Input.Input`.** frosted's TextField is Radix-Themes-2.x-shaped: `Root` is a
+**`Input.Control`, not `Input.Input`.** ljkui's TextField is Radix-Themes-2.x-shaped: `Root` is a
 wrapper, with a separate input element and `Slot`s for icons. The literal rename produced
 `Input.Input`. `Control` is Base UI's own vocabulary for the interactive element (`Field.Control`),
 so it is borrowed rather than invented.
@@ -84,7 +84,7 @@ so it is borrowed rather than invented.
 ```
 
 **`Sonner` is the module; `Toaster` is the export.** In shadcn, `sonner.tsx` exports `Toaster`, and
-`toast()` comes from the vendored package. frosted already exported `Toaster` + `toast`, so only the
+`toast()` comes from the vendored package. ljkui already exported `Toaster` + `toast`, so only the
 directory moved. A blanket `Toast → Sonner` replacement would have wrongly renamed the `toast()`
 function, `ToastOptions`, `ToastPosition` and friends.
 
@@ -120,7 +120,7 @@ expected. Only three needed converting:
 | `Calendar` | `Calendar`, `RangeCalendar` | `Calendar.Root`, `Calendar.Range` |
 
 `Card`, `Avatar`, `Button`, `Badge`, `Separator`, `Skeleton`, `Spinner` and the rest export exactly
-one element each — there is no `Card.Header` in frosted the way there is in shadcn — so they stayed
+one element each — there is no `Card.Header` in ljkui the way there is in shadcn — so they stayed
 flat, per the "every multi-part component" rule.
 
 `Calendar` also re-exports the `MappedDateValue` type directly, because `export * as Calendar` would
@@ -171,7 +171,7 @@ arrow keys (Shift for larger steps), and both neighbours' `minSize` are respecte
 
 ### The `Toggle` / `ToggleGroup` tension
 
-Worth knowing: in shadcn, `ToggleGroup` is a group of `Toggle`s. In frosted, `ToggleGroup` is the
+Worth knowing: in shadcn, `ToggleGroup` is a group of `Toggle`s. In ljkui, `ToggleGroup` is the
 renamed segmented control — a different visual with a sliding indicator — and the new `Toggle` is an
 independent standalone pressable. They share a name prefix but not an implementation. If that
 bothers you, the honest fix is renaming the segmented control to something else rather than
@@ -181,7 +181,7 @@ reworking `Toggle`.
 
 ## 5. Default gray
 
-`packages/frosted-ui/src/theme-options.tsx`:
+`packages/ljkui/src/theme-options.tsx`:
 
 ```diff
 - grayColor: { type: 'enum', values: grayColors, default: 'gray' },
@@ -231,8 +231,8 @@ export default {
 };
 ```
 
-Demos in `packages/frosted-ui/demos/` are the opposite: a single default-exported function
-component, importing from `@aussieljk/frosted` (aliased to `src/`) because the source is shown
+Demos in `packages/ljkui/demos/` are the opposite: a single default-exported function
+component, importing from `ljkui` (aliased to `src/`) because the source is shown
 verbatim to users.
 
 **`bun run new:component <name> [--namespace]`** wires the barrel, the CSS aggregate, a fixture and a

@@ -1,0 +1,40 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as CheckboxStories from '../../../src/components/checkbox/checkbox.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+A control for selecting one or more options.
+
+<Demo id="checkbox" />
+
+## Usage
+
+```tsx
+import { Checkbox, Text } from 'ljkui';
+
+<Text render={<label />} size="2">
+  <Checkbox defaultChecked /> Agree to terms
+</Text>;
+```
+
+Supports controlled usage via `checked` / `onCheckedChange`, plus `defaultChecked` and
+`disabled`.
+
+## Props
+
+<PropsTable component="Checkbox" />
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

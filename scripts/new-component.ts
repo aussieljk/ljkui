@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Scaffold a new @aussieljk/frosted component and wire it into every place the repo
+// Scaffold a new ljkui component and wire it into every place the repo
 // expects: component files, the components barrel, the CSS aggregate, a docs page
 // in packages/docs, and a usage demo.
 //
@@ -7,13 +7,13 @@
 //   bun run new:component <kebab-name> [--namespace] [--no-docs]
 //
 //   --namespace  namespace-style component (<Name>.Root / <Name>.Item, `export * as`)
-//   --no-docs    skip the usage demo in packages/frosted-ui/demos
+//   --no-docs    skip the usage demo in packages/ljkui/demos
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const ROOT = new URL('..', import.meta.url).pathname;
-const UI = join(ROOT, 'packages/frosted-ui');
+const UI = join(ROOT, 'packages/ljkui');
 
 const args = process.argv.slice(2);
 const flags = new Set(args.filter((a) => a.startsWith('--')));
@@ -205,14 +205,14 @@ edit(
 );
 
 // ---------------------------------------------------------------------------
-// usage demo (copy-pasteable source in packages/frosted-ui/demos, rendered by the docs page)
+// usage demo (copy-pasteable source in packages/ljkui/demos, rendered by the docs page)
 
 if (withDocs) {
   create(
     join(UI, 'demos', `${name}.demo.tsx`),
     namespace
       ? `import React from 'react';
-import { ${pascal} } from '@aussieljk/frosted';
+import { ${pascal} } from 'ljkui';
 
 export default function ${pascal}Demo() {
   return (
@@ -223,7 +223,7 @@ export default function ${pascal}Demo() {
 }
 `
       : `import React from 'react';
-import { ${pascal} } from '@aussieljk/frosted';
+import { ${pascal} } from 'ljkui';
 
 export default function ${pascal}Demo() {
   return <${pascal} />;
@@ -234,7 +234,7 @@ export default function ${pascal}Demo() {
 
 console.log(`
 Done. Next steps:
-  1. Implement ${pascal} in packages/frosted-ui/src/components/${name}/${name}.tsx (+ its .css and .props.ts)
+  1. Implement ${pascal} in packages/ljkui/src/components/${name}/${name}.tsx (+ its .css and .props.ts)
   2. Flesh out packages/docs/content/docs/components/${name}.mdx${withDocs ? ' and the demo' : ' (demo skipped — rerun without --no-docs or add one by hand)'}
   3. Run it: bun run dev
 `);

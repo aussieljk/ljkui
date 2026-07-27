@@ -1,0 +1,41 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as BlockquoteStories from '../../../src/components/blockquote/blockquote.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={BlockquoteStories} />
+
+# Blockquote
+
+Display a block-level quotation.
+
+<Demo id="blockquote" />
+
+## Usage
+
+```tsx
+import { Blockquote } from 'ljkui';
+
+<Blockquote>
+  Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
+</Blockquote>;
+```
+
+## Props
+
+<PropsTable component="Blockquote" />
+
+## Related
+
+`Quote` for short inline quotations.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

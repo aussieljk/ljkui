@@ -1,0 +1,37 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as BadgeStories from '../../../src/components/badge/badge.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={BadgeStories} />
+
+# Badge
+
+A stylized label for statuses and counts.
+
+<Demo id="badge" />
+
+## Usage
+
+```tsx
+import { Badge } from 'ljkui';
+
+<Badge color="green" variant="soft">
+  Active
+</Badge>;
+```
+
+## Props
+
+<PropsTable component="Badge" />
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

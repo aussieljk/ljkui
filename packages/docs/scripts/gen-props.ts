@@ -1,5 +1,5 @@
 /**
- * Generates prop tables from the frosted-ui component `*.props.ts` files.
+ * Generates prop tables from the ljkui component `*.props.ts` files.
  *
  * Those files export structured `propDef` objects (`{ type, values, default, required }`) with
  * JSDoc descriptions — the design-system props, not every inherited HTML attribute, which is
@@ -17,7 +17,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join, basename } from 'node:path';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const srcDir = join(here, '../../frosted-ui/src');
+const srcDir = join(here, '../../ljkui/src');
 const outFile = join(here, '../src/generated/props.json');
 
 /** Every `*.props.ts` under src, keyed by its base name (`heading.props.ts` -> `heading`). Keying

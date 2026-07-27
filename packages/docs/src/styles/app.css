@@ -1,9 +1,9 @@
-/* The order the library documents (see the "Tailwind plugin" guide): `frosted` sits below
+/* The order the library documents (see the "Tailwind plugin" guide): `ljkui` sits below
    `components`/`utilities`, so Tailwind classes win over the library's CSS. This is load-bearing —
    styles.css carries a global reset (`h1..h6 { font-size: inherit }` and friends) which, imported
    unlayered, outranks every Tailwind utility and silently flattens headings across the whole site.
    An empty @layer statement is one of the few things allowed to precede @import. */
-@layer theme, base, frosted, components, utilities;
+@layer theme, base, ljkui, components, utilities;
 
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
@@ -12,8 +12,8 @@
 /* The component library's runtime CSS, layered as above. The palette tokens stay unlayered:
    they're custom-property definitions, and demoting them below Tailwind's `theme` layer would let
    Tailwind's own `--color-*` defaults win. */
-@import '@aussieljk/frosted/styles.css' layer(frosted);
-@import '@aussieljk/frosted/theme.css';
+@import 'ljkui/styles.css' layer(ljkui);
+@import 'ljkui/theme.css';
 
 html {
   scrollbar-gutter: stable;

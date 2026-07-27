@@ -6,19 +6,19 @@ import tailwindcss from '@tailwindcss/vite';
 import mdx from 'fumadocs-mdx/vite';
 import { nitro } from 'nitro/vite';
 
-// The live usage demos live in the frosted-ui package (`demos/*.demo.tsx`). They import the
-// public `@aussieljk/frosted` entry, so they render exactly what a consumer would copy-paste.
+// The live usage demos live in the ljkui package (`demos/*.demo.tsx`). They import the
+// public `ljkui` entry, so they render exactly what a consumer would copy-paste.
 // `@demos` lets the docs registry import both the component and its `?raw` source.
-const demosDir = fileURLToPath(new URL('../frosted-ui/demos', import.meta.url));
-const frostedDist = fileURLToPath(new URL('../frosted-ui/dist', import.meta.url));
+const demosDir = fileURLToPath(new URL('../ljkui/demos', import.meta.url));
+const ljkuiDist = fileURLToPath(new URL('../ljkui/dist', import.meta.url));
 
 export default defineConfig({
   server: {
-    // Dev runs behind the portless HTTPS proxy as https://frosted.localhost — portless picks
+    // Dev runs behind the portless HTTPS proxy as https://ljkui.localhost — portless picks
     // vite's private port and appends `--port`, so there is no port to hardcode here. Vite
     // would still point the browser's HMR socket at that private port, which the proxy doesn't
     // expose, so aim it at the proxy's TLS port instead.
-    hmr: { protocol: 'wss', host: 'frosted.localhost', clientPort: 443 },
+    hmr: { protocol: 'wss', host: 'ljkui.localhost', clientPort: 443 },
   },
   plugins: [
     mdx(),
@@ -66,8 +66,8 @@ export default defineConfig({
 
       // Pin the library to its built output — load-bearing, and subtle.
       //
-      // The demos and examples live *inside* packages/frosted-ui, whose tsconfig maps
-      // `@aussieljk/frosted` -> `./src` so they typecheck against the public entry name. With
+      // The demos and examples live *inside* packages/ljkui, whose tsconfig maps
+      // `ljkui` -> `./src` so they typecheck against the public entry name. With
       // `tsconfigPaths: true` Vite honours that mapping at runtime as well, so those files would
       // import a second copy of the library from source while the docs' own wrappers (<Demo>,
       // <Examples>, the showcase) import `dist` through node_modules. Two module instances means
@@ -76,9 +76,9 @@ export default defineConfig({
       // even though it plainly is. Aliases resolve before tsconfig paths, so these win.
       //
       // Regex `find`s because a bare string would also rewrite the subpaths as a prefix.
-      { find: /^@aussieljk\/frosted$/, replacement: `${frostedDist}/index.js` },
-      { find: /^@aussieljk\/frosted\/icons$/, replacement: `${frostedDist}/icons/index.js` },
-      { find: /^@aussieljk\/frosted\/icons\/(.+)$/, replacement: `${frostedDist}/icons/adapters/$1.js` },
+      { find: /^ljkui$/, replacement: `${ljkuiDist}/index.js` },
+      { find: /^ljkui\/icons$/, replacement: `${ljkuiDist}/icons/index.js` },
+      { find: /^ljkui\/icons\/(.+)$/, replacement: `${ljkuiDist}/icons/adapters/$1.js` },
     ],
   },
 });

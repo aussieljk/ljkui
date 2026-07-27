@@ -1,0 +1,55 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as OverlayStories from '../../../src/components/overlay/overlay.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={OverlayStories} />
+
+# Overlay
+
+Layer content in front of a view without affecting its layout.
+
+<Demo id="overlay" />
+
+## Usage
+
+```tsx
+import { Overlay } from 'ljkui';
+
+<Overlay alignment="topTrailing">
+  <img src="cover.png" alt="Cover" />
+  <Overlay.Content>
+    <Badge>New</Badge>
+  </Overlay.Content>
+</Overlay>;
+```
+
+## API reference
+
+### Overlay
+
+The container. The base children size it; `Overlay.Content` children are absolutely
+positioned in front of them, matching SwiftUI's `.overlay(alignment:)` semantics.
+
+<PropsTable component="Overlay" />
+
+### Overlay.Content
+
+The content layered in front of the base children, positioned by the parent's
+`alignment`. The layer lets pointer events pass through to the base content; only
+the overlaid children remain interactive. Extends the native `div` element.
+
+## Related
+
+`ZStack` when every layer should participate in layout.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

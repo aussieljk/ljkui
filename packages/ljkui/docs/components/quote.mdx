@@ -1,0 +1,40 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as QuoteStories from '../../../src/components/quote/quote.stories';
+import { Demo } from '../../components/demo';
+
+<Meta of={QuoteStories} />
+
+# Quote
+
+Mark a short inline quotation.
+
+<Demo id="quote" />
+
+## Usage
+
+```tsx
+import { Quote, Text } from 'ljkui';
+
+<Text>
+  His famous quote, <Quote>Good design is a language, not a style</Quote>.
+</Text>;
+```
+
+## Props
+
+Quote renders the native `q` element and has no props of its own — standard `q` attributes are supported.
+
+## Related
+
+`Blockquote` for block-level quotations.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

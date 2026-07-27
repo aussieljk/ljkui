@@ -6,7 +6,7 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "@aussieljk/frosted#build": {
+    "ljkui#build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "styles.css", "styles.lite.css", "theme.css"]
     },
@@ -20,7 +20,7 @@
     "lint:css": {
       "outputs": []
     },
-    "@aussieljk/docs#build": {
+    "@ljkui/docs#build": {
       "dependsOn": ["^build"],
       "outputs": [".vercel/output/**", ".nitro/**", ".tanstack/**"]
     },

@@ -1,0 +1,60 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as TextFieldStories from '../../../src/components/text-field/text-field.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={TextFieldStories} />
+
+# Text Field
+
+A single-line text input, with optional leading/trailing slots.
+
+<Demo id="text-field" />
+
+## Usage
+
+```tsx
+import { TextField } from 'ljkui';
+
+<TextField.Root>
+  <TextField.Slot>
+    <SearchIcon />
+  </TextField.Slot>
+  <TextField.Input placeholder="Search the docs…" />
+</TextField.Root>;
+```
+
+## API reference
+
+### TextField.Root
+
+Container that provides the field's visual style.
+
+<PropsTable component="TextField.Root" />
+
+### TextField.Input
+
+The native input. Also accepts all standard `input` attributes (`placeholder`, `type`, …).
+
+<PropsTable component="TextField.Input" />
+
+### TextField.Slot
+
+Decorations (icons, buttons) before or after the input.
+
+<PropsTable component="TextField.Slot" />
+
+## Related
+
+`TextArea` for multi-line input, `NumberField`, `OTPField`, and `Autocomplete`.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

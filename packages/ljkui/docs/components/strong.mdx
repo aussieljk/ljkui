@@ -1,0 +1,40 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as StrongStories from '../../../src/components/strong/strong.stories';
+import { Demo } from '../../components/demo';
+
+<Meta of={StrongStories} />
+
+# Strong
+
+Mark text with strong importance.
+
+<Demo id="strong" />
+
+## Usage
+
+```tsx
+import { Strong, Text } from 'ljkui';
+
+<Text>
+  The most important thing to remember is, <Strong>stay positive</Strong>.
+</Text>;
+```
+
+## Props
+
+Strong renders the native `strong` element and has no props of its own — standard `strong` attributes are supported.
+
+## Related
+
+`Em` for stress emphasis rather than strong importance.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

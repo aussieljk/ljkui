@@ -1,0 +1,61 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as ToastStories from '../../../src/components/toast/toast.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={ToastStories} />
+
+# Toast
+
+Show brief, auto-dismissing notifications from anywhere in your app.
+
+<Demo id="toast" />
+
+## Usage
+
+Render a single `<Toaster />` at the root of your app, then call the imperative
+`toast(...)` functions from anywhere.
+
+```tsx
+import { Button, Toaster, toast } from 'ljkui';
+
+// Once, at the app root:
+<Toaster />;
+
+// Anywhere else:
+<Button onClick={() => toast.success('Changes saved successfully')}>Save</Button>;
+
+// Also available: toast(message), toast.error, toast.info, toast.warning,
+// toast.loading, toast.promise, toast.custom, toast.dismiss, toast.dismissAll
+```
+
+## API reference
+
+### Toaster
+
+Renders the toast stack; mount it once at the root of your app.
+
+<PropsTable component="Toaster" />
+
+### toast
+
+Imperative functions for creating toasts: `toast(message, options)` plus the
+`success`, `error`, `info`, `warning`, `loading`, `promise`, and `custom` variants.
+Options include `description`, `duration`, `position`, `id` (deduplication), and
+`actionProps`. `toast.dismiss(id)` and `toast.dismissAll()` remove toasts.
+
+## Related
+
+`Callout` for inline, persistent messages, `AlertDialog` for blocking
+confirmations.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

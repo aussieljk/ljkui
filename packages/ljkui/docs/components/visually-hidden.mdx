@@ -1,0 +1,42 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as VisuallyHiddenStories from '../../../src/components/visually-hidden/visually-hidden.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={VisuallyHiddenStories} />
+
+# VisuallyHidden
+
+Hide content visually while keeping it available to screen readers.
+
+<Demo id="visually-hidden" />
+
+## Usage
+
+```tsx
+import { VisuallyHidden } from 'ljkui';
+
+<IconButton>
+  <MagnifyingGlassIcon />
+  <VisuallyHidden>Search</VisuallyHidden>
+</IconButton>;
+```
+
+## Props
+
+VisuallyHidden renders a `span` by default (override via the `render` prop); custom
+`style` is merged on top of the hiding styles. The raw `VISUALLY_HIDDEN_STYLES`
+object is also exported for spreading onto any element directly.
+
+<PropsTable component="VisuallyHidden" />
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

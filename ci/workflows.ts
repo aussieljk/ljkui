@@ -92,7 +92,7 @@ const ci: Workflow = {
         sh('Lint', 'bun run lint'),
         sh('Typecheck', 'bun run typecheck'),
         sh('Build', 'bun run build'),
-        sh('Package health', 'bun run --filter=@aussieljk/frosted health'),
+        sh('Package health', 'bun run --filter=ljkui health'),
       ],
     },
     deploy: {

@@ -1,5 +1,5 @@
 {
-  "name": "@aussieljk/docs",
+  "name": "@ljkui/docs",
   "private": true,
   "type": "module",
   "sideEffects": false,
@@ -13,7 +13,7 @@
     "lint": "oxlint"
   },
   "dependencies": {
-    "@aussieljk/frosted": "workspace:*",
+    "ljkui": "workspace:*",
     "@tanstack/react-router": "1.170.18",
     "@tanstack/react-router-devtools": "1.167.0",
     "@tanstack/react-start": "1.168.32",

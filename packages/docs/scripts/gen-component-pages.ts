@@ -1,5 +1,5 @@
 /**
- * Generates one docs page per live demo in the frosted-ui package. The demos are the source of
+ * Generates one docs page per live demo in the ljkui package. The demos are the source of
  * truth for the current component API (the archived Storybook MDX describes an older, drifted
  * API), so each page renders the real `<Demo>` and nothing goes stale silently.
  *
@@ -14,8 +14,8 @@ import { dirname, join } from 'node:path';
 import { componentLabel } from '../src/lib/component-label';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const demosDir = join(here, '../../frosted-ui/demos');
-const examplesDir = join(here, '../../frosted-ui/examples');
+const demosDir = join(here, '../../ljkui/demos');
+const examplesDir = join(here, '../../ljkui/examples');
 const outDir = join(here, '../content/docs/components');
 
 mkdirSync(outDir, { recursive: true });

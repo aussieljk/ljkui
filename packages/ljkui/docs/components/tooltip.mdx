@@ -1,0 +1,39 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as TooltipStories from '../../../src/components/tooltip/tooltip.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+A short label shown on hover or focus.
+
+<Demo id="tooltip" />
+
+## Usage
+
+Tooltip wraps its trigger element and takes the label as the `content` prop:
+
+```tsx
+import { Button, Tooltip } from 'ljkui';
+
+<Tooltip content="Add to library">
+  <Button variant="surface">Hover me</Button>
+</Tooltip>;
+```
+
+## Props
+
+<PropsTable component="Tooltip" />
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

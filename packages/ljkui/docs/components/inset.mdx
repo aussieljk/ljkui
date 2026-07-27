@@ -1,0 +1,47 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as InsetStories from '../../../src/components/inset/inset.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={InsetStories} />
+
+# Inset
+
+Bleed content into the padding of a parent container.
+
+<Demo id="inset" />
+
+## Usage
+
+```tsx
+import { Card, Inset } from 'ljkui';
+
+<Card>
+  <Inset side="top" pb="current">
+    <img src="/cover.png" alt="" />
+  </Inset>
+  <Text>Card text with normal padding.</Text>
+</Card>;
+```
+
+## Props
+
+Inset extends the native `div` element — standard div attributes are also supported.
+Padding props accept `'current'` (keep the parent's padding) or `'0'` (remove it).
+
+<PropsTable component="Inset" />
+
+## Related
+
+`Card` is the typical parent container for an Inset.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

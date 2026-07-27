@@ -1,17 +1,17 @@
 ---
 title: "Tailwind plugin"
-description: "Map the frosted tokens to Tailwind classes with the theme plugin."
+description: "Map the ljkui tokens to Tailwind classes with the theme plugin."
 ---
 
-If you want to use @aussieljk/frosted with Tailwind CSS, you can use the @aussieljk/frosted Tailwind plugin.
+If you want to use ljkui with Tailwind CSS, you can use the ljkui Tailwind plugin.
 The plugin maps all of the FUI color tokens, font related tokens and screen breakpoints to Tailwind CSS classes.
 
 ## Usage
 
-Add the `frostedThemePlugin` to `plugins` in your `tailwind.config.js` file.
+Add the `ljkuiThemePlugin` to `plugins` in your `tailwind.config.js` file.
 
 ```js
-import { frostedThemePlugin } from '@aussieljk/frosted';
+import { ljkuiThemePlugin } from 'ljkui';
 
 export default {
   darkMode: ['class'],
@@ -19,25 +19,25 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [frostedThemePlugin()],
+  plugins: [ljkuiThemePlugin()],
 };
 ```
 
-Then instead of importing `@aussieljk/frosted/styles.css` stylesheet in your JSX,
+Then instead of importing `ljkui/styles.css` stylesheet in your JSX,
 do it in your Tailwind `globals.css` file like this. Remember to use the `@config` directive to point to your `tailwind.config.js` file.
 
 ```css
 @config "../tailwind.config.js";
-@layer theme, base, frosted, components, utilities;
+@layer theme, base, ljkui, components, utilities;
 
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/preflight.css' layer(base);
 @import 'tailwindcss/utilities.css' layer(utilities);
-@import '@aussieljk/frosted/styles.css' layer(frosted);
+@import 'ljkui/styles.css' layer(ljkui);
 ```
 
-Then you can use the @aussieljk/frosted tokens via Tailwind classes.
+Then you can use the ljkui tokens via Tailwind classes.
 
 ```tsx
-<div className="text-1 leading-1 bg-gray-alpha-50 text-success-700">@aussieljk/frosted</div>
+<div className="text-1 leading-1 bg-gray-alpha-50 text-success-700">ljkui</div>
 ```

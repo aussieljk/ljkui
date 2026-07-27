@@ -1,0 +1,53 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as GridStories from '../../../src/components/grid/grid.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={GridStories} />
+
+# Grid
+
+Arrange content in rows and columns, SwiftUI-style.
+
+<Demo id="grid" />
+
+## Usage
+
+```tsx
+import { Grid } from 'ljkui';
+
+<Grid horizontalSpacing={16} verticalSpacing={8}>
+  <Grid.Row>
+    <Text>Name</Text>
+    <Text>Jane</Text>
+  </Grid.Row>
+  <Grid.Row>
+    <Text>Role</Text>
+    <Text>Engineer</Text>
+  </Grid.Row>
+</Grid>;
+```
+
+## API reference
+
+### Grid
+
+The grid container. The column count is derived from the row with the most cells;
+children that aren't a `Grid.Row` span every column.
+
+<PropsTable component="Grid" />
+
+### Grid.Row
+
+One row of the grid; each child becomes a cell. Extends the native `div` element.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

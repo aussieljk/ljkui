@@ -1,0 +1,57 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as FormStories from '../../../src/components/form/form.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={FormStories} />
+
+# Form
+
+Submit a group of fields with consolidated error handling.
+
+<Demo id="form" />
+
+## Usage
+
+```tsx
+import { Button, Field, Form, TextField } from 'ljkui';
+
+<Form
+  onSubmit={(event) => {
+    event.preventDefault();
+    // handle submission
+  }}
+>
+  <Field.Root name="email">
+    <Field.Label>Email</Field.Label>
+    <TextField.Root>
+      <TextField.Input type="email" required />
+    </TextField.Root>
+    <Field.Error match="valueMissing">Email is required</Field.Error>
+  </Field.Root>
+  <Button type="submit">Subscribe</Button>
+</Form>;
+```
+
+Pass server-side validation errors via the `errors` prop — keys match each `Field.Root` `name`.
+
+## Props
+
+Form extends the native `form` element — standard form attributes are also supported.
+
+<PropsTable component="Form" />
+
+## Related
+
+`Field` for individual controls and `Fieldset` for grouping related fields.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

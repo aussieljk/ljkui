@@ -1,0 +1,68 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as BreadcrumbsStories from '../../../src/components/breadcrumbs/breadcrumbs.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={BreadcrumbsStories} />
+
+# Breadcrumbs
+
+Show the current page's location within a navigation hierarchy.
+
+<Demo id="breadcrumbs" />
+
+## Usage
+
+```tsx
+import { Breadcrumbs } from 'ljkui';
+
+<Breadcrumbs.Root>
+  <Breadcrumbs.Item render={<a href="/" />} nativeButton={false}>
+    Home
+  </Breadcrumbs.Item>
+  <Breadcrumbs.Item render={<a href="/products" />} nativeButton={false}>
+    Products
+  </Breadcrumbs.Item>
+  <Breadcrumbs.Item>Sneaker Bot</Breadcrumbs.Item>
+</Breadcrumbs.Root>;
+```
+
+Collapse long trails with `Breadcrumbs.Dropdown`, which renders an ellipsis trigger
+containing `Breadcrumbs.DropdownItem` entries.
+
+## API reference
+
+### Breadcrumbs.Root
+
+Container for the breadcrumb trail.
+
+<PropsTable component="Breadcrumbs.Root" />
+
+### Breadcrumbs.Item
+
+A single crumb — a link, a button, or plain text for the current page.
+
+<PropsTable component="Breadcrumbs.Item" />
+
+### Breadcrumbs.Dropdown
+
+Ellipsis menu that collapses intermediate crumbs.
+
+<PropsTable component="Breadcrumbs.Dropdown" />
+
+### Breadcrumbs.DropdownItem
+
+A crumb inside the ellipsis menu.
+
+<PropsTable component="Breadcrumbs.DropdownItem" />
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

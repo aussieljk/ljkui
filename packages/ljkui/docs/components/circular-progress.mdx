@@ -1,0 +1,43 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as CircularProgressStories from '../../../src/components/circular-progress/circular-progress.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={CircularProgressStories} />
+
+# Circular Progress
+
+Visualize a value against a maximum as a circular ring.
+
+<Demo id="circular-progress" />
+
+## Usage
+
+```tsx
+import { CircularProgress } from 'ljkui';
+
+<CircularProgress value={65} aria-label="Upload progress" />;
+```
+
+`value` defaults to 0 and `max` to 100; the filled arc is clamped to 0–100% of `max`.
+
+## Props
+
+CircularProgress is built on Base UI's `Meter` and also accepts its root props (`value`, `max`, …).
+
+<PropsTable component="CircularProgress" />
+
+## Related
+
+`Progress` for a horizontal bar and `Spinner` for indeterminate loading.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

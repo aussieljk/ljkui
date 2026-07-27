@@ -52,7 +52,7 @@ jobs:
       - name: Build
         run: bun run build
       - name: Package health
-        run: bun run --filter=@aussieljk/frosted health
+        run: bun run --filter=ljkui health
   deploy:
     name: Deploy
     needs: check

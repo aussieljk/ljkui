@@ -1,0 +1,45 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as HStackStories from '../../../src/components/h-stack/h-stack.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={HStackStories} />
+
+# HStack
+
+Lay out children in a horizontal row, SwiftUI-style.
+
+<Demo id="h-stack" />
+
+## Usage
+
+```tsx
+import { HStack } from 'ljkui';
+
+<HStack spacing={8} alignment="center">
+  <Avatar fallback="JD" />
+  <Text>Jane Doe</Text>
+</HStack>;
+```
+
+## Props
+
+HStack extends the native `div` element — standard div attributes are also supported.
+
+<PropsTable component="HStack" />
+
+## Related
+
+`VStack` for vertical layouts, `ZStack` for layered ones, and `Spacer` to push
+siblings apart within a stack.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

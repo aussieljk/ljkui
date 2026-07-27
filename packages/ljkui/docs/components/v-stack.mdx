@@ -1,0 +1,45 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as VStackStories from '../../../src/components/v-stack/v-stack.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={VStackStories} />
+
+# VStack
+
+Lay out children in a vertical column, SwiftUI-style.
+
+<Demo id="v-stack" />
+
+## Usage
+
+```tsx
+import { VStack } from 'ljkui';
+
+<VStack alignment="leading" spacing={12}>
+  <Heading>Title</Heading>
+  <Text>Description</Text>
+</VStack>;
+```
+
+## Props
+
+VStack extends the native `div` element — standard div attributes are also supported.
+
+<PropsTable component="VStack" />
+
+## Related
+
+`HStack` for horizontal layouts, `ZStack` for layered ones, and `Spacer` to push
+siblings apart within a stack.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

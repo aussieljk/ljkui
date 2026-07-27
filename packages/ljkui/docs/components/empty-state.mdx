@@ -1,0 +1,68 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as EmptyStateStories from '../../../src/components/empty-state/empty-state.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={EmptyStateStories} />
+
+# Empty State
+
+Explain an empty view and point to the next action.
+
+<Demo id="empty-state" />
+
+## Usage
+
+```tsx
+import { Button, EmptyState } from 'ljkui';
+
+<EmptyState.Root>
+  <EmptyState.Header>
+    <EmptyState.Media>
+      <InboxIcon />
+    </EmptyState.Media>
+    <EmptyState.Title>No messages</EmptyState.Title>
+    <EmptyState.Description>You don't have any messages yet.</EmptyState.Description>
+  </EmptyState.Header>
+  <EmptyState.Actions>
+    <Button>Compose</Button>
+  </EmptyState.Actions>
+</EmptyState.Root>;
+```
+
+## API reference
+
+### EmptyState.Root, EmptyState.Header, EmptyState.Actions
+
+Layout containers (`<div>`s): `Root` centers all parts, `Header` groups the media, title, and
+description, and `Actions` holds buttons or other interactive elements. They accept the native `div`
+attributes.
+
+### EmptyState.Media
+
+A container for icons or images.
+
+<PropsTable component="EmptyState.Media" />
+
+### EmptyState.Title
+
+The title, rendered with `<Text>` defaulting to size `'4'` and semi-bold weight.
+
+<PropsTable component="EmptyState.Title" />
+
+### EmptyState.Description
+
+The supporting text, rendered with `<Text>` defaulting to size `'2'` and gray color.
+
+<PropsTable component="EmptyState.Description" />
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

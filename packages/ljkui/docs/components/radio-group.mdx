@@ -1,0 +1,54 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as RadioGroupStories from '../../../src/components/radio-group/radio-group.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={RadioGroupStories} />
+
+# Radio Group
+
+Select a single option from a list.
+
+<Demo id="radio-group" />
+
+## Usage
+
+```tsx
+import { RadioGroup } from 'ljkui';
+
+<RadioGroup.Root defaultValue="1">
+  <RadioGroup.Item value="1">Default</RadioGroup.Item>
+  <RadioGroup.Item value="2">Comfortable</RadioGroup.Item>
+  <RadioGroup.Item value="3">Compact</RadioGroup.Item>
+</RadioGroup.Root>;
+```
+
+## API reference
+
+### RadioGroup.Root
+
+State container for the group — holds the selected value, size, and color.
+
+<PropsTable component="RadioGroup.Root" />
+
+### RadioGroup.Item
+
+A single radio button with an optional label.
+
+<PropsTable component="RadioGroup.Item" />
+
+## Related
+
+`RadioButtonGroup` for fully custom radio cards and `SegmentedControlRadioGroup` for a filled
+toggle group.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

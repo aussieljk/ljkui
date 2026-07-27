@@ -1,0 +1,41 @@
+import { Controls, Meta, Primary, Stories } from '@storybook/addon-docs/blocks';
+
+import * as TextAreaStories from '../../../src/components/text-area/text-area.stories';
+import { Demo } from '../../components/demo';
+import { PropsTable } from '../../components/props-table';
+
+<Meta of={TextAreaStories} />
+
+# Text Area
+
+Capture multi-line text input.
+
+<Demo id="text-area" />
+
+## Usage
+
+```tsx
+import { TextArea } from 'ljkui';
+
+<TextArea placeholder="Reply to comment…" />;
+```
+
+## Props
+
+TextArea extends the native `textarea` element — standard textarea attributes are also supported.
+
+<PropsTable component="TextArea" />
+
+## Related
+
+`TextField` for single-line input.
+
+## Playground
+
+<Primary />
+
+<Controls />
+
+## Stories
+
+<Stories includePrimary={false} />

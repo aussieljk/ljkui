@@ -1,5 +1,5 @@
 {
-  "name": "frosted-monorepo",
+  "name": "ljkui-monorepo",
   "version": "0.0.1-canary.153",
   "private": true,
   "workspaces": [
@@ -13,10 +13,10 @@
   },
   "scripts": {
     "build": "turbo run build",
-    "build:docs": "turbo run build --filter=@aussieljk/docs",
-    "check": "bun run workflows:check && bun run format:check && turbo run lint typecheck build && bun run --filter=@aussieljk/frosted health",
+    "build:docs": "turbo run build --filter=@ljkui/docs",
+    "check": "bun run workflows:check && bun run format:check && turbo run lint typecheck build && bun run --filter=ljkui health",
     "deploy": "bun scripts/deploy.ts",
-    "dev": "turbo run build --filter=@aussieljk/frosted --output-logs=errors-only && cd packages/docs && portless frosted vite dev",
+    "dev": "turbo run build --filter=ljkui --output-logs=errors-only && cd packages/docs && portless ljkui vite dev",
     "doctor": "bun scripts/doctor.ts",
     "format": "oxfmt \"**/*.{ts,tsx,js,jsx,mjs,cjs}\"",
     "format:check": "oxfmt --check \"**/*.{ts,tsx,js,jsx,mjs,cjs}\"",

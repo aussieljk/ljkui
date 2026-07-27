@@ -8,5 +8,5 @@
   "tabWidth": 2,
   "trailingComma": "all",
   "sortPackageJson": false,
-  "ignorePatterns": ["**/*.gen.ts", "packages/frosted-ui/src/helpers/emoji-colors.ts"]
+  "ignorePatterns": ["**/*.gen.ts", "packages/ljkui/src/helpers/emoji-colors.ts"]
 }
