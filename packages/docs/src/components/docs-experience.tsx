@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Check, ChevronDown, Copy, Monitor, Moon, Palette, Smartphone, Sun, Tablet } from 'lucide-react';
+import { useTheme as useDocsShellTheme } from 'next-themes';
 import {
   Button,
   DropdownMenu,
@@ -39,6 +40,7 @@ const DocsExperienceContext = React.createContext<DocsExperienceValue | null>(nu
 
 export function DocsExperienceProvider({ children }: { children: React.ReactNode }) {
   const [preferences, setPreferences] = React.useState(defaults);
+  const { setTheme: setDocsShellTheme } = useDocsShellTheme();
 
   React.useEffect(() => {
     try {
@@ -56,6 +58,10 @@ export function DocsExperienceProvider({ children }: { children: React.ReactNode
       // Preferences still work for the current session.
     }
   }, [preferences]);
+
+  React.useEffect(() => {
+    setDocsShellTheme(preferences.appearance);
+  }, [preferences.appearance, setDocsShellTheme]);
 
   const value = React.useMemo<DocsExperienceValue>(
     () => ({
