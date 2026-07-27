@@ -6,6 +6,7 @@ import { baseOptions } from '@/lib/layout.shared';
 import { gitConfig } from '@/lib/shared';
 import { demos } from '@/demos/registry';
 import { Showcase } from '@/components/showcase';
+import { HeroPlayground } from '@/components/hero-playground';
 
 export const Route = createFileRoute('/')({
   component: Home,
@@ -45,13 +46,7 @@ function Home() {
   return (
     <HomeLayout {...baseOptions()}>
       <div className="mx-auto w-full max-w-7xl px-4 pb-20 pt-6 sm:pt-10">
-        <section className="docs-hero-collage" aria-label="ljkui component collection">
-          <img
-            src="/component-collage.png"
-            alt="A collage of ljkui components including forms, navigation, feedback, controls and a calendar"
-          />
-          <div className="docs-hero-collage-fade" />
-        </section>
+        <HeroPlayground />
 
         <section className="flex flex-col items-center text-center">
           <p className="docs-eyebrow">{count} production-ready building blocks</p>
