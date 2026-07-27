@@ -44,16 +44,24 @@ function Home() {
 
   return (
     <HomeLayout {...baseOptions()}>
-      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:py-24">
+      <div className="mx-auto w-full max-w-7xl px-4 pb-20 pt-6 sm:pt-10">
+        <section className="docs-hero-collage" aria-label="ljkui component collection">
+          <img
+            src="/component-collage.png"
+            alt="A collage of ljkui components including forms, navigation, feedback, controls and a calendar"
+          />
+          <div className="docs-hero-collage-fade" />
+        </section>
+
         <section className="flex flex-col items-center text-center">
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">ljkui</h1>
+          <p className="docs-eyebrow">{count} production-ready building blocks</p>
+          <h1 className="text-4xl font-semibold tracking-tight sm:text-6xl">Build interfaces that feel considered.</h1>
           <p className="mt-4 max-w-xl text-fd-muted-foreground sm:text-lg">
-            A themeable React component library built on{' '}
+            ljkui is a themeable React component library built on{' '}
             <a href="https://base-ui.com" className="underline underline-offset-4 hover:text-fd-foreground">
               Base UI
             </a>
-            . {count} components driven by a single <code className="font-mono text-sm">&lt;Theme&gt;</code> that
-            controls appearance, accent color, and gray scale.
+            . One theme, thoughtful defaults, and examples for every state.
           </p>
 
           <div className="mt-8">
@@ -63,10 +71,10 @@ function Home() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/docs/$"
-              params={{ _splat: '' }}
+              params={{ _splat: 'components' }}
               className="rounded-lg bg-fd-primary px-4 py-2 text-sm font-medium text-fd-primary-foreground hover:opacity-90"
             >
-              Get started
+              Explore components
             </Link>
             <a
               href={`https://github.com/${gitConfig.user}/${gitConfig.repo}`}
@@ -77,7 +85,7 @@ function Home() {
           </div>
         </section>
 
-        <section className="mt-20">
+        <section className="mt-24">
           <div className="mb-6 flex items-baseline justify-between gap-4">
             <h2 className="text-lg font-medium">Components</h2>
             <Link

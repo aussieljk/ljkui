@@ -4,6 +4,7 @@ import { Demo } from './demo';
 import { PropsTable } from './props-table';
 import { AllExamples } from './all-examples';
 import { Examples } from './examples';
+import { ComponentCatalog } from './component-catalog';
 
 export function getMDXComponents(components?: MDXComponents) {
   return {
@@ -12,6 +13,7 @@ export function getMDXComponents(components?: MDXComponents) {
     PropsTable,
     AllExamples,
     Examples,
+    ComponentCatalog,
     ...components,
   } satisfies MDXComponents;
 }

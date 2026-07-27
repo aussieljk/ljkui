@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Theme } from 'ljkui';
 import { exampleModules, type Example, type ExampleRecord } from '@/examples/registry';
 import { DemoBoundary } from './demo-boundary';
+import { PreviewFrame, PreviewToolbar } from './docs-experience';
 
 function renderExample(example: Example) {
   if (React.isValidElement(example)) return example;
@@ -15,9 +16,11 @@ function Gallery({ examples }: { examples: ExampleRecord }) {
       {Object.entries(examples).map(([label, example]) => (
         <section key={label} className="border-t border-fd-border first:border-t-0">
           <h3 className="px-4 pt-4 text-xs font-medium tracking-wider text-fd-muted-foreground uppercase">{label}</h3>
-          <Theme appearance="inherit" className="flex flex-wrap items-center gap-3 p-4">
-            <DemoBoundary name={label}>{renderExample(example)}</DemoBoundary>
-          </Theme>
+          <PreviewFrame>
+            <Theme appearance="inherit" className="flex min-h-24 flex-wrap items-center justify-center gap-3 p-4">
+              <DemoBoundary name={label}>{renderExample(example)}</DemoBoundary>
+            </Theme>
+          </PreviewFrame>
         </section>
       ))}
     </>
@@ -51,6 +54,7 @@ export function Examples({ name }: { name: string }) {
 
   return (
     <div className="not-prose my-6 overflow-hidden rounded-lg border border-fd-border bg-fd-card">
+      <PreviewToolbar />
       {mounted ? (
         <React.Suspense fallback={<div className="p-4 text-sm text-fd-muted-foreground">Loading examples…</div>}>
           <LazyGallery />

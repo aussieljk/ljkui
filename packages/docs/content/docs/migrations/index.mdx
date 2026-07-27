@@ -1,0 +1,33 @@
+---
+title: Migrate to ljkui
+description: Practical paths from Frosted UI, shadcn/ui, Radix Themes, and MUI.
+icon: Replace
+---
+
+ljkui favors a small global setup, semantic theme tokens, and composable components. Choose where you are
+coming from for side-by-side imports, styling differences, and a staged migration plan.
+
+<Cards>
+  <Card title="Frosted UI" href="/docs/migrations/frosted-ui">
+    The closest migration: rename imports and review the intentionally evolved APIs.
+  </Card>
+  <Card title="shadcn/ui" href="/docs/migrations/shadcn-ui">
+    Move from copied source files to a maintained package and shared theme.
+  </Card>
+  <Card title="Radix Themes" href="/docs/migrations/radix-themes">
+    Keep familiar primitives while adopting ljkui's components and color system.
+  </Card>
+  <Card title="MUI" href="/docs/migrations/mui">
+    Translate theme, composition, and component conventions incrementally.
+  </Card>
+</Cards>
+
+## A safe migration sequence
+
+1. Install ljkui and its stylesheet without deleting your current system.
+2. Add `<Theme>` at the nearest shared application boundary.
+3. Move low-risk primitives first: buttons, badges, typography, and layout.
+4. Migrate composite controls one screen at a time.
+5. Remove the old provider and styles only after the final screen moves.
+
+Use the theme control in this site's navbar to test the same components across appearances and accent colors.

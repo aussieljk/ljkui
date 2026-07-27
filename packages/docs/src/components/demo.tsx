@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Theme } from 'ljkui';
 import { demos } from '@/demos/registry';
 import { DemoBoundary } from './demo-boundary';
+import { PreviewFrame, PreviewToolbar } from './docs-experience';
 
 /**
  * Renders a live usage demo from the ljkui package inside a `<Theme>` (so accent/gray tokens
@@ -29,17 +30,23 @@ export function Demo({ name }: { name: string }) {
 
   return (
     <figure className="not-prose my-6 overflow-hidden rounded-lg border border-fd-border">
-      <Theme appearance="inherit" className="flex min-h-16 flex-wrap items-center gap-3 bg-fd-card p-6">
-        {mounted ? (
-          <DemoBoundary name={name}>
-            <React.Suspense fallback={<div className="text-sm text-fd-muted-foreground">Loading…</div>}>
-              <Component />
-            </React.Suspense>
-          </DemoBoundary>
-        ) : (
-          <div className="text-sm text-fd-muted-foreground">Loading…</div>
-        )}
-      </Theme>
+      <PreviewToolbar />
+      <PreviewFrame>
+        <Theme
+          appearance="inherit"
+          className="flex min-h-32 flex-wrap items-center justify-center gap-3 bg-fd-card p-6"
+        >
+          {mounted ? (
+            <DemoBoundary name={name}>
+              <React.Suspense fallback={<div className="text-sm text-fd-muted-foreground">Loading…</div>}>
+                <Component />
+              </React.Suspense>
+            </DemoBoundary>
+          ) : (
+            <div className="text-sm text-fd-muted-foreground">Loading…</div>
+          )}
+        </Theme>
+      </PreviewFrame>
       <details className="border-t border-fd-border bg-fd-secondary/30">
         <summary className="cursor-pointer select-none px-4 py-2 text-sm font-medium">Show code</summary>
         <pre className="overflow-x-auto p-4 text-[13px] leading-relaxed">

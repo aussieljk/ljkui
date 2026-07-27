@@ -1,0 +1,43 @@
+---
+title: From Frosted UI
+description: Move from frosted-ui to ljkui with the smallest possible diff.
+---
+
+ljkui is based on Frosted UI, so most component concepts and prop names are intentionally familiar. The complete
+Frosted UI Storybook example collection has been carried into the component pages and adapted to ljkui's current
+API.
+
+## Package setup
+
+```diff
+- import 'frosted-ui/styles.css';
+- import { Button, Theme } from 'frosted-ui';
++ import 'ljkui/styles.css';
++ import { Button, Theme } from 'ljkui';
+```
+
+## Icons
+
+ljkui uses pluggable icon adapters. Import the adapter once, then keep icons decoupled from a specific icon package:
+
+```tsx
+import 'ljkui/icons/lucide';
+import { Icons } from 'ljkui';
+
+<Icons.Search />;
+```
+
+## Composition
+
+Prefer Base UI's `render` composition:
+
+```tsx
+<Button render={<a href="/account" />}>Account</Button>
+```
+
+See the [render prop guide](/docs/guides/render-prop) for prop-merging and router-link examples.
+
+## Visual verification
+
+Open the matching component page and compare its named examples. Use the mobile, tablet, and desktop controls above
+each preview; your selected width is remembered on this device.

@@ -1,0 +1,40 @@
+---
+title: From shadcn/ui
+description: Replace copied component source with a cohesive, maintained package.
+---
+
+The main conceptual change is ownership. shadcn/ui places component source in your application; ljkui ships a
+versioned package with a coordinated theme and component API.
+
+## Setup
+
+```tsx
+import 'ljkui/styles.css';
+import { Button, Theme } from 'ljkui';
+
+export function App() {
+  return (
+    <Theme accentColor="blue" grayColor="slate">
+      <Button>Continue</Button>
+    </Theme>
+  );
+}
+```
+
+## Composition
+
+Replace `asChild` with `render`:
+
+```diff
+- <Button asChild><a href="/pricing">Pricing</a></Button>
++ <Button render={<a href="/pricing" />}>Pricing</Button>
+```
+
+## Styling
+
+- Keep Tailwind utilities for application-specific layout.
+- Use component props for supported visual variants and sizes.
+- Change global appearance through `<Theme>` instead of editing every component.
+- Import `ljkui/styles.css` in the documented layer order when using Tailwind.
+
+Start with primitives, then replace Radix-based overlays after checking focus and controlled-state behavior.

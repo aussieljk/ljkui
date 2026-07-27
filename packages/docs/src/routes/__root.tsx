@@ -2,6 +2,7 @@ import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-r
 import * as React from 'react';
 import appCss from '@/styles/app.css?url';
 import { RootProvider } from 'fumadocs-ui/provider/tanstack';
+import { DocsExperienceProvider } from '@/components/docs-experience';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -36,7 +37,9 @@ function RootComponent() {
       </head>
       <body className="flex flex-col min-h-screen">
         <RootProvider>
-          <Outlet />
+          <DocsExperienceProvider>
+            <Outlet />
+          </DocsExperienceProvider>
         </RootProvider>
         <Scripts />
       </body>
