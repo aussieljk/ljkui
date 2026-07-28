@@ -145,7 +145,6 @@
 }
 
 .fui-CreditCardFieldLabel {
-  letter-spacing: 0.02em;
   color: var(--credit-card-muted);
 }
 
@@ -183,7 +182,6 @@
   font-family: inherit;
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-3);
-  letter-spacing: var(--letter-spacing-3);
   line-height: var(--line-height-3);
   padding: 4px 8px;
   border-radius: 4px;
@@ -231,8 +229,7 @@
 .fui-CreditCardNumberField,
 .fui-CreditCardExpiryField,
 .fui-CreditCardCVVField {
-  font-family: var(--code-font-family, monospace);
-  letter-spacing: 0.04em;
+  font-family: monospace;
 }
 
 .fui-CreditCardExpiryField {

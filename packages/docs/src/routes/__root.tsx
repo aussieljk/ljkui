@@ -20,10 +20,8 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
-      // Inter, the non-Apple half of --default-font-family. The library can't @import it
-      // (see ljkui/src/styles/fonts.css) so every consumer links it here instead.
-      { rel: 'preconnect', href: 'https://rsms.me/' },
-      { rel: 'stylesheet', href: 'https://rsms.me/inter/inter.css' },
+      // No webfont: ljkui ships no font-family, so the components inherit
+      // whatever this site's own type stack resolves to.
     ],
   }),
   component: RootComponent,

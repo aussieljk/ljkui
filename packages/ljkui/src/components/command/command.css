@@ -87,7 +87,6 @@
 .fui-CommandShortcut {
   margin-inline-start: auto;
   font-size: var(--font-size-1);
-  letter-spacing: 0.05em;
   color: var(--gray-alpha-900);
 }
 

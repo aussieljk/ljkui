@@ -55,25 +55,12 @@
   --leading-relaxed: 1.625;
   --leading-loose: 2;
 
-  /* Font families */
-  --font-sans: var(--default-font-family);
-  --font-strong: var(--strong-font-family);
-  --font-heading: var(--heading-font-family);
-  --font-code: var(--code-font-family);
-  --font-em: var(--em-font-family);
-  --font-quote: var(--quote-font-family);
+  /*
+   * Font families are omitted: ljkui ships none, so `font-sans` and friends
+   * keep whatever the host page's Tailwind theme defines.
+   */
 
-  /* Letter spacing (tracking-0 … tracking-9) */
-  --tracking-0: var(--letter-spacing-0);
-  --tracking-1: var(--letter-spacing-1);
-  --tracking-2: var(--letter-spacing-2);
-  --tracking-3: var(--letter-spacing-3);
-  --tracking-4: var(--letter-spacing-4);
-  --tracking-5: var(--letter-spacing-5);
-  --tracking-6: var(--letter-spacing-6);
-  --tracking-7: var(--letter-spacing-7);
-  --tracking-8: var(--letter-spacing-8);
-  --tracking-9: var(--letter-spacing-9);
+  /* Letter spacing — Tailwind's named steps only; ljkui has no tracking scale. */
   --tracking-tighter: -0.05em;
   --tracking-tight: -0.025em;
   --tracking-normal: 0em;

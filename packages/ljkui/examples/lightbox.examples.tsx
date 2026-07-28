@@ -1827,7 +1827,7 @@ function SwatchCard({ color, index }: { color: (typeof colorPalette)[number]; in
           <Typography.Text size="1" color="gray">
             {color.family}
           </Typography.Text>
-          <Typography.Text size="1" color="gray" style={{ fontFamily: 'var(--code-font-family)' }}>
+          <Typography.Text size="1" color="gray" style={{ fontFamily: 'monospace' }}>
             {color.hex}
           </Typography.Text>
         </div>
@@ -2832,7 +2832,7 @@ function LifecycleCallbacksStory() {
           border: '1px solid var(--gray-alpha-300)',
           borderRadius: 8,
           padding: 'var(--space-3)',
-          fontFamily: 'var(--code-font-family)',
+          fontFamily: 'monospace',
           fontSize: 'var(--font-size-1)',
           lineHeight: 'var(--line-height-3)',
           maxHeight: 300,

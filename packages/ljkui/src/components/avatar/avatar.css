@@ -70,7 +70,6 @@
   text-transform: uppercase;
 
   line-height: 1.4;
-  letter-spacing: 0.05em;
   &:where(.fui-one-letter) {
     font-size: 45cqw;
   }

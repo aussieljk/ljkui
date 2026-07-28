@@ -8,7 +8,7 @@ export default function CreditCardDemo() {
         <CreditCard.Front>
           <CreditCard.FrontHeader>
             <CreditCard.Logo>
-              <span className="text-[20px] leading-none font-bold tracking-[-0.03em]">ljkui</span>
+              <span className="text-[20px] leading-none font-bold">ljkui</span>
             </CreditCard.Logo>
             <CreditCard.Brand>
               <CreditCard.BrandLogo brand="visa" />

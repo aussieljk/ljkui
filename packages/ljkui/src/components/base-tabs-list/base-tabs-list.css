@@ -45,7 +45,6 @@
     height: 36px;
     font-size: var(--font-size-1);
     line-height: var(--line-height-1);
-    letter-spacing: var(--letter-spacing-1);
     --tabs-trigger-padding-x: var(--space-1);
 
     --tabs-trigger-inner-padding-x: 6px;
@@ -56,7 +55,6 @@
     height: var(--space-7);
     font-size: var(--font-size-2);
     line-height: var(--line-height-2);
-    letter-spacing: var(--letter-spacing-2);
     --tabs-trigger-padding-x: var(--space-1);
 
     --tabs-trigger-inner-padding-x: 10px;

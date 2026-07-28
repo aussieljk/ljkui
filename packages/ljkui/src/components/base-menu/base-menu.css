@@ -111,14 +111,12 @@
     & :where(.fui-BaseMenuItem) {
       font-size: var(--font-size-1);
       line-height: var(--line-height-1);
-      letter-spacing: var(--letter-spacing-1);
       border-radius: 4px;
     }
 
     & :where(.fui-BaseMenuGroupLabel) {
       font-size: var(--font-size-0);
       line-height: var(--line-height-0);
-      letter-spacing: var(--letter-spacing-0);
     }
 
     & :where(.fui-BaseMenuItemIndicatorIcon, .fui-BaseMenuSubTriggerIcon) {
@@ -148,14 +146,12 @@
     & :where(.fui-BaseMenuItem) {
       font-size: var(--font-size-2);
       line-height: var(--line-height-2);
-      letter-spacing: var(--letter-spacing-2);
       border-radius: 6px;
     }
 
     & :where(.fui-BaseMenuGroupLabel) {
       font-size: var(--font-size-1);
       line-height: var(--line-height-1);
-      letter-spacing: var(--letter-spacing-1);
     }
 
     & :where(.fui-BaseMenuItemIndicatorIcon, .fui-BaseMenuSubTriggerIcon) {
@@ -181,14 +177,12 @@
     & :where(.fui-BaseMenuItem) {
       font-size: var(--font-size-3);
       line-height: var(--line-height-3);
-      letter-spacing: var(--letter-spacing-3);
       border-radius: 8px;
     }
 
     & :where(.fui-BaseMenuGroupLabel) {
       font-size: var(--font-size-2);
       line-height: var(--line-height-2);
-      letter-spacing: var(--letter-spacing-2);
     }
 
     & :where(.fui-BaseMenuItemIndicatorIcon, .fui-BaseMenuSubTriggerIcon) {

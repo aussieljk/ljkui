@@ -263,7 +263,7 @@ function ImperativeScrollToDemo() {
         </Typography.Text>
         <div
           style={{
-            fontFamily: 'var(--code-font-family)',
+            fontFamily: 'monospace',
             fontSize: 'var(--font-size-1)',
             lineHeight: 'var(--line-height-2)',
             color: 'var(--gray-900)',
@@ -369,7 +369,7 @@ function DefaultValueDemo() {
         </Typography.Text>
         <div
           style={{
-            fontFamily: 'var(--code-font-family)',
+            fontFamily: 'monospace',
             fontSize: 'var(--font-size-1)',
             lineHeight: 'var(--line-height-2)',
             color: 'var(--gray-900)',

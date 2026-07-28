@@ -85,7 +85,6 @@
       --textarea-padding-x: calc(var(--space-1) * 1.5 - var(--textarea-border-width));
       font-size: var(--font-size-1);
       line-height: var(--line-height-1);
-      letter-spacing: var(--letter-spacing-1);
     }
   }
   &:where(.fui-r-size-2) {
@@ -97,7 +96,6 @@
       --textarea-padding-x: calc(var(--space-2) - var(--textarea-border-width));
       font-size: var(--font-size-2);
       line-height: var(--line-height-2);
-      letter-spacing: var(--letter-spacing-2);
     }
   }
   &:where(.fui-r-size-3) {
@@ -109,7 +107,6 @@
       --textarea-padding-x: calc(var(--space-3) - var(--textarea-border-width));
       font-size: var(--font-size-3);
       line-height: var(--line-height-3);
-      letter-spacing: var(--letter-spacing-3);
     }
   }
   &:where(.fui-r-size-4) {
@@ -121,7 +118,6 @@
       --textarea-padding-x: calc(var(--space-4) - var(--textarea-border-width));
       font-size: var(--font-size-4);
       line-height: var(--line-height-4);
-      letter-spacing: var(--letter-spacing-4);
     }
   }
 }

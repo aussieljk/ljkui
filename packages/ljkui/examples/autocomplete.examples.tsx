@@ -1893,9 +1893,7 @@ export const examples = {
               <Autocomplete.List>
                 {(file) => (
                   <Autocomplete.Item key={file as string} value={file}>
-                    <span style={{ fontFamily: 'var(--code-font-family)', fontSize: 'var(--font-size-1)' }}>
-                      {file as string}
-                    </span>
+                    <span style={{ fontFamily: 'monospace', fontSize: 'var(--font-size-1)' }}>{file as string}</span>
                   </Autocomplete.Item>
                 )}
               </Autocomplete.List>
@@ -2248,7 +2246,7 @@ export const examples = {
           </Typography.Text>
           <div
             style={{
-              fontFamily: 'var(--code-font-family)',
+              fontFamily: 'monospace',
               fontSize: 'var(--font-size-1)',
               backgroundColor: 'var(--gray-alpha-50)',
               borderRadius: 'var(--radius-2)',
@@ -2797,7 +2795,7 @@ export const examples = {
               padding: 'var(--space-3)',
               backgroundColor: 'var(--gray-alpha-100)',
               borderRadius: 'var(--radius-2)',
-              fontFamily: 'var(--code-font-family)',
+              fontFamily: 'monospace',
               fontSize: 'var(--font-size-1)',
               whiteSpace: 'pre',
             }}

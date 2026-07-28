@@ -121,25 +121,9 @@ export const ljkuiThemePlugin: ReturnType<typeof plugin.withOptions> = plugin.wi
           relaxed: '1.625',
           loose: '2',
         },
-        fontFamily: {
-          sans: 'var(--default-font-family)',
-          strong: 'var(--strong-font-family)',
-          heading: 'var(--heading-font-family)',
-          code: 'var(--code-font-family)',
-          em: 'var(--em-font-family)',
-          quote: 'var(--quote-font-family)',
-        },
+        // fontFamily is omitted: ljkui ships no font stacks, so `font-sans` and
+        // friends keep whatever the host page's Tailwind theme defines.
         letterSpacing: {
-          0: 'var(--letter-spacing-0)',
-          1: 'var(--letter-spacing-1)',
-          2: 'var(--letter-spacing-2)',
-          3: 'var(--letter-spacing-3)',
-          4: 'var(--letter-spacing-4)',
-          5: 'var(--letter-spacing-5)',
-          6: 'var(--letter-spacing-6)',
-          7: 'var(--letter-spacing-7)',
-          8: 'var(--letter-spacing-8)',
-          9: 'var(--letter-spacing-9)',
           tighter: '-0.05em',
           tight: '-0.025em',
           normal: '0',

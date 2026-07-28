@@ -100,18 +100,17 @@ used as the Theme `grayColor`.
 
 ## Fonts
 
-ljkui components read typography from CSS variables, so overriding fonts is a one-liner:
+There is nothing to configure: ljkui sets no `font-family` and no `letter-spacing`, so components
+inherit your page's type. Set it wherever you normally would:
 
 ```css
-.ljkui {
-  --default-font-family: 'Inter', sans-serif;
-  --heading-font-family: 'Inter', sans-serif;
-  --code-font-family: 'JetBrains Mono', monospace;
+body {
+  font-family: 'Inter', sans-serif;
 }
 ```
 
-Other font variables: `--strong-font-family`, `--em-font-family`, `--quote-font-family`.
-See **Guides → Typography** for the full type scale and self-hosting recipes.
+`<Code>`, `<Kbd>` and `<DateField>` use the generic `monospace` keyword; override `.fui-Code` and friends
+if you want a specific mono. See **Guides → Typography** for the size scale and self-hosting recipes.
 
 ## Scrollbars
 

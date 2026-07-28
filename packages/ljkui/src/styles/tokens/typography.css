@@ -1,4 +1,8 @@
-@import '../fonts.css';
+/*
+ * The library ships no font-family and no letter-spacing. Text inherits both
+ * from the host page, so a consumer's own type choices survive untouched.
+ * Only the size / line-height / weight scale lives here.
+ */
 
 .ljkui {
   --font-size-0: 10px;
@@ -29,39 +33,21 @@
   --line-height-8: 38px;
   --line-height-9: 48px;
 
-  --letter-spacing-0: 0.01em;
-  --letter-spacing-1: 0.01em;
-  --letter-spacing-2: 0.01em;
-  --letter-spacing-3: 0.01em;
-  --letter-spacing-4: 0.01em;
-  --letter-spacing-5: 0.01em;
-  --letter-spacing-6: 0.01em;
-  --letter-spacing-7: 0.005em;
-  --letter-spacing-8: 0em;
-  --letter-spacing-9: 0em;
-
   /* default values */
 
-  /* SF Pro on Apple platforms (via -apple-system); Inter everywhere else (loaded in fonts.css) */
-  --default-font-family:
-    -apple-system, BlinkMacSystemFont, 'SF Pro Text', InterVariable, Inter, ui-sans-serif, system-ui, 'Segoe UI',
-    Roboto, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
   --default-font-size: var(--font-size-3); /* Same size used for `<Text size="3">` */
   --default-font-style: normal;
   --default-font-weight: var(--font-weight-regular);
   --default-line-height: 1.5; /* Equivalent to the line-height used for `<Text size="3">` 16px * 1.5 = 24px */
-  --default-letter-spacing: 0em;
   --default-leading-trim-start: 0.42em;
   --default-leading-trim-end: 0.36em;
 
   /* Heading */
 
-  --heading-font-family: var(--default-font-family);
   --heading-font-size-adjust: 1;
   --heading-font-style: normal;
   --heading-leading-trim-start: var(--default-leading-trim-start);
   --heading-leading-trim-end: var(--default-leading-trim-end);
-  --heading-letter-spacing: 0em;
 
   --heading-line-height-1: 16px;
   --heading-line-height-2: 18px;
@@ -75,59 +61,39 @@
 
   /* Code */
 
-  --code-font-family:
-    'Menlo', 'Consolas (Custom)', 'Bitstream Vera Sans Mono', monospace, 'Apple Color Emoji', 'Segoe UI Emoji';
+  /* Monospace runs a little large next to body text, so trim it slightly. */
   --code-font-size-adjust: 0.95;
   --code-font-style: normal;
   --code-font-weight: inherit;
-  --code-letter-spacing: -0.007em;
   --code-padding-top: 0.1em;
   --code-padding-bottom: 0.1em;
 
   /* Strong */
 
-  --strong-font-family: var(--default-font-family);
   --strong-font-size-adjust: 1;
   --strong-font-style: inherit;
   --strong-font-weight: var(--font-weight-bold);
-  --strong-letter-spacing: 0em;
 
   /* Em */
 
-  --em-font-family: 'Times New Roman', 'Times', serif;
-  --em-font-size-adjust: 1.18;
+  /* Was 1.18 to compensate for Times' small x-height; Em now inherits the page font. */
+  --em-font-size-adjust: 1;
   --em-font-style: italic;
   --em-font-weight: inherit;
-  --em-letter-spacing: -0.025em;
 
   /* Quote */
 
-  --quote-font-family: 'Times New Roman', 'Times', serif;
-  --quote-font-size-adjust: 1.18;
+  --quote-font-size-adjust: 1;
   --quote-font-style: italic;
   --quote-font-weight: inherit;
-  --quote-letter-spacing: -0.025em;
-
-  /* Tabs */
-
-  --tabs-trigger-active-letter-spacing: -0.01em;
-  --tabs-trigger-active-word-spacing: 0em;
-  --tabs-trigger-inactive-letter-spacing: 0em;
-  --tabs-trigger-inactive-word-spacing: 0em;
 }
 
 .ljkui {
   overflow-wrap: break-word;
-  font-family: var(--default-font-family);
   font-size: var(--default-font-size);
   font-weight: var(--default-font-weight);
   font-style: var(--default-font-style);
   line-height: var(--default-line-height);
-  letter-spacing: var(--default-letter-spacing);
-  /* Chrome otherwise drops Inter's ligatures and contextual alternates */
-  font-feature-settings:
-    'liga' 1,
-    'calt' 1;
   text-size-adjust: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

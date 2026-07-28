@@ -18,7 +18,6 @@
   color: var(--gray-alpha-900);
   font-weight: var(--font-weight-bold);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 .fui-AccordionTriggerIcon {
   transition: 300ms transform ease-out;

@@ -1,6 +1,6 @@
 ---
 title: "Typography"
-description: "The size and weight scales, font families, and self-hosting fonts."
+description: "The size and weight scales, and how ljkui inherits your fonts."
 ---
 
 Components like `<Heading />` and `<Text />` and used to render titles and body copy respectively.
@@ -8,68 +8,65 @@ Both of them share the same size and weight props to enforce consistent typograp
 
 ## Typography scale
 
-The typography scale is a 9 step scale where each step has it's corresponding font-size, line-height and letter-spacing value.
+The typography scale is a 10 step scale where each step has its corresponding font-size and line-height value.
+There is no letter-spacing step — ljkui sets no tracking at all, so text keeps whatever your own stylesheet
+specifies.
 
 <table>
   <tr>
     <td>Step</td>
     <td>Size</td>
-    <td>Letter spacing</td>
     <td>Line height</td>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>10px</td>
+    <td>12px</td>
   </tr>
   <tr>
     <td>1</td>
     <td>12px</td>
-    <td>0.0025em</td>
     <td>16px</td>
   </tr>
   <tr>
     <td>2</td>
     <td>14px</td>
-    <td>0em</td>
     <td>20px</td>
   </tr>
   <tr>
     <td>3</td>
     <td>16px</td>
-    <td>0em</td>
     <td>24px</td>
   </tr>
   <tr>
     <td>4</td>
     <td>18px</td>
-    <td>-0.0025em</td>
     <td>26px</td>
   </tr>
   <tr>
     <td>5</td>
     <td>20px</td>
-    <td>-0.005em</td>
     <td>28px</td>
   </tr>
   <tr>
     <td>6</td>
     <td>24px</td>
-    <td>-0.00625em</td>
     <td>30px</td>
   </tr>
   <tr>
     <td>7</td>
     <td>28px</td>
-    <td>-0.0075em</td>
-    <td>36px</td>
+    <td>34px</td>
   </tr>
   <tr>
     <td>8</td>
-    <td>35px</td>
-    <td>-0.01em</td>
-    <td>40px</td>
+    <td>32px</td>
+    <td>38px</td>
   </tr>
   <tr>
     <td>9</td>
-    <td>60px</td>
-    <td>-0.025em</td>
-    <td>60px</td>
+    <td>40px</td>
+    <td>48px</td>
   </tr>
 </table>
 
@@ -102,45 +99,27 @@ The weight scale is a 4 step scale where each step has it's corresponding font-w
 
 ## Font families
 
-<table>
-  <tr>
-    <td>Type</td>
-    <td>Default value</td>
-  </tr>
-  <tr>
-    <td>Text, Heading</td>
-    <td>
-      -apple-system, BlinkMacSystemFont, &#39;Segoe UI (Custom)&#39;, Roboto, &#39;Helvetica Neue&#39;, &#39;Open Sans
-      (Custom)&#39;, system-ui, sans-serif, &#39;Apple Color Emoji&#39;, &#39;Segoe UI Emoji&#39;
-    </td>
-  </tr>
-  <tr>
-    <td>Code</td>
-    <td>
-      &#39;Menlo&#39;, &#39;Consolas (Custom)&#39;, &#39;Bitstream Vera Sans Mono&#39;, monospace, &#39;Apple Color
-      Emoji&#39;, &#39;Segoe UI Emoji&#39;
-    </td>
-  </tr>
-  <tr>
-    <td>Emphasis</td>
-    <td>&#39;Times New Roman&#39;, &#39;Times&#39;, serif</td>
-  </tr>
-  <tr>
-    <td>Quote</td>
-    <td>&#39;Times New Roman&#39;, &#39;Times&#39;, serif</td>
-  </tr>
-</table>
+**ljkui ships no fonts and sets no `font-family`.** There is nothing to override and nothing to undo:
+`<Text>`, `<Heading>`, `<Strong>`, `<Em>` and `<Quote>` all inherit from whatever ancestor your app styles,
+so the components match the rest of your page out of the box. The one exception is `<Code>`, `<Kbd>` and
+`<DateField>`, which use the generic `monospace` keyword — your OS's default mono, not a font ljkui picked.
 
-To change the default fonts just override the following CSS variables:
+Set your type where you set it for everything else:
 
 ```css
-.ljkui {
-  --heading-font-family: 'Adobe Text Pro', serif;
-  --default-font-family: 'Inter', sans-serif;
-  --strong-font-family: 'Inter', sans-serif;
-  --em-font-family: 'Inter', sans-serif;
-  --quote-font-family: 'Inter', sans-serif;
-  --code-font-family: 'Fira Code', monospace;
+body {
+  font-family: 'Inter', sans-serif;
+}
+```
+
+Want a different face for one part of the library? Style the component's class, or wrap it:
+
+```css
+.fui-Heading {
+  font-family: 'Adobe Text Pro', serif;
+}
+.fui-Code {
+  font-family: 'Fira Code', monospace;
 }
 ```
 
@@ -179,11 +158,11 @@ Then define the named font styles and weights by using `@font-face`.
 }
 ```
 
-Then you can override the default font family in CSS in the following way:
+Then apply it to your page, and ljkui follows:
 
 ```css
-.ljkui {
-  --default-font-family: 'Inter', sans-serif;
+body {
+  font-family: 'Inter', sans-serif;
 }
 ```
 
@@ -211,10 +190,10 @@ export default function RootLayout({ children }) {
 }
 ```
 
-Then, just override the CSS variable in your CSS:
+Then, just use the CSS variable on your page:
 
 ```css
-.ljkui {
-  --default-font-family: var(--font-inter), sans-serif;
+body {
+  font-family: var(--font-inter), sans-serif;
 }
 ```

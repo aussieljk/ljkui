@@ -33,14 +33,8 @@ export function App({ children }: { children: React.ReactNode }) {
 
 ### Fonts
 
-Apple platforms get SF Pro automatically. Everywhere else the type scale expects
-[Inter](https://rsms.me/inter/), which the stylesheet names but does not load — add it to your
-document head:
-
-```html
-<link rel="preconnect" href="https://rsms.me/" />
-<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-```
+Nothing to install. ljkui sets no `font-family`, so every component inherits the type you already use —
+whatever you set on `body` (or via `next/font`, or your Tailwind theme) is what the components render in.
 
 ## Your first component
 
