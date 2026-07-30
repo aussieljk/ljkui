@@ -36,4 +36,12 @@ export const examples = {
       </AspectRatio>
     </Card>
   ),
+
+  Preset: (
+    <Card style={{ width: 320 }}>
+      <AspectRatio ratio="video">
+        <Placeholder label="ratio='video'" />
+      </AspectRatio>
+    </Card>
+  ),
 };

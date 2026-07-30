@@ -19,4 +19,8 @@
   &:where(.fui-r-alignment-lastTextBaseline) {
     align-items: last baseline;
   }
+
+  &:where(.fui-wrap) {
+    flex-wrap: wrap;
+  }
 }

@@ -57,3 +57,16 @@ export const Portrait: Story = {
     },
   },
 };
+
+export const Preset: Story = {
+  name: 'Preset',
+  render: () => render(examples['Preset']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { AspectRatio, Card } from \'ljkui\';\n\n(\n    <Card style={{ width: 320 }}>\n      <AspectRatio ratio="video">\n        <Placeholder label="ratio=\'video\'" />\n      </AspectRatio>\n    </Card>\n  )',
+      },
+    },
+  },
+};

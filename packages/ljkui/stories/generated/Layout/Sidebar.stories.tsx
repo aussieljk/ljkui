@@ -54,3 +54,9 @@ export const NotCollapsible: Story = {
   render: () => render(examples['Not collapsible']),
   parameters: { docs: { source: { language: 'tsx', code: '<Shell collapsible="none" />' } } },
 };
+
+export const SubMenusActionsBadgesSkeletons: Story = {
+  name: 'Sub-menus, actions, badges & skeletons',
+  render: () => render(examples['Sub-menus, actions, badges & skeletons']),
+  parameters: { docs: { source: { language: 'tsx', code: '<RichShell />' } } },
+};

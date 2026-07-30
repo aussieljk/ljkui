@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import { cardPropDefs } from './card.props';
+import { Inset } from '../inset';
 
 import type { GetPropDefTypes } from '../../helpers';
 
@@ -23,7 +24,7 @@ interface CardProps extends Omit<React.ComponentProps<'div'>, 'children'>, CardO
  * </Card>
  * ```
  */
-const Card = (props: CardProps) => {
+const CardComponent = (props: CardProps) => {
   const {
     render,
     children,
@@ -45,7 +46,38 @@ const Card = (props: CardProps) => {
     defaultTagName: 'div',
   });
 };
-Card.displayName = 'Card';
+CardComponent.displayName = 'Card';
+
+interface CardMediaProps extends React.ComponentProps<'div'> {
+  /**
+   * Which side(s) the media bleeds into the card's padding, rounding the matching corners.
+   * @default 'top'
+   */
+  side?: 'top' | 'bottom' | 'x' | 'y' | 'all';
+  children?: React.ReactNode;
+}
+
+/**
+ * Media (an `<img>`, `<video>` or any children) that bleeds to the card's edges and clips to its
+ * inner radius — the top of a media card. Built on top of `Inset`.
+ *
+ * @example
+ * ```tsx
+ * <Card size="2">
+ *   <Card.Media>
+ *     <img src="/cover.jpg" alt="" />
+ *   </Card.Media>
+ *   <Text>Card title</Text>
+ * </Card>
+ * ```
+ */
+const CardMedia = (props: CardMediaProps) => {
+  const { className, side = 'top', ...mediaProps } = props;
+  return <Inset {...mediaProps} side={side} className={classNames('fui-CardMedia', className)} />;
+};
+CardMedia.displayName = 'Card.Media';
+
+const Card = Object.assign(CardComponent, { Media: CardMedia });
 
 export { Card };
-export type { CardProps };
+export type { CardProps, CardMediaProps };

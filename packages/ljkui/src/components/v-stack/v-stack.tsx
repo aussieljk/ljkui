@@ -3,12 +3,18 @@ import * as React from 'react';
 
 import { vStackPropDefs } from './v-stack.props';
 
+import { interleaveSeparator } from '../../helpers';
+
 import type { GetPropDefTypes } from '../../helpers';
 
 type VStackOwnProps = GetPropDefTypes<typeof vStackPropDefs>;
 interface VStackProps extends React.ComponentProps<'div'>, VStackOwnProps {
   /** The spacing between children, in pixels. Falls back to the stack's default 8px gap when omitted. */
   spacing?: number;
+  /** When true, children wrap onto new lines instead of overflowing (`flex-wrap: wrap`). */
+  wrap?: boolean;
+  /** A node rendered between each child (never before the first or after the last). */
+  separator?: React.ReactNode;
 }
 
 /**
@@ -23,13 +29,25 @@ interface VStackProps extends React.ComponentProps<'div'>, VStackOwnProps {
  * </VStack>
  */
 const VStack = (props: VStackProps) => {
-  const { className, style, spacing, alignment = vStackPropDefs.alignment.default, ...stackProps } = props;
+  const {
+    className,
+    style,
+    spacing,
+    wrap,
+    separator,
+    children,
+    alignment = vStackPropDefs.alignment.default,
+    ...stackProps
+  } = props;
+  const content = separator !== undefined ? interleaveSeparator(children, separator) : children;
   return (
     <div
       {...stackProps}
-      className={classNames('fui-VStack', className, `fui-r-alignment-${alignment}`)}
+      className={classNames('fui-VStack', className, `fui-r-alignment-${alignment}`, wrap && 'fui-wrap')}
       style={spacing !== undefined ? { gap: spacing, ...style } : style}
-    />
+    >
+      {content}
+    </div>
   );
 };
 VStack.displayName = 'VStack';

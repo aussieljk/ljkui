@@ -27,4 +27,15 @@ function HStackFixture() {
   );
 }
 
-export const examples = { Example: HStackFixture };
+function SeparatorFixture() {
+  const divider = <div style={{ alignSelf: 'stretch', width: 1, background: 'var(--gray-a5)' }} />;
+  return (
+    <HStack spacing={8} separator={divider}>
+      <Box height={40}>1</Box>
+      <Box height={40}>2</Box>
+      <Box height={40}>3</Box>
+    </HStack>
+  );
+}
+
+export const examples = { Example: HStackFixture, Separator: SeparatorFixture };

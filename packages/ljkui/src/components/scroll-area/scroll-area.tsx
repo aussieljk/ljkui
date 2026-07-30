@@ -52,13 +52,78 @@ function ScrollArea(props: ScrollAreaProps) {
     size = scrollAreaPropDefs.size.default,
     scrollbars = scrollAreaPropDefs.scrollbars.default,
     type = scrollAreaPropDefs.type.default,
+    fadeEdges = scrollAreaPropDefs.fadeEdges.default,
     ...rootProps
   } = props;
 
+  // Normalize `fadeEdges` to which axis (if any) should render fade masks.
+  const fadeAxis = fadeEdges === true ? 'vertical' : fadeEdges === false ? undefined : fadeEdges;
+
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const viewportRef = React.useRef<HTMLDivElement>(null);
+
+  // Merge our internal viewport ref with the forwarded one.
+  const mergedViewportRef = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      viewportRef.current = node;
+      if (typeof ref === 'function') ref(node);
+      else if (ref) (ref as React.RefObject<HTMLDivElement | null>).current = node;
+    },
+    [ref],
+  );
+
+  React.useEffect(() => {
+    if (!fadeAxis) return;
+    if (typeof window === 'undefined') return;
+
+    const viewport = viewportRef.current;
+    const root = rootRef.current;
+    if (!viewport || !root) return;
+
+    const update = () => {
+      const { scrollTop, scrollLeft, scrollHeight, scrollWidth, clientHeight, clientWidth } = viewport;
+      const setFlag = (name: string, on: boolean) => {
+        if (on) root.setAttribute(name, '');
+        else root.removeAttribute(name);
+      };
+      // Allow a 1px tolerance for sub-pixel rounding.
+      setFlag('data-can-scroll-up', scrollTop > 1);
+      setFlag('data-can-scroll-down', scrollTop + clientHeight < scrollHeight - 1);
+      setFlag('data-can-scroll-left', scrollLeft > 1);
+      setFlag('data-can-scroll-right', scrollLeft + clientWidth < scrollWidth - 1);
+    };
+
+    update();
+    viewport.addEventListener('scroll', update, { passive: true });
+
+    let observer: ResizeObserver | undefined;
+    if (typeof ResizeObserver !== 'undefined') {
+      observer = new ResizeObserver(update);
+      observer.observe(viewport);
+      const content = viewport.firstElementChild;
+      if (content) observer.observe(content);
+    }
+
+    return () => {
+      viewport.removeEventListener('scroll', update);
+      observer?.disconnect();
+      root.removeAttribute('data-can-scroll-up');
+      root.removeAttribute('data-can-scroll-down');
+      root.removeAttribute('data-can-scroll-left');
+      root.removeAttribute('data-can-scroll-right');
+    };
+  }, [fadeAxis]);
+
   return (
-    <ScrollAreaPrimitive.Root {...rootProps} className={classNames('fui-ScrollAreaRoot', className)} style={style}>
+    <ScrollAreaPrimitive.Root
+      {...rootProps}
+      ref={rootRef}
+      className={classNames('fui-ScrollAreaRoot', className)}
+      style={style}
+      data-fade-edges={fadeAxis}
+    >
       <ScrollAreaPrimitive.Viewport
-        ref={ref}
+        ref={mergedViewportRef}
         className="fui-ScrollAreaViewport"
         style={{ overflow: viewportOverflowStyle[scrollbars] }}
         // Base UI sets tabIndex={0} on the viewport, but we override it to restore default

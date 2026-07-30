@@ -8,7 +8,9 @@ export default {
     // TODO: enable this and fix specificity issues
     // 'selector-max-specificity': ['0,1,1'],
     // Enforce prefixes on classnames and keyframes
-    'selector-class-pattern': /^-?fui-|^ljkui$|^(light|dark)(-theme)?$/,
+    // The optional `(xs|sm|md|lg|xl):` prefix matches the responsive classes emitted by
+    // `withBreakpoints` (e.g. `md:fui-r-size-3`), used by Container/Section/Bleed.
+    'selector-class-pattern': /^((xs|sm|md|lg|xl):)?-?fui-|^ljkui$|^(light|dark)(-theme)?$/,
     'keyframes-name-pattern': /^fui-([a-z]|-)+$/,
   },
 };

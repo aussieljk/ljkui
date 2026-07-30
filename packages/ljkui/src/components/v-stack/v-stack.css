@@ -13,4 +13,8 @@
   &:where(.fui-r-alignment-trailing) {
     align-items: flex-end;
   }
+
+  &:where(.fui-wrap) {
+    flex-wrap: wrap;
+  }
 }

@@ -27,6 +27,10 @@
 
     /* Keep the leading icon, drop the label that follows it. */
     & .fui-SidebarGroupLabel,
+    & .fui-SidebarGroupAction,
+    & .fui-SidebarMenuAction,
+    & .fui-SidebarMenuBadge,
+    & .fui-SidebarMenuSub,
     & .fui-SidebarMenuButton > :not(:first-child) {
       display: none;
     }
@@ -89,6 +93,7 @@
 }
 
 .fui-SidebarGroup {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
@@ -109,6 +114,10 @@
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.fui-SidebarMenuItem {
+  position: relative;
 }
 
 .fui-SidebarMenuButton {
@@ -169,6 +178,181 @@
   flex-direction: column;
   flex: 1;
   min-width: 0;
+}
+
+.fui-SidebarGroupContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.fui-SidebarGroupAction {
+  position: absolute;
+  inset-block-start: var(--space-1);
+  inset-inline-end: var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-5);
+  height: var(--space-5);
+  border-radius: var(--radius-2);
+  color: var(--gray-alpha-900);
+  cursor: default;
+
+  &:where(:hover) {
+    background-color: var(--gray-alpha-100);
+    color: var(--gray-950);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus-root);
+    outline-offset: -1px;
+  }
+}
+
+.fui-SidebarMenuAction {
+  position: absolute;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  inset-inline-end: var(--space-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-5);
+  height: var(--space-5);
+  border-radius: var(--radius-2);
+  color: var(--gray-alpha-900);
+  cursor: default;
+
+  &:where(:hover) {
+    background-color: var(--gray-alpha-200);
+    color: var(--gray-950);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus-root);
+    outline-offset: -1px;
+  }
+
+  &[data-show-on-hover] {
+    opacity: 0;
+    transition: opacity 120ms ease;
+  }
+
+  .fui-SidebarMenuItem:hover &[data-show-on-hover],
+  .fui-SidebarMenuItem:focus-within &[data-show-on-hover],
+  &[data-show-on-hover]:focus-visible {
+    opacity: 1;
+  }
+}
+
+.fui-SidebarMenuBadge {
+  position: absolute;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  inset-inline-end: var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--space-5);
+  height: var(--space-4);
+  padding-inline: var(--space-1);
+  border-radius: var(--radius-2);
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-alpha-900);
+  pointer-events: none;
+  user-select: none;
+}
+
+.fui-SidebarMenuSkeleton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--space-6);
+  padding-inline: var(--space-2);
+}
+
+.fui-SidebarMenuSkeletonIcon {
+  flex-shrink: 0;
+  width: var(--space-4);
+  height: var(--space-4);
+  border-radius: var(--radius-2);
+}
+
+.fui-SidebarMenuSkeletonText {
+  flex: 1;
+  max-width: 70%;
+
+  /* Index-derived widths so successive rows look uneven without Math.random. */
+  .fui-SidebarMenuItem:nth-child(3n + 1) & {
+    max-width: 60%;
+  }
+  .fui-SidebarMenuItem:nth-child(3n + 2) & {
+    max-width: 80%;
+  }
+  .fui-SidebarMenuItem:nth-child(3n) & {
+    max-width: 50%;
+  }
+}
+
+.fui-SidebarMenuSub {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  list-style: none;
+  margin: var(--space-1) 0 0;
+  padding: 0;
+  margin-inline-start: var(--space-3);
+  padding-inline-start: var(--space-2);
+  border-inline-start: 1px solid var(--gray-alpha-200);
+}
+
+.fui-SidebarMenuSubItem {
+  position: relative;
+}
+
+.fui-SidebarMenuSubButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  height: var(--space-6);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-2);
+  font-size: var(--font-size-2);
+  color: var(--gray-alpha-900);
+  text-align: start;
+  text-decoration: none;
+  cursor: default;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+
+  &[data-size='sm'] {
+    height: var(--space-5);
+    font-size: var(--font-size-1);
+  }
+
+  &:where(:hover) {
+    background-color: var(--gray-alpha-100);
+    color: var(--gray-950);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus-root);
+    outline-offset: -1px;
+  }
+
+  &[data-active] {
+    background-color: var(--accent-alpha-200);
+    color: var(--accent-950);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.fui-SidebarInput {
+  width: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {

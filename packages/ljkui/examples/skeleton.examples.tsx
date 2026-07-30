@@ -114,6 +114,50 @@ export const examples = {
     return <Skeleton.Avatar />;
   },
 
+  'Box (auto-size from content)'() {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', alignItems: 'flex-start' }}>
+        <Skeleton.Box>
+          <Typography.Heading size="6">Ada Lovelace</Typography.Heading>
+        </Skeleton.Box>
+        <Skeleton.Box>
+          <Typography.Text size="2">Enchantress of numbers, first programmer.</Typography.Text>
+        </Skeleton.Box>
+        <Skeleton.Box>
+          <Button>Follow</Button>
+        </Skeleton.Box>
+      </div>
+    );
+  },
+
+  'Box (loaded vs loading)'() {
+    return (
+      <div style={{ display: 'flex', gap: 'var(--space-6)', alignItems: 'flex-start' }}>
+        {[true, false].map((loading) => (
+          <Card key={String(loading)} style={{ width: 220 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+              <Skeleton.Box loading={loading}>
+                <Avatar size="3" fallback="AL" />
+              </Skeleton.Box>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+                <Skeleton.Box loading={loading}>
+                  <Typography.Text size="2" weight="medium">
+                    Ada Lovelace
+                  </Typography.Text>
+                </Skeleton.Box>
+                <Skeleton.Box loading={loading}>
+                  <Typography.Text size="1" color="gray">
+                    @ada
+                  </Typography.Text>
+                </Skeleton.Box>
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+    );
+  },
+
   'Avatar sizes'() {
     const args = {
       color: skeletonAvatarPropDefs.color.default,

@@ -69,6 +69,32 @@ export const Avatar: Story = {
   },
 };
 
+export const BoxAutoSizeFromContent: Story = {
+  name: 'Box (auto-size from content)',
+  render: () => render(examples['Box (auto-size from content)']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, Skeleton, Typography } from 'ljkui';\n\n<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', alignItems: 'flex-start' }}>\n  <Skeleton.Box>\n    <Typography.Heading size=\"6\">Ada Lovelace</Typography.Heading>\n  </Skeleton.Box>\n  <Skeleton.Box>\n    <Typography.Text size=\"2\">Enchantress of numbers, first programmer.</Typography.Text>\n  </Skeleton.Box>\n  <Skeleton.Box>\n    <Button>Follow</Button>\n  </Skeleton.Box>\n</div>",
+      },
+    },
+  },
+};
+
+export const BoxLoadedVsLoading: Story = {
+  name: 'Box (loaded vs loading)',
+  render: () => render(examples['Box (loaded vs loading)']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Avatar, Card, Skeleton, Typography } from 'ljkui';\n\n<div style={{ display: 'flex', gap: 'var(--space-6)', alignItems: 'flex-start' }}>\n  {[true, false].map((loading) => (\n    <Card key={String(loading)} style={{ width: 220 }}>\n      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>\n        <Skeleton.Box loading={loading}>\n          <Avatar size=\"3\" fallback=\"AL\" />\n        </Skeleton.Box>\n        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>\n          <Skeleton.Box loading={loading}>\n            <Typography.Text size=\"2\" weight=\"medium\">\n              Ada Lovelace\n            </Typography.Text>\n          </Skeleton.Box>\n          <Skeleton.Box loading={loading}>\n            <Typography.Text size=\"1\" color=\"gray\">\n              @ada\n            </Typography.Text>\n          </Skeleton.Box>\n        </div>\n      </div>\n    </Card>\n  ))}\n</div>",
+      },
+    },
+  },
+};
+
 export const AvatarSizes: Story = {
   name: 'Avatar sizes',
   render: () => render(examples['Avatar sizes']),

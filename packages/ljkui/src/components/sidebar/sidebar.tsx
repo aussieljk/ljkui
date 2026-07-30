@@ -5,8 +5,11 @@ import * as React from 'react';
 
 import type { GetPropDefTypes } from '../../helpers';
 import { IconButton } from '../icon-button';
+import { Input } from '../input';
 import { Separator as SeparatorComponent } from '../separator';
 import { Sheet } from '../sheet';
+import { Skeleton } from '../skeleton';
+import { Tooltip } from '../tooltip';
 import { sidebarPropDefs } from './sidebar.props';
 
 const MOBILE_BREAKPOINT = '(max-width: 767px)';
@@ -280,15 +283,158 @@ interface SidebarMenuButtonProps extends React.ComponentPropsWithoutRef<'button'
   isActive?: boolean;
   /** Replaces the `<button>` with your own element — a router `Link`, typically. */
   render?: React.ReactElement<React.HTMLAttributes<HTMLElement>>;
+  /**
+   * A label shown in a tooltip on the right when the sidebar is collapsed to its icon rail.
+   * Ignored while the sidebar is expanded.
+   */
+  tooltip?: React.ReactNode;
 }
 
 /** The clickable target of a menu entry. */
 const SidebarMenuButton = (props: SidebarMenuButtonProps) => {
-  const { className, isActive, render, ...buttonProps } = props;
+  const { className, isActive, render, tooltip, ...buttonProps } = props;
+  const { open, isMobile } = useSidebar();
   const sharedProps = {
     'data-active': isActive ? '' : undefined,
     'aria-current': isActive ? ('page' as const) : undefined,
     className: classNames('fui-reset', 'fui-SidebarMenuButton', className),
+  };
+
+  const button = render ? (
+    React.cloneElement(render, {
+      ...buttonProps,
+      ...sharedProps,
+      className: classNames(sharedProps.className, render.props.className),
+    })
+  ) : (
+    <button type="button" {...buttonProps} {...sharedProps} />
+  );
+
+  if (tooltip == null) return button;
+
+  return (
+    <Tooltip content={tooltip} side="right" disabled={open || isMobile}>
+      {button}
+    </Tooltip>
+  );
+};
+SidebarMenuButton.displayName = 'SidebarMenuButton';
+
+interface SidebarGroupActionProps extends React.ComponentPropsWithoutRef<'button'> {
+  /** Replaces the `<button>` with your own element. */
+  render?: React.ReactElement<React.HTMLAttributes<HTMLElement>>;
+}
+
+/** An action button pinned to the top-right corner of a `Group` — an "add" affordance, usually. */
+const SidebarGroupAction = (props: SidebarGroupActionProps) => {
+  const { className, render, ...actionProps } = props;
+  const sharedProps = { className: classNames('fui-reset', 'fui-SidebarGroupAction', className) };
+
+  if (render) {
+    return React.cloneElement(render, {
+      ...actionProps,
+      ...sharedProps,
+      className: classNames(sharedProps.className, render.props.className),
+    });
+  }
+  return <button type="button" {...actionProps} {...sharedProps} />;
+};
+SidebarGroupAction.displayName = 'SidebarGroupAction';
+
+/** A wrapper around a group's content, below its label. */
+const SidebarGroupContent = (props: SidebarSectionProps) => {
+  const { className, ...contentProps } = props;
+  return <div {...contentProps} className={classNames('fui-SidebarGroupContent', className)} />;
+};
+SidebarGroupContent.displayName = 'SidebarGroupContent';
+
+interface SidebarMenuActionProps extends React.ComponentPropsWithoutRef<'button'> {
+  /** Only reveal the action when the menu row is hovered or focused. */
+  showOnHover?: boolean;
+  /** Replaces the `<button>` with your own element. */
+  render?: React.ReactElement<React.HTMLAttributes<HTMLElement>>;
+}
+
+/** An action button pinned to the right edge of a `MenuButton` row — a "more" menu, usually. */
+const SidebarMenuAction = (props: SidebarMenuActionProps) => {
+  const { className, showOnHover, render, ...actionProps } = props;
+  const sharedProps = {
+    'data-show-on-hover': showOnHover ? '' : undefined,
+    className: classNames('fui-reset', 'fui-SidebarMenuAction', className),
+  };
+
+  if (render) {
+    return React.cloneElement(render, {
+      ...actionProps,
+      ...sharedProps,
+      className: classNames(sharedProps.className, render.props.className),
+    });
+  }
+  return <button type="button" {...actionProps} {...sharedProps} />;
+};
+SidebarMenuAction.displayName = 'SidebarMenuAction';
+
+interface SidebarMenuBadgeProps extends React.ComponentPropsWithoutRef<'div'> {}
+
+/** A count or label pinned to the right edge of a menu row. */
+const SidebarMenuBadge = (props: SidebarMenuBadgeProps) => {
+  const { className, ...badgeProps } = props;
+  return <div {...badgeProps} className={classNames('fui-SidebarMenuBadge', className)} />;
+};
+SidebarMenuBadge.displayName = 'SidebarMenuBadge';
+
+interface SidebarMenuSkeletonProps extends React.ComponentPropsWithoutRef<'div'> {
+  /** Also render a placeholder for the leading icon. */
+  showIcon?: boolean;
+}
+
+/** A placeholder menu row shown while navigation data loads. */
+const SidebarMenuSkeleton = (props: SidebarMenuSkeletonProps) => {
+  const { className, showIcon, ...skeletonProps } = props;
+  return (
+    <div {...skeletonProps} className={classNames('fui-SidebarMenuSkeleton', className)}>
+      {showIcon ? <Skeleton.Rect className="fui-SidebarMenuSkeletonIcon" /> : null}
+      <Skeleton.Text className="fui-SidebarMenuSkeletonText" size="2" />
+    </div>
+  );
+};
+SidebarMenuSkeleton.displayName = 'SidebarMenuSkeleton';
+
+interface SidebarMenuSubProps extends React.ComponentPropsWithoutRef<'ul'> {}
+
+/** A nested, indented list of sub-entries beneath a menu row. Hidden in the icon rail. */
+const SidebarMenuSub = (props: SidebarMenuSubProps) => {
+  const { className, ...subProps } = props;
+  return <ul {...subProps} className={classNames('fui-SidebarMenuSub', className)} />;
+};
+SidebarMenuSub.displayName = 'SidebarMenuSub';
+
+interface SidebarMenuSubItemProps extends React.ComponentPropsWithoutRef<'li'> {}
+
+/** One entry in a `MenuSub`. */
+const SidebarMenuSubItem = (props: SidebarMenuSubItemProps) => {
+  const { className, ...itemProps } = props;
+  return <li {...itemProps} className={classNames('fui-SidebarMenuSubItem', className)} />;
+};
+SidebarMenuSubItem.displayName = 'SidebarMenuSubItem';
+
+interface SidebarMenuSubButtonProps extends React.ComponentPropsWithoutRef<'a'> {
+  /** Marks this sub-entry as the current page. */
+  isActive?: boolean;
+  /** The row height. */
+  size?: 'sm' | 'md';
+  /** Replaces the `<a>` with your own element — a router `Link`, typically. */
+  render?: React.ReactElement<React.HTMLAttributes<HTMLElement>>;
+}
+
+/** The clickable target of a sub-menu entry. */
+const SidebarMenuSubButton = (props: SidebarMenuSubButtonProps) => {
+  const { className, isActive, size = 'md', render, ...buttonProps } = props;
+  const sharedProps = {
+    'data-active': isActive ? '' : undefined,
+    'data-size': size,
+    'aria-current': isActive ? ('page' as const) : undefined,
+    className: classNames('fui-reset', 'fui-SidebarMenuSubButton', className),
   };
 
   if (render) {
@@ -298,9 +444,22 @@ const SidebarMenuButton = (props: SidebarMenuButtonProps) => {
       className: classNames(sharedProps.className, render.props.className),
     });
   }
-  return <button type="button" {...buttonProps} {...sharedProps} />;
+  return <a {...buttonProps} {...sharedProps} />;
 };
-SidebarMenuButton.displayName = 'SidebarMenuButton';
+SidebarMenuSubButton.displayName = 'SidebarMenuSubButton';
+
+type SidebarInputProps = React.ComponentProps<typeof Input.Control>;
+
+/** A text field styled for the sidebar header — a search box, usually. Wraps the library `Input`. */
+const SidebarInput = (props: SidebarInputProps) => {
+  const { className, ...inputProps } = props;
+  return (
+    <Input.Root className="fui-SidebarInput">
+      <Input.Control {...inputProps} className={className} />
+    </Input.Root>
+  );
+};
+SidebarInput.displayName = 'SidebarInput';
 
 type SidebarSeparatorProps = React.ComponentProps<typeof SeparatorComponent>;
 
@@ -317,12 +476,21 @@ export {
   SidebarContent as Content,
   SidebarFooter as Footer,
   SidebarGroup as Group,
+  SidebarGroupAction as GroupAction,
+  SidebarGroupContent as GroupContent,
   SidebarGroupLabel as GroupLabel,
   SidebarHeader as Header,
+  SidebarInput as Input,
   SidebarInset as Inset,
   SidebarMenu as Menu,
+  SidebarMenuAction as MenuAction,
+  SidebarMenuBadge as MenuBadge,
   SidebarMenuButton as MenuButton,
   SidebarMenuItem as MenuItem,
+  SidebarMenuSkeleton as MenuSkeleton,
+  SidebarMenuSub as MenuSub,
+  SidebarMenuSubButton as MenuSubButton,
+  SidebarMenuSubItem as MenuSubItem,
   SidebarProvider as Provider,
   SidebarRail as Rail,
   SidebarRoot as Root,
@@ -331,10 +499,18 @@ export {
   useSidebar,
 };
 export type {
+  SidebarGroupActionProps as GroupActionProps,
+  SidebarInputProps as InputProps,
   SidebarInsetProps as InsetProps,
+  SidebarMenuActionProps as MenuActionProps,
+  SidebarMenuBadgeProps as MenuBadgeProps,
   SidebarMenuButtonProps as MenuButtonProps,
   SidebarMenuItemProps as MenuItemProps,
   SidebarMenuProps as MenuProps,
+  SidebarMenuSkeletonProps as MenuSkeletonProps,
+  SidebarMenuSubButtonProps as MenuSubButtonProps,
+  SidebarMenuSubItemProps as MenuSubItemProps,
+  SidebarMenuSubProps as MenuSubProps,
   SidebarProviderProps as ProviderProps,
   SidebarRailProps as RailProps,
   SidebarRootProps as RootProps,

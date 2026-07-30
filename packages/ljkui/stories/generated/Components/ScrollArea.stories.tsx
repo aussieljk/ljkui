@@ -31,6 +31,12 @@ const meta = {
       table: { type: { summary: '"auto" | "always" | "scroll" | "hover"' }, defaultValue: { summary: 'hover' } },
       control: false,
     },
+    fadeEdges: {
+      description:
+        'Fades the scrollable edges with a gradient mask that only appears when there is more content to scroll in that direction. - `false` - no fade masks (default) - `true` - fade the top/bottom edges (equivalent to `"vertical"`) - `"vertical"` - fade the top/bottom edges - `"horizontal"` - fade the left/right edges',
+      table: { type: { summary: '"false" | "true" | "vertical" | "horizontal"' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
   },
 } satisfies Meta;
 
@@ -59,6 +65,19 @@ export const TypeVisibilityBehavior: Story = {
       source: {
         language: 'tsx',
         code: 'import { ScrollArea, scrollAreaPropDefs, Typography } from \'ljkui\';\n\nconst args = { size: scrollAreaPropDefs.size.default };\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-6)\', alignItems: \'center\' }}>\n    <Typography.Text render={<div />} style={{ maxWidth: 500, textAlign: \'center\' }}>\n      The <Typography.Code>type</Typography.Code> prop controls scrollbar visibility, similar to macOS scrollbar\n      preferences.\n    </Typography.Text>\n\n    <div style={{ display: \'grid\', gridTemplateColumns: \'repeat(2, 1fr)\', gap: \'var(--space-4)\' }}>\n      <div>\n        <Typography.Text size="2" weight="bold" render={<div />} style={{ marginBottom: \'var(--space-2)\' }}>\n          type="hover" (default)\n        </Typography.Text>\n        <Typography.Text size="1" color="gray" render={<div />} style={{ marginBottom: \'var(--space-2)\' }}>\n          Visible on hover or scroll\n        </Typography.Text>\n        <ScrollArea\n          {...args}\n          type="hover"\n          scrollbars="vertical"\n          style={{ height: 80, width: 200, background: \'var(--gray-alpha-100)\' }}\n        >\n          <div style={{ padding: \'var(--space-2)\' }}>\n            <Typography.Text size="2">\n              Hover over this area or scroll to see the scrollbar appear. It fades out when you stop interacting.\n            </Typography.Text>\n          </div>\n        </ScrollArea>\n      </div>\n\n      <div>\n        <Typography.Text size="2" weight="bold" render={<div />} style={{ marginBottom: \'var(--space-2)\' }}>\n          type="scroll"\n        </Typography.Text>\n        <Typography.Text size="1" color="gray" render={<div />} style={{ marginBottom: \'var(--space-2)\' }}>\n          Visible only while scrolling\n        </Typography.Text>\n        <ScrollArea\n          {...args}\n          type="scroll"\n          scrollbars="vertical"\n          style={{ height: 80, width: 200, background: \'var(--gray-alpha-100)\' }}\n        >\n          <div style={{ padding: \'var(--space-2)\' }}>\n            <Typography.Text size="2">\n              The scrollbar only appears while you are actively scrolling. Try scrolling with your mouse wheel or\n              trackpad.\n            </Typography.Text>\n          </div>\n        </ScrollArea>\n      </div>\n\n      <div>\n        <Typography.Text size="2" weight="bold" render={<div />} style={{ marginBottom: \'var(--space-2)\' }}>\n          type="auto"\n        </Typography.Text>\n        <Typography.Text size="1" color="gray" render={<div />} style={{ marginBottom: \'var(--space-2)\' }}>\n          Visible when content overflows\n        </Typography.Text>\n        <ScrollArea\n          {...args}\n          type="auto"\n          scrollbars="vertical"\n          style={{ height: 80, width: 200, background: \'var(--gray-alpha-100)\' }}\n        >\n          <div style={{ padding: \'var(--space-2)\' }}>\n            <Typography.Text size="2">\n              The scrollbar is always visible as long as the content overflows the container. No interaction needed.\n            </Typography.Text>\n          </div>\n        </ScrollArea>\n      </div>\n\n      <div>\n        <Typography.Text size="2" weight="bold" render={<div />} style={{ marginBottom: \'var(--space-2)\' }}>\n          type="always"\n        </Typography.Text>\n        <Typography.Text size="1" color="gray" render={<div />} style={{ marginBottom: \'var(--space-2)\' }}>\n          Always visible\n        </Typography.Text>\n        <ScrollArea\n          {...args}\n          type="always"\n          scrollbars="vertical"\n          style={{ height: 280, width: 200, background: \'var(--gray-alpha-100)\' }}\n        >\n          <div style={{ padding: \'var(--space-2)\' }}>\n            <Typography.Text size="2">\n              The scrollbar is always visible, even if the content doesn\'t overflow.\n            </Typography.Text>\n          </div>\n        </ScrollArea>\n      </div>\n    </div>\n  </div>\n);',
+      },
+    },
+  },
+};
+
+export const FadeEdges: Story = {
+  name: 'Fade Edges',
+  render: () => render(examples['Fade Edges']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { ScrollArea, Typography } from 'ljkui';\n\n<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>\n  <Typography.Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>\n    The <Typography.Code>fadeEdges</Typography.Code> prop fades the scrollable edges with a gradient mask that\n    only appears when there is more content to scroll in that direction.\n  </Typography.Text>\n\n  <ScrollArea\n    fadeEdges\n    type=\"hover\"\n    scrollbars=\"vertical\"\n    style={{ height: 200, width: 320, background: 'var(--gray-alpha-100)', borderRadius: 'var(--radius-3)' }}\n  >\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', padding: 'var(--space-4)' }}>\n      {Array.from({ length: 12 }, (_, i) => (\n        <Typography.Text key={i} size=\"2\" trim=\"both\">\n          {i + 1}. Vernacular architecture is building done outside any academic tradition, and without\n          professional guidance. It serves immediate, local needs and reflects local traditions and cultural\n          practices.\n        </Typography.Text>\n      ))}\n    </div>\n  </ScrollArea>\n</div>",
       },
     },
   },

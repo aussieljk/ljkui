@@ -30,6 +30,56 @@
   }
 }
 
+/***************************************************************************************************
+ *                                                                                                 *
+ * FADE EDGES - Gradient masks that appear only when there is more content to scroll               *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-ScrollAreaRoot:where([data-fade-edges]) {
+  --fade-size: 24px;
+  /* Opaque start/end stops per edge; overridden to the fade size when scrollable. */
+  --fade-top: 0px;
+  --fade-bottom: 0px;
+  --fade-left: 0px;
+  --fade-right: 0px;
+
+  &:where([data-can-scroll-up]) {
+    --fade-top: var(--fade-size);
+  }
+  &:where([data-can-scroll-down]) {
+    --fade-bottom: var(--fade-size);
+  }
+  &:where([data-can-scroll-left]) {
+    --fade-left: var(--fade-size);
+  }
+  &:where([data-can-scroll-right]) {
+    --fade-right: var(--fade-size);
+  }
+
+  &:where([data-fade-edges='vertical']) .fui-ScrollAreaViewport {
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 var(--fade-top),
+      #000 calc(100% - var(--fade-bottom)),
+      transparent 100%
+    );
+    transition: mask-image 150ms ease-out;
+  }
+
+  &:where([data-fade-edges='horizontal']) .fui-ScrollAreaViewport {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 var(--fade-left),
+      #000 calc(100% - var(--fade-right)),
+      transparent 100%
+    );
+    transition: mask-image 150ms ease-out;
+  }
+}
+
 .fui-ScrollAreaScrollbar {
   display: flex;
   /* Ensures no selection */

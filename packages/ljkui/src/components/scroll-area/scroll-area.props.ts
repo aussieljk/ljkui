@@ -3,6 +3,7 @@ import type { PropDef } from '../../helpers';
 const sizes = ['1', '2', '3'] as const;
 const scrollbarsValues = ['vertical', 'horizontal', 'both'] as const;
 const typeValues = ['auto', 'always', 'scroll', 'hover'] as const;
+const fadeEdgesValues = ['vertical', 'horizontal'] as const;
 
 const scrollAreaPropDefs = {
   /**
@@ -26,10 +27,22 @@ const scrollAreaPropDefs = {
    * @default 'hover'
    */
   type: { type: 'enum', values: typeValues, default: 'hover' },
+  /**
+   * Fades the scrollable edges with a gradient mask that only appears when there
+   * is more content to scroll in that direction.
+   *
+   * - `false` - no fade masks (default)
+   * - `true` - fade the top/bottom edges (equivalent to `"vertical"`)
+   * - `"vertical"` - fade the top/bottom edges
+   * - `"horizontal"` - fade the left/right edges
+   * @default false
+   */
+  fadeEdges: { type: 'enum', values: [false, true, ...fadeEdgesValues], default: false },
 } satisfies {
   size: PropDef<(typeof sizes)[number]>;
   scrollbars: PropDef<(typeof scrollbarsValues)[number]>;
   type: PropDef<(typeof typeValues)[number]>;
+  fadeEdges: PropDef<boolean | (typeof fadeEdgesValues)[number]>;
 };
 
 export { scrollAreaPropDefs };

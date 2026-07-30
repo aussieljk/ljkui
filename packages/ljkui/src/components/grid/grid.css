@@ -7,8 +7,9 @@
   justify-items: var(--grid-justify-items);
   align-items: var(--grid-align-items);
 
-  /* Direct children (rows, and views that are not rows) span every column, like SwiftUI. */
-  & > :where(*) {
+  /* Direct children (rows, and views that are not rows) span every column, like SwiftUI.
+     Skipped in uniform-columns mode, where children flow into the tracks themselves. */
+  &:where(:not(.fui-Grid--columns)) > :where(*) {
     grid-column: 1 / -1;
   }
 
@@ -70,4 +71,85 @@
   grid-template-columns: subgrid;
   justify-items: var(--grid-justify-items, center);
   align-items: var(--grid-align-items, center);
+}
+
+/* Uniform-columns mode: `grid-template-columns` and `gap` are driven by per-breakpoint
+   custom properties set inline (see grid.tsx `responsiveVars`). Each breakpoint reads the
+   nearest value defined at or below it via a var() fallback chain. */
+.fui-Grid:where(.fui-Grid--columns) {
+  grid-template-columns: var(--gc-i);
+}
+.fui-Grid:where(.fui-Grid--gap) {
+  gap: var(--gg-i);
+}
+.fui-GridItem {
+  grid-column: var(--gcs-i, auto) / span var(--gcp-i, 1);
+  grid-row: var(--grs-i, auto) / span var(--grp-i, 1);
+}
+
+@media (--xs) {
+  .fui-Grid:where(.fui-Grid--columns) {
+    grid-template-columns: var(--gc-xs, var(--gc-i));
+  }
+  .fui-Grid:where(.fui-Grid--gap) {
+    gap: var(--gg-xs, var(--gg-i));
+  }
+  .fui-GridItem {
+    grid-column: var(--gcs-xs, var(--gcs-i, auto)) / span var(--gcp-xs, var(--gcp-i, 1));
+    grid-row: var(--grs-xs, var(--grs-i, auto)) / span var(--grp-xs, var(--grp-i, 1));
+  }
+}
+@media (--sm) {
+  .fui-Grid:where(.fui-Grid--columns) {
+    grid-template-columns: var(--gc-sm, var(--gc-xs, var(--gc-i)));
+  }
+  .fui-Grid:where(.fui-Grid--gap) {
+    gap: var(--gg-sm, var(--gg-xs, var(--gg-i)));
+  }
+  .fui-GridItem {
+    grid-column: var(--gcs-sm, var(--gcs-xs, var(--gcs-i, auto))) / span var(--gcp-sm, var(--gcp-xs, var(--gcp-i, 1)));
+    grid-row: var(--grs-sm, var(--grs-xs, var(--grs-i, auto))) / span var(--grp-sm, var(--grp-xs, var(--grp-i, 1)));
+  }
+}
+@media (--md) {
+  .fui-Grid:where(.fui-Grid--columns) {
+    grid-template-columns: var(--gc-md, var(--gc-sm, var(--gc-xs, var(--gc-i))));
+  }
+  .fui-Grid:where(.fui-Grid--gap) {
+    gap: var(--gg-md, var(--gg-sm, var(--gg-xs, var(--gg-i))));
+  }
+  .fui-GridItem {
+    grid-column: var(--gcs-md, var(--gcs-sm, var(--gcs-xs, var(--gcs-i, auto)))) / span
+      var(--gcp-md, var(--gcp-sm, var(--gcp-xs, var(--gcp-i, 1))));
+    grid-row: var(--grs-md, var(--grs-sm, var(--grs-xs, var(--grs-i, auto)))) / span
+      var(--grp-md, var(--grp-sm, var(--grp-xs, var(--grp-i, 1))));
+  }
+}
+@media (--lg) {
+  .fui-Grid:where(.fui-Grid--columns) {
+    grid-template-columns: var(--gc-lg, var(--gc-md, var(--gc-sm, var(--gc-xs, var(--gc-i)))));
+  }
+  .fui-Grid:where(.fui-Grid--gap) {
+    gap: var(--gg-lg, var(--gg-md, var(--gg-sm, var(--gg-xs, var(--gg-i)))));
+  }
+  .fui-GridItem {
+    grid-column: var(--gcs-lg, var(--gcs-md, var(--gcs-sm, var(--gcs-xs, var(--gcs-i, auto))))) / span
+      var(--gcp-lg, var(--gcp-md, var(--gcp-sm, var(--gcp-xs, var(--gcp-i, 1)))));
+    grid-row: var(--grs-lg, var(--grs-md, var(--grs-sm, var(--grs-xs, var(--grs-i, auto))))) / span
+      var(--grp-lg, var(--grp-md, var(--grp-sm, var(--grp-xs, var(--grp-i, 1)))));
+  }
+}
+@media (--xl) {
+  .fui-Grid:where(.fui-Grid--columns) {
+    grid-template-columns: var(--gc-xl, var(--gc-lg, var(--gc-md, var(--gc-sm, var(--gc-xs, var(--gc-i))))));
+  }
+  .fui-Grid:where(.fui-Grid--gap) {
+    gap: var(--gg-xl, var(--gg-lg, var(--gg-md, var(--gg-sm, var(--gg-xs, var(--gg-i))))));
+  }
+  .fui-GridItem {
+    grid-column: var(--gcs-xl, var(--gcs-lg, var(--gcs-md, var(--gcs-sm, var(--gcs-xs, var(--gcs-i, auto)))))) / span
+      var(--gcp-xl, var(--gcp-lg, var(--gcp-md, var(--gcp-sm, var(--gcp-xs, var(--gcp-i, 1))))));
+    grid-row: var(--grs-xl, var(--grs-lg, var(--grs-md, var(--grs-sm, var(--grs-xs, var(--grs-i, auto)))))) / span
+      var(--grp-xl, var(--grp-lg, var(--grp-md, var(--grp-sm, var(--grp-xs, var(--grp-i, 1))))));
+  }
 }

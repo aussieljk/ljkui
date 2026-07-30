@@ -1,9 +1,12 @@
 // LAYOUT
 //------------------------------------------------------------------------------
+export * from './bleed';
+export * from './container';
 export * from './grid';
 export * from './h-stack';
 export * from './inset';
 export * from './overlay';
+export * from './section';
 export * from './spacer';
 export * from './v-stack';
 export * from './z-stack';
@@ -71,6 +74,7 @@ export * from './alert';
 export * from './card';
 export * from './credit-card';
 export * from './empty';
+export * from './result';
 
 export * from './icon-button';
 export * from './link';

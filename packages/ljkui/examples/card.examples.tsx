@@ -138,6 +138,28 @@ export const examples = {
     );
   },
 
+  Media() {
+    return (
+      <Card size="2" style={{ width: 300 }}>
+        <Card.Media>
+          <img
+            src="https://images.unsplash.com/photo-1617050318658-a9a3175e34cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+            alt="Bold typography"
+            style={{ height: 160, backgroundColor: 'var(--gray-300)' }}
+          />
+        </Card.Media>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+          <Typography.Text render={<div />} size="3" weight="bold">
+            Bold typography
+          </Typography.Text>
+          <Typography.Text render={<div />} size="2" color="gray">
+            Media bleeds to the card edges and clips to the inner radius.
+          </Typography.Text>
+        </div>
+      </Card>
+    );
+  },
+
   'As another element'() {
     const args = {};
     return (

@@ -36,4 +36,18 @@ function GridFixture() {
   );
 }
 
-export const examples = { Example: GridFixture };
+function UniformColumnsFixture() {
+  return (
+    <Grid.Root columns={3} gap={8}>
+      <Grid.Root.Item colSpan={2}>
+        <Cell>span 2</Cell>
+      </Grid.Root.Item>
+      <Cell>2</Cell>
+      <Cell>3</Cell>
+      <Cell>4</Cell>
+      <Cell>5</Cell>
+    </Grid.Root>
+  );
+}
+
+export const examples = { Example: GridFixture, UniformColumns: UniformColumnsFixture };

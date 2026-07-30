@@ -114,6 +114,34 @@ export const examples = {
     );
   },
 
+  'Fade Edges'() {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Typography.Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>
+          The <Typography.Code>fadeEdges</Typography.Code> prop fades the scrollable edges with a gradient mask that
+          only appears when there is more content to scroll in that direction.
+        </Typography.Text>
+
+        <ScrollArea
+          fadeEdges
+          type="hover"
+          scrollbars="vertical"
+          style={{ height: 200, width: 320, background: 'var(--gray-alpha-100)', borderRadius: 'var(--radius-3)' }}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', padding: 'var(--space-4)' }}>
+            {Array.from({ length: 12 }, (_, i) => (
+              <Typography.Text key={i} size="2" trim="both">
+                {i + 1}. Vernacular architecture is building done outside any academic tradition, and without
+                professional guidance. It serves immediate, local needs and reflects local traditions and cultural
+                practices.
+              </Typography.Text>
+            ))}
+          </div>
+        </ScrollArea>
+      </div>
+    );
+  },
+
   Size() {
     const args = {};
     return (

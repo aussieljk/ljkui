@@ -1,0 +1,106 @@
+.fui-Container {
+  box-sizing: border-box;
+  width: 100%;
+  padding-inline: var(--space-4);
+  margin-inline: auto;
+}
+
+.fui-Container:where(.fui-r-align-left) {
+  margin-inline-start: 0;
+  margin-inline-end: auto;
+}
+.fui-Container:where(.fui-r-align-center) {
+  margin-inline: auto;
+}
+.fui-Container:where(.fui-r-align-right) {
+  margin-inline-start: auto;
+  margin-inline-end: 0;
+}
+
+.fui-Container:where(.fui-r-size-1) {
+  max-width: 448px;
+}
+.fui-Container:where(.fui-r-size-2) {
+  max-width: 688px;
+}
+.fui-Container:where(.fui-r-size-3) {
+  max-width: 880px;
+}
+.fui-Container:where(.fui-r-size-4) {
+  max-width: 1136px;
+}
+
+@media (--xs) {
+  .fui-Container:where(.xs\:fui-r-size-1) {
+    max-width: 448px;
+  }
+  .fui-Container:where(.xs\:fui-r-size-2) {
+    max-width: 688px;
+  }
+  .fui-Container:where(.xs\:fui-r-size-3) {
+    max-width: 880px;
+  }
+  .fui-Container:where(.xs\:fui-r-size-4) {
+    max-width: 1136px;
+  }
+}
+
+@media (--sm) {
+  .fui-Container:where(.sm\:fui-r-size-1) {
+    max-width: 448px;
+  }
+  .fui-Container:where(.sm\:fui-r-size-2) {
+    max-width: 688px;
+  }
+  .fui-Container:where(.sm\:fui-r-size-3) {
+    max-width: 880px;
+  }
+  .fui-Container:where(.sm\:fui-r-size-4) {
+    max-width: 1136px;
+  }
+}
+
+@media (--md) {
+  .fui-Container:where(.md\:fui-r-size-1) {
+    max-width: 448px;
+  }
+  .fui-Container:where(.md\:fui-r-size-2) {
+    max-width: 688px;
+  }
+  .fui-Container:where(.md\:fui-r-size-3) {
+    max-width: 880px;
+  }
+  .fui-Container:where(.md\:fui-r-size-4) {
+    max-width: 1136px;
+  }
+}
+
+@media (--lg) {
+  .fui-Container:where(.lg\:fui-r-size-1) {
+    max-width: 448px;
+  }
+  .fui-Container:where(.lg\:fui-r-size-2) {
+    max-width: 688px;
+  }
+  .fui-Container:where(.lg\:fui-r-size-3) {
+    max-width: 880px;
+  }
+  .fui-Container:where(.lg\:fui-r-size-4) {
+    max-width: 1136px;
+  }
+}
+
+@media (--xl) {
+  .fui-Container:where(.xl\:fui-r-size-1) {
+    max-width: 448px;
+  }
+  .fui-Container:where(.xl\:fui-r-size-2) {
+    max-width: 688px;
+  }
+  .fui-Container:where(.xl\:fui-r-size-3) {
+    max-width: 880px;
+  }
+  .fui-Container:where(.xl\:fui-r-size-4) {
+    max-width: 1136px;
+  }
+}

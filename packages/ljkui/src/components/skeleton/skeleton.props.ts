@@ -60,4 +60,17 @@ const skeletonRectPropDefs = {
   highContrast: typeof highContrastProp;
 };
 
-export { skeletonAvatarPropDefs, skeletonRectPropDefs, skeletonTextPropDefs };
+const skeletonBoxPropDefs = {
+  /**
+   * Overrides the theme accent color used for the skeleton's pulse.
+   * @default 'gray'
+   */
+  color: { ...colorProp, default: 'gray' },
+  /** Renders a higher-contrast skeleton. */
+  highContrast: highContrastProp,
+} satisfies {
+  color: typeof colorProp;
+  highContrast: typeof highContrastProp;
+};
+
+export { skeletonAvatarPropDefs, skeletonBoxPropDefs, skeletonRectPropDefs, skeletonTextPropDefs };

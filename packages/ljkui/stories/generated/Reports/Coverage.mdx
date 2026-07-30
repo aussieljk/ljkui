@@ -5,30 +5,31 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Coverage
 
-Documentation coverage across the 96 components, generated from the sources.
+Documentation coverage across the 100 components, generated from the sources.
 Shrinking the gaps (a "–" in **Props** or **A11y**) is self-directed work — add a `*.props.ts`
 or an entry in `scripts/a11y-data.ts`.
 
-- **Props:** 69 / 96
-- **Keyboard/ARIA notes:** 44 / 96
+- **Props:** 73 / 100
+- **Keyboard/ARIA notes:** 44 / 100
 
 | Component                                                                 | Section           | Props | A11y | Examples |
 | ------------------------------------------------------------------------- | ----------------- | :---: | :--: | :------: |
 | [Accordion](?path=/docs/layout-accordion--docs)                           | Layout            |   ✓   |  ✓   |    3     |
 | [Alert](?path=/docs/components-alert--docs)                               | Components        |   ✓   |  –   |    7     |
 | [AlertDialog](?path=/docs/components-alertdialog--docs)                   | Components        |   ✓   |  –   |    11    |
-| [AspectRatio](?path=/docs/layout-aspectratio--docs)                       | Layout            |   –   |  –   |    3     |
+| [AspectRatio](?path=/docs/layout-aspectratio--docs)                       | Layout            |   –   |  –   |    4     |
 | [Autocomplete](?path=/docs/controls-autocomplete--docs)                   | Controls          |   ✓   |  ✓   |    26    |
 | [Avatar](?path=/docs/components-avatar--docs)                             | Components        |   ✓   |  ✓   |    5     |
 | [AvatarGroup](?path=/docs/components-avatargroup--docs)                   | Components        |   ✓   |  –   |    3     |
 | [AvatarStack](?path=/docs/components-avatarstack--docs)                   | Components        |   ✓   |  –   |    2     |
 | [Badge](?path=/docs/components-badge--docs)                               | Components        |   ✓   |  –   |    5     |
+| [Bleed](?path=/docs/layout-bleed--docs)                                   | Layout            |   ✓   |  –   |    2     |
 | [Blockquote](?path=/docs/typography-blockquote--docs)                     | Typography        |   ✓   |  –   |    1     |
 | [Breadcrumb](?path=/docs/components-breadcrumb--docs)                     | Components        |   ✓   |  ✓   |    3     |
 | [Button](?path=/docs/controls-button--docs)                               | Controls          |   ✓   |  –   |    8     |
 | [ButtonGroup](?path=/docs/controls-buttongroup--docs)                     | Controls          |   ✓   |  –   |    5     |
 | [Calendar](?path=/docs/controls-dates-calendar--docs)                     | Controls          |   ✓   |  ✓   |    3     |
-| [Card](?path=/docs/components-card--docs)                                 | Components        |   ✓   |  –   |    4     |
+| [Card](?path=/docs/components-card--docs)                                 | Components        |   ✓   |  –   |    5     |
 | [Carousel](?path=/docs/components-carousel--docs)                         | Components        |   ✓   |  ✓   |    16    |
 | [Chart](?path=/docs/data-presentation-chart--docs)                        | Data presentation |   ✓   |  –   |    3     |
 | [Checkbox](?path=/docs/controls-checkbox--docs)                           | Controls          |   ✓   |  ✓   |    9     |
@@ -37,6 +38,7 @@ or an entry in `scripts/a11y-data.ts`.
 | [Collapsible](?path=/docs/layout-collapsible--docs)                       | Layout            |   –   |  ✓   |    3     |
 | [Combobox](?path=/docs/controls-combobox--docs)                           | Controls          |   ✓   |  ✓   |    17    |
 | [Command](?path=/docs/controls-command--docs)                             | Controls          |   –   |  ✓   |    3     |
+| [Container](?path=/docs/layout-container--docs)                           | Layout            |   ✓   |  –   |    3     |
 | [ContextMenu](?path=/docs/controls-contextmenu--docs)                     | Controls          |   ✓   |  ✓   |    7     |
 | [CreditCard](?path=/docs/components-creditcard--docs)                     | Components        |   –   |  –   |    13    |
 | [DataTable](?path=/docs/data-presentation-datatable--docs)                | Data presentation |   ✓   |  ✓   |    4     |
@@ -53,10 +55,10 @@ or an entry in `scripts/a11y-data.ts`.
 | [Fieldset](?path=/docs/forms-fieldset--docs)                              | Forms             |   –   |  ✓   |    1     |
 | [FilterChip](?path=/docs/controls-filterchip--docs)                       | Controls          |   ✓   |  –   |    6     |
 | [Form](?path=/docs/forms-form--docs)                                      | Forms             |   ✓   |  ✓   |    16    |
-| [Grid](?path=/docs/layout-grid--docs)                                     | Layout            |   ✓   |  –   |    1     |
+| [Grid](?path=/docs/layout-grid--docs)                                     | Layout            |   ✓   |  –   |    2     |
 | [Heading](?path=/docs/typography-heading--docs)                           | Typography        |   ✓   |  –   |    5     |
 | [HoverCard](?path=/docs/components-hovercard--docs)                       | Components        |   ✓   |  ✓   |    16    |
-| [HStack](?path=/docs/layout-hstack--docs)                                 | Layout            |   ✓   |  –   |    1     |
+| [HStack](?path=/docs/layout-hstack--docs)                                 | Layout            |   ✓   |  –   |    2     |
 | [IconButton](?path=/docs/controls-iconbutton--docs)                       | Controls          |   ✓   |  ✓   |    5     |
 | [Icons](?path=/docs/utilities-icons--docs)                                | Utilities         |   –   |  –   |    6     |
 | [Input](?path=/docs/controls-input--docs)                                 | Controls          |   ✓   |  –   |    4     |
@@ -81,14 +83,16 @@ or an entry in `scripts/a11y-data.ts`.
 | [RadioGroup](?path=/docs/controls-radiogroup--docs)                       | Controls          |   ✓   |  ✓   |    14    |
 | [RangeCalendar](?path=/docs/controls-dates-rangecalendar--docs)           | Controls          |   –   |  ✓   |    3     |
 | [Resizable](?path=/docs/layout-resizable--docs)                           | Layout            |   –   |  –   |    3     |
-| [ScrollArea](?path=/docs/components-scrollarea--docs)                     | Components        |   ✓   |  –   |    5     |
+| [Result](?path=/docs/components-result--docs)                             | Components        |   ✓   |  –   |    4     |
+| [ScrollArea](?path=/docs/components-scrollarea--docs)                     | Components        |   ✓   |  –   |    6     |
 | [Scrollbars](?path=/docs/utilities-scrollbars--docs)                      | Utilities         |   –   |  –   |    5     |
+| [Section](?path=/docs/layout-section--docs)                               | Layout            |   ✓   |  –   |    2     |
 | [Select](?path=/docs/controls-select--docs)                               | Controls          |   ✓   |  ✓   |    14    |
 | [Separator](?path=/docs/layout-separator--docs)                           | Layout            |   ✓   |  –   |    3     |
 | [Sheet](?path=/docs/components-sheet--docs)                               | Components        |   –   |  ✓   |    13    |
 | [Shine](?path=/docs/utilities-shine--docs)                                | Utilities         |   –   |  –   |    1     |
-| [Sidebar](?path=/docs/layout-sidebar--docs)                               | Layout            |   ✓   |  ✓   |    3     |
-| [Skeleton](?path=/docs/components-skeleton--docs)                         | Components        |   ✓   |  –   |    14    |
+| [Sidebar](?path=/docs/layout-sidebar--docs)                               | Layout            |   ✓   |  ✓   |    4     |
+| [Skeleton](?path=/docs/components-skeleton--docs)                         | Components        |   ✓   |  –   |    16    |
 | [Slider](?path=/docs/controls-slider--docs)                               | Controls          |   ✓   |  ✓   |    8     |
 | [Sonner](?path=/docs/components-sonner--docs)                             | Components        |   ✓   |  –   |    21    |
 | [Spacer](?path=/docs/layout-spacer--docs)                                 | Layout            |   –   |  –   |    1     |

@@ -3,12 +3,18 @@ import * as React from 'react';
 
 import { hStackPropDefs } from './h-stack.props';
 
+import { interleaveSeparator } from '../../helpers';
+
 import type { GetPropDefTypes } from '../../helpers';
 
 type HStackOwnProps = GetPropDefTypes<typeof hStackPropDefs>;
 interface HStackProps extends React.ComponentProps<'div'>, HStackOwnProps {
   /** The spacing between children, in pixels. */
   spacing?: number;
+  /** When true, children wrap onto new lines instead of overflowing (`flex-wrap: wrap`). */
+  wrap?: boolean;
+  /** A node rendered between each child (never before the first or after the last). */
+  separator?: React.ReactNode;
 }
 
 /**
@@ -23,13 +29,25 @@ interface HStackProps extends React.ComponentProps<'div'>, HStackOwnProps {
  * ```
  */
 const HStack = (props: HStackProps) => {
-  const { className, style, spacing, alignment = hStackPropDefs.alignment.default, ...stackProps } = props;
+  const {
+    className,
+    style,
+    spacing,
+    wrap,
+    separator,
+    children,
+    alignment = hStackPropDefs.alignment.default,
+    ...stackProps
+  } = props;
+  const content = separator !== undefined ? interleaveSeparator(children, separator) : children;
   return (
     <div
       {...stackProps}
-      className={classNames('fui-HStack', className, `fui-r-alignment-${alignment}`)}
+      className={classNames('fui-HStack', className, `fui-r-alignment-${alignment}`, wrap && 'fui-wrap')}
       style={spacing !== undefined ? { gap: spacing, ...style } : style}
-    />
+    >
+      {content}
+    </div>
   );
 };
 HStack.displayName = 'HStack';

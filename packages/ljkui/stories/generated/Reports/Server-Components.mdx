@@ -9,7 +9,7 @@ Which components are safe to render in a React Server Component, and which must 
 `'use client'` boundary. Heuristic (source scan for hooks / browser globals), so verify at the
 edges — but it's the fast answer to "can I use this in an RSC?".
 
-**19 of 83** scanned components are server-safe; the rest need a
+**22 of 87** scanned components are server-safe; the rest need a
 client boundary in their subtree.
 
 > A client-only component still works in an RSC app — just import it into a file that has
@@ -20,9 +20,11 @@ client boundary in their subtree.
 | ------------------------------------------------------------------------- | --------------- | -------------------- |
 | [AspectRatio](?path=/docs/layout-aspectratio--docs)                       | **Server-safe** | —                    |
 | [Badge](?path=/docs/components-badge--docs)                               | **Server-safe** | —                    |
+| [Bleed](?path=/docs/layout-bleed--docs)                                   | **Server-safe** | —                    |
 | [Breadcrumb](?path=/docs/components-breadcrumb--docs)                     | **Server-safe** | —                    |
 | [Button](?path=/docs/controls-button--docs)                               | **Server-safe** | —                    |
 | [Card](?path=/docs/components-card--docs)                                 | **Server-safe** | —                    |
+| [Container](?path=/docs/layout-container--docs)                           | **Server-safe** | —                    |
 | [DataTable](?path=/docs/data-presentation-datatable--docs)                | **Server-safe** | —                    |
 | [Grid](?path=/docs/layout-grid--docs)                                     | **Server-safe** | —                    |
 | [HStack](?path=/docs/layout-hstack--docs)                                 | **Server-safe** | —                    |
@@ -31,6 +33,7 @@ client boundary in their subtree.
 | [Kbd](?path=/docs/typography-kbd--docs)                                   | **Server-safe** | —                    |
 | [Link](?path=/docs/typography-link--docs)                                 | **Server-safe** | —                    |
 | [Overlay](?path=/docs/components-overlay--docs)                           | **Server-safe** | —                    |
+| [Section](?path=/docs/layout-section--docs)                               | **Server-safe** | —                    |
 | [Spacer](?path=/docs/layout-spacer--docs)                                 | **Server-safe** | —                    |
 | [Spinner](?path=/docs/components-spinner--docs)                           | **Server-safe** | —                    |
 | [Table](?path=/docs/data-presentation-table--docs)                        | **Server-safe** | —                    |
@@ -82,6 +85,7 @@ client boundary in their subtree.
 | [RadioButtonGroup](?path=/docs/controls-radiobuttongroup--docs)           | Client          | 'use client'         |
 | [RadioGroup](?path=/docs/controls-radiogroup--docs)                       | Client          | 'use client'         |
 | [Resizable](?path=/docs/layout-resizable--docs)                           | Client          | 'use client'         |
+| [Result](?path=/docs/components-result--docs)                             | Client          | 'use client'         |
 | [ScrollArea](?path=/docs/components-scrollarea--docs)                     | Client          | 'use client'         |
 | [Select](?path=/docs/controls-select--docs)                               | Client          | 'use client'         |
 | [Separator](?path=/docs/layout-separator--docs)                           | Client          | 'use client'         |

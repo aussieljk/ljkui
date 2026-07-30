@@ -84,6 +84,19 @@ export const InsetContent: Story = {
   },
 };
 
+export const Media: Story = {
+  name: 'Media',
+  render: () => render(examples['Media']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Card, Typography } from \'ljkui\';\n\n<Card size="2" style={{ width: 300 }}>\n  <Card.Media>\n    <img\n      src="https://images.unsplash.com/photo-1617050318658-a9a3175e34cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"\n      alt="Bold typography"\n      style={{ height: 160, backgroundColor: \'var(--gray-300)\' }}\n    />\n  </Card.Media>\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-1)\' }}>\n    <Typography.Text render={<div />} size="3" weight="bold">\n      Bold typography\n    </Typography.Text>\n    <Typography.Text render={<div />} size="2" color="gray">\n      Media bleeds to the card edges and clips to the inner radius.\n    </Typography.Text>\n  </div>\n</Card>',
+      },
+    },
+  },
+};
+
 export const AsAnotherElement: Story = {
   name: 'As another element',
   render: () => render(examples['As another element']),

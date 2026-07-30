@@ -20,6 +20,13 @@
   }
 }
 
+/* Media that bleeds to the card edges (built on Inset). */
+.fui-CardMedia :where(img, video) {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
 /***************************************************************************************************
  *                                                                                                 *
  * SIZES                                                                                           *

@@ -158,6 +158,38 @@
   }
 }
 
+/* Box — wraps real content, hides it, and pulses at its exact size */
+.fui-SkeletonBox:where([data-loading]) {
+  display: inline-block;
+  vertical-align: top;
+  border-radius: var(--radius-2);
+  color: transparent !important;
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+
+  background: var(--skeleton-background-color);
+
+  --skeleton-background-color: var(--accent-alpha-100);
+  &:where(.fui-high-contrast) {
+    --skeleton-background-color: var(--accent-alpha-200);
+  }
+
+  &:where(.fui-display-block) {
+    display: block;
+  }
+
+  /* Keep the children's box (for sizing) but stop them painting through the placeholder */
+  & > * {
+    visibility: hidden;
+  }
+
+  &::selection,
+  & *::selection {
+    background: transparent;
+  }
+}
+
 /* Shimmer effect */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes fui-skeleton-pulse {
@@ -168,7 +200,8 @@
 
   .fui-SkeletonAvatar,
   .fui-SkeletonText::after,
-  .fui-SkeletonRect {
+  .fui-SkeletonRect,
+  .fui-SkeletonBox:where([data-loading]) {
     animation: fui-skeleton-pulse 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
     animation-delay: var(--fui-skeleton-animation-delay, 0);
   }

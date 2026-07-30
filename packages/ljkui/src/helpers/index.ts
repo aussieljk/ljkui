@@ -5,6 +5,7 @@ export * from './extract-props-for-tag';
 export * from './get-initials';
 export * from './get-subtree';
 export * from './has-own-property';
+export * from './interleave-separator';
 export * from './props';
 export * from './tailwind-colors';
 export * from './tailwind-palette';

@@ -24,9 +24,9 @@ that scans your source for raw hex colors and tells you the nearest token.
 - Finds raw hex colors (`#rgb`, `#rrggbb`, `#rrggbbaa`) in classNames, `style`
   objects, and CSS values.
 - For each one, computes the **nearest token by color distance** — it converts the
-  hex to CIELAB and finds the closest step across the shipped palettes, reading the
-  real seed values straight out of `src/styles/tokens/palettes.css` at runtime (so
-  it never goes stale against the library).
+  hex to CIELAB and finds the closest step across the shipped palettes, using the
+  real seed values extracted from the library's `palettes.css` at build time (so it
+  never goes stale against the library).
 - Reports `file:line:col  #hex → utility / var(...)  [ΔE distance]`. A chromatic
   match is suggested as the configurable `accent` scale (what you usually want); a
   neutral match is suggested as `gray`.
@@ -38,23 +38,27 @@ that scans your source for raw hex colors and tells you the nearest token.
 
 ## Running it
 
-The tool ships as a script in the ljkui repo and is **not published to npm** yet, so
-`bunx ljkui-lint-raw-colors` won't work. Run it from a checkout of the library, or
-copy `scripts/lint-raw-colors.ts` into your own project (its only dependency is
-`color-convert`, and it reads `palettes.css` relative to itself).
+The tool ships **with the `ljkui` package** as a bin, so you can run it in your own
+project with no setup:
 
 ```sh
-# from a checkout of the ljkui repo (packages/ljkui):
-bun scripts/lint-raw-colors.ts ../../path/to/your/app/src
+# scan your app (default path "."):
+bunx ljkui-lint-raw-colors src
 
 # just report, don't fail CI:
-bun scripts/lint-raw-colors.ts src --report-only
+bunx ljkui-lint-raw-colors src --report-only
 
 # rewrite the confident className cases:
-bun scripts/lint-raw-colors.ts src --fix
+bunx ljkui-lint-raw-colors src --fix
 
 # also flag arbitrary Tailwind spacing (p-[13px] → p-3):
-bun scripts/lint-raw-colors.ts src --spacing
+bunx ljkui-lint-raw-colors src --spacing
+```
+
+Working in the ljkui repo itself? Run the same tool from source:
+
+```sh
+bun src/bin/lint-raw-colors.ts ../../path/to/your/app/src
 ```
 
 Example output:

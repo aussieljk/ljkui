@@ -3,7 +3,12 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
-import { skeletonAvatarPropDefs, skeletonRectPropDefs, skeletonTextPropDefs } from './skeleton.props';
+import {
+  skeletonAvatarPropDefs,
+  skeletonBoxPropDefs,
+  skeletonRectPropDefs,
+  skeletonTextPropDefs,
+} from './skeleton.props';
 
 /** Must match the animation duration in skeleton.css (fui-skeleton-pulse) */
 const SKELETON_PULSE_DURATION_S = 2;
@@ -142,5 +147,77 @@ const SkeletonRect = (props: SkeletonRectProps) => {
 };
 SkeletonRect.displayName = 'SkeletonRect';
 
-export { SkeletonAvatar as Avatar, SkeletonRect as Rect, SkeletonText as Text };
-export type { SkeletonAvatarProps as AvatarProps, SkeletonRectProps as RectProps, SkeletonTextProps as TextProps };
+type SkeletonBoxOwnProps = GetPropDefTypes<typeof skeletonBoxPropDefs>;
+
+interface SkeletonBoxProps extends PropsWithoutColor<'span'>, SkeletonBoxOwnProps {
+  /**
+   * While `true`, `children` are rendered but hidden, and a pulsing placeholder of the same
+   * geometry is painted over them. Flip to `false` once the real content has loaded.
+   * @default true
+   */
+  loading?: boolean;
+  /** Stretches the placeholder to fill its container (block layout) instead of hugging its content. */
+  block?: boolean;
+}
+/**
+ * Wraps real content and, while `loading`, paints a pulsing placeholder of the *same size* — no
+ * hand-measured widths. Once `loading` is `false`, the children are shown untouched. Wrap each line
+ * of text (or each element) you want its own placeholder rectangle. All skeletons on the page pulse
+ * in phase, regardless of when they mount.
+ *
+ * @example
+ * <Skeleton.Box loading={isLoading}>
+ *   <Heading>{user?.name}</Heading>
+ * </Skeleton.Box>
+ */
+const SkeletonBox = (props: SkeletonBoxProps) => {
+  const {
+    className,
+    loading = true,
+    block = false,
+    color = skeletonBoxPropDefs.color.default,
+    highContrast = skeletonBoxPropDefs.highContrast.default,
+    ref: refProp,
+    children,
+    ...skeletonBoxProps
+  } = props;
+
+  const ref = React.useRef<HTMLSpanElement>(null);
+  useSkeletonAnimationSync(ref as React.RefObject<HTMLDivElement | null>);
+
+  const setRef = React.useCallback(
+    (node: HTMLSpanElement | null) => {
+      (ref as React.MutableRefObject<HTMLSpanElement | null>).current = node;
+      if (typeof refProp === 'function') refProp(node);
+      else if (refProp) (refProp as React.MutableRefObject<HTMLSpanElement | null>).current = node;
+    },
+    [refProp],
+  );
+
+  if (!loading) return <>{children}</>;
+
+  return (
+    <span
+      ref={setRef}
+      data-accent-color={color}
+      data-loading=""
+      aria-hidden
+      className={classNames('fui-SkeletonBox', className, {
+        'fui-high-contrast': highContrast,
+        'fui-display-block': block,
+      })}
+      {...skeletonBoxProps}
+    >
+      {children}
+    </span>
+  );
+};
+SkeletonBox.displayName = 'SkeletonBox';
+
+export { SkeletonAvatar as Avatar, SkeletonBox as Box, SkeletonRect as Rect, SkeletonText as Text };
+export type {
+  SkeletonAvatarProps as AvatarProps,
+  SkeletonBoxProps as BoxProps,
+  SkeletonRectProps as RectProps,
+  SkeletonTextProps as TextProps,
+};

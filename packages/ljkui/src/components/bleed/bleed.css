@@ -1,0 +1,113 @@
+.fui-Bleed {
+  --bleed-margin: var(--space-4);
+}
+
+.fui-Bleed:where(.fui-r-size-1) {
+  --bleed-margin: var(--space-2);
+}
+.fui-Bleed:where(.fui-r-size-2) {
+  --bleed-margin: var(--space-3);
+}
+.fui-Bleed:where(.fui-r-size-3) {
+  --bleed-margin: var(--space-4);
+}
+.fui-Bleed:where(.fui-r-size-4) {
+  --bleed-margin: var(--space-5);
+}
+
+@media (--xs) {
+  .fui-Bleed:where(.xs\:fui-r-size-1) {
+    --bleed-margin: var(--space-2);
+  }
+  .fui-Bleed:where(.xs\:fui-r-size-2) {
+    --bleed-margin: var(--space-3);
+  }
+  .fui-Bleed:where(.xs\:fui-r-size-3) {
+    --bleed-margin: var(--space-4);
+  }
+  .fui-Bleed:where(.xs\:fui-r-size-4) {
+    --bleed-margin: var(--space-5);
+  }
+}
+
+@media (--sm) {
+  .fui-Bleed:where(.sm\:fui-r-size-1) {
+    --bleed-margin: var(--space-2);
+  }
+  .fui-Bleed:where(.sm\:fui-r-size-2) {
+    --bleed-margin: var(--space-3);
+  }
+  .fui-Bleed:where(.sm\:fui-r-size-3) {
+    --bleed-margin: var(--space-4);
+  }
+  .fui-Bleed:where(.sm\:fui-r-size-4) {
+    --bleed-margin: var(--space-5);
+  }
+}
+
+@media (--md) {
+  .fui-Bleed:where(.md\:fui-r-size-1) {
+    --bleed-margin: var(--space-2);
+  }
+  .fui-Bleed:where(.md\:fui-r-size-2) {
+    --bleed-margin: var(--space-3);
+  }
+  .fui-Bleed:where(.md\:fui-r-size-3) {
+    --bleed-margin: var(--space-4);
+  }
+  .fui-Bleed:where(.md\:fui-r-size-4) {
+    --bleed-margin: var(--space-5);
+  }
+}
+
+@media (--lg) {
+  .fui-Bleed:where(.lg\:fui-r-size-1) {
+    --bleed-margin: var(--space-2);
+  }
+  .fui-Bleed:where(.lg\:fui-r-size-2) {
+    --bleed-margin: var(--space-3);
+  }
+  .fui-Bleed:where(.lg\:fui-r-size-3) {
+    --bleed-margin: var(--space-4);
+  }
+  .fui-Bleed:where(.lg\:fui-r-size-4) {
+    --bleed-margin: var(--space-5);
+  }
+}
+
+@media (--xl) {
+  .fui-Bleed:where(.xl\:fui-r-size-1) {
+    --bleed-margin: var(--space-2);
+  }
+  .fui-Bleed:where(.xl\:fui-r-size-2) {
+    --bleed-margin: var(--space-3);
+  }
+  .fui-Bleed:where(.xl\:fui-r-size-3) {
+    --bleed-margin: var(--space-4);
+  }
+  .fui-Bleed:where(.xl\:fui-r-size-4) {
+    --bleed-margin: var(--space-5);
+  }
+}
+
+.fui-Bleed:where(.fui-r-side-all) {
+  margin: calc(-1 * var(--bleed-margin));
+}
+.fui-Bleed:where(.fui-r-side-x) {
+  margin-inline: calc(-1 * var(--bleed-margin));
+}
+.fui-Bleed:where(.fui-r-side-y) {
+  margin-block: calc(-1 * var(--bleed-margin));
+}
+.fui-Bleed:where(.fui-r-side-top) {
+  margin-top: calc(-1 * var(--bleed-margin));
+}
+.fui-Bleed:where(.fui-r-side-bottom) {
+  margin-bottom: calc(-1 * var(--bleed-margin));
+}
+.fui-Bleed:where(.fui-r-side-left) {
+  margin-left: calc(-1 * var(--bleed-margin));
+}
+.fui-Bleed:where(.fui-r-side-right) {
+  margin-right: calc(-1 * var(--bleed-margin));
+}
