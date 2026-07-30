@@ -25,9 +25,17 @@ const tailwindColorScalesChromatic = [
   'rose',
 ] as const;
 
-const tailwindGrayScales = ['slate', 'gray', 'zinc', 'neutral', 'stone'] as const;
+/** Tailwind's five neutral palettes. All are usable as an accent. */
+const tailwindNeutralScales = ['slate', 'gray', 'zinc', 'neutral', 'stone'] as const;
 
-const tailwindColorScales = [...tailwindColorScalesChromatic, ...tailwindGrayScales] as const;
+/**
+ * The neutrals offered as the theme's gray scale. `slate` and `gray` are left out:
+ * `--gray-*` already *is* the tailwind gray scale, so picking it does nothing, and
+ * slate is close enough to zinc that it only adds a near-duplicate.
+ */
+const tailwindGrayScales = ['zinc', 'neutral', 'stone'] as const;
+
+const tailwindColorScales = [...tailwindColorScalesChromatic, ...tailwindNeutralScales] as const;
 
 type TailwindColorScale = (typeof tailwindColorScales)[number];
 type TailwindGrayScale = (typeof tailwindGrayScales)[number];
@@ -50,21 +58,22 @@ function tailwindGetMatchingGrayScale(colorScale: TailwindColorScale): TailwindG
     case 'emerald':
     case 'teal':
       return 'neutral';
-    // Cool hues pair with the blue-tinted gray.
+    // Cool hues and purples/pinks pair with the slightly cool gray.
     case 'cyan':
     case 'sky':
     case 'blue':
     case 'indigo':
-      return 'slate';
-    // Purples/pinks pair with the slightly cool gray.
     case 'violet':
     case 'purple':
     case 'fuchsia':
     case 'pink':
     case 'rose':
       return 'zinc';
+    // A neutral accent pairs with itself, or with its nearest offered gray.
     case 'slate':
+      return 'zinc';
     case 'gray':
+      return 'neutral';
     case 'zinc':
     case 'neutral':
     case 'stone':
@@ -78,5 +87,6 @@ export {
   tailwindColorScalesChromatic,
   tailwindGetMatchingGrayScale,
   tailwindGrayScales,
+  tailwindNeutralScales,
 };
 export type { TailwindColorScale, TailwindGrayScale };

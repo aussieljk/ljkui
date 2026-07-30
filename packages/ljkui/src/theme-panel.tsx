@@ -238,9 +238,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
             {themeAccentColorsOrdered.map((color) => (
               <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-700)` }}>
                 <Tooltip
-                  content={`${upperFirst(color)}${
-                    accentColor === 'gray' && resolvedGrayColor !== 'gray' ? ` (${upperFirst(resolvedGrayColor)})` : ''
-                  }`}
+                  content={`${upperFirst(color)}${accentColor === 'gray' ? ` (${upperFirst(resolvedGrayColor)})` : ''}`}
                 >
                   <input
                     className="fui-ThemePanelSwatchInput"
@@ -288,15 +286,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor:
-                    gray === 'auto'
-                      ? `var(--${autoMatchedGray}-700)`
-                      : gray === 'gray'
-                        ? 'var(--gray-700)'
-                        : `var(--${gray}-700)`,
-                  // we override --gray so pure gray doesn't exist anymore
-                  // recover something as close as possible by desaturating
-                  filter: gray === 'gray' ? 'saturate(0)' : undefined,
+                  backgroundColor: gray === 'auto' ? `var(--${autoMatchedGray}-700)` : `var(--${gray}-700)`,
                 }}
               >
                 <Tooltip content={`${upperFirst(gray)}${gray === 'auto' ? ` (${upperFirst(autoMatchedGray)})` : ''}`}>

@@ -5,6 +5,7 @@ import {
   tailwindColorScalesChromatic,
   tailwindGetMatchingGrayScale,
   tailwindGrayScales,
+  tailwindNeutralScales,
 } from './helpers/tailwind-colors';
 import { matchingGrayFromColor } from './helpers/tailwind-palette';
 
@@ -62,7 +63,7 @@ type ThemeOptions = {
 
 const themeAccentColorsGrouped = [
   { label: 'Colors', values: [...tailwindColorScalesChromatic] as ThemeAccentColor[] },
-  { label: 'Grays', values: [...tailwindGrayScales] as ThemeAccentColor[] },
+  { label: 'Grays', values: [...tailwindNeutralScales] as ThemeAccentColor[] },
 ];
 
 const themeAccentColorsOrdered = [...tailwindColorScales] as ThemeAccentColor[];

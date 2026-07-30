@@ -44,8 +44,10 @@ const CHROMATIC = [
   'pink',
   'rose',
 ] as const;
-const GRAYS = ['slate', 'gray', 'zinc', 'neutral', 'stone'] as const;
-const ALL = [...CHROMATIC, ...GRAYS];
+const NEUTRALS = ['slate', 'gray', 'zinc', 'neutral', 'stone'] as const;
+/** The neutrals selectable as the Theme `grayColor` — see src/helpers/tailwind-colors.ts. */
+const GRAYS = ['zinc', 'neutral', 'stone'] as const;
+const ALL = [...CHROMATIC, ...NEUTRALS];
 
 const SEMANTIC: Record<'danger' | 'warning' | 'success' | 'info', readonly string[]> = {
   danger: ['red', 'rose'], // first entry is the default
@@ -104,7 +106,7 @@ function generatePalettesCss(palettes: Record<string, TailwindPalette>): string 
   ];
 
   for (const name of ALL) {
-    const gray = (GRAYS as readonly string[]).includes(name);
+    const gray = (NEUTRALS as readonly string[]).includes(name);
     parts.push(`/* ${name} */\n${scaleCss(name, scales[name], { gray })}`);
   }
 
@@ -113,7 +115,7 @@ function generatePalettesCss(palettes: Record<string, TailwindPalette>): string 
     accentMappingCss('gray'),
     ...ALL.filter((name) => name !== 'gray').map((name) => accentMappingCss(name)),
     `/* Gray mappings ('gray' itself is the default --gray-* scale). */`,
-    ...GRAYS.filter((name) => name !== 'gray').map((name) => grayMappingCss(name)),
+    ...GRAYS.map((name) => grayMappingCss(name)),
     `/* Semantic mappings */`,
     ...Object.entries(SEMANTIC).flatMap(([kind, names]) =>
       names.map((name, i) => semanticMappingCss(kind as keyof typeof SEMANTIC, name, i === 0)),

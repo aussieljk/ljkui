@@ -975,7 +975,7 @@
       "default": "blue"
     },
     "grayColor": {
-      "type": "\"slate\" | \"gray\" | \"zinc\" | \"neutral\" | \"stone\" | \"auto\"",
+      "type": "\"zinc\" | \"neutral\" | \"stone\" | \"auto\"",
       "default": "neutral"
     },
     "dangerColor": {

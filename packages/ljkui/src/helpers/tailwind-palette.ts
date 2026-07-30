@@ -424,20 +424,19 @@ function darkPageBackgroundFromColor(color: string): string {
 
 /**
  * Pick the gray scale that pairs best with an arbitrary accent color, mirroring
- * `tailwindGetMatchingGrayScale`'s hue groupings. Falls back to `gray` for
+ * `tailwindGetMatchingGrayScale`'s hue groupings. Falls back to `neutral` for
  * achromatic or unparseable colors.
  */
-function matchingGrayFromColor(color: string): 'gray' | 'stone' | 'neutral' | 'slate' | 'zinc' {
+function matchingGrayFromColor(color: string): 'stone' | 'neutral' | 'zinc' {
   try {
     const c = parseColor(color);
-    if (oklabChroma(c) < 0.02) return 'gray';
+    if (oklabChroma(c) < 0.02) return 'neutral';
     const hue = ((oklabHueDeg(c) % 360) + 360) % 360;
     if (hue >= 20 && hue < 115) return 'stone'; // warm: red/orange/amber/yellow
     if (hue >= 115 && hue < 190) return 'neutral'; // greens
-    if (hue >= 190 && hue < 280) return 'slate'; // cool: cyan/sky/blue/indigo
-    return 'zinc'; // purples/pinks
+    return 'zinc'; // cool hues, purples and pinks
   } catch {
-    return 'gray';
+    return 'neutral';
   }
 }
 

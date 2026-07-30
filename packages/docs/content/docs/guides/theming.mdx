@@ -8,7 +8,7 @@ All theming happens through the `Theme` component and CSS variables.
 ```tsx
 import { Theme } from 'ljkui';
 
-<Theme accentColor="blue" grayColor="gray" appearance="inherit">
+<Theme accentColor="blue" grayColor="neutral" appearance="inherit">
   <App />
 </Theme>;
 ```
@@ -20,7 +20,7 @@ Configuration is managed and applied via `<Theme />`, including the semantic col
   // Sets Light or Dark mode
   appearance="dark"
   // Neutral color of the UI
-  grayColor="gray"
+  grayColor="neutral"
   // Accent color (mainly used as a default color for interactive elements)
   accentColor="blue"
   // Semantic colors
@@ -89,8 +89,9 @@ used as the Theme `grayColor`.
 
 ## Gray scale
 
-`grayColor` selects the neutral scale: `slate`, `gray`, `zinc`, `neutral`, `stone`, or `auto`
-(picks the gray that matches your accent).
+`grayColor` selects the neutral scale: `zinc`, `neutral`, `stone`, or `auto`
+(picks the gray that matches your accent). `slate` and `gray` are accent-only — `--gray-*`
+already is the tailwind gray scale, and slate is a near-duplicate of zinc.
 
 ## Light and dark
 
