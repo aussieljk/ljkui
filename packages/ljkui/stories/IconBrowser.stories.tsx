@@ -6,6 +6,7 @@ import { lucideAdapter } from 'ljkui/icons/lucide';
 import { phosphorAdapter } from 'ljkui/icons/phosphor';
 import { tablerAdapter } from 'ljkui/icons/tabler';
 import * as React from 'react';
+import { PROVIDER_SIZES } from './icon-provider-sizes';
 
 /*
  * A searchable index of the library's canonical icons. `<Icons.Search />` etc.
@@ -125,6 +126,55 @@ const CSS = `
   color: var(--gray-900);
   text-align: center;
 }
+.ib-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.ib-table th,
+.ib-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--gray-alpha-400);
+  text-align: left;
+  vertical-align: top;
+}
+.ib-table th {
+  color: var(--gray-950);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.ib-table tbody tr:hover {
+  background: var(--gray-alpha-50);
+}
+.ib-provider {
+  color: var(--gray-950);
+  font-weight: 600;
+}
+.ib-pkg {
+  color: var(--gray-900);
+  font-family: monospace;
+}
+.ib-num {
+  color: var(--gray-950);
+  white-space: nowrap;
+}
+.ib-yes {
+  color: var(--accent-800);
+  font-weight: 600;
+}
+.ib-note {
+  max-width: 46ch;
+  color: var(--gray-900);
+}
+.ib-callout {
+  max-width: 84ch;
+  padding: 12px 14px;
+  border: 1px solid var(--accent-500);
+  border-radius: 10px;
+  background: var(--accent-alpha-100);
+  color: var(--gray-950);
+}
 `;
 
 interface CellProps {
@@ -216,6 +266,62 @@ function IconBrowserPage() {
   );
 }
 
+function ProviderComparisonPage() {
+  return (
+    <div className="ib-root">
+      <style>{CSS}</style>
+      <header>
+        <h1 className="ib-title">Icon provider size comparison</h1>
+        <p className="ib-desc">
+          The five icon providers are <strong>peer-optional</strong>: you only pull in the runtime of whichever
+          adapter(s) you import. Importing two adapters ships two icon runtimes, so pick one deliberately. The figures
+          below are the approximate gzipped cost of a single icon plus the one-time shared runtime each provider pays
+          the first time you use any of its icons. All five ship <code>sideEffects: false</code>, so named imports
+          tree-shake down to just the icons you reference.
+        </p>
+      </header>
+
+      <div className="ib-callout">
+        <strong>Pick one provider.</strong> ljkui resolves the same canonical names through whichever adapter is active,
+        so committing to a single library keeps your bundle to one icon runtime — you pay only for what you import, and
+        nothing for the four you don&rsquo;t.
+      </div>
+
+      <table className="ib-table">
+        <thead>
+          <tr>
+            <th>Provider</th>
+            <th>Package</th>
+            <th>~per icon (gzip)</th>
+            <th>~shared runtime</th>
+            <th>Tree-shakes?</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {PROVIDER_SIZES.map((row) => (
+            <tr key={row.provider}>
+              <td className="ib-provider">{row.provider}</td>
+              <td className="ib-pkg">{row.package}</td>
+              <td className="ib-num">{row.perIconApprox}</td>
+              <td className="ib-num">{row.sharedRuntimeApprox}</td>
+              <td className={row.treeShakes ? 'ib-yes' : undefined}>{row.treeShakes ? 'Yes' : 'No'}</td>
+              <td className="ib-note">{row.notes}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <p className="ib-desc">
+        Numbers are <strong>approximate</strong> and were derived by gzipping a representative single-icon module (and
+        its shared runtime) from each installed package on 2026-07-30 — see <code>stories/icon-provider-sizes.ts</code>{' '}
+        for exact sources and versions. Real output depends on your bundler and how many icons you import, so treat
+        these as relative guidance rather than a contract.
+      </p>
+    </div>
+  );
+}
+
 const meta = {
   title: 'Utilities/Icon Browser',
   parameters: {
@@ -235,4 +341,17 @@ type Story = StoryObj<typeof meta>;
 export const Browser: Story = {
   name: 'Icon Browser',
   render: () => <IconBrowserPage />,
+};
+
+export const ProviderComparison: Story = {
+  name: 'Provider Size Comparison',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Approximate per-provider icon weight to help you pick one provider deliberately — importing two adapters ships two icon runtimes.',
+      },
+    },
+  },
+  render: () => <ProviderComparisonPage />,
 };

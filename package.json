@@ -14,7 +14,8 @@
   "scripts": {
     "build": "turbo run build",
     "build:storybook": "bun run --filter=ljkui build-storybook",
-    "check": "bun run workflows:check && bun run format:check && bun run --filter=ljkui check:props && turbo run lint typecheck build && bun run --filter=ljkui size && bun run --filter=ljkui build-storybook && bun run --filter=ljkui health",
+    "changelog": "bun x git-cliff -o CHANGELOG.md",
+    "check": "bun run workflows:check && bun run format:check && bun run --filter=ljkui check:props && bun run --filter=ljkui check:tokens && turbo run lint typecheck build && bun scripts/smoke-install.ts && bun run --filter=ljkui size && bun run --filter=ljkui build-storybook && bun run --filter=ljkui health",
     "deploy": "bun scripts/deploy.ts",
     "dev": "bun run --filter=ljkui storybook",
     "doctor": "bun scripts/doctor.ts",

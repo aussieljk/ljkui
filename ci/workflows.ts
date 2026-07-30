@@ -81,8 +81,13 @@ const ci: Workflow = {
         sh('Lint', 'bun run lint'),
         // Every component must ship a *.props.ts (or be exempt) — no silent prop-table gaps.
         sh('Props coverage', 'bun run --filter=ljkui check:props'),
+        // The committed token snapshot must match the color CSS — a palette edit can't sneak in.
+        sh('Token snapshot', 'bun run --filter=ljkui check:tokens'),
         sh('Typecheck', 'bun run typecheck'),
         sh('Build', 'bun run build'),
+        // Packs the real tarball and imports every entry point in a clean project — catches a
+        // broken `files` array / `exports` map / `sideEffects` that publint & attw miss.
+        sh('Install smoke', 'bun scripts/smoke-install.ts'),
         // Bundle-size budgets per entry point — fails if a change (e.g. flipping `sideEffects`)
         // breaks tree-shaking or bloats the public surface. Runs on the just-built dist/.
         sh('Size limit', 'bun run --filter=ljkui size'),
@@ -108,6 +113,31 @@ const ci: Workflow = {
         sh('Vercel', 'bun scripts/deploy.ts', {
           env: { ...VERCEL_ENV, GITHUB_TOKEN: '${{ github.token }}' },
         }),
+      ],
+    },
+    // Visual review (not a test): uploads the Storybook build to Chromatic, which posts an
+    // image diff of every story on the PR for a human to approve. Self-skips when the
+    // CHROMATIC_PROJECT_TOKEN secret is absent (fork PRs, or before it is configured), so it
+    // never blocks the merge. Set it up at chromatic.com → project settings.
+    chromatic: {
+      name: 'Chromatic',
+      needs: 'check',
+      'runs-on': RUNNER,
+      'timeout-minutes': 20,
+      steps: [
+        // Chromatic needs full git history to find each story's baseline.
+        { ...checkout(), with: { 'fetch-depth': 0 } },
+        setupBun(BUN_VERSION),
+        cacheBunStore(),
+        install(),
+        cacheTurbo(),
+        sh('Build library', 'bun run build'),
+        sh('Build Storybook', 'bun run build:storybook'),
+        sh(
+          'Chromatic',
+          'if [ -z "$CHROMATIC_PROJECT_TOKEN" ]; then echo "no CHROMATIC_PROJECT_TOKEN — skipping visual review"; else bun x chromatic --project-token "$CHROMATIC_PROJECT_TOKEN" --storybook-build-dir packages/ljkui/storybook-static --exit-zero-on-changes; fi',
+          { env: { CHROMATIC_PROJECT_TOKEN: '${{ secrets.CHROMATIC_PROJECT_TOKEN }}' } },
+        ),
       ],
     },
   },

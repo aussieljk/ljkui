@@ -1,0 +1,36 @@
+# git-cliff configuration — generates CHANGELOG.md from the semantic commit history.
+# Run: `bun run changelog`
+[changelog]
+header = """
+# Changelog
+
+All notable changes to `ljkui`. The package version stays on `0.0.1-N` (see CLAUDE.md → Publishing),
+so entries are grouped by date/commit rather than semver.\n
+"""
+body = """
+{% for group, commits in commits | group_by(attribute="group") %}
+### {{ group | upper_first }}
+{% for commit in commits %}
+- {{ commit.message | upper_first }}{% if commit.id %} ({{ commit.id | truncate(length=7, end="") }}){% endif %}
+{%- endfor %}
+{% endfor %}
+"""
+trim = true
+
+[git]
+conventional_commits = true
+filter_unconventional = false
+commit_parsers = [
+  { message = "^feat", group = "Features" },
+  { message = "^fix", group = "Bug Fixes" },
+  { message = "^perf", group = "Performance" },
+  { message = "^refactor", group = "Refactor" },
+  { message = "^docs", group = "Documentation" },
+  { message = "^style", group = "Styling" },
+  { message = "^chore", group = "Chores" },
+  { message = "^ci", group = "CI/CD" },
+  { message = ".*", group = "Other" },
+]
+filter_commits = false
+tag_pattern = "v?[0-9].*"
+sort_commits = "newest"
