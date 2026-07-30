@@ -5,17 +5,44 @@
  * Steps are named after the Tailwind stops they come from, plus a `10` step for the
  * extra light shade — so the scale reads 10, 50, 100 … 900, 950 (see `scaleStops`).
  *
- * The mapping is static and verbatim:
- * - light: step 10 is an extra light shade (stop 50 mixed 60% toward white),
- *   steps 50–950 are the palette stops of the same name, unchanged.
- * - dark: the same stops read in reverse for backgrounds and text, with the
- *   solid steps anchored so buttons stay recognizable:
- *   [50↦black 40%, 950, 900, 900·800, 800, 800·700, 700, 700·600, 600, 500, 300, 100]
- *   (a·b means the OKLab midpoint of the two stops). Note this makes the dark
- *   step *names* deliberately not equal to the stops they read from.
+ * **The step names do not equal the Tailwind stops they read from**, in either mode.
+ * The 12 steps are Radix-style *roles*, not a lightness ramp:
  *
- * Alpha steps are the most transparent rgba() that composites back to the
- * solid step over white (light) / black (dark), like Radix alpha scales.
+ *   10   app background        400  subtle border      700  solid (buttons)
+ *   50   subtle background     500  UI border          800  hovered solid
+ *   100  UI element fill       600  strong border      900  low-contrast text
+ *   200  hovered fill          ...                     950  high-contrast text
+ *   300  active fill
+ *
+ * Roles 100–600 are all backgrounds and borders, so they live in the light half of
+ * the palette; feeding Tailwind's 100–600 into them straight (which is what this
+ * file used to do) put near-black borders on white cards. The tables below are
+ * fitted against the frosted-ui/Radix scales this library forked from — `a·b` means
+ * the OKLab midpoint of two stops, `+W`/`+K` a mix toward white/black:
+ *
+ * - light: [50+W70, 50+W35, 100+W45, 200+W35, 200, 200·300, 300, 300·400,
+ *           solid, solid+K, text, 900·950]
+ * - dark:  [900+K55, 900+K45, 900+K35, 900+K25, 900·950, 900, 800·900, 700·800,
+ *           solid, solid+W, text, 200]
+ * - grays take the `options.gray` branch of the same tables: mixing a near-black
+ *   neutral toward black just yields more black, and they have no vivid solid.
+ *
+ * Light background/border steps are additionally damped to `UI_STEP_CHROMA`, because
+ * Radix's UI steps are consistently less saturated than the Tailwind stops they map from.
+ *
+ * Two steps are solved rather than tabulated, so they hold for custom accent colors
+ * too (see `<Theme accentColor="#8b5cf6">`):
+ *
+ * - the solid step is `500·600`, or — for "bright" palettes whose vivid form is too
+ *   light to carry white text (amber, yellow, lime, sky) — the most chromatic color
+ *   that still takes dark text. Radix's step 9 is the *same color* in light and dark,
+ *   and so is this one. Bright scales are deliberately non-monotone here: their solid
+ *   is *lighter* than the border step before it, exactly as frosted-ui's are.
+ * - the text step is whichever candidate lands closest to a contrast target against
+ *   the app background, bracketed so it can never collide with its neighbours.
+ *
+ * Alpha steps are the most transparent rgba() that composites back to the solid step
+ * over the page — white in light mode, the scale's own step 10 in dark mode.
  *
  * `scripts/generate-palettes.ts` uses this module to generate the checked-in
  * scales for every Tailwind palette (src/styles/tokens/palettes.css), and
@@ -139,6 +166,25 @@ function oklabHueDeg(c: Oklab): number {
   return (Math.atan2(c.b, c.a) * 180) / Math.PI;
 }
 
+/**
+ * Push a color's chroma out to the sRGB gamut boundary, keeping its lightness and hue.
+ * This is what makes a "bright" solid the *vivid* form of its hue rather than just a
+ * pale ramp step: Radix's sky 9 sits at the same lightness as its step 6 but carries
+ * nearly double the chroma, and picking a ramp candidate alone reproduces the
+ * lightness while leaving the two steps identical.
+ */
+function saturateToGamut(color: Oklab): Oklab {
+  const hue = oklabHueDeg(color);
+  let lo = oklabChroma(color);
+  let hi = 0.5;
+  for (let i = 0; i < 24; i++) {
+    const mid = (lo + hi) / 2;
+    if (isInGamut(oklchToOklab(color.L, mid, hue))) lo = mid;
+    else hi = mid;
+  }
+  return oklchToOklab(color.L, lo, hue);
+}
+
 function mix(from: Oklab, to: Oklab, t: number): Oklab {
   return {
     L: from.L + (to.L - from.L) * t,
@@ -195,6 +241,21 @@ function contrastWithWhite(c: Rgb): number {
   return 1.05 / (wcagLuminance(c) + 0.05);
 }
 
+function contrastRatio(a: Rgb, b: Rgb): number {
+  const la = wcagLuminance(a);
+  const lb = wcagLuminance(b);
+  return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+}
+
+/*
+ * No hue drift is applied to the pale steps, deliberately. Radix's ramps do drift
+ * toward the warm side as they lighten (its red runs 28°→39°, its sky 242°→211°) and
+ * Tailwind's are flatter, but mixing toward white in OKLab already reproduces the
+ * effect: by step 200 the chroma is under 0.06, so hue contributes almost nothing.
+ * Rotating steps 10–200 toward a warm anchor was measured across 14 palettes and
+ * moved light ΔE by 0.001 while making dark ΔE worse (3.82 → 3.89). Don't add it back.
+ */
+
 /** Parse a CSS color (`#hex`, `rgb()`, `oklch()`) and return its sRGB hex, gamut-mapped. */
 function cssColorToHex(color: string): string {
   return rgbToHex(oklabToRgb(parseColor(color)));
@@ -205,7 +266,7 @@ function cssColorToHex(color: string): string {
 /* * * * * * * * * * * * * * * * * * * */
 
 interface ModeScale {
-  /** 12 solid steps as CSS colors (verbatim palette stops where possible). */
+  /** 12 solid steps as hex colors. */
   steps: string[];
   /** The solid steps in sRGB (for the alpha/surface derivations). */
   stepsRgb: Rgb[];
@@ -224,72 +285,188 @@ interface ScaleColors {
   dark: ModeScale;
 }
 
-/** The most transparent rgba() that composites back to `target` over white. */
-function alphaOverWhite(target: Rgb): string {
-  const alphaByte = Math.max(1, Math.ceil(255 - Math.min(target.r, target.g, target.b)));
-  const a = alphaByte / 255;
-  const solve = (t: number) => (t - (1 - a) * 255) / a;
-  return rgbToHex({ r: solve(target.r), g: solve(target.g), b: solve(target.b) }) + toHexByte(alphaByte);
+/** The color that, painted at `alpha` over `backdrop`, composites back to `target`. */
+function colorAtAlphaOver(target: Rgb, backdrop: Rgb, alpha: number): Rgb {
+  const solve = (t: number, b: number) => b + (t - b) / alpha;
+  return { r: solve(target.r, backdrop.r), g: solve(target.g, backdrop.g), b: solve(target.b, backdrop.b) };
 }
 
-/** The most transparent rgba() that composites back to `target` over black. */
-function alphaOverBlack(target: Rgb): string {
-  const alphaByte = Math.max(1, Math.max(target.r, target.g, target.b));
-  const solve = (t: number) => (t * 255) / alphaByte;
-  return rgbToHex({ r: solve(target.r), g: solve(target.g), b: solve(target.b) }) + toHexByte(alphaByte);
+/**
+ * The most transparent rgba() that composites back to `target` over `backdrop`.
+ *
+ * Per channel `target = color·a + backdrop·(1-a)`, so `color = backdrop + (target -
+ * backdrop)/a`; the smallest `a` keeping every channel inside 0…255 is the largest
+ * per-channel ratio. The backdrop matters: light scales composite over the page white,
+ * but dark scales composite over their own step 10 (`#111`-ish), not pure black —
+ * deriving those over black is what made every dark alpha token read ~8pp too heavy.
+ */
+function alphaOver(target: Rgb, backdrop: Rgb): string {
+  const channels = ['r', 'g', 'b'] as const;
+  let a = 0;
+  for (const k of channels) {
+    const delta = target[k] - backdrop[k];
+    const headroom = delta > 0 ? 255 - backdrop[k] : backdrop[k];
+    if (delta !== 0 && headroom > 0) a = Math.max(a, Math.abs(delta) / headroom);
+  }
+  const alphaByte = Math.min(255, Math.ceil(a * 255));
+  if (alphaByte === 0) return rgbToHex(backdrop) + '00';
+  const scale = 255 / alphaByte;
+  const solve = (k: (typeof channels)[number]) => backdrop[k] + (target[k] - backdrop[k]) * scale;
+  return rgbToHex({ r: solve('r'), g: solve('g'), b: solve('b') }) + toHexByte(alphaByte);
+}
+
+/** Below this contrast against white, the solid step takes dark text instead. */
+const SOLID_DARK_TEXT_THRESHOLD = 2.16;
+/** A bright palette's solid is the most chromatic color still under this contrast with white. */
+const BRIGHT_SOLID_MAX_CONTRAST = 1.6;
+/** Minimum OKLab lightness gap between adjacent steps, so no two roles render alike. */
+const RAMP_MIN_LIGHTNESS_STEP = 0.008;
+/**
+ * Chroma multiplier for the light background/border steps (10…600). Radix's UI steps
+ * are consistently less saturated than the Tailwind stops they map from; damping them
+ * measurably improves the fit for both regular and bright palettes, and it is what
+ * keeps a bright scale's borders from colliding with its (undamped) solid chip.
+ */
+const UI_STEP_CHROMA = 0.85;
+
+/**
+ * Contrast the text step (`--{scale}-900`) aims for against the app background
+ * (`--{scale}-10`). Measured off the frosted-ui scales: chromatic ramps average
+ * 5.1:1 in light and 9.8:1 in dark, grays sit slightly higher.
+ */
+const TEXT_STEP_CONTRAST = {
+  chromatic: { light: 5.0, dark: 9.3 },
+  gray: { light: 5.9, dark: 9.1 },
+} as const;
+
+interface ComputeScaleOptions {
+  /** Neutral palette — grays use their own step tables and text-contrast targets. */
+  gray?: boolean;
+  /**
+   * A "bright" palette, whose vivid form is too light to carry white text (Radix's
+   * `sky`/`mint`/`yellow`/`amber`/`lime` group). Detected from the palette when omitted,
+   * which is what custom `<Theme accentColor>` colors rely on.
+   */
+  bright?: boolean;
 }
 
 /**
  * Expand an 11-stop palette into the light and dark 12-step scales, with
- * alpha steps, step-9 contrast color and translucent surfaces.
+ * alpha steps, solid-step contrast color and translucent surfaces.
  */
-function computeScale(palette: TailwindPalette): ScaleColors {
-  const raw = {} as Record<TailwindPaletteStop, string>;
+function computeScale(palette: TailwindPalette, options: ComputeScaleOptions = {}): ScaleColors {
   const ok = {} as Record<TailwindPaletteStop, Oklab>;
   for (const stop of tailwindPaletteStops) {
     const value = palette[stop];
     if (typeof value !== 'string') throw new Error(`Palette is missing stop ${stop}.`);
-    raw[stop] = value.trim();
     ok[stop] = parseColor(value);
   }
 
-  type Step = TailwindPaletteStop | Oklab;
-  const lightSteps: Step[] = [mix(ok[50], WHITE, 0.6), 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
-  const darkSteps: Step[] = [
-    mix(ok[950], BLACK, 0.4),
-    950,
-    900,
-    mix(ok[900], ok[800], 0.5),
-    800,
-    mix(ok[800], ok[700], 0.5),
-    700,
-    mix(ok[700], ok[600], 0.5),
-    600,
-    500,
-    300,
-    100,
+  /** The OKLab midpoint of two stops. */
+  const mid = (a: TailwindPaletteStop, b: TailwindPaletteStop, t = 0.5) => mix(ok[a], ok[b], t);
+  const toWhite = (stop: TailwindPaletteStop, t: number) => mix(ok[stop], WHITE, t);
+  const toBlack = (stop: TailwindPaletteStop, t: number) => mix(ok[stop], BLACK, t);
+
+  // Every stop plus every adjacent midpoint — the search space for the solved steps.
+  const candidates: Oklab[] = [
+    ...tailwindPaletteStops.map((stop) => ok[stop]),
+    ...tailwindPaletteStops.slice(0, -1).map((stop, i) => mid(stop, tailwindPaletteStops[i + 1])),
+  ];
+  const mostChromatic = (pool: Oklab[]) =>
+    pool.reduce((best, c) => (oklabChroma(c) > oklabChroma(best) ? c : best), pool[0]);
+
+  const bright = options.bright ?? contrastWithWhite(oklabToRgb(mostChromatic(candidates))) < SOLID_DARK_TEXT_THRESHOLD;
+
+  // The solid step. Radix's step 9 is the same color in light and dark — verified
+  // across every frosted-ui scale — so chromatic palettes compute it once and share it.
+  // A bright solid is the vivid form of the hue at the lightest level that still takes
+  // dark text; without the gamut push it would come out identical to a border step.
+  const brightPool = candidates.filter((c) => contrastWithWhite(oklabToRgb(c)) <= BRIGHT_SOLID_MAX_CONTRAST);
+  const solid = bright ? saturateToGamut(mostChromatic(brightPool.length ? brightPool : candidates)) : mid(500, 600);
+
+  /**
+   * The candidate whose contrast against `background` lands closest to `target`, from
+   * those that sit strictly between the two steps that bracket it (the hovered solid
+   * and the high-contrast text step). Unconstrained, the solver returns a step *lighter*
+   * than the solid for hues whose vivid form is already dark — violet's text step came
+   * back equal to its own solid — or one identical to the step after it.
+   */
+  const textStep = (background: Oklab, target: number, bracket: [Oklab, Oklab]): Oklab => {
+    const bg = oklabToRgb(background);
+    const lo = Math.min(bracket[0].L, bracket[1].L) + RAMP_MIN_LIGHTNESS_STEP;
+    const hi = Math.max(bracket[0].L, bracket[1].L) - RAMP_MIN_LIGHTNESS_STEP;
+    const bracketed = candidates.filter((c) => c.L >= lo && c.L <= hi);
+    const pool = bracketed.length ? bracketed : candidates;
+    let best = pool[0];
+    let bestDelta = Infinity;
+    for (const c of pool) {
+      const delta = Math.abs(contrastRatio(oklabToRgb(c), bg) - target);
+      if (delta < bestDelta) {
+        bestDelta = delta;
+        best = c;
+      }
+    }
+    return best;
+  };
+
+  const targets = TEXT_STEP_CONTRAST[options.gray ? 'gray' : 'chromatic'];
+
+  // Steps 10…600 (the backgrounds, fills and borders). The solid, hover, text and
+  // high-contrast steps are appended per mode below.
+  // Grays are already untinted, so only the chromatic ramp is damped.
+  const damp = (c: Oklab): Oklab => ({ L: c.L, a: c.a * UI_STEP_CHROMA, b: c.b * UI_STEP_CHROMA });
+  const grayLightBase = [toWhite(50, 0.4), toWhite(100, 0.4), toWhite(200, 0.4), ok[200], mid(200, 300, 0.35), mid(200, 300, 0.7), ok[300], mid(300, 400)]; // prettier-ignore
+  const chromaticLightBase = [toWhite(50, 0.7), toWhite(50, 0.35), toWhite(100, 0.45), toWhite(200, 0.35), ok[200], mid(200, 300), ok[300], mid(300, 400)].map(damp); // prettier-ignore
+  const lightBase = options.gray ? grayLightBase : chromaticLightBase;
+  const darkBase = options.gray
+    ? [mid(900, 950), ok[900], mid(800, 900), ok[800], mid(700, 800), ok[700], mid(600, 700), mid(500, 600)]
+    : [toBlack(900, 0.55), toBlack(900, 0.45), toBlack(900, 0.35), toBlack(900, 0.25), mid(900, 950), ok[900], mid(800, 900), mid(700, 800, 0.2)]; // prettier-ignore
+
+  // Grays have no vivid form, so their solid and hover come from the ramp itself.
+  const lightSolid = options.gray ? mid(400, 500) : solid;
+  const darkSolid = options.gray ? mid(500, 600, 0.3) : solid;
+
+  const lightHover = mix(lightSolid, BLACK, 0.06);
+  const darkHover = options.gray ? ok[500] : mix(darkSolid, WHITE, 0.08);
+  const lightHighContrast = options.gray ? mid(800, 900) : mid(900, 950);
+  const darkHighContrast = options.gray ? mid(100, 200) : ok[200];
+
+  const lightSteps = [
+    ...lightBase,
+    lightSolid,
+    lightHover,
+    textStep(lightBase[0], targets.light, [lightHover, lightHighContrast]),
+    lightHighContrast,
+  ];
+  const darkSteps = [
+    ...darkBase,
+    darkSolid,
+    darkHover,
+    textStep(darkBase[0], targets.dark, [darkHover, darkHighContrast]),
+    darkHighContrast,
   ];
 
-  // Solid-step text: white, or a near-black palette tint for palettes whose solid
-  // steps (light 700 / dark 600) are too light for white text.
+  // Solid-step text: white, or a near-black palette tint when the solid is too light.
   const darkText = rgbToHex(oklabToRgb(mix(ok[900], ok[950], 0.6)));
-  const contrastFor = (solid: Rgb) => (contrastWithWhite(solid) >= 2.16 ? 'white' : darkText);
+  const contrastFor = (s: Rgb) => (contrastWithWhite(s) >= SOLID_DARK_TEXT_THRESHOLD ? 'white' : darkText);
 
-  const build = (steps: Step[], mode: 'light' | 'dark'): ModeScale => {
-    const stepsRgb = steps.map((s) => oklabToRgb(typeof s === 'number' ? ok[s] : s));
-    const alpha = mode === 'light' ? alphaOverWhite : alphaOverBlack;
+  const build = (steps: Oklab[], mode: 'light' | 'dark'): ModeScale => {
+    const stepsRgb = steps.map(oklabToRgb);
+    // Light scales composite over the page white; dark ones over their own step 10.
+    const backdrop = mode === 'light' ? { r: 255, g: 255, b: 255 } : stepsRgb[0];
     const step50 = stepsRgb[scaleStops.indexOf(SURFACE_STOP)];
-    const surface =
-      mode === 'light'
-        ? rgbToHex({ r: (step50.r - 51) / 0.8, g: (step50.g - 51) / 0.8, b: (step50.b - 51) / 0.8 }) + 'cc'
-        : rgbToHex({ r: step50.r * 2, g: step50.g * 2, b: step50.b * 2 }) + '80';
+    // The translucent surface and panel are step 50 un-composited against the page, so
+    // they land back on step 50 once painted. Dark mode has to un-composite against the
+    // page (step 10), not black — against black the ×2 lands a saturated dark step way
+    // past its target (blue's surface came out #0c2678 against frosted's #0e1d3d).
+    const surfaceAlpha = mode === 'light' ? 0.8 : 0.5;
     return {
-      steps: steps.map((s, i) => (typeof s === 'number' ? raw[s] : rgbToHex(stepsRgb[i]))),
+      steps: stepsRgb.map(rgbToHex),
       stepsRgb,
-      alphas: stepsRgb.map(alpha),
+      alphas: stepsRgb.map((c) => alphaOver(c, backdrop)),
       contrast: contrastFor(stepsRgb[scaleStops.indexOf(SOLID_STOP)]),
-      surface,
-      translucent: rgbToHex(step50) + 'd9',
+      surface: rgbToHex(colorAtAlphaOver(step50, backdrop, surfaceAlpha)) + (mode === 'light' ? 'cc' : '80'),
+      translucent: rgbToHex(colorAtAlphaOver(step50, backdrop, 0.85)) + 'd9',
     };
   };
 
@@ -356,7 +533,7 @@ function semanticMappingCss(kind: 'danger' | 'warning' | 'success' | 'info', nam
   return cssBlock(selector, [`--color-surface-${kind}: var(--${name}-surface)`, ...mappingDeclarations(kind, name)]);
 }
 
-interface CreatePaletteCssOptions {
+interface CreatePaletteCssOptions extends ComputeScaleOptions {
   /** Also emit a `[data-gray-color='{name}']` mapping so the palette can be the Theme `grayColor`. */
   gray?: boolean;
 }
@@ -372,7 +549,7 @@ function createPaletteCss(name: string, palette: TailwindPalette, options: Creat
     throw new Error(`Invalid palette name "${name}". Use lowercase letters, digits and dashes.`);
   }
 
-  const colors = computeScale(palette);
+  const colors = computeScale(palette, options);
   const blocks = [scaleCss(name, colors, { gray: options.gray }), accentMappingCss(name)];
   if (options.gray) blocks.push(grayMappingCss(name));
   return blocks.join('\n\n') + '\n';
@@ -388,7 +565,10 @@ function customScaleStyle(prefix: 'fui-ca' | 'fui-cg', colors: ScaleColors): Rec
   colors.dark.steps.forEach((v, i) => (vars[`--${prefix}-d${scaleStops[i]}`] = v));
   colors.light.alphas.forEach((v, i) => (vars[`--${prefix}-lalpha-${scaleStops[i]}`] = v));
   colors.dark.alphas.forEach((v, i) => (vars[`--${prefix}-dalpha-${scaleStops[i]}`] = v));
-  vars[`--${prefix}-contrast`] = colors.dark.contrast;
+  // One contrast var covers both modes. Chromatic scales share a solid so the two
+  // agree; where they don't (grays), take whichever mode wants dark text — white text
+  // on a too-light solid is unreadable, the reverse is merely lower contrast.
+  vars[`--${prefix}-contrast`] = colors.light.contrast === 'white' ? colors.dark.contrast : colors.light.contrast;
   vars[`--${prefix}-ls`] = colors.light.surface;
   vars[`--${prefix}-ds`] = colors.dark.surface;
   if (prefix === 'fui-cg') vars[`--${prefix}-dt`] = colors.dark.translucent;
@@ -410,16 +590,16 @@ function createAccentScaleStyle(color: string): Record<string, string> {
  * gray scale under `data-gray-color="custom"`. Used by `<Theme grayColor="#3f3f46">`.
  */
 function createGrayScaleStyle(color: string): Record<string, string> {
-  return customScaleStyle('fui-cg', computeScale(createPaletteFromColor(color)));
+  return customScaleStyle('fui-cg', computeScale(createPaletteFromColor(color), { gray: true }));
 }
 
 /**
  * The dark-mode page background (scale step 10) for an arbitrary gray color, as a hex
  * string. theme.tsx applies this to `<body>`, which no CSS scale scope reaches.
+ * Reads the generated scale so it can never drift from the gray step table.
  */
 function darkPageBackgroundFromColor(color: string): string {
-  const palette = createPaletteFromColor(color);
-  return rgbToHex(oklabToRgb(mix(parseColor(palette[950]), BLACK, 0.4)));
+  return computeScale(createPaletteFromColor(color), { gray: true }).dark.steps[0];
 }
 
 /**
@@ -427,14 +607,15 @@ function darkPageBackgroundFromColor(color: string): string {
  * `tailwindGetMatchingGrayScale`'s hue groupings. Falls back to `neutral` for
  * achromatic or unparseable colors.
  */
-function matchingGrayFromColor(color: string): 'stone' | 'neutral' | 'zinc' {
+function matchingGrayFromColor(color: string): 'slate' | 'stone' | 'neutral' | 'zinc' {
   try {
     const c = parseColor(color);
     if (oklabChroma(c) < 0.02) return 'neutral';
     const hue = ((oklabHueDeg(c) % 360) + 360) % 360;
-    if (hue >= 20 && hue < 115) return 'stone'; // warm: red/orange/amber/yellow
+    if (hue >= 35 && hue < 115) return 'stone'; // warm: orange/amber/yellow
     if (hue >= 115 && hue < 190) return 'neutral'; // greens
-    return 'zinc'; // cool hues, purples and pinks
+    if (hue >= 190 && hue < 285) return 'slate'; // cool: cyan/sky/blue/indigo
+    return 'zinc'; // reds, purples and pinks
   } catch {
     return 'neutral';
   }

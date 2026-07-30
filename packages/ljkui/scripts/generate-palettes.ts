@@ -24,6 +24,7 @@ import {
   tailwindPaletteStops,
   type TailwindPalette,
 } from '../src/helpers/tailwind-palette';
+import { tailwindBrightScales, tailwindGrayScales } from '../src/helpers/tailwind-colors';
 
 const CHROMATIC = [
   'red',
@@ -46,7 +47,9 @@ const CHROMATIC = [
 ] as const;
 const NEUTRALS = ['slate', 'gray', 'zinc', 'neutral', 'stone'] as const;
 /** The neutrals selectable as the Theme `grayColor` — see src/helpers/tailwind-colors.ts. */
-const GRAYS = ['zinc', 'neutral', 'stone'] as const;
+const GRAYS = tailwindGrayScales;
+/** Palettes whose solid step is a light chip with dark text — see tailwindBrightScales. */
+const BRIGHT = tailwindBrightScales as readonly string[];
 const ALL = [...CHROMATIC, ...NEUTRALS];
 
 const SEMANTIC: Record<'danger' | 'warning' | 'success' | 'info', readonly string[]> = {
@@ -91,7 +94,15 @@ const alphaLadder = (color: string) =>
   );
 
 function generatePalettesCss(palettes: Record<string, TailwindPalette>): string {
-  const scales = Object.fromEntries(ALL.map((name) => [name, computeScale(palettes[name])]));
+  const scales = Object.fromEntries(
+    ALL.map((name) => [
+      name,
+      computeScale(palettes[name], {
+        gray: (NEUTRALS as readonly string[]).includes(name),
+        bright: BRIGHT.includes(name),
+      }),
+    ]),
+  );
 
   const parts: string[] = [
     `/*

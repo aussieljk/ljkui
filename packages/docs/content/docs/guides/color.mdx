@@ -15,10 +15,18 @@ Steps are named after the Tailwind stops, with an extra `10` step for the additi
 so a scale reads `10, 50, 100, 200, … 900, 950`, and `accent-950` is the darkest step.
 
 Each scale has 12 steps with dedicated roles — `10`-`50` backgrounds, `100`-`300` component
-backgrounds, `400`-`600` borders, `700`-`800` solid colors, `900`-`950` text. In light mode each
-step is the Tailwind stop it is named after (`10` being the extra light shade); dark mode reads the
-same stops in reverse with the solid steps anchored near 500-600 so buttons stay recognizable — so
-in dark mode a step's name no longer matches the stop it is derived from.
+backgrounds, `400`-`600` borders, `700`-`800` solid colors, `900`-`950` text.
+
+<Callout type="warn">
+  **A step's name is not the Tailwind stop it is built from**, in either light or dark mode.
+  `accent-500` is a *border*, so it is derived from around Tailwind's `300`, not its `500`.
+</Callout>
+
+The scales are Tailwind palettes fitted onto these roles, not Tailwind's ramp renamed. Six of the
+twelve steps are backgrounds and borders, so they all live in the light half of the palette; the
+solid step is the vivid form of the hue and is the *same color* in light and dark; and the `900`
+text step is solved for a contrast ratio against `10` rather than pinned to a stop. If you want
+Tailwind's stop values themselves, use Tailwind's own `blue-500` utility — `accent-500` is a role.
 
 ## Solid and alpha
 
