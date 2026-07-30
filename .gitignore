@@ -10,6 +10,7 @@ coverage
 
 # build output
 dist/
+storybook-static/
 packages/ljkui/styles.css
 packages/ljkui/styles.lite.css
 packages/ljkui/theme.css
@@ -22,6 +23,7 @@ packages/ljkui/theme.css
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+debug-storybook.log
 
 # local env files
 .env.local
