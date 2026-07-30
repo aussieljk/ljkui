@@ -1,54 +1,137 @@
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+/**
+ * Generates the Storybook story files from `examples/*.examples.tsx`.
+ *
+ * Shape mirrors storybook.whop.dev (the fork's own Storybook): a handful of
+ * top-level categories, one **title per component**, and one story per named
+ * example — rather than a single title holding every example in the library.
+ *
+ * Crucially this writes **one module per component**. The previous generator
+ * emitted a single `examples.stories.tsx` that imported all 92 example modules
+ * eagerly, so opening any story pulled the entire library into one chunk; now
+ * Vite code-splits per component and Storybook loads only what you click on.
+ *
+ * Run with: bun run generate:storybook (wired into `storybook` / `build-storybook`).
+ */
+import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 
-const examplesDir = join(import.meta.dirname, '..', 'examples');
-const storiesDir = join(import.meta.dirname, '..', 'stories');
-const outputPath = join(storiesDir, 'examples.stories.tsx');
+const packageRoot = join(import.meta.dirname, '..');
+const examplesDir = join(packageRoot, 'examples');
+/** Everything under here is generated; hand-authored MDX lives in `stories/` itself. */
+const generatedDir = join(packageRoot, 'stories', 'generated');
 
-const componentTitle = (slug: string) =>
-  slug
+/**
+ * Category per component, mirroring storybook.whop.dev's sidebar. A `/` nests
+ * (whop groups the date pickers under `Controls/Dates`).
+ */
+const CATEGORIES: Record<string, string> = {
+  // Typography
+  blockquote: 'Typography',
+  code: 'Typography',
+  em: 'Typography',
+  heading: 'Typography',
+  kbd: 'Typography',
+  link: 'Typography',
+  quote: 'Typography',
+  strong: 'Typography',
+  text: 'Typography',
+  // Layout
+  accordion: 'Layout',
+  'aspect-ratio': 'Layout',
+  collapsible: 'Layout',
+  grid: 'Layout',
+  'h-stack': 'Layout',
+  inset: 'Layout',
+  resizable: 'Layout',
+  separator: 'Layout',
+  sidebar: 'Layout',
+  spacer: 'Layout',
+  'v-stack': 'Layout',
+  'z-stack': 'Layout',
+  // Controls
+  autocomplete: 'Controls',
+  button: 'Controls',
+  'button-group': 'Controls',
+  checkbox: 'Controls',
+  combobox: 'Controls',
+  command: 'Controls',
+  'context-menu': 'Controls',
+  'dropdown-menu': 'Controls',
+  'filter-chip': 'Controls',
+  'icon-button': 'Controls',
+  input: 'Controls',
+  'input-group': 'Controls',
+  'input-otp': 'Controls',
+  menubar: 'Controls',
+  'navigation-menu': 'Controls',
+  'number-field': 'Controls',
+  pagination: 'Controls',
+  'radio-button-group': 'Controls',
+  'radio-group': 'Controls',
+  select: 'Controls',
+  slider: 'Controls',
+  switch: 'Controls',
+  textarea: 'Controls',
+  toggle: 'Controls',
+  'toggle-group': 'Controls',
+  'toggle-group-nav': 'Controls',
+  'toggle-group-radio-group': 'Controls',
+  // Controls / Dates — whop nests these
+  calendar: 'Controls/Dates',
+  'date-field': 'Controls/Dates',
+  'date-picker': 'Controls/Dates',
+  'date-range-picker': 'Controls/Dates',
+  'range-calendar': 'Controls/Dates',
+  // Data presentation
+  chart: 'Data presentation',
+  'data-table': 'Data presentation',
+  table: 'Data presentation',
+  // Forms
+  field: 'Forms',
+  fieldset: 'Forms',
+  form: 'Forms',
+  // Utilities
+  shine: 'Utilities',
+  // Components (everything else falls through to this default)
+};
+const DEFAULT_CATEGORY = 'Components';
+
+/** Ordering of the top-level sidebar sections, matching whop's. */
+const CATEGORY_ORDER = [
+  'Introduction',
+  'Guides',
+  'Components',
+  'Controls',
+  'Typography',
+  'Layout',
+  'Data presentation',
+  'Forms',
+  'Utilities',
+];
+
+/** Slug → the PascalCase display name whop uses (`alert-dialog` → `AlertDialog`). */
+const SPECIAL_CASE_WORDS: Record<string, string> = { otp: 'OTP' };
+
+function displayName(slug: string): string {
+  return slug
     .split('-')
-    .map((part) => {
-      if (part === 'otp') return 'OTP';
-      return part[0]?.toUpperCase() + part.slice(1);
-    })
-    .join(' ');
+    .map((part) => SPECIAL_CASE_WORDS[part] ?? part[0]?.toUpperCase() + part.slice(1))
+    .join('');
+}
 
-const exportName = (slug: string) =>
-  slug
+/** A valid, stable JS identifier for a story export. */
+function identifier(name: string, fallback: string): string {
+  const id = name
     .split(/[^a-zA-Z0-9]+/)
     .filter(Boolean)
     .map((part) => part[0]?.toUpperCase() + part.slice(1))
     .join('')
-    .replace(/^[^a-zA-Z_$]+/, '') || 'Example';
-
-const files = readdirSync(examplesDir)
-  .filter((file) => file.endsWith('.examples.tsx'))
-  .sort();
-
-const imports = files
-  .map((file, index) => {
-    const slug = basename(file, '.examples.tsx');
-    return `import { examples as ${exportName(slug)}Examples } from '../examples/${slug}.examples';`;
-  })
-  .join('\n');
-
-const registry = files
-  .map((file) => {
-    const slug = basename(file, '.examples.tsx');
-    return `  { title: '${componentTitle(slug)}', examples: ${exportName(slug)}Examples },`;
-  })
-  .join('\n');
-
-const storyNameCounts = new Map<string, number>();
-
-function uniqueStoryName(name: string) {
-  const count = storyNameCounts.get(name) ?? 0;
-  storyNameCounts.set(name, count + 1);
-  return count === 0 ? name : `${name}${count + 1}`;
+    .replace(/^[^a-zA-Z_$]+/, '');
+  return id || fallback;
 }
 
-const exampleNames = (file: string) => {
+/** The named examples in a module, in declaration order. */
+function exampleNames(file: string): string[] {
   const source = readFileSync(join(examplesDir, file), 'utf8');
   let names = Array.from(
     source.matchAll(/^\s{2}(?:'([^']+)'|"([^"]+)"|([A-Za-z_$][\w$]*))\s*(?:\(|:)/gm),
@@ -60,141 +143,243 @@ const exampleNames = (file: string) => {
       (match) => match[1] ?? match[2] ?? match[3],
     );
   }
-  if (names.length === 0) {
-    throw new Error(`No examples found in ${file}`);
-  }
+  if (names.length === 0) throw new Error(`No examples found in ${file}`);
   return names;
-};
+}
 
-const storyExports = files
-  .flatMap((file) => {
-    const slug = basename(file, '.examples.tsx');
-    const component = componentTitle(slug);
-    return exampleNames(file).map((name) => {
-      const storyName = uniqueStoryName(`${exportName(slug)}${exportName(name)}`);
-      return `export const ${storyName}: Story = {
-  name: '${component} / ${name.replaceAll("'", "\\'")}',
-  render: () => <StoryFrame title="${component}" name={'${name.replaceAll("'", "\\'")}'} render={() => renderExample(${exportName(slug)}Examples['${name.replaceAll("'", "\\'")}'])} />,
+const quote = (value: string) => `'${value.replaceAll('\\', '\\\\').replaceAll("'", "\\'")}'`;
+
+function storyModule(slug: string, category: string): string {
+  const component = displayName(slug);
+  const used = new Set<string>();
+
+  const stories = exampleNames(slug + '.examples.tsx')
+    .map((name, index) => {
+      let id = identifier(name, `Example${index + 1}`);
+      while (used.has(id)) id = `${id}_`;
+      used.add(id);
+      return `export const ${id}: Story = {
+  name: ${quote(name)},
+  render: () => render(examples[${quote(name)}]),
+};`;
+    })
+    .join('\n\n');
+
+  return `// GENERATED by scripts/generate-storybook.ts — do not edit.
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { examples } from '../../../examples/${slug}.examples';
+import { render } from '../../render-example';
+
+const meta = {
+  title: '${category}/${component}',
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        story: '${component} example from packages/ljkui/examples/${slug}.examples.tsx.',
+        component: 'Examples for \`${component}\`, from examples/${slug}.examples.tsx.',
       },
     },
   },
-};`;
-    });
-  })
-  .join('\n\n');
-
-const content = `import type { Meta, StoryObj } from '@storybook/react-vite';
-import React from 'react';
-import { Theme, Typography } from 'ljkui';
-${imports}
-
-type ExampleValue = React.ReactNode | (() => React.ReactNode);
-type ExampleMap = Record<string, ExampleValue>;
-
-const renderExample = (example: ExampleValue) => (typeof example === 'function' ? example() : example);
-
-const groups: Array<{ title: string; examples: ExampleMap }> = [
-${registry}
-];
-
-const StoryFrame = ({ title, name, render }: { title: string; name: string; render: () => React.ReactNode }) => (
-  <Theme accentColor="indigo" grayColor="slate" radius="medium" scaling="100%" hasBackground>
-    <main className="ljkui-story-frame">
-      <header className="ljkui-story-header">
-        <Typography.Text size="2" color="gray">
-          {title}
-        </Typography.Text>
-        <Typography.Heading as="h1" size="6">
-          {name}
-        </Typography.Heading>
-      </header>
-      <section className="ljkui-story-canvas">{render()}</section>
-    </main>
-  </Theme>
-);
-
-const meta = {
-  title: 'Examples/All ljkui Components',
-  parameters: {
-    layout: 'fullscreen',
-    options: { showPanel: false },
-  },
-  tags: ['autodocs'],
 } satisfies Meta;
 
 export default meta;
+type Story = StoryObj<typeof meta>;
 
-type Story = StoryObj;
+${stories}
+`;
+}
 
-export const Gallery: Story = {
-  name: 'Gallery',
-  render: () => (
-    <Theme accentColor="indigo" grayColor="slate" radius="medium" scaling="100%" hasBackground>
-      <main className="ljkui-gallery">
-        <header className="ljkui-gallery-hero">
-          <Typography.Text size="2" color="gray">
-            ljkui Storybook
-          </Typography.Text>
-          <Typography.Heading as="h1" size="8">
-            Component examples
-          </Typography.Heading>
-          <Typography.Text size="4" color="gray">
-            A complete, generated gallery of the forked Whop examples updated to render through the ljkui package,
-            naming, theme tokens, and current component exports.
-          </Typography.Text>
-        </header>
-        <div className="ljkui-gallery-grid">
-          {groups.map((group) => (
-            <section className="ljkui-gallery-group" key={group.title}>
-              <Typography.Heading as="h2" size="5">
-                {group.title}
-              </Typography.Heading>
-              <div className="ljkui-gallery-examples">
-                {Object.entries(group.examples).map(([name, render]) => (
-                  <article className="ljkui-gallery-card" key={name}>
-                    <Typography.Text size="2" weight="medium">
-                      {name}
-                    </Typography.Text>
-                    <div className="ljkui-gallery-card-canvas">{renderExample(render)}</div>
-                  </article>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-      </main>
+/* * * * * * * * * * * * * * * * * * * */
+/*                Guides               */
+/* * * * * * * * * * * * * * * * * * * */
+
+const docsGuidesDir = join(packageRoot, '..', 'docs', 'content', 'docs', 'guides');
+
+/**
+ * Guide pages, ported from the docs site so the prose has one source of truth.
+ * Numbered like whop's, which orders them in the sidebar by title.
+ */
+const GUIDES: Array<{ file: string; title: string }> = [
+  { file: 'typography.mdx', title: '2. Typography' },
+  { file: 'color.mdx', title: '3. Color' },
+  { file: 'breakpoints.mdx', title: '4. Breakpoints' },
+  { file: 'tailwind.mdx', title: '5. Tailwind plugin' },
+  { file: 'icons.mdx', title: '6. Icons' },
+  { file: 'render-prop.mdx', title: '7. Render Prop (Composition)' },
+  { file: 'theming.mdx', title: '8. Theming' },
+  { file: 'layout.mdx', title: '9. Layout' },
+];
+
+/**
+ * Strip the Fumadocs-only tags the docs site provides and Storybook does not
+ * (`<Demo>`, `<PropsTable>`, `<Examples>`, `<AllExamples>`), and downgrade
+ * `<Callout>` to a blockquote. Everything else is plain MDX and renders as-is.
+ */
+function portGuide(source: string, title: string): string {
+  const frontmatter = source.match(/^---\n([\s\S]*?)\n---\n/);
+  const body = frontmatter ? source.slice(frontmatter[0].length) : source;
+  const description = frontmatter?.[1].match(/^description:\s*["']?(.*?)["']?\s*$/m)?.[1];
+
+  const ported = body
+    .replace(/<(Demo|PropsTable|Examples|AllExamples|ComponentCatalog)\b[^>]*\/>/g, '')
+    .replace(/<Callout\b[^>]*>([\s\S]*?)<\/Callout>/g, (_, inner: string) =>
+      inner
+        .trim()
+        .split('\n')
+        .map((line: string) => `> ${line.trim()}`)
+        .join('\n'),
+    )
+    .trim();
+
+  const heading = title.replace(/^\d+\.\s*/, '');
+  // The frontmatter description is plain prose, not MDX — `<Theme>` in it would be
+  // parsed as an unclosed JSX tag and fail the whole index.
+  const escaped = description?.replace(/[<{]/g, (c) => (c === '<' ? '&lt;' : '&#123;'));
+  return `{/* GENERATED by scripts/generate-storybook.ts from docs/content/docs/guides — do not edit. */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/${title}" />
+
+# ${heading}
+${escaped ? `\n_${escaped}_\n` : ''}
+${ported}
+`;
+}
+
+const INTRODUCTION = `{/* GENERATED by scripts/generate-storybook.ts — do not edit. */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# ljkui
+
+A React component library built on [Base UI](https://base-ui.com), themed with the
+Tailwind CSS v4 palettes.
+
+## Install
+
+\`\`\`sh
+bun add ljkui
+\`\`\`
+
+\`\`\`tsx
+import { Theme, Button } from 'ljkui';
+import 'ljkui/styles.css';
+
+export default function App() {
+  return (
+    <Theme accentColor="blue" grayColor="auto">
+      <Button>Click me</Button>
     </Theme>
-  ),
-};
+  );
+}
+\`\`\`
 
-${storyExports}
+## Using this Storybook
 
-export const Components: Story = {
-  name: 'Component browser',
-  render: () => (
-    <Theme accentColor="indigo" grayColor="slate" radius="medium" scaling="100%" hasBackground>
-      <main className="ljkui-component-index">
-        {groups.map((group) => (
-          <section key={group.title}>
-            <Typography.Heading as="h2" size="5">
-              {group.title}
-            </Typography.Heading>
-            <div>
-              {Object.entries(group.examples).map(([name, render]) => (
-                <StoryFrame key={name} title={group.title} name={name} render={() => renderExample(render)} />
-              ))}
-            </div>
-          </section>
-        ))}
-      </main>
-    </Theme>
-  ),
-};
+Every component has a page under one of the sidebar sections, with one story per
+example. The toolbar switches **appearance** (light/dark), **accent color** and
+**gray color**, and every story re-renders through \`<Theme>\` — which is the fastest
+way to check a component against the full palette.
+
+The examples themselves live in \`packages/ljkui/examples/*.examples.tsx\` and are
+shared with the docs site, so a story and a docs demo never drift apart.
 `;
 
-mkdirSync(storiesDir, { recursive: true });
-writeFileSync(outputPath, content);
+const GETTING_STARTED = `{/* GENERATED by scripts/generate-storybook.ts — do not edit. */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/1. Getting started" />
+
+# Getting started
+
+## Install
+
+\`\`\`sh
+bun add ljkui
+\`\`\`
+
+## Wrap your app in a Theme
+
+\`ljkui/styles.css\` carries the tokens and a global reset; \`<Theme>\` scopes the
+accent, gray, radius and appearance to a subtree.
+
+\`\`\`tsx
+import { Theme } from 'ljkui';
+import 'ljkui/styles.css';
+
+<Theme accentColor="blue" grayColor="auto" radius="medium" appearance="inherit">
+  {children}
+</Theme>
+\`\`\`
+
+## With Tailwind
+
+Import the theme bridge after Tailwind to get utilities for every design token —
+\`bg-accent-700\`, \`text-gray-900\`, \`border-gray-alpha-300\`. The layer order matters;
+see the **Tailwind plugin** guide.
+
+\`\`\`css
+@layer theme, base, ljkui, components, utilities;
+
+@import 'tailwindcss';
+@import 'ljkui/styles.css' layer(ljkui);
+@import 'ljkui/theme.css';
+\`\`\`
+`;
+
+const files = readdirSync(examplesDir)
+  .filter((file) => file.endsWith('.examples.tsx'))
+  .sort();
+
+rmSync(generatedDir, { recursive: true, force: true });
+
+mkdirSync(join(generatedDir, 'Guides'), { recursive: true });
+writeFileSync(join(generatedDir, 'Introduction.mdx'), INTRODUCTION);
+writeFileSync(join(generatedDir, 'Guides', '1-getting-started.mdx'), GETTING_STARTED);
+
+let guideCount = 1;
+for (const guide of GUIDES) {
+  let source: string;
+  try {
+    source = readFileSync(join(docsGuidesDir, guide.file), 'utf8');
+  } catch {
+    console.warn(`Storybook: skipping guide ${guide.file} — not found in the docs package.`);
+    continue;
+  }
+  const slug = guide.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); // prettier-ignore
+  writeFileSync(join(generatedDir, 'Guides', `${slug}.mdx`), portGuide(source, guide.title));
+  guideCount++;
+}
+
+const counts: Record<string, number> = {};
+for (const file of files) {
+  const slug = basename(file, '.examples.tsx');
+  const category = CATEGORIES[slug] ?? DEFAULT_CATEGORY;
+  const dir = join(generatedDir, category);
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, `${displayName(slug)}.stories.tsx`), storyModule(slug, category));
+  counts[category] = (counts[category] ?? 0) + 1;
+}
+
+/*
+ * The sidebar order lives in .storybook/preview.tsx, which must hold it as an inline
+ * literal (Storybook statically parses `options.storySort` and rejects an imported
+ * constant). Verify the two lists agree rather than generating a file preview cannot use.
+ */
+const previewSource = readFileSync(join(packageRoot, '.storybook', 'preview.tsx'), 'utf8');
+const missing = [...new Set(Object.keys(counts).map((category) => category.split('/')[0]))].filter(
+  (category) => !previewSource.includes(`'${category}'`),
+);
+if (missing.length > 0) {
+  console.warn(
+    `Storybook: ${missing.join(', ')} missing from storySort.order in .storybook/preview.tsx — ` +
+      `those sections will sort alphabetically at the end.`,
+  );
+}
+
+const summary = Object.entries(counts)
+  .sort(([a], [b]) => CATEGORY_ORDER.indexOf(a.split('/')[0]) - CATEGORY_ORDER.indexOf(b.split('/')[0]))
+  .map(([category, count]) => `${category} ${count}`)
+  .join(', ');
+console.log(`Storybook: ${files.length} component modules + ${guideCount} guides — ${summary}`);

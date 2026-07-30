@@ -17,6 +17,27 @@ const preview: Preview = {
       toc: true,
     },
     layout: 'centered',
+    options: {
+      /*
+       * Top-level sections in whop's order; within a section, declaration order.
+       * Storybook statically parses this, so it must stay an inline literal — an
+       * imported constant fails with "Unexpected 'categoryOrder'". Keep in sync with
+       * CATEGORY_ORDER in scripts/generate-storybook.ts, which warns on drift.
+       */
+      storySort: {
+        order: [
+          'Introduction',
+          'Guides',
+          'Components',
+          'Controls',
+          'Typography',
+          'Layout',
+          'Data presentation',
+          'Forms',
+          'Utilities',
+        ],
+      },
+    },
   },
   globalTypes: {
     appearance: {
@@ -33,21 +54,31 @@ const preview: Preview = {
       toolbar: {
         title: 'Accent',
         icon: 'paintbrush',
-        items: ['indigo', 'cyan', 'rose', 'orange', 'green'],
+        items: ['blue', 'indigo', 'violet', 'cyan', 'sky', 'green', 'amber', 'orange', 'red', 'rose', 'gray'],
+        dynamicTitle: true,
+      },
+    },
+    grayColor: {
+      description: 'Gray scale paired with the accent',
+      toolbar: {
+        title: 'Gray',
+        icon: 'contrast',
+        items: ['auto', 'slate', 'zinc', 'neutral', 'stone'],
         dynamicTitle: true,
       },
     },
   },
   initialGlobals: {
     appearance: 'light',
-    accentColor: 'indigo',
+    accentColor: 'blue',
+    grayColor: 'auto',
   },
   decorators: [
     (Story, context) => (
       <Theme
         appearance={context.globals.appearance}
         accentColor={context.globals.accentColor}
-        grayColor="slate"
+        grayColor={context.globals.grayColor}
         radius="medium"
         scaling="100%"
         hasBackground
