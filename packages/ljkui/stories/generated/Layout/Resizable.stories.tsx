@@ -21,23 +21,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   name: 'Default',
-  render: () => render(examples['height']),
-  parameters: { docs: { description: { story: 'The canonical Resizable. Same as “height”, shown first.' } } },
-};
-
-export const Height: Story = {
-  name: 'height',
-  render: () => render(examples['height']),
-};
-
-export const BorderRadius: Story = {
-  name: 'borderRadius',
-  render: () => render(examples['borderRadius']),
-};
-
-export const BoxShadow: Story = {
-  name: 'boxShadow',
-  render: () => render(examples['boxShadow']),
+  render: () => render(examples['Horizontal']),
+  parameters: { docs: { description: { story: 'The canonical Resizable. Same as “Horizontal”, shown first.' } } },
 };
 
 export const Horizontal: Story = {

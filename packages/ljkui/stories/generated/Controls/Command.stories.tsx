@@ -19,26 +19,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Actions: Story = {
-  name: 'Actions',
-  render: () => render(examples['Actions']),
-};
-
-export const Navigation: Story = {
-  name: 'Navigation',
-  render: () => render(examples['Navigation']),
-};
-
-export const Return: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return_: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),

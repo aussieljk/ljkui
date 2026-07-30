@@ -21,83 +21,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   name: 'Default',
-  render: () => render(examples['return']),
-  parameters: { docs: { description: { story: 'The canonical CreditCard. Same as “return”, shown first.' } } },
+  render: () => render(examples['Default']),
 };
 
-export const Return: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return_: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return__: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return___: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return____: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return_____: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return______: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return_______: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return________: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return_________: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return__________: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return___________: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return____________: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return_____________: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Return______________: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
+export const Controlled: Story = {
+  name: 'Controlled',
+  render: () => render(examples['Controlled']),
 };
 
 export const LjkuiCard: Story = {
@@ -125,6 +54,11 @@ export const FormIntegration: Story = {
   render: () => render(examples['Form Integration']),
 };
 
+export const Colors: Story = {
+  name: 'Colors',
+  render: () => render(examples['Colors']),
+};
+
 export const PerFaceColors: Story = {
   name: 'Per-Face Colors',
   render: () => render(examples['Per-Face Colors']),
@@ -143,4 +77,9 @@ export const ProviderDetection: Story = {
 export const CustomFields: Story = {
   name: 'Custom Fields',
   render: () => render(examples['Custom Fields']),
+};
+
+export const WhopCard: Story = {
+  name: 'Whop Card',
+  render: () => render(examples['Whop Card']),
 };

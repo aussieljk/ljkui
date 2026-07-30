@@ -1585,4 +1585,84 @@ export const examples = {
       </div>
     );
   },
+
+  'With TextField'() {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', width: 360 }}>
+        <Typography.Text size="2" color="gray">
+          ljkui's text field is the <Typography.Code>{'<Input>'}</Typography.Code> pair —{' '}
+          <Typography.Code>{'<Input.Root>'}</Typography.Code> carries <Typography.Code>size</Typography.Code>,{' '}
+          <Typography.Code>variant</Typography.Code> and <Typography.Code>color</Typography.Code>, and{' '}
+          <Typography.Code>{'<Input.Control>'}</Typography.Code> is the native{' '}
+          <Typography.Code>{'<input>'}</Typography.Code>. Wrapping it in a{' '}
+          <Typography.Code>{'<Field.Root>'}</Typography.Code> wires up the label, description and error messages, and
+          hands the field its <Typography.Code>name</Typography.Code>.
+        </Typography.Text>
+
+        <Fieldset.Root>
+          <Fieldset.Legend>Sizes</Fieldset.Legend>
+          {(['1', '2', '3', '4'] as const).map((size) => (
+            <Field.Root key={size} name={`size-${size}`}>
+              <Field.Label>Size {size}</Field.Label>
+              <Input.Root size={size}>
+                <Input.Control placeholder="you@example.com" />
+              </Input.Root>
+            </Field.Root>
+          ))}
+        </Fieldset.Root>
+
+        <Separator size="4" />
+
+        <Fieldset.Root>
+          <Fieldset.Legend>Variants</Fieldset.Legend>
+          {(['surface', 'soft'] as const).map((variant) => (
+            <Field.Root key={variant} name={`variant-${variant}`}>
+              <Field.Label>{variant}</Field.Label>
+              <Input.Root variant={variant}>
+                <Input.Control placeholder={variant} />
+              </Input.Root>
+            </Field.Root>
+          ))}
+        </Fieldset.Root>
+
+        <Separator size="4" />
+
+        <Fieldset.Root>
+          <Fieldset.Legend>With slots and validation</Fieldset.Legend>
+          <Field.Root name="workspace">
+            <Field.Label>Workspace URL</Field.Label>
+            <Field.Description>Lowercase letters, numbers and dashes only</Field.Description>
+            <Input.Root>
+              <Input.Slot style={{ paddingLeft: 12 }}>
+                <Typography.Text size="2" color="gray">
+                  ljkui.dev/
+                </Typography.Text>
+              </Input.Slot>
+              <Input.Control
+                required
+                minLength={3}
+                pattern="[a-z0-9-]+"
+                placeholder="my-team"
+                style={{ paddingLeft: 0 }}
+              />
+              <Input.Slot style={{ paddingRight: 12 }}>
+                <CheckIcon size={14} />
+              </Input.Slot>
+            </Input.Root>
+            <Field.Error match="valueMissing">A workspace URL is required</Field.Error>
+            <Field.Error match="tooShort">Must be at least 3 characters</Field.Error>
+            <Field.Error match="patternMismatch">Only lowercase letters, numbers and dashes</Field.Error>
+          </Field.Root>
+
+          <Field.Root name="apiKey" disabled>
+            <Field.Label>API key</Field.Label>
+            <Input.Root variant="soft" color="gray">
+              <Input.Control defaultValue="sk_live_9f2c…" disabled />
+            </Input.Root>
+            <Field.Description>Rotate the key from the dashboard to change it</Field.Description>
+          </Field.Root>
+        </Fieldset.Root>
+      </div>
+    );
+  },
 };

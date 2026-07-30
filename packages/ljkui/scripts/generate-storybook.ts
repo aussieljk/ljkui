@@ -137,19 +137,26 @@ function identifier(name: string, fallback: string): string {
   return id || fallback;
 }
 
-/** The named examples in a module, in declaration order. */
-function exampleNames(file: string): string[] {
-  const source = readFileSync(join(examplesDir, file), 'utf8');
-  let names = Array.from(
-    source.matchAll(/^\s{2}(?:'([^']+)'|"([^"]+)"|([A-Za-z_$][\w$]*))\s*(?:\(|:)/gm),
-    (match) => match[1] ?? match[2] ?? match[3],
-  );
-  if (names.length === 0 && source.includes('export const examples = {')) {
-    names = Array.from(
-      source.matchAll(/export const examples = \{\s*(?:'([^']+)'|"([^"]+)"|([A-Za-z_$][\w$]*))\s*:/gm),
-      (match) => match[1] ?? match[2] ?? match[3],
-    );
+/**
+ * The named examples in a module, in declaration order.
+ *
+ * The module is **imported** and its `examples` object read directly, rather than parsed.
+ * Two earlier attempts to read the source text both produced wrong story lists: a line
+ * regex for a 2-space-indented `name(` matched module-scope `return (` and any nested
+ * object literal (191 phantom stories that mounted blank), and a brace-depth scanner
+ * tripped over apostrophes in JSX prose — `don't` reads as an unterminated string and
+ * swallows the rest of the object (73 real examples silently dropped).
+ *
+ * Bun runs the TSX natively and resolves `ljkui` through the package tsconfig paths, so
+ * importing costs nothing extra and cannot disagree with what Storybook will render.
+ * This is the same trick packages/docs/scripts/gen-props.ts uses on the `*.props.ts`.
+ */
+async function exampleNames(file: string): Promise<string[]> {
+  const mod = (await import(join(examplesDir, file))) as { examples?: Record<string, unknown> };
+  if (!mod.examples || typeof mod.examples !== 'object') {
+    throw new Error(`${file} has no \`export const examples\` object.`);
   }
+  const names = Object.keys(mod.examples);
   if (names.length === 0) throw new Error(`No examples found in ${file}`);
   return names;
 }
@@ -233,10 +240,10 @@ function argTypesFor(slug: string): string {
   return `  argTypes: {\n${entries}\n  },\n`;
 }
 
-function storyModule(slug: string, category: string): string {
+async function storyModule(slug: string, category: string): Promise<string> {
   const component = displayName(slug);
   const used = new Set<string>();
-  const names = exampleNames(slug + '.examples.tsx');
+  const names = await exampleNames(slug + '.examples.tsx');
 
   const story = (id: string, name: string, exampleName: string, description?: string) => {
     const docs = description ? `\n  parameters: { docs: { description: { story: ${quote(description)} } } },` : '';
@@ -507,9 +514,9 @@ for (const file of files) {
   const category = CATEGORIES[slug] ?? DEFAULT_CATEGORY;
   const dir = join(generatedDir, category);
   mkdirSync(dir, { recursive: true });
-  writeFileSync(join(dir, `${displayName(slug)}.stories.tsx`), storyModule(slug, category));
+  writeFileSync(join(dir, `${displayName(slug)}.stories.tsx`), await storyModule(slug, category));
   counts[category] = (counts[category] ?? 0) + 1;
-  catalogEntries.push({ category, component: displayName(slug), count: exampleNames(file).length });
+  catalogEntries.push({ category, component: displayName(slug), count: (await exampleNames(file)).length });
 }
 
 // Written last: the catalog is built from the pages that were actually generated.

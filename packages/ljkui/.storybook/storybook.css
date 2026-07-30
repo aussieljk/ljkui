@@ -1,95 +1,59 @@
+/*
+ * Storybook's preview stylesheet — this is the *host page*, not the library.
+ *
+ * ljkui deliberately ships no `font-family` (see the Sharp Edges note in CLAUDE.md):
+ * its typography tokens carry only size/line-height/weight, and text inherits its
+ * typeface from whatever page embeds it. So the font belongs here, exactly as it would
+ * in a consumer's app — never in src/styles.
+ *
+ * SF Pro is named explicitly for machines that have Apple's developer fonts installed;
+ * `-apple-system` then resolves to the system SF on every other Mac, and picks the
+ * right optical size (Text vs Display) per size automatically.
+ */
+:root {
+  --sb-font-sans:
+    'SF Pro Text', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
+  --sb-font-mono: 'SF Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
 body {
   margin: 0;
-  background: var(--color-page-background);
+  font-family: var(--sb-font-sans);
+  /* SF is designed with optical sizing; let the browser use it where supported. */
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * `--color-background` is defined on `.ljkui` elements, never on :root, so it cannot be
+ * read from `body` (the previous rule here tried and silently resolved to nothing, which
+ * is why dark stories sat on a white surround). Instead let the themed root — which
+ * paints its own background via `hasBackground` — cover the viewport.
+ */
+#storybook-root > .ljkui {
+  min-height: 100vh;
+}
+
+/*
+ * The library's <Code>, <Kbd> and <DateField> use the generic `monospace` keyword, which
+ * resolves to the browser default rather than SF Mono. Point the generic at SF Mono for
+ * the preview so code samples match the rest of the type.
+ */
+code,
+kbd,
+pre,
+samp,
+.ljkui :where([data-accent-color]) code {
+  font-family: var(--sb-font-mono);
+}
+
+/* Storybook's autodocs pages render outside the story root and need the face too. */
+.sbdocs,
+.sbdocs-wrapper,
+.docblock-argstable {
+  font-family: var(--sb-font-sans);
 }
 
 .sb-show-main.sb-main-centered #storybook-root {
   width: 100%;
-}
-
-.ljkui-story-frame,
-.ljkui-gallery,
-.ljkui-component-index {
-  box-sizing: border-box;
-  width: 100%;
-  color: var(--gray-12);
-}
-
-.ljkui-story-frame {
-  min-width: min(760px, calc(100vw - 32px));
-  padding: var(--space-7);
-}
-
-.ljkui-story-header {
-  display: grid;
-  gap: var(--space-1);
-  margin-bottom: var(--space-6);
-}
-
-.ljkui-story-canvas {
-  display: grid;
-  align-items: start;
-  min-height: 160px;
-}
-
-.ljkui-gallery {
-  min-height: 100vh;
-  padding: clamp(24px, 5vw, 72px);
-}
-
-.ljkui-gallery-hero {
-  display: grid;
-  gap: var(--space-3);
-  max-width: 760px;
-  margin-bottom: var(--space-8);
-}
-
-.ljkui-gallery-grid,
-.ljkui-component-index {
-  display: grid;
-  gap: var(--space-8);
-}
-
-.ljkui-gallery-group {
-  display: grid;
-  gap: var(--space-4);
-}
-
-.ljkui-gallery-examples {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-  gap: var(--space-4);
-}
-
-.ljkui-gallery-card {
-  display: grid;
-  align-content: start;
-  gap: var(--space-4);
-  min-height: 180px;
-  padding: var(--space-5);
-  overflow: auto;
-  background: var(--color-panel-solid);
-  border: 1px solid var(--gray-a5);
-  border-radius: var(--radius-3);
-}
-
-.ljkui-gallery-card-canvas {
-  display: grid;
-  align-items: start;
-  min-width: 0;
-}
-
-.ljkui-component-index {
-  width: min(1200px, calc(100vw - 48px));
-  padding: var(--space-7);
-}
-
-.ljkui-component-index > section {
-  display: grid;
-  gap: var(--space-4);
-}
-
-.ljkui-component-index > section > div {
-  display: grid;
-  gap: var(--space-4);
 }

@@ -39,23 +39,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   name: 'Default',
-  render: () => render(examples['starter']),
-  parameters: { docs: { description: { story: 'The canonical RadioButtonGroup. Same as “starter”, shown first.' } } },
-};
-
-export const Starter: Story = {
-  name: 'starter',
-  render: () => render(examples['starter']),
-};
-
-export const Pro: Story = {
-  name: 'pro',
-  render: () => render(examples['pro']),
-};
-
-export const Enterprise: Story = {
-  name: 'enterprise',
-  render: () => render(examples['enterprise']),
+  render: () => render(examples['HighContrast']),
+  parameters: {
+    docs: { description: { story: 'The canonical RadioButtonGroup. Same as “HighContrast”, shown first.' } },
+  },
 };
 
 export const HighContrast: Story = {

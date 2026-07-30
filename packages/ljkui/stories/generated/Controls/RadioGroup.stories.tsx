@@ -44,43 +44,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   name: 'Default',
-  render: () => render(examples['standard']),
-  parameters: { docs: { description: { story: 'The canonical RadioGroup. Same as “standard”, shown first.' } } },
-};
-
-export const Standard: Story = {
-  name: 'standard',
-  render: () => render(examples['standard']),
-};
-
-export const Express: Story = {
-  name: 'express',
-  render: () => render(examples['express']),
-};
-
-export const Overnight: Story = {
-  name: 'overnight',
-  render: () => render(examples['overnight']),
-};
-
-export const Id: Story = {
-  name: 'id',
-  render: () => render(examples['id']),
-};
-
-export const Name: Story = {
-  name: 'name',
-  render: () => render(examples['name']),
-};
-
-export const Price: Story = {
-  name: 'price',
-  render: () => render(examples['price']),
-};
-
-export const Features: Story = {
-  name: 'features',
-  render: () => render(examples['features']),
+  render: () => render(examples['Composed']),
+  parameters: { docs: { description: { story: 'The canonical RadioGroup. Same as “Composed”, shown first.' } } },
 };
 
 export const Composed: Story = {

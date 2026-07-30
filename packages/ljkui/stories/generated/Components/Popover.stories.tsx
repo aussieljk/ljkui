@@ -31,11 +31,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Return: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),

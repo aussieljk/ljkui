@@ -21,11 +21,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   name: 'Default',
-  render: () => render(examples['return']),
-  parameters: { docs: { description: { story: 'The canonical Em. Same as “return”, shown first.' } } },
+  render: () => render(examples['Example']),
+  parameters: { docs: { description: { story: 'The canonical Em. Same as “Example”, shown first.' } } },
 };
 
-export const Return: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
+export const Example: Story = {
+  name: 'Example',
+  render: () => render(examples['Example']),
 };

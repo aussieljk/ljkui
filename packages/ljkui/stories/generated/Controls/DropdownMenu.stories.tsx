@@ -36,21 +36,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Library: Story = {
-  name: 'library',
-  render: () => render(examples['library']),
-};
-
-export const Playback: Story = {
-  name: 'playback',
-  render: () => render(examples['playback']),
-};
-
-export const Share: Story = {
-  name: 'share',
-  render: () => render(examples['share']),
-};
-
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),

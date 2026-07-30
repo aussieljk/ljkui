@@ -51,3 +51,13 @@ export const UnmappedInput: Story = {
   name: 'Unmapped input',
   render: () => render(examples['Unmapped input']),
 };
+
+export const AllEmojis: Story = {
+  name: 'All Emojis',
+  render: () => render(examples['All Emojis']),
+};
+
+export const Interactive: Story = {
+  name: 'Interactive',
+  render: () => render(examples['Interactive']),
+};

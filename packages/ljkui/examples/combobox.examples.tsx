@@ -351,6 +351,9 @@ const initialLabels: LabelItem[] = [
   { id: 'good-first-issue', value: 'good first issue' },
 ];
 
+/** Module-scoped so the reference is stable across renders of the `Empty State` example. */
+const noItems: string[] = [];
+
 export const examples = {
   Default() {
     return (
@@ -1174,6 +1177,74 @@ export const examples = {
             </form>
           </Dialog.Content>
         </Dialog.Root>
+      </div>
+    );
+  },
+
+  'Empty State'() {
+    return (
+      <div style={{ display: 'flex', gap: 64, alignItems: 'flex-start' }}>
+        <div style={{ width: 300 }}>
+          <Typography.Text size="1" color="gray" style={{ marginBottom: 4, display: 'block' }}>
+            Nothing to filter — <Typography.Code size="1">items</Typography.Code> is empty
+          </Typography.Text>
+          <Combobox.Root items={noItems} size="2">
+            <Combobox.InputRoot>
+              <Combobox.Input placeholder="No fruits yet" />
+            </Combobox.InputRoot>
+            <Combobox.Content>
+              <Combobox.Empty>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, padding: 12 }}>
+                  <SearchIcon size={20} />
+                  <Typography.Text size="2" weight="medium">
+                    Nothing here yet
+                  </Typography.Text>
+                  <Typography.Text size="1" color="gray" style={{ textAlign: 'center' }}>
+                    Fruits you add will show up in this list.
+                  </Typography.Text>
+                </div>
+              </Combobox.Empty>
+              <Combobox.List>
+                {(item: string) => (
+                  <Combobox.Item key={item} value={item}>
+                    {item}
+                  </Combobox.Item>
+                )}
+              </Combobox.List>
+            </Combobox.Content>
+          </Combobox.Root>
+        </div>
+
+        <div style={{ width: 300 }}>
+          <Typography.Text size="1" color="gray" style={{ marginBottom: 4, display: 'block' }}>
+            Query matches nothing — opens straight onto the empty state
+          </Typography.Text>
+          <Combobox.Root items={fruits} size="2" defaultInputValue="zzz" defaultOpen>
+            <Combobox.InputRoot showClear>
+              <Combobox.Input placeholder="Search fruits" />
+            </Combobox.InputRoot>
+            <Combobox.Content>
+              <Combobox.Empty>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, padding: 12 }}>
+                  <SearchIcon size={20} />
+                  <Typography.Text size="2" weight="medium">
+                    No fruits found
+                  </Typography.Text>
+                  <Typography.Text size="1" color="gray" style={{ textAlign: 'center' }}>
+                    Clear the search or try a shorter term.
+                  </Typography.Text>
+                </div>
+              </Combobox.Empty>
+              <Combobox.List>
+                {(item: string) => (
+                  <Combobox.Item key={item} value={item}>
+                    {item}
+                  </Combobox.Item>
+                )}
+              </Combobox.List>
+            </Combobox.Content>
+          </Combobox.Root>
+        </div>
       </div>
     );
   },

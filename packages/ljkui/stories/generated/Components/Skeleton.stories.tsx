@@ -52,18 +52,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   name: 'Default',
-  render: () => render(examples['label']),
-  parameters: { docs: { description: { story: 'The canonical Skeleton. Same as “label”, shown first.' } } },
-};
-
-export const Label: Story = {
-  name: 'label',
-  render: () => render(examples['label']),
-};
-
-export const Render: Story = {
-  name: 'render',
-  render: () => render(examples['render']),
+  render: () => render(examples['Avatar']),
+  parameters: { docs: { description: { story: 'The canonical Skeleton. Same as “Avatar”, shown first.' } } },
 };
 
 export const Avatar: Story = {

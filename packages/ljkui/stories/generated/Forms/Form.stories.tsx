@@ -21,73 +21,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   name: 'Default',
-  render: () => render(examples['if']),
-  parameters: { docs: { description: { story: 'The canonical Form. Same as “if”, shown first.' } } },
-};
-
-export const If: Story = {
-  name: 'if',
-  render: () => render(examples['if']),
-};
-
-export const If_: Story = {
-  name: 'if',
-  render: () => render(examples['if']),
-};
-
-export const Id: Story = {
-  name: 'id',
-  render: () => render(examples['id']),
-};
-
-export const Name: Story = {
-  name: 'name',
-  render: () => render(examples['name']),
-};
-
-export const Email: Story = {
-  name: 'email',
-  render: () => render(examples['email']),
-};
-
-export const Name_: Story = {
-  name: 'name',
-  render: () => render(examples['name']),
-};
-
-export const Age: Story = {
-  name: 'age',
-  render: () => render(examples['age']),
-};
-
-export const If__: Story = {
-  name: 'if',
-  render: () => render(examples['if']),
-};
-
-export const FirstName: Story = {
-  name: 'firstName',
-  render: () => render(examples['firstName']),
-};
-
-export const LastName: Story = {
-  name: 'lastName',
-  render: () => render(examples['lastName']),
-};
-
-export const Email_: Story = {
-  name: 'email',
-  render: () => render(examples['email']),
-};
-
-export const Username: Story = {
-  name: 'username',
-  render: () => render(examples['username']),
-};
-
-export const Bio: Story = {
-  name: 'bio',
-  render: () => render(examples['bio']),
+  render: () => render(examples['Getting Started']),
+  parameters: { docs: { description: { story: 'The canonical Form. Same as “Getting Started”, shown first.' } } },
 };
 
 export const GettingStarted: Story = {

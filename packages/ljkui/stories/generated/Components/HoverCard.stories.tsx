@@ -31,51 +31,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Name: Story = {
-  name: 'name',
-  render: () => render(examples['name']),
-};
-
-export const Username: Story = {
-  name: 'username',
-  render: () => render(examples['username']),
-};
-
-export const Avatar: Story = {
-  name: 'avatar',
-  render: () => render(examples['avatar']),
-};
-
-export const Bio: Story = {
-  name: 'bio',
-  render: () => render(examples['bio']),
-};
-
-export const Repos: Story = {
-  name: 'repos',
-  render: () => render(examples['repos']),
-};
-
-export const Followers: Story = {
-  name: 'followers',
-  render: () => render(examples['followers']),
-};
-
-export const Github: Story = {
-  name: 'github',
-  render: () => render(examples['github']),
-};
-
-export const Vercel: Story = {
-  name: 'vercel',
-  render: () => render(examples['vercel']),
-};
-
-export const Baseui: Story = {
-  name: 'baseui',
-  render: () => render(examples['baseui']),
-};
-
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),

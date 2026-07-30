@@ -36,21 +36,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Workspace: Story = {
-  name: 'Workspace',
-  render: () => render(examples['Workspace']),
-};
-
-export const Account: Story = {
-  name: 'Account',
-  render: () => render(examples['Account']),
-};
-
-export const Return: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),

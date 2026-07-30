@@ -19,41 +19,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Url: Story = {
-  name: 'url',
-  render: () => render(examples['url']),
-};
-
-export const Name: Story = {
-  name: 'name',
-  render: () => render(examples['name']),
-};
-
-export const MinLength: Story = {
-  name: 'minLength',
-  render: () => render(examples['minLength']),
-};
-
-export const MaxLength: Story = {
-  name: 'maxLength',
-  render: () => render(examples['maxLength']),
-};
-
-export const ValidChars: Story = {
-  name: 'validChars',
-  render: () => render(examples['validChars']),
-};
-
-export const StartsWithLetter: Story = {
-  name: 'startsWithLetter',
-  render: () => render(examples['startsWithLetter']),
-};
-
-export const NoConsecutiveUnderscores: Story = {
-  name: 'noConsecutiveUnderscores',
-  render: () => render(examples['noConsecutiveUnderscores']),
-};
-
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
@@ -152,4 +117,9 @@ export const DisabledState: Story = {
 export const AllValidityStates: Story = {
   name: 'All Validity States',
   render: () => render(examples['All Validity States']),
+};
+
+export const WithTextField: Story = {
+  name: 'With TextField',
+  render: () => render(examples['With TextField']),
 };

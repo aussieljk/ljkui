@@ -48,33 +48,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   name: 'Default',
-  render: () => render(examples['id']),
-  parameters: { docs: { description: { story: 'The canonical Table. Same as “id”, shown first.' } } },
-};
-
-export const Id: Story = {
-  name: 'id',
-  render: () => render(examples['id']),
-};
-
-export const Amount: Story = {
-  name: 'amount',
-  render: () => render(examples['amount']),
-};
-
-export const Status: Story = {
-  name: 'status',
-  render: () => render(examples['status']),
-};
-
-export const Email: Story = {
-  name: 'email',
-  render: () => render(examples['email']),
-};
-
-export const Return: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
+  render: () => render(examples['Variant']),
+  parameters: { docs: { description: { story: 'The canonical Table. Same as “Variant”, shown first.' } } },
 };
 
 export const Variant: Story = {

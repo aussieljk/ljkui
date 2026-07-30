@@ -46,56 +46,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Label: Story = {
-  name: 'label',
-  render: () => render(examples['label']),
-};
-
-export const Items: Story = {
-  name: 'items',
-  render: () => render(examples['items']),
-};
-
-export const Label_: Story = {
-  name: 'label',
-  render: () => render(examples['label']),
-};
-
-export const Value: Story = {
-  name: 'value',
-  render: () => render(examples['value']),
-};
-
-export const Return: Story = {
-  name: 'return',
-  render: () => render(examples['return']),
-};
-
-export const Login: Story = {
-  name: 'login',
-  render: () => render(examples['login']),
-};
-
-export const Name: Story = {
-  name: 'name',
-  render: () => render(examples['name']),
-};
-
-export const Avatar: Story = {
-  name: 'avatar',
-  render: () => render(examples['avatar']),
-};
-
-export const Id: Story = {
-  name: 'id',
-  render: () => render(examples['id']),
-};
-
-export const Value_: Story = {
-  name: 'value',
-  render: () => render(examples['value']),
-};
-
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
@@ -174,4 +124,9 @@ export const LoopFocus: Story = {
 export const Creatable: Story = {
   name: 'Creatable',
   render: () => render(examples['Creatable']),
+};
+
+export const EmptyState: Story = {
+  name: 'Empty State',
+  render: () => render(examples['Empty State']),
 };

@@ -243,4 +243,20 @@ export const examples = {
     // `ThemePanel` edits the surrounding `Theme` live and copies the resulting props.
     return <ThemePanel defaultOpen />;
   },
+
+  Colors() {
+    // Every chromatic accent, each wrapping the same sampler — the point is that a
+    // component's look is entirely a function of the `Theme` it sits in, not of props
+    // passed to the component. `Every accent` above shows the raw swatches instead.
+    return (
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 'var(--space-6)' }}>
+        {tailwindColorScalesChromatic.map((accentColor) => (
+          <Theme key={accentColor} accentColor={accentColor}>
+            <Label>accentColor=&quot;{accentColor}&quot;</Label>
+            <Sampler />
+          </Theme>
+        ))}
+      </div>
+    );
+  },
 };

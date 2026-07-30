@@ -29,21 +29,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Name: Story = {
-  name: 'name',
-  render: () => render(examples['name']),
-};
-
-export const Color: Story = {
-  name: 'color',
-  render: () => render(examples['color']),
-};
-
-export const Src: Story = {
-  name: 'src',
-  render: () => render(examples['src']),
-};
-
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),

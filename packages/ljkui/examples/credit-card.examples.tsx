@@ -851,17 +851,67 @@ function CustomFields() {
   );
 }
 
+/**
+ * The card design this component was forked from — whop's own, dark and embossed,
+ * carrying their wordmark. Nothing here is special-cased in the library: it is the
+ * same parts every other example uses, with a gradient handed to `Front`'s `style`.
+ *
+ * Written as an arrow returning JSX rather than `function … { return ( … ) }` on
+ * purpose: the Storybook generator scans for two-space-indented `name(` lines, so a
+ * module-scope `  return (` would register a phantom story called "return".
+ */
+const WhopCard = () => (
+  <CreditCard.Root defaultFace="front">
+    <Theme render={<CreditCard.Content />} hasBackground={false} appearance="dark">
+      <CreditCard.Front
+        style={{
+          color: 'white',
+          backgroundColor: '#0b0b0d',
+          backgroundImage:
+            'radial-gradient(120% 140% at 82% -12%, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0) 55%), linear-gradient(158deg, #2b2b31 0%, #0b0b0d 62%)',
+        }}
+      >
+        <CreditCard.FrontHeader>
+          <CreditCard.Logo>
+            <BrandLogo />
+          </CreditCard.Logo>
+          <CreditCard.Brand>
+            <Typography.Text size="1" weight="medium" style={{ textTransform: 'uppercase' }}>
+              Platinum
+            </Typography.Text>
+          </CreditCard.Brand>
+        </CreditCard.FrontHeader>
+        <CreditCard.FrontFooter>
+          <CreditCard.Title>Whop balance</CreditCard.Title>
+          <CreditCard.LastFour>&bull;&bull;&bull;&bull; 0991</CreditCard.LastFour>
+        </CreditCard.FrontFooter>
+      </CreditCard.Front>
+      <CardBack />
+    </Theme>
+
+    <div style={{ marginTop: 16, display: 'flex', justifyContent: 'center' }}>
+      <CreditCard.Trigger render={<Button variant="surface" size="2" />}>Flip card</CreditCard.Trigger>
+    </div>
+  </CreditCard.Root>
+);
+
+/*
+ * Written `Name: Name` rather than as shorthand: the Storybook generator reads these
+ * names out of the source with a regex that only matches `name:` or `name(`, so a
+ * shorthand entry is invisible to it and never gets a story.
+ */
 export const examples = {
-  Default,
-  Controlled,
+  Default: Default,
+  Controlled: Controlled,
   'ljkui Card': LJKUICard,
   'Custom Design': CustomDesign,
   'Back Only': BackOnly,
   'Input States': InputStates,
   'Form Integration': FormIntegration,
-  Colors,
+  Colors: Colors,
   'Per-Face Colors': PerFaceColors,
   'Card Brands': CardBrands,
   'Provider Detection': ProviderDetection,
   'Custom Fields': CustomFields,
+  'Whop Card': WhopCard,
 };

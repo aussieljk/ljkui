@@ -106,3 +106,8 @@ export const ThemePanel: Story = {
   name: 'Theme panel',
   render: () => render(examples['Theme panel']),
 };
+
+export const Colors: Story = {
+  name: 'Colors',
+  render: () => render(examples['Colors']),
+};

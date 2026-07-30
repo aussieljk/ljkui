@@ -8,6 +8,13 @@
  * shots are laid out in one generated HTML document which the same Chrome prints to PDF.
  * Assembling through HTML avoids needing a PDF library at all.
  *
+ * Layout: stories *flow*, several to a page, instead of each component owning a whole sheet. The
+ * generated document paginates itself (`__paginate`, run once the shots have decoded): blocks are
+ * appended to a fixed-height `.sheet` until the sheet's real laid-out height overflows, then a new
+ * sheet starts. Measuring the actual layout rather than summing estimated heights is what makes
+ * the page numbers trustworthy — which in turn is what lets the table of contents be filled in
+ * from the same single pass, before the print.
+ *
  * By default it captures one representative story per component page (a catalog); `--all` captures
  * every variant of every component.
  *
@@ -427,7 +434,8 @@ async function trim(png: Buffer) {
 
 async function captureStory(tab: Tab, story: StoryEntry, shotsDir: string): Promise<Shot> {
   await navigate(tab, `${storybookUrl}/iframe.html?id=${encodeURIComponent(story.id)}&viewMode=story`);
-  const settled = await tab.cdp.eval<{ error: string | null; height: number }>(WAIT_SETTLED);
+  // Generous: the colour-scale stories lay out thousands of swatches and blow past 30s.
+  const settled = await tab.cdp.eval<{ error: string | null; height: number }>(WAIT_SETTLED, 90_000);
   if (settled.error) throw new Error(settled.error);
   if (settleDelay > 0) await Bun.sleep(settleDelay);
 
@@ -450,6 +458,103 @@ async function captureStory(tab: Tab, story: StoryEntry, shotsDir: string): Prom
 const escapeHtml = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+/** Two shots this narrow are printed side by side rather than stacked. */
+const PAIR_WIDTH = 330;
+/** Failure lines per block, so a long list can break across pages. */
+const FAILURES_PER_BLOCK = 24;
+
+/**
+ * The self-paginating half of the document.
+ *
+ * Blocks are moved one at a time out of `#source` into the current `.sheet` — a div whose height
+ * is exactly the printable area of one A4 page. Appending a block that makes the sheet's
+ * `scrollHeight` exceed its own height means it did not fit, so it is pulled back out and starts
+ * the next sheet. Because every sheet is then known to fit, the browser's own page breaking never
+ * fires and one sheet is exactly one PDF page — which is what makes the recorded page numbers
+ * correct, and the contents list possible without printing twice.
+ *
+ * A block carrying `data-section` owns one or more headings (newline-separated — a block can hold
+ * two short components side by side), so it records a contents entry each; when a component spills
+ * onto the next sheet, a "(continued)" heading is repeated at the top.
+ */
+const PAGINATE = `window.__paginate = () => {
+  const source = document.getElementById('source');
+  const content = document.getElementById('content');
+  const toc = document.getElementById('toc');
+  const sheet = (host) => {
+    const el = document.createElement('div');
+    el.className = 'sheet';
+    host.appendChild(el);
+    return el;
+  };
+  // +1 absorbs subpixel rounding; a block is only rejected when it genuinely does not fit.
+  const overflows = (el) => el.scrollHeight > el.clientHeight + 1;
+
+  const entries = [];
+  let page = 1;
+  let current = sheet(content);
+  let section = null;
+  for (const block of [...source.children]) {
+    const titles = block.dataset.section ? block.dataset.section.split('\\n') : [];
+    if (titles.length) section = titles[titles.length - 1];
+    current.appendChild(block);
+    if (overflows(current) && current.children.length > 1) {
+      current.removeChild(block);
+      current = sheet(content);
+      page++;
+      if (!titles.length && section) {
+        const cont = document.createElement('div');
+        cont.className = 'blk';
+        const h = document.createElement('h2');
+        h.className = 'cont';
+        h.textContent = section + ' (continued)';
+        cont.appendChild(h);
+        current.appendChild(cont);
+      }
+      current.appendChild(block);
+    }
+    for (const title of titles) entries.push({ page, title, row: null });
+  }
+  const contentPages = page;
+
+  // The contents itself is paginated the same way. Its length depends only on how many entries
+  // there are, never on the numbers printed in them, so it can be laid out with placeholders and
+  // renumbered afterwards without reflowing.
+  let tocSheet = sheet(toc);
+  let tocPages = 1;
+  const heading = document.createElement('div');
+  heading.className = 'blk';
+  const h2 = document.createElement('h2');
+  h2.textContent = 'Contents';
+  heading.appendChild(h2);
+  tocSheet.appendChild(heading);
+  for (const entry of entries) {
+    const row = document.createElement('div');
+    row.className = 'blk toc-row';
+    const name = document.createElement('span');
+    name.textContent = entry.title;
+    const dots = document.createElement('span');
+    dots.className = 'dots';
+    const num = document.createElement('span');
+    num.className = 'num';
+    num.textContent = '000';
+    row.append(name, dots, num);
+    entry.row = num;
+    tocSheet.appendChild(row);
+    if (overflows(tocSheet) && tocSheet.children.length > 1) {
+      tocSheet.removeChild(row);
+      tocSheet = sheet(toc);
+      tocPages++;
+      tocSheet.appendChild(row);
+    }
+  }
+
+  const offset = 1 + tocPages; // the cover, then the contents
+  for (const entry of entries) entry.row.textContent = String(entry.page + offset);
+  source.remove();
+  return { pages: offset + contentPages, sections: entries.length, tocPages };
+};`;
+
 function buildHtml(shots: Shot[], failures: { story: StoryEntry; error: string }[]) {
   // Group into sections keyed by full story title, preserving the sorted order.
   const sections: { title: string; shots: Shot[] }[] = [];
@@ -459,73 +564,132 @@ function buildHtml(shots: Shot[], failures: { story: StoryEntry; error: string }
     else sections.push({ title: shot.title, shots: [shot] });
   }
 
-  const body = sections
-    .map((section) => {
-      const [category, ...rest] = section.title.split('/');
-      const heading = rest.length ? `${category} / ${rest.join(' / ')}` : category!;
-      const stories = section.shots
-        .map((s) => {
-          const figure = s.blank
-            ? '<p class="blank">(rendered nothing visible)</p>'
-            : `<img src="shots/${s.file}" style="width:${s.width}px" alt="${escapeHtml(s.name)}" />`;
-          return `      <figure class="story">
-        <figcaption>${escapeHtml(s.name)}</figcaption>
-        ${figure}
-      </figure>`;
-        })
-        .join('\n');
-      return `    <section class="component">
-      <h2>${escapeHtml(heading)}</h2>
-${stories}
-    </section>`;
-    })
-    .join('\n');
+  const figure = (s: Shot) => {
+    const body = s.blank
+      ? '<p class="blank">(rendered nothing visible)</p>'
+      : `<img src="shots/${s.file}" style="width:${s.width}px" alt="${escapeHtml(s.name)}" />`;
+    return `<figure class="story"><figcaption>${escapeHtml(s.name)}</figcaption>${body}</figure>`;
+  };
 
-  const failureList = failures.length
-    ? `    <section class="component failures">
-      <h2>Failed to render (${failures.length})</h2>
-      <ul>${failures
-        .map((f) => `<li>${escapeHtml(f.story.title)} / ${escapeHtml(f.story.name)} — ${escapeHtml(f.error)}</li>`)
-        .join('')}</ul>
-    </section>`
-    : '';
+  /** Pair up consecutive narrow shots so a page of small components is not a column of stubs. */
+  const rowsOf = (list: Shot[]) => {
+    const rows: Shot[][] = [];
+    for (const s of list) {
+      const last = rows.at(-1);
+      const pairable = (x: Shot) => !x.blank && x.width <= PAIR_WIDTH;
+      if (last?.length === 1 && pairable(last[0]!) && pairable(s)) last.push(s);
+      else rows.push([s]);
+    }
+    return rows;
+  };
+  const rowHtml = (row: Shot[]) =>
+    row.length === 1 ? figure(row[0]!) : `<div class="row">${row.map(figure).join('')}</div>`;
+
+  const units = sections.map((section) => {
+    const [category, ...rest] = section.title.split('/');
+    return {
+      heading: escapeHtml(rest.length ? `${category} / ${rest.join(' / ')}` : category!),
+      rows: rowsOf(section.shots),
+      width: Math.max(...section.shots.map((s) => (s.blank ? 0 : s.width))),
+    };
+  });
+
+  const blocks: string[] = [];
+  /* A whole component narrow enough to be a half-column, and short enough to be a single row, is
+     printed beside its neighbour. In the default catalog mode every component *is* one row, so
+     this is what keeps a page of small controls from being a ragged single column. */
+  const halfable = (u: (typeof units)[number] | undefined) => !!u && u.rows.length === 1 && u.width <= PAIR_WIDTH;
+  for (let i = 0; i < units.length; i++) {
+    const a = units[i]!;
+    const b = units[i + 1];
+    if (halfable(a) && halfable(b)) {
+      const col = (u: typeof a) => `<div class="col"><h2>${u.heading}</h2>${rowHtml(u.rows[0]!)}</div>`;
+      blocks.push(
+        `  <div class="blk" data-section="${a.heading}&#10;${b!.heading}">` +
+          `<div class="row">${col(a)}${col(b!)}</div></div>`,
+      );
+      i++;
+      continue;
+    }
+    for (const [j, row] of a.rows.entries()) {
+      blocks.push(
+        j === 0
+          ? `  <div class="blk" data-section="${a.heading}"><h2>${a.heading}</h2>${rowHtml(row)}</div>`
+          : `  <div class="blk">${rowHtml(row)}</div>`,
+      );
+    }
+  }
+
+  if (failures.length) {
+    const lines = failures.map(
+      (f) => `<li>${escapeHtml(f.story.title)} / ${escapeHtml(f.story.name)} — ${escapeHtml(f.error)}</li>`,
+    );
+    const first = lines.splice(0, FAILURES_PER_BLOCK);
+    const title = `Failed to render (${failures.length})`;
+    blocks.push(
+      `  <div class="blk failures" data-section="${title}"><h2>${title}</h2><ul>${first.join('')}</ul></div>`,
+    );
+    for (let i = 0; i < lines.length; i += FAILURES_PER_BLOCK) {
+      blocks.push(`  <div class="blk failures"><ul>${lines.slice(i, i + FAILURES_PER_BLOCK).join('')}</ul></div>`);
+    }
+  }
 
   return `<!doctype html>
 <html><head><meta charset="utf-8" /><title>ljkui components</title>
 <style>
   @page { size: A4; margin: 14mm 12mm; }
   * { box-sizing: border-box; }
-  body { margin: 0; font: 11px/1.5 -apple-system, "Helvetica Neue", Arial, sans-serif; color: #111; }
-  .cover { height: 235mm; display: flex; flex-direction: column; justify-content: center; }
+  body { margin: 0; font: 11px/1.5 -apple-system, "Helvetica Neue", Arial, sans-serif; color: #111; background: #fff; }
+  /* One sheet is one printed page: A4 (210x297mm) less the @page margins, minus a hair so a
+     rounding difference between our layout and the print layout cannot spill a blank page. */
+  .sheet { width: 186mm; height: 267mm; overflow: hidden; break-after: page; }
+  /* Only the very last sheet in the document may end without a break. */
+  #content .sheet:last-child { break-after: auto; }
+  .cover { height: 100%; display: flex; flex-direction: column; justify-content: center; }
   .cover h1 { font-size: 44px; margin: 0 0 10px; letter-spacing: -0.03em; }
   .cover p { margin: 3px 0; color: #52525b; font-size: 13px; }
-  /* Each component starts a fresh page so the PDF reads like the Storybook sidebar. */
-  .component { break-before: page; }
-  .component h2 {
-    font-size: 15px; margin: 0 0 14px; padding-bottom: 6px;
+  /* The unit of pagination: never split, so a heading always keeps its first story. */
+  .blk { break-inside: avoid; padding-bottom: 14px; }
+  h2 {
+    font-size: 15px; margin: 0 0 10px; padding-bottom: 5px;
     border-bottom: 2px solid #111; letter-spacing: -0.01em;
   }
-  .story { margin: 0 0 18px; break-inside: avoid; }
+  h2.cont { color: #71717a; border-bottom-color: #d4d4d8; font-weight: 600; }
+  .row { display: flex; gap: 14px; align-items: flex-start; }
+  .row > .story { min-width: 0; max-width: 50%; }
+  .row > .col { flex: 1 1 0; min-width: 0; }
+  .story { margin: 0; }
+  .story + .story { margin-top: 12px; }
   .story figcaption {
     font-size: 9px; font-weight: 700; color: #71717a; text-transform: uppercase;
     letter-spacing: 0.08em; margin-bottom: 5px;
   }
   /* Width is the shot's own logical width, so nothing is ever upscaled; max-width keeps an
-     oversized capture inside the printable column. */
-  .story img { display: block; max-width: 100%; height: auto; border: 1px solid #e4e4e7; border-radius: 4px; }
+     oversized capture inside the printable column, and max-height keeps a tall one on one page. */
+  .story img {
+    display: block; max-width: 100%; max-height: 225mm; height: auto;
+    border: 1px solid #e4e4e7; border-radius: 4px;
+  }
   .blank { margin: 0; color: #a1a1aa; font-style: italic; }
-  .failures ul { padding-left: 18px; }
+  .toc-row { display: flex; align-items: baseline; gap: 6px; padding-bottom: 3px; font-size: 10.5px; }
+  .toc-row .dots { flex: 1; border-bottom: 1px dotted #d4d4d8; }
+  .toc-row .num { color: #52525b; font-variant-numeric: tabular-nums; }
+  .failures ul { margin: 0; padding-left: 18px; }
   .failures li { margin-bottom: 4px; color: #b91c1c; }
 </style></head>
 <body>
-  <div class="cover">
+  <div id="cover"><div class="sheet"><div class="cover">
     <h1>ljkui</h1>
     <p>Every Storybook story, rendered.</p>
     <p>${shots.length} stories across ${sections.length} components${failures.length ? ` · ${failures.length} failed` : ''}</p>
     <p>${new Date().toISOString().slice(0, 10)}</p>
+  </div></div></div>
+  <div id="toc"></div>
+  <div id="content"></div>
+  <div id="source">
+${blocks.join('\n')}
   </div>
-${body}
-${failureList}
+<script>${PAGINATE}</script>
 </body></html>`;
 }
 
@@ -648,7 +812,13 @@ async function main() {
   // big to survive a single WebSocket frame.
   const printTab = await openTab(base);
   await printTab.cdp.send('Page.navigate', { url: `file://${htmlPath}` }, 300_000);
+  // WAIT_SETTLED first: pagination measures laid-out heights, so every shot must have decoded.
   await printTab.cdp.eval(WAIT_SETTLED, 600_000);
+  const layout = await printTab.cdp.eval<{ pages: number; sections: number; tocPages: number }>(
+    'window.__paginate()',
+    600_000,
+  );
+  console.log(`Flowed ${layout.sections} components onto ${layout.pages} pages (${layout.tocPages} of contents).`);
   const { stream } = await printTab.cdp.send(
     'Page.printToPDF',
     { printBackground: true, preferCSSPageSize: true, transferMode: 'ReturnAsStream' },
