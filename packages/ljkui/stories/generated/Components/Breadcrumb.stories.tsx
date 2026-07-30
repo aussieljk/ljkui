@@ -7,16 +7,36 @@ const meta = {
   title: 'Components/Breadcrumb',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `Breadcrumb`, from examples/breadcrumb.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    color: {
+      description: 'The color of the breadcrumb items and separators. Passed down to each item unless it sets its own.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+        defaultValue: { summary: 'gray' },
+      },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['With links']),
+  parameters: { docs: { description: { story: 'The canonical Breadcrumb. Same as “With links”, shown first.' } } },
+};
 
 export const WithLinks: Story = {
   name: 'With links',

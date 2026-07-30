@@ -7,10 +7,28 @@ const meta = {
   title: 'Controls/FilterChip',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `FilterChip`, from examples/filter-chip.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    size: {
+      description: 'The size of the chip.',
+      table: { type: { summary: '"1" | "2" | "3"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    color: {
+      description: 'The color of the chip when checked. Inherits the theme accent color when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
     },
   },
 } satisfies Meta;

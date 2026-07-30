@@ -7,6 +7,7 @@ const meta = {
   title: 'Data presentation/Chart',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `Chart`, from examples/chart.examples.tsx.',

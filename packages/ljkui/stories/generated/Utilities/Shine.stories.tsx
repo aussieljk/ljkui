@@ -7,6 +7,7 @@ const meta = {
   title: 'Utilities/Shine',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Shine`, from examples/shine.examples.tsx.',
@@ -17,6 +18,12 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['return']),
+  parameters: { docs: { description: { story: 'The canonical Shine. Same as “return”, shown first.' } } },
+};
 
 export const Return: Story = {
   name: 'return',

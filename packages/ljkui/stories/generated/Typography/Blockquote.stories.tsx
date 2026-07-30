@@ -7,16 +7,50 @@ const meta = {
   title: 'Typography/Blockquote',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Blockquote`, from examples/blockquote.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'The size of the quoted text. Inherits the surrounding text size when not set.',
+      table: { type: { summary: '"0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"' } },
+      control: false,
+    },
+    weight: {
+      description: 'The font weight of the quoted text.',
+      table: { type: { summary: '"light" | "regular" | "medium" | "semi-bold" | "bold"' } },
+      control: false,
+    },
+    color: {
+      description: 'The color of the quoted text. Inherits the surrounding text color when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Increases color contrast with the background for better legibility.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Example']),
+  parameters: { docs: { description: { story: 'The canonical Blockquote. Same as “Example”, shown first.' } } },
+};
 
 export const Example: Story = {
   name: 'Example',

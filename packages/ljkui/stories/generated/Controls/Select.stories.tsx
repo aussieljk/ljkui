@@ -7,16 +7,51 @@ const meta = {
   title: 'Controls/Select',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Select`, from examples/select.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    highContrast: {
+      description: 'Renders the dropdown items in a higher-contrast color variant.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+    size: {
+      description: 'Controls the overall size of the trigger and dropdown content.',
+      table: { type: { summary: '"1" | "2" | "3" | "4"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    variant: {
+      description: 'Controls the visual style of the trigger button.',
+      table: { type: { summary: '"classic" | "surface" | "soft" | "ghost"' }, defaultValue: { summary: 'surface' } },
+      control: false,
+    },
+    color: {
+      description:
+        "Overrides the theme accent color for the trigger. When omitted, the theme accent color is inherited (the 'surface' variant falls back to gray).",
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['USD']),
+  parameters: { docs: { description: { story: 'The canonical Select. Same as “USD”, shown first.' } } },
+};
 
 export const USD: Story = {
   name: 'USD',

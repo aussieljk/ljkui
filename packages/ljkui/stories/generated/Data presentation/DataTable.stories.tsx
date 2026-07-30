@@ -7,16 +7,60 @@ const meta = {
   title: 'Data presentation/DataTable',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `DataTable`, from examples/data-table.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    align: {
+      description: 'How the label and value are vertically aligned within the row.',
+      table: { type: { summary: '"start" | "center" | "end" | "baseline" | "stretch"' } },
+      control: false,
+    },
+    color: {
+      description: 'The color of the label text. Inherits the low-contrast gray label styling when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Increases color contrast with the background for better legibility.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+    orientation: {
+      description: 'Whether labels and values are laid out side by side or stacked.',
+      table: { type: { summary: '"horizontal" | "vertical"' }, defaultValue: { summary: 'horizontal' } },
+      control: false,
+    },
+    size: {
+      description: 'The size of the list text and spacing.',
+      table: { type: { summary: '"1" | "2" | "3"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    trim: {
+      description: 'Trims the leading (whitespace above/below the text box) from the start, end, or both sides.',
+      table: { type: { summary: '"normal" | "start" | "end" | "both"' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical DataTable. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

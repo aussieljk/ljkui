@@ -7,11 +7,15 @@ const meta = {
   title: 'Components/AlertDialog',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `AlertDialog`, from examples/alert-dialog.examples.tsx.',
       },
     },
+  },
+  argTypes: {
+    size: { table: { type: { summary: '"1" | "2" | "3" | "4"' }, defaultValue: { summary: '3' } }, control: false },
   },
 } satisfies Meta;
 

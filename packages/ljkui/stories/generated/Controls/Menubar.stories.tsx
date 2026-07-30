@@ -7,6 +7,7 @@ const meta = {
   title: 'Controls/Menubar',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `Menubar`, from examples/menubar.examples.tsx.',

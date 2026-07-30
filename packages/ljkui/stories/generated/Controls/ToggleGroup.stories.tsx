@@ -7,6 +7,7 @@ const meta = {
   title: 'Controls/ToggleGroup',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `ToggleGroup`, from examples/toggle-group.examples.tsx.',

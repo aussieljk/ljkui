@@ -67,7 +67,8 @@ const ci: Workflow = {
     check: {
       name: 'Check',
       'runs-on': RUNNER,
-      'timeout-minutes': 20,
+      // 25 rather than 20: the Storybook build adds a second full vite pass over ~90 component modules.
+      'timeout-minutes': 25,
       steps: [
         checkout(),
         setupBun(BUN_VERSION),
@@ -80,6 +81,8 @@ const ci: Workflow = {
         sh('Lint', 'bun run lint'),
         sh('Typecheck', 'bun run typecheck'),
         sh('Build', 'bun run build'),
+        // Compiles every generated story module, so a story that stops building fails CI.
+        sh('Build Storybook', 'bun run --filter=ljkui build-storybook'),
         sh('Package health', 'bun run --filter=ljkui health'),
       ],
     },

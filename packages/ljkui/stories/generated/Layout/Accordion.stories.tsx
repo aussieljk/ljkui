@@ -7,6 +7,7 @@ const meta = {
   title: 'Layout/Accordion',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `Accordion`, from examples/accordion.examples.tsx.',
@@ -17,6 +18,12 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Single']),
+  parameters: { docs: { description: { story: 'The canonical Accordion. Same as “Single”, shown first.' } } },
+};
 
 export const Single: Story = {
   name: 'Single',

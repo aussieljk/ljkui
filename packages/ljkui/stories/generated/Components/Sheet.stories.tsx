@@ -7,6 +7,7 @@ const meta = {
   title: 'Components/Sheet',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `Sheet`, from examples/sheet.examples.tsx.',

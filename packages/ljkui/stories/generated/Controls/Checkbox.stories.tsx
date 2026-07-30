@@ -7,10 +7,33 @@ const meta = {
   title: 'Controls/Checkbox',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Checkbox`, from examples/checkbox.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    size: {
+      description: 'The size of the checkbox.',
+      table: { type: { summary: '"1" | "2" | "3"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    color: {
+      description: 'The color of the checkbox when checked. Inherits the theme accent color when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Increases color contrast with the background for better legibility.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
     },
   },
 } satisfies Meta;

@@ -7,16 +7,73 @@ const meta = {
   title: 'Layout/Inset',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `Inset`, from examples/inset.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    side: {
+      description: "Which side(s) the inset bleeds into the parent's padding.",
+      table: {
+        type: { summary: '"all" | "x" | "y" | "top" | "bottom" | "left" | "right"' },
+        defaultValue: { summary: 'all' },
+      },
+      control: false,
+    },
+    clip: {
+      description: "Whether content is clipped to the parent's border box or padding box.",
+      table: { type: { summary: '"border-box" | "padding-box"' }, defaultValue: { summary: 'border-box' } },
+      control: false,
+    },
+    p: {
+      description: "Padding on all sides: 'current' keeps the parent's padding, '0' removes it.",
+      table: { type: { summary: '"current" | "0"' } },
+      control: false,
+    },
+    px: {
+      description: "Horizontal padding: 'current' keeps the parent's padding, '0' removes it.",
+      table: { type: { summary: '"current" | "0"' } },
+      control: false,
+    },
+    py: {
+      description: "Vertical padding: 'current' keeps the parent's padding, '0' removes it.",
+      table: { type: { summary: '"current" | "0"' } },
+      control: false,
+    },
+    pt: {
+      description: "Top padding: 'current' keeps the parent's padding, '0' removes it.",
+      table: { type: { summary: '"current" | "0"' } },
+      control: false,
+    },
+    pr: {
+      description: "Right padding: 'current' keeps the parent's padding, '0' removes it.",
+      table: { type: { summary: '"current" | "0"' } },
+      control: false,
+    },
+    pb: {
+      description: "Bottom padding: 'current' keeps the parent's padding, '0' removes it.",
+      table: { type: { summary: '"current" | "0"' } },
+      control: false,
+    },
+    pl: {
+      description: "Left padding: 'current' keeps the parent's padding, '0' removes it.",
+      table: { type: { summary: '"current" | "0"' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['return']),
+  parameters: { docs: { description: { story: 'The canonical Inset. Same as “return”, shown first.' } } },
+};
 
 export const Return: Story = {
   name: 'return',

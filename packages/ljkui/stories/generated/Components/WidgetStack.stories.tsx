@@ -7,16 +7,30 @@ const meta = {
   title: 'Components/WidgetStack',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `WidgetStack`, from examples/widget-stack.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    orientation: {
+      description: 'Controls the scroll axis along which the stacked widgets are laid out and paged.',
+      table: { type: { summary: '"horizontal" | "vertical"' }, defaultValue: { summary: 'vertical' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Orientation']),
+  parameters: { docs: { description: { story: 'The canonical WidgetStack. Same as “Orientation”, shown first.' } } },
+};
 
 export const Orientation: Story = {
   name: 'Orientation',

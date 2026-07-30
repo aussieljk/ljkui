@@ -7,10 +7,33 @@ const meta = {
   title: 'Controls/Autocomplete',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Autocomplete`, from examples/autocomplete.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    size: {
+      description: 'The size of the popup and its items.',
+      table: { type: { summary: '"1" | "2" | "3"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    variant: {
+      description: 'The visual style of the popup background.',
+      table: { type: { summary: '"solid" | "translucent"' }, defaultValue: { summary: 'translucent' } },
+      control: false,
+    },
+    color: {
+      description: 'The accent color used for highlighted items. Inherits the theme accent color when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
     },
   },
 } satisfies Meta;

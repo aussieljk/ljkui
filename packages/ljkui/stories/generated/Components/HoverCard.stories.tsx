@@ -7,10 +7,23 @@ const meta = {
   title: 'Components/HoverCard',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `HoverCard`, from examples/hover-card.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    size: {
+      description: 'The size of the card: controls its padding and border radius.',
+      table: { type: { summary: '"1" | "2" | "3"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    variant: {
+      description: 'The visual style of the card background.',
+      table: { type: { summary: '"solid" | "translucent"' }, defaultValue: { summary: 'translucent' } },
+      control: false,
     },
   },
 } satisfies Meta;

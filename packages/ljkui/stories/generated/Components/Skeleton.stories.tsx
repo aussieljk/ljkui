@@ -7,16 +7,54 @@ const meta = {
   title: 'Components/Skeleton',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Skeleton`, from examples/skeleton.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: "The size of the avatar placeholder, matching Avatar's size scale.",
+      table: {
+        type: { summary: '"0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"' },
+        defaultValue: { summary: '3' },
+      },
+      control: false,
+    },
+    shape: {
+      description: "The shape of the avatar placeholder, matching Avatar's shapes.",
+      table: { type: { summary: '"circle" | "square"' }, defaultValue: { summary: 'circle' } },
+      control: false,
+    },
+    color: {
+      description: "Overrides the theme accent color used for the skeleton's pulse.",
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+        defaultValue: { summary: 'gray' },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Renders a higher-contrast skeleton.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['label']),
+  parameters: { docs: { description: { story: 'The canonical Skeleton. Same as “label”, shown first.' } } },
+};
 
 export const Label: Story = {
   name: 'label',

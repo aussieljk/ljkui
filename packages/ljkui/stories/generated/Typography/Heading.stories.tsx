@@ -7,16 +7,66 @@ const meta = {
   title: 'Typography/Heading',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Heading`, from examples/heading.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'The size of the heading.',
+      table: {
+        type: { summary: '"0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"' },
+        defaultValue: { summary: '6' },
+      },
+      control: false,
+    },
+    weight: {
+      description: 'The font weight of the heading.',
+      table: {
+        type: { summary: '"light" | "regular" | "medium" | "semi-bold" | "bold"' },
+        defaultValue: { summary: 'bold' },
+      },
+      control: false,
+    },
+    align: {
+      description: 'The horizontal text alignment.',
+      table: { type: { summary: '"left" | "center" | "right"' } },
+      control: false,
+    },
+    trim: {
+      description: 'Trims the leading (whitespace above/below the text box) from the start, end, or both sides.',
+      table: { type: { summary: '"normal" | "start" | "end" | "both"' } },
+      control: false,
+    },
+    color: {
+      description: 'The color of the heading. Inherits the surrounding text color when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Increases color contrast with the background for better legibility.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical Heading. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

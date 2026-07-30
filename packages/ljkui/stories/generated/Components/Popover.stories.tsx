@@ -7,10 +7,23 @@ const meta = {
   title: 'Components/Popover',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Popover`, from examples/popover.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    size: {
+      description: 'Controls the padding and border radius scale of the popover panel.',
+      table: { type: { summary: '"1" | "2" | "3" | "4"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    variant: {
+      description: "Controls the panel's background treatment (opaque vs. blurred translucent).",
+      table: { type: { summary: '"solid" | "translucent"' }, defaultValue: { summary: 'translucent' } },
+      control: false,
     },
   },
 } satisfies Meta;

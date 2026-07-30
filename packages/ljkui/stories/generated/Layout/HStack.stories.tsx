@@ -7,16 +7,33 @@ const meta = {
   title: 'Layout/HStack',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `HStack`, from examples/h-stack.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    alignment: {
+      description: 'How children are aligned vertically within the row.',
+      table: {
+        type: { summary: '"top" | "center" | "bottom" | "firstTextBaseline" | "lastTextBaseline"' },
+        defaultValue: { summary: 'center' },
+      },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['return']),
+  parameters: { docs: { description: { story: 'The canonical HStack. Same as “return”, shown first.' } } },
+};
 
 export const Return: Story = {
   name: 'return',

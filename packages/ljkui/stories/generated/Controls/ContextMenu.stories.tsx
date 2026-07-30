@@ -7,10 +7,28 @@ const meta = {
   title: 'Controls/ContextMenu',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `ContextMenu`, from examples/context-menu.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    shortcut: { table: { type: { summary: 'string' } }, control: false },
+    size: { table: { type: { summary: '"1" | "2" | "3"' }, defaultValue: { summary: '2' } }, control: false },
+    color: {
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    variant: {
+      table: { type: { summary: '"solid" | "translucent"' }, defaultValue: { summary: 'translucent' } },
+      control: false,
     },
   },
 } satisfies Meta;

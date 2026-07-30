@@ -7,6 +7,7 @@ const meta = {
   title: 'Components/Drawer',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `Drawer`, from examples/drawer.examples.tsx.',

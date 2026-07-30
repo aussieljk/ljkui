@@ -7,16 +7,31 @@ const meta = {
   title: 'Layout/VStack',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `VStack`, from examples/v-stack.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    alignment: {
+      description:
+        'Horizontal alignment of children within the stack, using SwiftUI-style values (leading/trailing resolve against the writing direction).',
+      table: { type: { summary: '"leading" | "center" | "trailing"' }, defaultValue: { summary: 'center' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['return']),
+  parameters: { docs: { description: { story: 'The canonical VStack. Same as “return”, shown first.' } } },
+};
 
 export const Return: Story = {
   name: 'return',

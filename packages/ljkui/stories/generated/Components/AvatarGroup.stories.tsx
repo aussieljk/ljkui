@@ -7,10 +7,37 @@ const meta = {
   title: 'Components/AvatarGroup',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `AvatarGroup`, from examples/avatar-group.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    color: {
+      description: "The color applied to the group's avatars.",
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+        defaultValue: { summary: 'gray' },
+      },
+      control: false,
+    },
+    size: {
+      description: "The size of the group's avatars.",
+      table: {
+        type: { summary: '"1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"' },
+        defaultValue: { summary: '3' },
+      },
+      control: false,
+    },
+    shape: {
+      description: "The shape of the group's avatars.",
+      table: { type: { summary: '"circle" | "square"' }, defaultValue: { summary: 'circle' } },
+      control: false,
     },
   },
 } satisfies Meta;

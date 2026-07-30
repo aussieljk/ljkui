@@ -7,16 +7,36 @@ const meta = {
   title: 'Components/Spinner',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Spinner`, from examples/spinner.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'The size of the spinner.',
+      table: { type: { summary: '"1" | "2" | "3" | "4" | "5" | "6"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    loading: {
+      description:
+        'Whether the spinner is shown. When `false`, the component renders its children (if any) instead of the spinner.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'true' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical Spinner. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

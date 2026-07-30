@@ -7,6 +7,7 @@ const meta = {
   title: 'Components/VisuallyHidden',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `VisuallyHidden`, from examples/visually-hidden.examples.tsx.',

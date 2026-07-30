@@ -7,16 +7,60 @@ const meta = {
   title: 'Typography/Text',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Text`, from examples/text.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'Controls the font size on the type scale. Inherits from the surrounding text when not set.',
+      table: { type: { summary: '"0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"' } },
+      control: false,
+    },
+    weight: {
+      description: 'Controls the font weight. Inherits from the surrounding text when not set.',
+      table: { type: { summary: '"light" | "regular" | "medium" | "semi-bold" | "bold"' } },
+      control: false,
+    },
+    align: {
+      description: 'Controls the horizontal text alignment.',
+      table: { type: { summary: '"left" | "center" | "right"' } },
+      control: false,
+    },
+    trim: {
+      description: 'Trims the leading (whitespace above/below the text box) from the start, end, or both sides.',
+      table: { type: { summary: '"normal" | "start" | "end" | "both"' } },
+      control: false,
+    },
+    color: {
+      description: 'Overrides the theme accent color for this text. Inherits the theme accent color when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Renders the text in a higher-contrast color variant.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical Text. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

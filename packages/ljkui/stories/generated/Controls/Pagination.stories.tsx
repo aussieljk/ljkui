@@ -7,10 +7,18 @@ const meta = {
   title: 'Controls/Pagination',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `Pagination`, from examples/pagination.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    size: {
+      description: 'The size of the pagination controls.',
+      table: { type: { summary: '"1" | "2" | "3"' }, defaultValue: { summary: '2' } },
+      control: false,
     },
   },
 } satisfies Meta;

@@ -7,10 +7,28 @@ const meta = {
   title: 'Layout/Sidebar',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `Sidebar`, from examples/sidebar.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    side: {
+      description: 'Which edge the sidebar is docked to.',
+      table: { type: { summary: '"start" | "end"' }, defaultValue: { summary: 'start' } },
+      control: false,
+    },
+    variant: {
+      description: 'The visual treatment of the sidebar.',
+      table: { type: { summary: '"sidebar" | "floating" | "inset"' }, defaultValue: { summary: 'sidebar' } },
+      control: false,
+    },
+    collapsible: {
+      description: 'What collapsing does: slide off screen, shrink to an icon rail, or nothing.',
+      table: { type: { summary: '"offcanvas" | "icon" | "none"' }, defaultValue: { summary: 'offcanvas' } },
+      control: false,
     },
   },
 } satisfies Meta;

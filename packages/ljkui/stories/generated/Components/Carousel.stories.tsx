@@ -7,6 +7,7 @@ const meta = {
   title: 'Components/Carousel',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `Carousel`, from examples/carousel.examples.tsx.',

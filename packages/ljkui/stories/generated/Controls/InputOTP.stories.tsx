@@ -7,10 +7,24 @@ const meta = {
   title: 'Controls/InputOTP',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `InputOTP`, from examples/input-otp.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    color: {
+      description: 'Overrides the theme accent color for the OTP slots.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+        defaultValue: { summary: 'gray' },
+      },
+      control: false,
     },
   },
 } satisfies Meta;

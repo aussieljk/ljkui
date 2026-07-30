@@ -7,6 +7,7 @@ const meta = {
   title: 'Forms/Form',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `Form`, from examples/form.examples.tsx.',
@@ -17,6 +18,12 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['if']),
+  parameters: { docs: { description: { story: 'The canonical Form. Same as “if”, shown first.' } } },
+};
 
 export const If: Story = {
   name: 'if',

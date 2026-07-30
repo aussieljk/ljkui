@@ -7,6 +7,7 @@ const meta = {
   title: 'Components/Lightbox',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `Lightbox`, from examples/lightbox.examples.tsx.',

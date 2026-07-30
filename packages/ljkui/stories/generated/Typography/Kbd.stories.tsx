@@ -7,16 +7,31 @@ const meta = {
   title: 'Typography/Kbd',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Kbd`, from examples/kbd.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description:
+        "Sets the key cap size on the theme's typographic scale. When unset, the Kbd scales relative to the surrounding text.",
+      table: { type: { summary: '"1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical Kbd. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

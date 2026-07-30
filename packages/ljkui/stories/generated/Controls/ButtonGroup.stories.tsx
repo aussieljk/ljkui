@@ -7,10 +7,18 @@ const meta = {
   title: 'Controls/ButtonGroup',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `ButtonGroup`, from examples/button-group.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    orientation: {
+      description: 'The direction the buttons are stacked in.',
+      table: { type: { summary: '"horizontal" | "vertical"' }, defaultValue: { summary: 'horizontal' } },
+      control: false,
     },
   },
 } satisfies Meta;

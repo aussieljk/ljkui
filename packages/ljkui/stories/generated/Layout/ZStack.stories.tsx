@@ -7,16 +7,37 @@ const meta = {
   title: 'Layout/ZStack',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `ZStack`, from examples/z-stack.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    alignment: {
+      description:
+        'Two-dimensional alignment of children within the stack, using SwiftUI-style values (leading/trailing resolve against the writing direction).',
+      table: {
+        type: {
+          summary:
+            '"center" | "leading" | "trailing" | "top" | "bottom" | "topLeading" | "topTrailing" | "bottomLeading" | "bottomTrailing" | "centerFirstTextBaseline" | "centerLastTextBaseline" | "leadingFirstTextBaseline" | "leadingLastTextBaseline" | "trailingFirstTextBaseline" | "trailingLastTextBaseline"',
+        },
+        defaultValue: { summary: 'center' },
+      },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['return']),
+  parameters: { docs: { description: { story: 'The canonical ZStack. Same as “return”, shown first.' } } },
+};
 
 export const Return: Story = {
   name: 'return',

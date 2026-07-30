@@ -7,6 +7,7 @@ const meta = {
   title: 'Layout/Collapsible',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `Collapsible`, from examples/collapsible.examples.tsx.',

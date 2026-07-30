@@ -7,6 +7,7 @@ const meta = {
   title: 'Controls/ToggleGroupNav',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `ToggleGroupNav`, from examples/toggle-group-nav.examples.tsx.',

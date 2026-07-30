@@ -12,6 +12,7 @@
  *
  * Run with: bun run generate:storybook (wired into `storybook` / `build-storybook`).
  */
+import { execFileSync } from 'node:child_process';
 import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 
@@ -92,6 +93,12 @@ const CATEGORIES: Record<string, string> = {
   form: 'Forms',
   // Utilities
   shine: 'Utilities',
+  theme: 'Utilities',
+  icons: 'Utilities',
+  scrollbars: 'Utilities',
+  'country-flag': 'Utilities',
+  pictograms: 'Utilities',
+  'emoji-colors': 'Utilities',
   // Components (everything else falls through to this default)
 };
 const DEFAULT_CATEGORY = 'Components';
@@ -149,43 +156,141 @@ function exampleNames(file: string): string[] {
 
 const quote = (value: string) => `'${value.replaceAll('\\', '\\\\').replaceAll("'", "\\'")}'`;
 
+/**
+ * Canvas layout per component. Everything defaults to `centered`, which is wrong for
+ * anything that wants the full width (tables, charts, navigation) or that is a large
+ * composition better shown with breathing room than dead-centred.
+ */
+const FULLSCREEN = new Set([
+  'carousel', 'chart', 'command', 'data-table', 'drawer', 'lightbox', 'menubar', 'navigation-menu',
+  'oscar', 'overlay', 'resizable', 'sheet', 'sidebar', 'sonner', 'table',
+]); // prettier-ignore
+const PADDED = new Set([
+  'accordion', 'aspect-ratio', 'breadcrumb', 'collapsible', 'empty', 'field', 'fieldset', 'form',
+  'grid', 'h-stack', 'inset', 'item', 'pagination', 'scroll-area', 'tabs', 'tabs-nav', 'v-stack',
+  'widget-stack', 'z-stack',
+]); // prettier-ignore
+
+const layoutFor = (slug: string) => (FULLSCREEN.has(slug) ? 'fullscreen' : PADDED.has(slug) ? 'padded' : 'centered');
+
+/* * * * * * * * * * * * * * * * * * * */
+/*              Prop tables            */
+/* * * * * * * * * * * * * * * * * * * */
+
+interface PropEntry {
+  type?: string;
+  default?: string;
+  description?: string;
+  required?: boolean;
+}
+
+/**
+ * The docs site already extracts every component's `*.props.ts` into a JSON file
+ * (packages/docs/scripts/gen-props.ts, keyed by the same slug used here). Reuse it so
+ * the Storybook Docs tab gets the same prop table rather than a second extractor.
+ */
+function loadPropsJson(): Record<string, Record<string, PropEntry>> {
+  const path = join(packageRoot, '..', 'docs', 'src', 'generated', 'props.json');
+  try {
+    return JSON.parse(readFileSync(path, 'utf8'));
+  } catch {
+    console.warn('Storybook: packages/docs/src/generated/props.json not found — prop tables will be empty.');
+    return {};
+  }
+}
+
+const propsBySlug = loadPropsJson();
+
+/**
+ * `argTypes` for the Docs tab's prop table.
+ *
+ * Controls are switched off: these stories render fixed examples rather than spreading
+ * `args` into a component, so a live control would render a knob that changes nothing.
+ * The table itself is the point — it is what the upstream Storybook shows per component.
+ */
+function argTypesFor(slug: string): string {
+  const props = propsBySlug[slug];
+  if (!props || Object.keys(props).length === 0) return '';
+
+  const entries = Object.entries(props)
+    .map(([name, prop]) => {
+      const table = [
+        prop.type ? `type: { summary: ${quote(prop.type)} }` : '',
+        prop.default !== undefined ? `defaultValue: { summary: ${quote(String(prop.default))} }` : '',
+      ]
+        .filter(Boolean)
+        .join(', ');
+      const parts = [
+        prop.description ? `description: ${quote(prop.description)}` : '',
+        table ? `table: { ${table} }` : '',
+        prop.required ? 'required: true' : '',
+        'control: false',
+      ].filter(Boolean);
+      return `    ${quote(name)}: { ${parts.join(', ')} },`;
+    })
+    .join('\n');
+
+  return `  argTypes: {\n${entries}\n  },\n`;
+}
+
 function storyModule(slug: string, category: string): string {
   const component = displayName(slug);
   const used = new Set<string>();
+  const names = exampleNames(slug + '.examples.tsx');
 
-  const stories = exampleNames(slug + '.examples.tsx')
-    .map((name, index) => {
-      let id = identifier(name, `Example${index + 1}`);
-      while (used.has(id)) id = `${id}_`;
-      used.add(id);
-      return `export const ${id}: Story = {
+  const story = (id: string, name: string, exampleName: string, description?: string) => {
+    const docs = description ? `\n  parameters: { docs: { description: { story: ${quote(description)} } } },` : '';
+    return `export const ${id}: Story = {
   name: ${quote(name)},
-  render: () => render(examples[${quote(name)}]),
+  render: () => render(examples[${quote(exampleName)}]),${docs}
 };`;
-    })
-    .join('\n\n');
+  };
+
+  const stories = names.map((name, index) => {
+    let id = identifier(name, `Example${index + 1}`);
+    while (used.has(id)) id = `${id}_`;
+    used.add(id);
+    return story(id, name, name);
+  });
+
+  /*
+   * Whop's Storybook leads every component with `Default`. Where the examples already
+   * define one, it is used as-is; otherwise the first example stands in as the canonical
+   * "what does this look like" entry, since Storybook opens a component on its first story.
+   */
+  if (!names.includes('Default') && names.length > 0) {
+    stories.unshift(
+      story('Default', 'Default', names[0], `The canonical ${component}. Same as “${names[0]}”, shown first.`),
+    );
+  }
+
+  // stories/generated/<category…>/X.stories.tsx — depth varies (Controls/Dates nests).
+  const depth = category.split('/').length;
+  const toExamples = '../'.repeat(depth + 2);
+  const toStories = '../'.repeat(depth + 1);
 
   return `// GENERATED by scripts/generate-storybook.ts — do not edit.
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { examples } from '../../../examples/${slug}.examples';
-import { render } from '../../render-example';
+import { examples } from '${toExamples}examples/${slug}.examples';
+import { render } from '${toStories}render-example';
 
 const meta = {
   title: '${category}/${component}',
   tags: ['autodocs'],
   parameters: {
+    layout: '${layoutFor(slug)}',
     docs: {
       description: {
         component: 'Examples for \`${component}\`, from examples/${slug}.examples.tsx.',
       },
     },
   },
-} satisfies Meta;
+${argTypesFor(slug)}} satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-${stories}
+${stories.join('\n\n')}
 `;
 }
 
@@ -246,7 +351,45 @@ ${ported}
 `;
 }
 
-const INTRODUCTION = `{/* GENERATED by scripts/generate-storybook.ts — do not edit. */}
+/**
+ * Storybook's id for a title — lowercased, non-alphanumerics collapsed to dashes.
+ * `Controls/Dates/Calendar` → `controls-dates-calendar`, which addresses its docs page
+ * as `?path=/docs/controls-dates-calendar--docs`.
+ */
+function storybookId(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+/** The catalog table on the Introduction page: every component, linked to its page. */
+function catalogMarkdown(entries: Array<{ category: string; component: string; count: number }>): string {
+  const byCategory = new Map<string, typeof entries>();
+  for (const entry of entries) {
+    const top = entry.category.split('/')[0];
+    if (!byCategory.has(top)) byCategory.set(top, []);
+    byCategory.get(top)!.push(entry);
+  }
+
+  const sections = [...byCategory.entries()]
+    .sort(([a], [b]) => CATEGORY_ORDER.indexOf(a) - CATEGORY_ORDER.indexOf(b))
+    .map(([top, items]) => {
+      const links = items
+        .sort((a, b) => a.component.localeCompare(b.component))
+        .map((item) => {
+          const id = storybookId(`${item.category}/${item.component}`);
+          return `[${item.component}](?path=/docs/${id}--docs) <sup>${item.count}</sup>`;
+        })
+        .join(' · ');
+      return `### ${top} <sup>${items.length}</sup>\n\n${links}\n`;
+    })
+    .join('\n');
+
+  return sections;
+}
+
+const introduction = (catalog: string) => `{/* GENERATED by scripts/generate-storybook.ts — do not edit. */}
 import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Introduction" />
@@ -284,6 +427,12 @@ way to check a component against the full palette.
 
 The examples themselves live in \`packages/ljkui/examples/*.examples.tsx\` and are
 shared with the docs site, so a story and a docs demo never drift apart.
+
+## All components
+
+Every page in this Storybook, with the number of examples on each.
+
+${catalog}
 `;
 
 const GETTING_STARTED = `{/* GENERATED by scripts/generate-storybook.ts — do not edit. */}
@@ -335,7 +484,6 @@ const files = readdirSync(examplesDir)
 rmSync(generatedDir, { recursive: true, force: true });
 
 mkdirSync(join(generatedDir, 'Guides'), { recursive: true });
-writeFileSync(join(generatedDir, 'Introduction.mdx'), INTRODUCTION);
 writeFileSync(join(generatedDir, 'Guides', '1-getting-started.mdx'), GETTING_STARTED);
 
 let guideCount = 1;
@@ -353,6 +501,7 @@ for (const guide of GUIDES) {
 }
 
 const counts: Record<string, number> = {};
+const catalogEntries: Array<{ category: string; component: string; count: number }> = [];
 for (const file of files) {
   const slug = basename(file, '.examples.tsx');
   const category = CATEGORIES[slug] ?? DEFAULT_CATEGORY;
@@ -360,6 +509,22 @@ for (const file of files) {
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, `${displayName(slug)}.stories.tsx`), storyModule(slug, category));
   counts[category] = (counts[category] ?? 0) + 1;
+  catalogEntries.push({ category, component: displayName(slug), count: exampleNames(file).length });
+}
+
+// Written last: the catalog is built from the pages that were actually generated.
+writeFileSync(join(generatedDir, 'Introduction.mdx'), introduction(catalogMarkdown(catalogEntries)));
+
+/*
+ * Format the output rather than trying to emit oxfmt-clean templates by hand. CI's
+ * `format:check` covers stories/ too, so unformatted generated code fails the build —
+ * and a template that happens to be clean today drifts the moment a prop description
+ * pushes a line past 120 chars.
+ */
+try {
+  execFileSync('bun', ['x', 'oxfmt', 'stories'], { cwd: packageRoot, stdio: 'pipe' });
+} catch (error) {
+  console.warn(`Storybook: oxfmt failed on stories/ — run \`bun run format\` before committing.\n${error}`);
 }
 
 /*

@@ -7,16 +7,48 @@ const meta = {
   title: 'Components/CircularProgress',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `CircularProgress`, from examples/circular-progress.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'The diameter of the progress ring.',
+      table: {
+        type: { summary: '"1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"' },
+        defaultValue: { summary: '3' },
+      },
+      control: false,
+    },
+    color: {
+      description: 'The color of the progress indicator. Inherits the theme accent color when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Increases color contrast with the background for better legibility.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical CircularProgress. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

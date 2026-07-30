@@ -7,6 +7,7 @@ const meta = {
   title: 'Controls/NavigationMenu',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `NavigationMenu`, from examples/navigation-menu.examples.tsx.',

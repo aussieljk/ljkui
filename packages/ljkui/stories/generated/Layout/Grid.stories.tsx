@@ -7,16 +7,36 @@ const meta = {
   title: 'Layout/Grid',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `Grid`, from examples/grid.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    alignment: {
+      description: 'How cells are aligned within their grid area, following SwiftUI-style alignment names.',
+      table: {
+        type: {
+          summary:
+            '"center" | "leading" | "trailing" | "top" | "bottom" | "topLeading" | "topTrailing" | "bottomLeading" | "bottomTrailing" | "centerFirstTextBaseline" | "centerLastTextBaseline" | "leadingFirstTextBaseline" | "leadingLastTextBaseline" | "trailingFirstTextBaseline" | "trailingLastTextBaseline"',
+        },
+        defaultValue: { summary: 'center' },
+      },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['return']),
+  parameters: { docs: { description: { story: 'The canonical Grid. Same as “return”, shown first.' } } },
+};
 
 export const Return: Story = {
   name: 'return',

@@ -7,16 +7,46 @@ const meta = {
   title: 'Controls/RadioGroup',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `RadioGroup`, from examples/radio-group.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'Controls the size of the radio buttons and their labels.',
+      table: { type: { summary: '"1" | "2" | "3"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    color: {
+      description:
+        'Overrides the theme accent color for the selected radio buttons (default undefined = inherit the theme accent).',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Renders a higher-contrast selected state.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['standard']),
+  parameters: { docs: { description: { story: 'The canonical RadioGroup. Same as “standard”, shown first.' } } },
+};
 
 export const Standard: Story = {
   name: 'standard',

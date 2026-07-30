@@ -7,6 +7,7 @@ const meta = {
   title: 'Forms/Field',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `Field`, from examples/field.examples.tsx.',

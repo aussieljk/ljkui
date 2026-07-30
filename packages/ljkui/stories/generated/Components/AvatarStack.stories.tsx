@@ -7,10 +7,21 @@ const meta = {
   title: 'Components/AvatarStack',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `AvatarStack`, from examples/avatar-stack.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    size: {
+      description: "The size of the stack's avatars.",
+      table: {
+        type: { summary: '"0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"' },
+        defaultValue: { summary: '3' },
+      },
+      control: false,
     },
   },
 } satisfies Meta;

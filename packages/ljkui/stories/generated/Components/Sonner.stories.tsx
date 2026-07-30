@@ -7,10 +7,31 @@ const meta = {
   title: 'Components/Sonner',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `Sonner`, from examples/sonner.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    timeout: {
+      description: 'Default auto-dismiss duration in milliseconds.',
+      table: { type: { summary: '"3000" | "5000" | "8000" | "10000"' }, defaultValue: { summary: '5000' } },
+      control: false,
+    },
+    limit: {
+      description: 'Maximum number of toasts visible at once.',
+      table: { type: { summary: '"1" | "3" | "5" | "10"' }, defaultValue: { summary: '3' } },
+      control: false,
+    },
+    position: {
+      description: 'Position of the toast viewport on screen.',
+      table: {
+        type: { summary: '"bottom-right" | "bottom-left" | "bottom-center" | "top-right" | "top-left" | "top-center"' },
+        defaultValue: { summary: 'bottom-right' },
+      },
+      control: false,
     },
   },
 } satisfies Meta;

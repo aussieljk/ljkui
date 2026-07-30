@@ -7,6 +7,7 @@ const meta = {
   title: 'Layout/Resizable',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `Resizable`, from examples/resizable.examples.tsx.',
@@ -17,6 +18,12 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['height']),
+  parameters: { docs: { description: { story: 'The canonical Resizable. Same as “height”, shown first.' } } },
+};
 
 export const Height: Story = {
   name: 'height',

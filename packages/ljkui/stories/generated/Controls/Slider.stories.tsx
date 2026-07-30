@@ -7,16 +7,45 @@ const meta = {
   title: 'Controls/Slider',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Slider`, from examples/slider.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: "The size of the slider's track and thumbs.",
+      table: { type: { summary: '"1" | "2" | "3"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    color: {
+      description: 'Overrides the theme accent color for this slider. Inherits the theme accent when omitted.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Renders a higher-contrast slider.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical Slider. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

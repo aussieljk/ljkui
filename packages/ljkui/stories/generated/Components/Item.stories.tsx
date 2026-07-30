@@ -7,10 +7,23 @@ const meta = {
   title: 'Components/Item',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `Item`, from examples/item.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    size: {
+      description: 'The size of the item.',
+      table: { type: { summary: '"1" | "2" | "3"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    variant: {
+      description: 'The visual style of the item.',
+      table: { type: { summary: '"plain" | "outline" | "muted"' }, defaultValue: { summary: 'plain' } },
+      control: false,
     },
   },
 } satisfies Meta;

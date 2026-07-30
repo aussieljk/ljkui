@@ -7,16 +7,50 @@ const meta = {
   title: 'Components/Badge',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Badge`, from examples/badge.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'The size of the badge.',
+      table: { type: { summary: '"1" | "2"' }, defaultValue: { summary: '1' } },
+      control: false,
+    },
+    variant: {
+      description: 'The visual style of the badge.',
+      table: { type: { summary: '"solid" | "soft" | "surface" | "outline"' }, defaultValue: { summary: 'soft' } },
+      control: false,
+    },
+    color: {
+      description: 'The color of the badge. Inherits the theme accent color when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Increases color contrast with the background for better legibility.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical Badge. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

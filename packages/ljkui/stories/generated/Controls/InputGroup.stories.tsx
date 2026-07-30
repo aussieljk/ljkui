@@ -7,6 +7,7 @@ const meta = {
   title: 'Controls/InputGroup',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `InputGroup`, from examples/input-group.examples.tsx.',

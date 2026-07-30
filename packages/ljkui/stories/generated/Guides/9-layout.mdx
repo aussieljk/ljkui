@@ -11,8 +11,6 @@ ljkui includes SwiftUI-style layout primitives. They take layout-specific props
 (`spacing`, `alignment`, …) and, like every ljkui component, also accept `className` and
 `style` for anything else.
 
-
-
 ## HStack
 
 Lays children out horizontally. `spacing` is the gap in pixels; `alignment` controls the
@@ -26,8 +24,6 @@ import { Badge, Button, HStack } from 'ljkui';
   <Badge color="green">Synced</Badge>
 </HStack>;
 ```
-
-
 
 ## VStack
 
@@ -45,8 +41,6 @@ import { Heading, Text, VStack } from 'ljkui';
 </VStack>;
 ```
 
-
-
 ## ZStack
 
 Stacks children on top of each other. `alignment` positions them using SwiftUI-style values:
@@ -63,8 +57,6 @@ import { Avatar, Badge, ZStack } from 'ljkui';
   </Badge>
 </ZStack>;
 ```
-
-
 
 ## Grid and Grid.Row
 
@@ -86,8 +78,6 @@ import { Grid, Text } from 'ljkui';
 </Grid>;
 ```
 
-
-
 `Grid.Row` takes no extra props beyond the standard `div` attributes.
 
 ## Spacer
@@ -105,8 +95,6 @@ import { Button, Heading, HStack, Spacer } from 'ljkui';
 </HStack>;
 ```
 
-
-
 ## Overlay
 
 Layers `Overlay.Content` children in front of the remaining children, matching SwiftUI's
@@ -122,8 +110,6 @@ import { Card, Overlay, Spinner } from 'ljkui';
   </Overlay.Content>
 </Overlay>;
 ```
-
-
 
 `Overlay.Content` takes no extra props beyond the standard `div` attributes.
 

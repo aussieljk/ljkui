@@ -7,6 +7,7 @@ const meta = {
   title: 'Layout/AspectRatio',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `AspectRatio`, from examples/aspect-ratio.examples.tsx.',

@@ -7,16 +7,37 @@ const meta = {
   title: 'Components/Overlay',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `Overlay`, from examples/overlay.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    alignment: {
+      description:
+        'Where `Overlay.Content` is positioned over the base content, using SwiftUI-style alignment (leading/trailing resolve against the writing direction).',
+      table: {
+        type: {
+          summary:
+            '"center" | "leading" | "trailing" | "top" | "bottom" | "topLeading" | "topTrailing" | "bottomLeading" | "bottomTrailing" | "centerFirstTextBaseline" | "centerLastTextBaseline" | "leadingFirstTextBaseline" | "leadingLastTextBaseline" | "trailingFirstTextBaseline" | "trailingLastTextBaseline"',
+        },
+        defaultValue: { summary: 'center' },
+      },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['return']),
+  parameters: { docs: { description: { story: 'The canonical Overlay. Same as “return”, shown first.' } } },
+};
 
 export const Return: Story = {
   name: 'return',

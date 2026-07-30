@@ -7,10 +7,38 @@ const meta = {
   title: 'Controls/Combobox',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Combobox`, from examples/combobox.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    variant: {
+      description: 'The visual style of the popup background.',
+      table: { type: { summary: '"solid" | "soft"' }, defaultValue: { summary: 'soft' } },
+      control: false,
+    },
+    color: {
+      description: 'The accent color used for highlighted items. Inherits the theme accent color when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Increases color contrast with the background for better legibility.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+    size: {
+      description: 'The size shared with the combobox parts (`Input`, `Chips`, `Content`) via context.',
+      table: { type: { summary: '"1" | "2" | "3" | "4"' }, defaultValue: { summary: '2' } },
+      control: false,
     },
   },
 } satisfies Meta;

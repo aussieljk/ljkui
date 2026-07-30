@@ -69,6 +69,7 @@
     "generate:icon-adapters": "bun scripts/generate-icon-adapters.ts",
     "generate:palettes": "bun scripts/generate-palettes.ts",
     "generate:storybook": "bun scripts/generate-storybook.ts",
+    "generate:pdf": "bun scripts/generate-pdf.ts",
     "storybook": "bun run generate:storybook && storybook dev -p 6006",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf styles.css && rm -rf styles.lite.css && rm -rf theme.css",
     "prepublishOnly": "bun scripts/check-version.ts && bun run lint && bun run build",

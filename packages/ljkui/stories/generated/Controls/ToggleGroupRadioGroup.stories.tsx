@@ -7,6 +7,7 @@ const meta = {
   title: 'Controls/ToggleGroupRadioGroup',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `ToggleGroupRadioGroup`, from examples/toggle-group-radio-group.examples.tsx.',
@@ -17,6 +18,14 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Input Ref']),
+  parameters: {
+    docs: { description: { story: 'The canonical ToggleGroupRadioGroup. Same as “Input Ref”, shown first.' } },
+  },
+};
 
 export const InputRef: Story = {
   name: 'Input Ref',

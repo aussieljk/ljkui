@@ -7,6 +7,7 @@ const meta = {
   title: 'Components/Oscar',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `Oscar`, from examples/oscar.examples.tsx.',
@@ -17,6 +18,12 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Oscar’s profile']),
+  parameters: { docs: { description: { story: 'The canonical Oscar. Same as “Oscar’s profile”, shown first.' } } },
+};
 
 export const OscarSProfile: Story = {
   name: 'Oscar’s profile',

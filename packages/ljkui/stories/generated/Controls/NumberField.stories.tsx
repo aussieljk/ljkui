@@ -7,16 +7,52 @@ const meta = {
   title: 'Controls/NumberField',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `NumberField`, from examples/number-field.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'Controls the overall size (height, padding and typography) of the field.',
+      table: { type: { summary: '"1" | "2" | "3" | "4"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    variant: {
+      description: 'Controls the visual style of the field.',
+      table: { type: { summary: '"surface" | "soft"' }, defaultValue: { summary: 'surface' } },
+      control: false,
+    },
+    color: {
+      description: 'Overrides the theme accent color for the field and its stepper buttons.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+        defaultValue: { summary: 'gray' },
+      },
+      control: false,
+    },
+    buttonLayout: {
+      description:
+        'Controls where the increment/decrement buttons are placed: on either side of the input, grouped after it, or hidden entirely.',
+      table: { type: { summary: '"split" | "trailing" | "none"' }, defaultValue: { summary: 'trailing' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical NumberField. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

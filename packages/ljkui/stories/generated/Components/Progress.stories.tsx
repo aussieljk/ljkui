@@ -7,16 +7,45 @@ const meta = {
   title: 'Components/Progress',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Progress`, from examples/progress.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'Controls the height of the progress bar.',
+      table: { type: { summary: '"1" | "2" | "3" | "4" | "5" | "6"' }, defaultValue: { summary: '6' } },
+      control: false,
+    },
+    color: {
+      description: 'Overrides the theme accent color for the indicator (default undefined = inherit the theme accent).',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Renders a higher-contrast indicator color.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical Progress. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

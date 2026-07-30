@@ -7,16 +7,50 @@ const meta = {
   title: 'Data presentation/Table',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `Table`, from examples/table.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    justify: {
+      description: "Horizontal alignment of the cell's content.",
+      table: { type: { summary: '"start" | "center" | "end"' } },
+      control: false,
+    },
+    width: {
+      description: "Fixed width of the cell's column (any CSS width value; numbers are treated as pixels).",
+      table: { type: { summary: 'string | number' } },
+      control: false,
+    },
+    size: {
+      description: 'Controls cell padding and text size throughout the table.',
+      table: { type: { summary: '"1" | "2"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    variant: {
+      description: "Controls the table's visual style ('surface' adds a card-like background and border).",
+      table: { type: { summary: '"surface" | "ghost"' }, defaultValue: { summary: 'surface' } },
+      control: false,
+    },
+    align: {
+      description: 'Vertical alignment of the cells in the row.',
+      table: { type: { summary: '"start" | "center" | "end" | "baseline"' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['id']),
+  parameters: { docs: { description: { story: 'The canonical Table. Same as “id”, shown first.' } } },
+};
 
 export const Id: Story = {
   name: 'id',

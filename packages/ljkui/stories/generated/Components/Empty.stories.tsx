@@ -7,6 +7,7 @@ const meta = {
   title: 'Components/Empty',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `Empty`, from examples/empty.examples.tsx.',

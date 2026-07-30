@@ -7,16 +7,46 @@ const meta = {
   title: 'Controls/Input',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Input`, from examples/input.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'Controls the height, text size and padding of the field.',
+      table: { type: { summary: '"1" | "2" | "3" | "4"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    variant: {
+      description: 'Controls the visual style of the field.',
+      table: { type: { summary: '"surface" | "soft"' }, defaultValue: { summary: 'surface' } },
+      control: false,
+    },
+    color: {
+      description: "Overrides the accent color used for the field's background tint and focus ring.",
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+        defaultValue: { summary: 'gray' },
+      },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical Input. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

@@ -7,16 +7,50 @@ const meta = {
   title: 'Controls/Toggle',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Toggle`, from examples/toggle.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'The size of the toggle.',
+      table: { type: { summary: '"1" | "2" | "3" | "4"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    variant: {
+      description: 'The visual style of the toggle when pressed. Unpressed toggles always render as `ghost`.',
+      table: { type: { summary: '"solid" | "soft" | "surface" | "ghost"' }, defaultValue: { summary: 'soft' } },
+      control: false,
+    },
+    color: {
+      description: 'The color of the toggle when pressed. Inherits the theme accent color when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Increases color contrast with the background for better legibility.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Variants']),
+  parameters: { docs: { description: { story: 'The canonical Toggle. Same as “Variants”, shown first.' } } },
+};
 
 export const Variants: Story = {
   name: 'Variants',

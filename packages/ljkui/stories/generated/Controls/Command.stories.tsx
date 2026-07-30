@@ -7,6 +7,7 @@ const meta = {
   title: 'Controls/Command',
   tags: ['autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Examples for `Command`, from examples/command.examples.tsx.',

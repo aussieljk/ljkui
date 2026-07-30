@@ -7,6 +7,7 @@ const meta = {
   title: 'Components/Portal',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Portal`, from examples/portal.examples.tsx.',

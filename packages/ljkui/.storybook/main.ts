@@ -25,16 +25,22 @@ const config: StorybookConfig = {
     ...config,
     resolve: {
       ...config.resolve,
-      alias: {
-        ...config.resolve?.alias,
-        ljkui: resolve(packageRoot, 'src'),
-        'ljkui/icons': resolve(packageRoot, 'src/icons'),
-        'ljkui/icons/lucide': resolve(packageRoot, 'src/icons/adapters/lucide.ts'),
-        'ljkui/icons/heroicons': resolve(packageRoot, 'src/icons/adapters/heroicons.ts'),
-        'ljkui/icons/hugeicons': resolve(packageRoot, 'src/icons/adapters/hugeicons.ts'),
-        'ljkui/icons/phosphor': resolve(packageRoot, 'src/icons/adapters/phosphor.ts'),
-        'ljkui/icons/tabler': resolve(packageRoot, 'src/icons/adapters/tabler.ts'),
-      },
+      /*
+       * Regex `find`s, and the array form, are both load-bearing. A bare `ljkui: …/src`
+       * string alias also rewrites every subpath as a prefix, so `ljkui/icons/lucide`
+       * resolves to `src/icons/lucide` — a path that does not exist — and the build dies
+       * with UNLOADABLE_DEPENDENCY. The docs vite config carries the same guard.
+       *
+       * Storybook points at `src` rather than `dist` so stories hot-reload against the
+       * source; the examples' own tsconfig maps `ljkui` -> `./src` too, so there is a
+       * single module instance and only one ThemeContext.
+       */
+      alias: [
+        ...(Array.isArray(config.resolve?.alias) ? config.resolve.alias : []),
+        { find: /^ljkui$/, replacement: resolve(packageRoot, 'src') },
+        { find: /^ljkui\/icons$/, replacement: resolve(packageRoot, 'src/icons') },
+        { find: /^ljkui\/icons\/(.+)$/, replacement: resolve(packageRoot, 'src/icons/adapters/$1') },
+      ],
     },
     /*
      * Pre-bundle the heavy leaf dependencies the examples reach for. Without this the

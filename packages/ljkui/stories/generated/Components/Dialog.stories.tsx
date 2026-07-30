@@ -7,10 +7,19 @@ const meta = {
   title: 'Components/Dialog',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Dialog`, from examples/dialog.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    size: {
+      description:
+        'The size of the dialog: controls its max width, padding and radius, and scales the default `Title` and `Description` sizes.',
+      table: { type: { summary: '"1" | "2" | "3" | "4"' }, defaultValue: { summary: '3' } },
+      control: false,
     },
   },
 } satisfies Meta;

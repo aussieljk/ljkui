@@ -7,16 +7,61 @@ const meta = {
   title: 'Typography/Link',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Link`, from examples/link.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description:
+        "Sets the text size on the theme's typographic scale. When unset, the link inherits the size of the surrounding text.",
+      table: { type: { summary: '"0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"' } },
+      control: false,
+    },
+    weight: {
+      description: 'Sets the font weight of the link text.',
+      table: { type: { summary: '"light" | "regular" | "medium" | "semi-bold" | "bold"' } },
+      control: false,
+    },
+    trim: {
+      description: 'Trims the leading (whitespace above and below the text) from the start, end, or both sides.',
+      table: { type: { summary: '"normal" | "start" | "end" | "both"' } },
+      control: false,
+    },
+    underline: {
+      description: "Controls when the link's underline is shown.",
+      table: { type: { summary: '"auto" | "hover" | "always"' }, defaultValue: { summary: 'auto' } },
+      control: false,
+    },
+    color: {
+      description: 'Overrides the theme accent color for this link. Inherits the theme accent color when unset.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Renders a higher-contrast color variant for improved accessibility.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical Link. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

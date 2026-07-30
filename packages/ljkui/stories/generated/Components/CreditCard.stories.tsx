@@ -7,6 +7,7 @@ const meta = {
   title: 'Components/CreditCard',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `CreditCard`, from examples/credit-card.examples.tsx.',
@@ -17,6 +18,12 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['return']),
+  parameters: { docs: { description: { story: 'The canonical CreditCard. Same as “return”, shown first.' } } },
+};
 
 export const Return: Story = {
   name: 'return',

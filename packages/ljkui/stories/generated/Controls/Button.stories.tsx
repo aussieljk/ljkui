@@ -7,16 +7,54 @@ const meta = {
   title: 'Controls/Button',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Button`, from examples/button.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'The size of the button.',
+      table: { type: { summary: '"1" | "2" | "3" | "4"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    variant: {
+      description: 'The visual style of the button.',
+      table: {
+        type: { summary: '"classic" | "solid" | "soft" | "surface" | "ghost"' },
+        defaultValue: { summary: 'surface' },
+      },
+      control: false,
+    },
+    color: {
+      description:
+        'The color of the button. Inherits the theme accent color when not set (gray for the `surface` variant).',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Increases color contrast with the background for better legibility.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical Button. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

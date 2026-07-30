@@ -7,16 +7,45 @@ const meta = {
   title: 'Components/TabsNav',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `TabsNav`, from examples/tabs-nav.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'The size of the tab triggers.',
+      table: { type: { summary: '"1" | "2"' }, defaultValue: { summary: '2' } },
+      control: false,
+    },
+    color: {
+      description: 'The color of the active tab indicator and label. Inherits the theme accent color when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Increases color contrast with the background for better legibility.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical TabsNav. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

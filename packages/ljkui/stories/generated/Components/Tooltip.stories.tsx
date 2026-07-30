@@ -7,10 +7,19 @@ const meta = {
   title: 'Components/Tooltip',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Tooltip`, from examples/tooltip.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    content: {
+      description: 'The content displayed inside the tooltip popup.',
+      table: { type: { summary: 'ReactNode' } },
+      required: true,
+      control: false,
     },
   },
 } satisfies Meta;

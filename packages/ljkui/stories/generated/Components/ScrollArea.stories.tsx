@@ -7,16 +7,43 @@ const meta = {
   title: 'Components/ScrollArea',
   tags: ['autodocs'],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: 'Examples for `ScrollArea`, from examples/scroll-area.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'The thickness of the scrollbars.',
+      table: { type: { summary: '"1" | "2" | "3"' }, defaultValue: { summary: '1' } },
+      control: false,
+    },
+    scrollbars: {
+      description: 'Which scrollbars are rendered, constraining the directions the viewport can scroll in.',
+      table: { type: { summary: '"vertical" | "horizontal" | "both"' }, defaultValue: { summary: 'both' } },
+      control: false,
+    },
+    type: {
+      description:
+        'Describes the nature of scrollbar visibility, similar to how the scrollbar preferences in macOS control visibility of native scrollbars. - `"auto"` - scrollbars are visible when content is overflowing - `"always"` - scrollbars are always visible regardless of overflow - `"scroll"` - scrollbars are visible when the user is scrolling - `"hover"` - scrollbars are visible when scrolling or hovering over the scroll area',
+      table: { type: { summary: '"auto" | "always" | "scroll" | "hover"' }, defaultValue: { summary: 'hover' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Type (Visibility Behavior)']),
+  parameters: {
+    docs: { description: { story: 'The canonical ScrollArea. Same as “Type (Visibility Behavior)”, shown first.' } },
+  },
+};
 
 export const TypeVisibilityBehavior: Story = {
   name: 'Type (Visibility Behavior)',

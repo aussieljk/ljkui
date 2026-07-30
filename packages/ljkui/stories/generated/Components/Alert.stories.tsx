@@ -7,10 +7,24 @@ const meta = {
   title: 'Components/Alert',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Alert`, from examples/alert.examples.tsx.',
       },
+    },
+  },
+  argTypes: {
+    color: {
+      description:
+        'The color of the alert, applied to its icon, title and description. Inherits the theme accent color when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
     },
   },
 } satisfies Meta;

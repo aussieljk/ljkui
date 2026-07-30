@@ -19,7 +19,7 @@ jobs:
   check:
     name: Check
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -51,6 +51,8 @@ jobs:
         run: bun run typecheck
       - name: Build
         run: bun run build
+      - name: Build Storybook
+        run: bun run --filter=ljkui build-storybook
       - name: Package health
         run: bun run --filter=ljkui health
   deploy:

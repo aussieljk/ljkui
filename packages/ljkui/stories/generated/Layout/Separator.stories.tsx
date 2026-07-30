@@ -7,16 +7,41 @@ const meta = {
   title: 'Layout/Separator',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Separator`, from examples/separator.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'Controls the length of the separator line.',
+      table: { type: { summary: '"1" | "2" | "3" | "4"' }, defaultValue: { summary: '1' } },
+      control: false,
+    },
+    color: {
+      description: 'Overrides the color of the separator line.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+        defaultValue: { summary: 'gray' },
+      },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical Separator. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',

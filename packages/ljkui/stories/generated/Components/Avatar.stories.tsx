@@ -7,16 +7,60 @@ const meta = {
   title: 'Components/Avatar',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Avatar`, from examples/avatar.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'The size of the avatar.',
+      table: {
+        type: { summary: '"0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"' },
+        defaultValue: { summary: '3' },
+      },
+      control: false,
+    },
+    shape: {
+      description: 'The shape of the avatar.',
+      table: { type: { summary: '"circle" | "square"' }, defaultValue: { summary: 'circle' } },
+      control: false,
+    },
+    color: {
+      description: 'The color of the fallback background. Inherits the theme accent color when not set.',
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+      },
+      control: false,
+    },
+    highContrast: {
+      description: 'Increases color contrast of the fallback for better legibility.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+    fallback: {
+      description:
+        'Content shown while the image is loading or when it fails to load. A string is converted to initials (e.g. "Jane Doe" becomes "JD").',
+      table: { type: { summary: 'ReactNode' } },
+      required: true,
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Shape']),
+  parameters: { docs: { description: { story: 'The canonical Avatar. Same as “Shape”, shown first.' } } },
+};
 
 export const Shape: Story = {
   name: 'Shape',

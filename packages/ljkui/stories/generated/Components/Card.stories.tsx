@@ -7,16 +7,35 @@ const meta = {
   title: 'Components/Card',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Examples for `Card`, from examples/card.examples.tsx.',
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'The size of the card: controls its padding and border radius.',
+      table: { type: { summary: '"1" | "2" | "3" | "4" | "5"' }, defaultValue: { summary: '1' } },
+      control: false,
+    },
+    variant: {
+      description: 'The visual style of the card.',
+      table: { type: { summary: '"surface" | "outline" | "ghost" | "soft"' }, defaultValue: { summary: 'surface' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  name: 'Default',
+  render: () => render(examples['Size']),
+  parameters: { docs: { description: { story: 'The canonical Card. Same as “Size”, shown first.' } } },
+};
 
 export const Size: Story = {
   name: 'Size',
