@@ -3,7 +3,7 @@
 <p align="center">ljkui — a React design system with a themeable component library, SwiftUI-style layout primitives, and pluggable icon sets</p>
 
 <h3 align="center">
-  <a href="https://ljkui.localhost">Documentation (Fumadocs)</a>
+  <a href="https://ljkui.vercel.app">Documentation (Storybook)</a>
 </h3>
 
 > [!WARNING]
@@ -24,6 +24,11 @@ Import the global CSS file at the root of your application:
 ```tsx
 import 'ljkui/styles.css';
 ```
+
+> [!NOTE]
+> Using Tailwind? Import `styles.css` into the `ljkui` layer, or the global reset
+> flattens every heading. See the **Installation & Layers** guide in the docs. In
+> development, `<Theme>` warns in the console if it detects this.
 
 Add the Theme component:
 

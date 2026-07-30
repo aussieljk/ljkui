@@ -23,4 +23,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Menubar } from \'ljkui\';\n\n(\n    <Menubar.Root>\n      <Menubar.Menu>\n        <Menubar.Trigger>File</Menubar.Trigger>\n        <Menubar.Content>\n          <Menubar.Item>New window</Menubar.Item>\n          <Menubar.Item>Open…</Menubar.Item>\n          <Menubar.Separator />\n          <Menubar.Item>Print…</Menubar.Item>\n        </Menubar.Content>\n      </Menubar.Menu>\n\n      <Menubar.Menu>\n        <Menubar.Trigger>Edit</Menubar.Trigger>\n        <Menubar.Content>\n          <Menubar.Item>Undo</Menubar.Item>\n          <Menubar.Item>Redo</Menubar.Item>\n          <Menubar.Separator />\n          <Menubar.Sub>\n            <Menubar.SubTrigger>Find</Menubar.SubTrigger>\n            <Menubar.SubContent>\n              <Menubar.Item>Find…</Menubar.Item>\n              <Menubar.Item>Find next</Menubar.Item>\n            </Menubar.SubContent>\n          </Menubar.Sub>\n        </Menubar.Content>\n      </Menubar.Menu>\n\n      <Menubar.Menu>\n        <Menubar.Trigger>View</Menubar.Trigger>\n        <Menubar.Content>\n          <Menubar.CheckboxItem defaultChecked>Show sidebar</Menubar.CheckboxItem>\n          <Menubar.CheckboxItem>Show status bar</Menubar.CheckboxItem>\n          <Menubar.Separator />\n          <Menubar.RadioGroup defaultValue="comfortable">\n            <Menubar.GroupLabel>Density</Menubar.GroupLabel>\n            <Menubar.RadioItem value="compact">Compact</Menubar.RadioItem>\n            <Menubar.RadioItem value="comfortable">Comfortable</Menubar.RadioItem>\n          </Menubar.RadioGroup>\n        </Menubar.Content>\n      </Menubar.Menu>\n    </Menubar.Root>\n  )',
+      },
+    },
+  },
 };

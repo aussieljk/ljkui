@@ -50,25 +50,65 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Variants']),
-  parameters: { docs: { description: { story: 'The canonical Toggle. Same as “Variants”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Toggle. Same as “Variants”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: "import { HStack, Toggle } from 'ljkui';\n\n(\n        <Toggle key={variant} variant={variant} defaultPressed>\n          {variant}\n        </Toggle>\n      ))}\n    </HStack>\n  )",
+      },
+    },
+  },
 };
 
 export const Variants: Story = {
   name: 'Variants',
   render: () => render(examples['Variants']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { HStack, Toggle } from 'ljkui';\n\n(\n        <Toggle key={variant} variant={variant} defaultPressed>\n          {variant}\n        </Toggle>\n      ))}\n    </HStack>\n  )",
+      },
+    },
+  },
 };
 
 export const Sizes: Story = {
   name: 'Sizes',
   render: () => render(examples['Sizes']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { HStack, Toggle } from 'ljkui';\n\n(\n        <Toggle key={size} size={size} defaultPressed>\n          Size {size}\n        </Toggle>\n      ))}\n    </HStack>\n  )",
+      },
+    },
+  },
 };
 
 export const Controlled: Story = {
   name: 'Controlled',
   render: () => render(examples['Controlled']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { HStack, Toggle, Typography } from \'ljkui\';\n\nconst Controlled = () => {\n  const [pressed, setPressed] = React.useState(false);\n  return (\n    <HStack spacing={12} alignment="center">\n      <Toggle pressed={pressed} onPressedChange={setPressed}>\n        Mute notifications\n      </Toggle>\n      <Typography.Text size="2" color="gray">\n        {pressed ? \'Muted\' : \'Unmuted\'}\n      </Typography.Text>\n    </HStack>\n  );\n};\nreturn <Controlled />;',
+      },
+    },
+  },
 };
 
 export const Disabled: Story = {
   name: 'Disabled',
   render: () => render(examples['Disabled']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { HStack, Toggle } from \'ljkui\';\n\n(\n    <HStack spacing={12} alignment="center">\n      <Toggle disabled>Off</Toggle>\n      <Toggle disabled defaultPressed>\n        On\n      </Toggle>\n    </HStack>\n  )',
+      },
+    },
+  },
 };

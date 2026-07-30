@@ -22,20 +22,52 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Horizontal']),
-  parameters: { docs: { description: { story: 'The canonical Resizable. Same as “Horizontal”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Resizable. Same as “Horizontal”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { Resizable } from \'ljkui\';\n\n(\n    <div style={{ ...frame, width: 520 }}>\n      <Resizable.Root direction="horizontal">\n        <Resizable.Panel defaultSize={30} minSize={15}>\n          <Pane label="Sidebar" />\n        </Resizable.Panel>\n        <Resizable.Handle withHandle />\n        <Resizable.Panel defaultSize={70}>\n          <Pane label="Editor" />\n        </Resizable.Panel>\n      </Resizable.Root>\n    </div>\n  )',
+      },
+    },
+  },
 };
 
 export const Horizontal: Story = {
   name: 'Horizontal',
   render: () => render(examples['Horizontal']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Resizable } from \'ljkui\';\n\n(\n    <div style={{ ...frame, width: 520 }}>\n      <Resizable.Root direction="horizontal">\n        <Resizable.Panel defaultSize={30} minSize={15}>\n          <Pane label="Sidebar" />\n        </Resizable.Panel>\n        <Resizable.Handle withHandle />\n        <Resizable.Panel defaultSize={70}>\n          <Pane label="Editor" />\n        </Resizable.Panel>\n      </Resizable.Root>\n    </div>\n  )',
+      },
+    },
+  },
 };
 
 export const Vertical: Story = {
   name: 'Vertical',
   render: () => render(examples['Vertical']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Resizable } from \'ljkui\';\n\n(\n    <div style={{ ...frame, width: 420 }}>\n      <Resizable.Root direction="vertical">\n        <Resizable.Panel defaultSize={60}>\n          <Pane label="Preview" />\n        </Resizable.Panel>\n        <Resizable.Handle withHandle />\n        <Resizable.Panel defaultSize={40} minSize={20}>\n          <Pane label="Console" />\n        </Resizable.Panel>\n      </Resizable.Root>\n    </div>\n  )',
+      },
+    },
+  },
 };
 
 export const ThreePanels: Story = {
   name: 'Three panels',
   render: () => render(examples['Three panels']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Resizable } from \'ljkui\';\n\n(\n    <div style={{ ...frame, width: 640 }}>\n      <Resizable.Root direction="horizontal">\n        <Resizable.Panel defaultSize={25} minSize={15}>\n          <Pane label="Files" />\n        </Resizable.Panel>\n        <Resizable.Handle />\n        <Resizable.Panel defaultSize={50}>\n          <Pane label="Editor" />\n        </Resizable.Panel>\n        <Resizable.Handle />\n        <Resizable.Panel defaultSize={25} minSize={15}>\n          <Pane label="Outline" />\n        </Resizable.Panel>\n      </Resizable.Root>\n    </div>\n  )',
+      },
+    },
+  },
 };

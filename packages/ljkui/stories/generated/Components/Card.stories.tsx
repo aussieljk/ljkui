@@ -34,25 +34,65 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical Card. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Card. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { Avatar, Card, Typography } from \'ljkui\';\n\nconst args = {};\nreturn (\n  <div style={{ display: \'flex\', gap: \'var(--space-3)\', flexDirection: \'column\' }}>\n    <Card {...args} size="1" style={{ width: 350 }}>\n      <div style={{ display: \'flex\', gap: \'var(--space-3)\', alignItems: \'center\' }}>\n        <Avatar size="3" fallback="T" color="indigo" />\n        <div>\n          <Typography.Text render={<div />} size="2" weight="bold">\n            Teodros Girmay\n          </Typography.Text>\n          <Typography.Text render={<div />} size="2" color="gray">\n            Engineering\n          </Typography.Text>\n        </div>\n      </div>\n    </Card>\n\n    <Card {...args} size="2" style={{ width: 425 }}>\n      <div style={{ display: \'flex\', gap: \'var(--space-4)\', alignItems: \'center\' }}>\n        <Avatar size="4" fallback="T" color="indigo" />\n        <div>\n          <Typography.Text render={<div />} weight="bold">\n            Teodros Girmay\n          </Typography.Text>\n          <Typography.Text render={<div />} color="gray">\n            Engineering\n          </Typography.Text>\n        </div>\n      </div>\n    </Card>\n\n    <Card {...args} size="3" style={{ width: 500 }}>\n      <div style={{ display: \'flex\', gap: \'var(--space-4)\', alignItems: \'center\' }}>\n        <Avatar size="5" fallback="T" color="indigo" />\n        <div>\n          <Typography.Text render={<div />} size="4" weight="bold">\n            Teodros Girmay\n          </Typography.Text>\n          <Typography.Text render={<div />} size="4" color="gray">\n            Engineering\n          </Typography.Text>\n        </div>\n      </div>\n    </Card>\n\n    <Card {...args} size="4" style={{ width: 500 }}>\n      <div style={{ display: \'flex\', gap: \'var(--space-4)\', alignItems: \'center\' }}>\n        <Avatar size="5" fallback="T" color="indigo" />\n        <div>\n          <Typography.Text render={<div />} size="4" weight="bold">\n            Teodros Girmay\n          </Typography.Text>\n          <Typography.Text render={<div />} size="4" color="gray">\n            Engineering\n          </Typography.Text>\n        </div>\n      </div>\n    </Card>\n\n    <Card {...args} size="5" style={{ width: 500 }}>\n      <div style={{ display: \'flex\', gap: \'var(--space-4)\', alignItems: \'center\' }}>\n        <Avatar size="5" fallback="T" color="indigo" />\n        <div>\n          <Typography.Text render={<div />} size="4" weight="bold">\n            Teodros Girmay\n          </Typography.Text>\n          <Typography.Text render={<div />} size="4" color="gray">\n            Engineering\n          </Typography.Text>\n        </div>\n      </div>\n    </Card>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Avatar, Card, Typography } from \'ljkui\';\n\nconst args = {};\nreturn (\n  <div style={{ display: \'flex\', gap: \'var(--space-3)\', flexDirection: \'column\' }}>\n    <Card {...args} size="1" style={{ width: 350 }}>\n      <div style={{ display: \'flex\', gap: \'var(--space-3)\', alignItems: \'center\' }}>\n        <Avatar size="3" fallback="T" color="indigo" />\n        <div>\n          <Typography.Text render={<div />} size="2" weight="bold">\n            Teodros Girmay\n          </Typography.Text>\n          <Typography.Text render={<div />} size="2" color="gray">\n            Engineering\n          </Typography.Text>\n        </div>\n      </div>\n    </Card>\n\n    <Card {...args} size="2" style={{ width: 425 }}>\n      <div style={{ display: \'flex\', gap: \'var(--space-4)\', alignItems: \'center\' }}>\n        <Avatar size="4" fallback="T" color="indigo" />\n        <div>\n          <Typography.Text render={<div />} weight="bold">\n            Teodros Girmay\n          </Typography.Text>\n          <Typography.Text render={<div />} color="gray">\n            Engineering\n          </Typography.Text>\n        </div>\n      </div>\n    </Card>\n\n    <Card {...args} size="3" style={{ width: 500 }}>\n      <div style={{ display: \'flex\', gap: \'var(--space-4)\', alignItems: \'center\' }}>\n        <Avatar size="5" fallback="T" color="indigo" />\n        <div>\n          <Typography.Text render={<div />} size="4" weight="bold">\n            Teodros Girmay\n          </Typography.Text>\n          <Typography.Text render={<div />} size="4" color="gray">\n            Engineering\n          </Typography.Text>\n        </div>\n      </div>\n    </Card>\n\n    <Card {...args} size="4" style={{ width: 500 }}>\n      <div style={{ display: \'flex\', gap: \'var(--space-4)\', alignItems: \'center\' }}>\n        <Avatar size="5" fallback="T" color="indigo" />\n        <div>\n          <Typography.Text render={<div />} size="4" weight="bold">\n            Teodros Girmay\n          </Typography.Text>\n          <Typography.Text render={<div />} size="4" color="gray">\n            Engineering\n          </Typography.Text>\n        </div>\n      </div>\n    </Card>\n\n    <Card {...args} size="5" style={{ width: 500 }}>\n      <div style={{ display: \'flex\', gap: \'var(--space-4)\', alignItems: \'center\' }}>\n        <Avatar size="5" fallback="T" color="indigo" />\n        <div>\n          <Typography.Text render={<div />} size="4" weight="bold">\n            Teodros Girmay\n          </Typography.Text>\n          <Typography.Text render={<div />} size="4" color="gray">\n            Engineering\n          </Typography.Text>\n        </div>\n      </div>\n    </Card>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Variant: Story = {
   name: 'Variant',
   render: () => render(examples['Variant']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Card } from \'ljkui\';\n\nconst { children, ...args } = { children: <CardContentExample /> };\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-6)\' }}>\n    <Card {...args} variant="surface">\n      {children}\n    </Card>\n    <Card {...args} variant="outline">\n      {children}\n    </Card>\n    <Card {...args} variant="soft">\n      {children}\n    </Card>\n    <Card {...args} variant="ghost">\n      {children}\n    </Card>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const InsetContent: Story = {
   name: 'Inset Content',
   render: () => render(examples['Inset Content']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Card, Typography } from 'ljkui';\n\nconst args = {};\nreturn (\n  <Card size=\"2\" style={{ maxWidth: 240, padding: 0 }} {...args}>\n    <img\n      src=\"https://images.unsplash.com/photo-1617050318658-a9a3175e34cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80\"\n      alt=\"Bold typography\"\n      style={{\n        display: 'block',\n        objectFit: 'cover',\n        width: '100%',\n        height: 140,\n        backgroundColor: 'var(--gray-300)',\n      }}\n    />\n\n    <div style={{ padding: 'var( --card-padding)' }}>\n      <Typography.Text render={<p />} size=\"3\">\n        This is a really nice image description.\n      </Typography.Text>\n    </div>\n  </Card>\n);",
+      },
+    },
+  },
 };
 
 export const AsAnotherElement: Story = {
   name: 'As another element',
   render: () => render(examples['As another element']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Card, Typography } from 'ljkui';\n\nconst args = {};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>\n    <div>\n      <Typography.Text>\n        Use the <Typography.Code>render</Typography.Code> prop to render the card as a link or a button. This prop\n        adds styles for the interactive states, like hover and focus.\n      </Typography.Text>\n    </div>\n    <div>\n      <Card {...args} render={<a href=\"#\" />} style={{ maxWidth: 350 }}>\n        <CardContentExample />\n      </Card>\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };

@@ -263,18 +263,144 @@ function a11yMarkdown(slug: string): string {
   return md;
 }
 
+/* * * * * * * * * * * * * * * * * * * */
+/*        Copy-pasteable source        */
+/* * * * * * * * * * * * * * * * * * * */
+
+/** Remove the common leading indentation and surrounding blank lines from a block of code. */
+function dedent(text: string): string {
+  const lines = text.replace(/^\n+/, '').replace(/\s+$/, '').split('\n');
+  const indents = lines.filter((line) => line.trim()).map((line) => line.match(/^ */)![0].length);
+  const min = indents.length ? Math.min(...indents) : 0;
+  return lines.map((line) => line.slice(min)).join('\n');
+}
+
+const escapeRe = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/** The identifiers a module imports from `ljkui` (following `as` renames and `* as` namespaces). */
+function ljkuiImports(source: string): Set<string> {
+  const set = new Set<string>();
+  // `[^;]` keeps a match inside a single import statement, so a preceding `import … from
+  // 'lucide-react'` can't bleed its `{ … }` into the ljkui clause.
+  const importRe = /import\s+([^;]*?)\s+from\s+['"]ljkui['"]/g;
+  let match: RegExpExecArray | null;
+  while ((match = importRe.exec(source))) {
+    const clause = match[1];
+    const named = clause.match(/\{([^}]*)\}/);
+    if (named) {
+      for (const part of named[1].split(',')) {
+        const token = part.trim();
+        if (!token) continue;
+        const renamed = token.match(/\bas\s+(\w+)/);
+        set.add(renamed ? renamed[1] : token.replace(/\s.*/, ''));
+      }
+    }
+    const namespace = clause.match(/\*\s+as\s+(\w+)/);
+    if (namespace) set.add(namespace[1]);
+    const dflt = clause.match(/^\s*(\w+)\s*(?:,|$)/);
+    if (dflt) set.add(dflt[1]);
+  }
+  return set;
+}
+
+/** Prepend a realistic `import { … } from 'ljkui';` line listing the ljkui bindings the snippet uses. */
+function withImport(snippet: string, imports: Set<string>): string {
+  const used = [...imports]
+    .filter((name) => new RegExp(`\\b${escapeRe(name)}\\b`).test(snippet))
+    .sort((a, b) => a.localeCompare(b));
+  return used.length ? `import { ${used.join(', ')} } from 'ljkui';\n\n${snippet}` : snippet;
+}
+
+/**
+ * The real source text of each named example, keyed by name, for `docs.source.code`.
+ *
+ * Best-effort: each example is located by its header at 2-space indent (`  Name(` /
+ * `  'Name'(` / `  Name:`), and its span runs to the next example's header (or the object's
+ * close). Using the next header as the boundary — rather than brace-matching — sidesteps the
+ * apostrophe-in-JSX trap that broke earlier source scanners here. If an example can't be
+ * extracted it is simply omitted, so the story falls back to Storybook's default source.
+ */
+function extractExampleSources(source: string, names: string[]): Map<string, string> {
+  const result = new Map<string, string>();
+  const imports = ljkuiImports(source);
+
+  const headers = names.map((name) => {
+    const esc = escapeRe(name);
+    const re = new RegExp(`\\n  (?:'${esc}'|"${esc}"|${esc})\\s*([:(])`, 'g');
+    const match = re.exec(source);
+    return match ? { name, start: match.index, delim: match[1] } : null;
+  });
+
+  const objEnd = source.lastIndexOf('\n};');
+
+  headers.forEach((header, index) => {
+    if (!header) return;
+    try {
+      let end = objEnd;
+      for (let next = index + 1; next < headers.length; next++) {
+        if (headers[next]) {
+          end = headers[next]!.start;
+          break;
+        }
+      }
+      const chunk = source.slice(header.start, end < header.start ? source.length : end);
+
+      let body: string;
+      if (header.delim === '(') {
+        // Method shorthand: Name(…) { …body… }
+        const paren = chunk.indexOf(')');
+        const open = chunk.indexOf('{', paren);
+        const close = chunk.lastIndexOf('}');
+        if (open === -1 || close <= open) return;
+        body = chunk.slice(open + 1, close);
+      } else {
+        // Value: Name: (…) => { …body… }  |  Name: (…) => ( …expr… )
+        const arrow = chunk.indexOf('=>');
+        const rest = chunk.slice(arrow === -1 ? chunk.indexOf(':') + 1 : arrow + 2).trimStart();
+        if (rest.startsWith('{')) {
+          const close = rest.lastIndexOf('}');
+          if (close <= 0) return;
+          body = rest.slice(1, close);
+        } else {
+          body = rest.replace(/,\s*$/, '');
+        }
+      }
+
+      let snippet = dedent(body);
+      // `return (<JSX/>);` → just the JSX. A body that opens with anything else (e.g. a
+      // `const args = …` setup) is kept whole so the snippet stays runnable.
+      const wrapped = snippet.match(/^return \(\n?([\s\S]*?)\n?\)\s*;?\s*$/);
+      const bare = snippet.match(/^return ([\s\S]*?);?\s*$/);
+      if (wrapped) snippet = dedent(wrapped[1]);
+      else if (bare && !bare[1].includes('return ')) snippet = bare[1].trim();
+
+      snippet = snippet.trim();
+      if (snippet) result.set(header.name, withImport(snippet, imports));
+    } catch {
+      // Best-effort — a single failed extraction must never break the build.
+    }
+  });
+
+  return result;
+}
+
 async function storyModule(slug: string, category: string): Promise<string> {
   const component = displayName(slug);
   const used = new Set<string>();
   const names = await exampleNames(slug + '.examples.tsx');
+  const sources = extractExampleSources(readFileSync(join(examplesDir, slug + '.examples.tsx'), 'utf8'), names);
   // JSON.stringify → a valid double-quoted literal with escaped newlines, so the multi-line
   // a11y markdown can live in the generated meta without hand-escaping.
   const componentDescription = JSON.stringify(
     `Examples for \`${component}\`, from examples/${slug}.examples.tsx.` + a11yMarkdown(slug),
   );
 
-  const story = (id: string, name: string, exampleName: string, description?: string) => {
-    const docs = description ? `\n  parameters: { docs: { description: { story: ${quote(description)} } } },` : '';
+  const story = (id: string, name: string, exampleName: string, description?: string, source?: string) => {
+    const parts = [
+      description ? `description: { story: ${quote(description)} }` : '',
+      source ? `source: { language: 'tsx', code: ${JSON.stringify(source)} }` : '',
+    ].filter(Boolean);
+    const docs = parts.length ? `\n  parameters: { docs: { ${parts.join(', ')} } },` : '';
     return `export const ${id}: Story = {
   name: ${quote(name)},
   render: () => render(examples[${quote(exampleName)}]),${docs}
@@ -285,7 +411,7 @@ async function storyModule(slug: string, category: string): Promise<string> {
     let id = identifier(name, `Example${index + 1}`);
     while (used.has(id)) id = `${id}_`;
     used.add(id);
-    return story(id, name, name);
+    return story(id, name, name, undefined, sources.get(name));
   });
 
   /*
@@ -297,7 +423,13 @@ async function storyModule(slug: string, category: string): Promise<string> {
    */
   if (!names.includes('Default') && names.length > 1) {
     stories.unshift(
-      story('Default', 'Default', names[0], `The canonical ${component}. Same as “${names[0]}”, shown first.`),
+      story(
+        'Default',
+        'Default',
+        names[0],
+        `The canonical ${component}. Same as “${names[0]}”, shown first.`,
+        sources.get(names[0]),
+      ),
     );
   }
 

@@ -126,6 +126,14 @@ Non-obvious constraints — breaking any of these fails silently or in confusing
 - **`optimizeDeps.include` in `.storybook/main.ts` is load-bearing.** The library imports ~36 `@base-ui/react/*` subpaths; without pre-bundling, Vite discovers each lazily the first time you open the component that uses it, and every discovery triggers a re-optimize plus a full page reload mid-browse. The `PREBUNDLE` list enumerates them (regenerate with `grep -rhoE "@base-ui/react[a-z/-]*" src/components | sort -u`). If a new heavy dep causes reload jank, add whatever the `dependencies optimized: …` line names.
 - **If something is mysteriously broken, run `bun run doctor`** — under the hoisted linker, stale nested `packages/*/node_modules` dirs from older installs can shadow the root binaries (a package silently using an ancient `tsc`). `doctor --fix` deletes them.
 
+## Deliberately Not Doing (don't suggest these again)
+
+These are conscious decisions, not oversights. Do **not** re-propose them in reviews, plans, or "DX improvement" passes — they've been considered and declined for now.
+
+- **No separate docs site.** Storybook **is** the docs site, full stop (deployed to Vercel as a static export — see the Storybook section). We are all-in on Storybook. Do not suggest Fumadocs, a Next.js/Astro docs app, a docs-only package, or resurrecting the old `packages/docs`. Improvements go **into Storybook**.
+- **No change to the `0.0.1-<n>` prerelease versioning scheme.** Yes, `^`/`~` ranges don't match prereleases and consumers effectively pin an exact version — this is understood and accepted. The version stays `0.0.1` forever with per-release prerelease bumps (see the Publishing section). Do not suggest moving to normal semver / `0.1.0` / `0.x` minors.
+- **No `shadcn`-style component-scaffolding / `ljkui init` / `ljkui add <component>` CLI, and no copy-paste-into-your-repo codegen.** ljkui ships as a normal npm package consumed from the barrel; components are not vendored into the consumer's source tree. (This is separate from the published `ljkui-lint-raw-colors` token codemod, which we *do* ship — see Publishing.)
+
 ## History
 
 The repo used Storybook (docs site + stories) until 2026-07-23, then react-cosmos (a component workbench, no docs site) until 2026-07-24, when it moved to the current Fumadocs docs site and **removed react-cosmos entirely** — fixtures, cosmos config, the screenshot pipeline, and `scripts/dev.ts` all went with it. The archived Storybook MDX under `packages/ljkui/docs/` (including `WHAT-WE-LOST-DROPPING-STORYBOOK.md`) describes an older API and is kept for reference only; the docs are now generated from the demos + `*.props.ts`.

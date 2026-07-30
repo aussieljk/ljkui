@@ -32,9 +32,25 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { AvatarStack } from 'ljkui';\n\nconst args = {};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>\n    <AvatarStack.Root {...args} size=\"3\">\n      {availableUsers.map((user, index) => (\n        <AvatarStack.Avatar\n          shape={index % 2 === 0 ? 'circle' : 'square'}\n          fallback={user.name}\n          color={user.color}\n          key={user.name}\n          src={user.src}\n        />\n      ))}\n    </AvatarStack.Root>\n    <AvatarStack.Root {...args} size=\"3\">\n      {availableUsers.map((user) => (\n        <AvatarStack.Avatar shape=\"square\" fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarStack.Root>\n    <AvatarStack.Root {...args} size=\"3\">\n      <AvatarStack.Avatar\n        fallback={availableUsers[0].name}\n        color={availableUsers[0].color}\n        src={availableUsers[0].src}\n      />\n    </AvatarStack.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { AvatarStack } from \'ljkui\';\n\nconst args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-4)\' }}>\n    <AvatarStack.Root {...args} size="0">\n      {availableUsers.map((user) => (\n        <AvatarStack.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarStack.Root>\n    <AvatarStack.Root {...args} size="1">\n      {availableUsers.map((user) => (\n        <AvatarStack.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarStack.Root>\n    <AvatarStack.Root {...args} size="2">\n      {availableUsers.map((user) => (\n        <AvatarStack.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarStack.Root>\n    <AvatarStack.Root {...args} size="3">\n      {availableUsers.map((user) => (\n        <AvatarStack.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarStack.Root>\n    <AvatarStack.Root {...args} size="4">\n      {availableUsers.map((user) => (\n        <AvatarStack.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarStack.Root>\n    <AvatarStack.Root {...args} size="5">\n      {availableUsers.map((user) => (\n        <AvatarStack.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarStack.Root>\n    <AvatarStack.Root {...args} size="6">\n      {availableUsers.map((user) => (\n        <AvatarStack.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarStack.Root>\n    <AvatarStack.Root {...args} size="7">\n      {availableUsers.map((user) => (\n        <AvatarStack.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarStack.Root>\n    <AvatarStack.Root {...args} size="8">\n      {availableUsers.map((user) => (\n        <AvatarStack.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarStack.Root>\n    <AvatarStack.Root {...args} size="9">\n      {availableUsers.map((user) => (\n        <AvatarStack.Avatar\n          shape={\'square\'}\n          fallback={user.name}\n          color={user.color}\n          key={user.name}\n          src={user.src}\n        />\n      ))}\n    </AvatarStack.Root>\n  </div>\n);',
+      },
+    },
+  },
 };

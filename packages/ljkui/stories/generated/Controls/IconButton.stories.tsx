@@ -54,30 +54,78 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical IconButton. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical IconButton. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { buttonPropDefs, IconButton } from \'ljkui\';\n\nconst args = {\n  variant: buttonPropDefs.variant.default,\n  color: buttonPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-2)\' }}>\n    <IconButton {...args} size="4">\n      <ExampleIcon size={22} />\n    </IconButton>\n    <IconButton {...args} size="3">\n      <ExampleIcon size={20} />\n    </IconButton>\n    <IconButton {...args} size="2">\n      <ExampleIcon size={18} />\n    </IconButton>\n    <IconButton {...args} size="1">\n      <ExampleIcon size={16} />\n    </IconButton>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { buttonPropDefs, IconButton } from \'ljkui\';\n\nconst args = {\n  variant: buttonPropDefs.variant.default,\n  color: buttonPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-2)\' }}>\n    <IconButton {...args} size="4">\n      <ExampleIcon size={22} />\n    </IconButton>\n    <IconButton {...args} size="3">\n      <ExampleIcon size={20} />\n    </IconButton>\n    <IconButton {...args} size="2">\n      <ExampleIcon size={18} />\n    </IconButton>\n    <IconButton {...args} size="1">\n      <ExampleIcon size={16} />\n    </IconButton>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Variant: Story = {
   name: 'Variant',
   render: () => render(examples['Variant']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { buttonPropDefs, IconButton } from \'ljkui\';\n\nconst args = {\n  children: <ExampleIcon size={16} />,\n  size: buttonPropDefs.size.default,\n  color: buttonPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-4)\' }}>\n    <IconButton {...args} variant="classic" />\n    <IconButton {...args} variant="solid" />\n    <IconButton {...args} variant="soft" />\n    <IconButton {...args} variant="surface" />\n    <IconButton {...args} variant="ghost" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { buttonPropDefs, IconButton } from \'ljkui\';\n\nconst args = {\n  children: <ExampleIcon size={16} />,\n  size: buttonPropDefs.size.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-2)\' }}>\n    <IconButton {...args} color="indigo" />\n    <IconButton {...args} color="cyan" />\n    <IconButton {...args} color="orange" />\n    <IconButton {...args} color="rose" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: () => render(examples['High Contrast']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { IconButton } from \'ljkui\';\n\nconst args = { children: <ExampleIcon size={16} />, disabled: false };\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-2)\' }}>\n    <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n      <IconButton {...args} highContrast={false} variant="classic" />\n      <IconButton {...args} highContrast={false} variant="solid" />\n      <IconButton {...args} highContrast={false} variant="soft" />\n      <IconButton {...args} highContrast={false} variant="surface" />\n    </div>\n    <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n      <IconButton {...args} variant="classic" highContrast />\n      <IconButton {...args} variant="solid" highContrast />\n      <IconButton {...args} variant="soft" highContrast />\n      <IconButton {...args} variant="surface" highContrast />\n    </div>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Loading: Story = {
   name: 'Loading',
   render: () => render(examples['Loading']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { buttonPropDefs, IconButton } from \'ljkui\';\n\nconst args = {\n  children: <ExampleIcon size={16} />,\n  size: buttonPropDefs.size.default,\n  color: buttonPropDefs.color.default,\n  loading: true,\n};\nreturn (\n  <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-4)\' }}>\n    <IconButton {...args} variant="classic" />\n    <IconButton {...args} variant="solid" />\n    <IconButton {...args} variant="soft" />\n    <IconButton {...args} variant="surface" />\n    <IconButton {...args} variant="ghost" />\n  </div>\n);',
+      },
+    },
+  },
 };

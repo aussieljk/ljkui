@@ -46,75 +46,195 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Composed']),
-  parameters: { docs: { description: { story: 'The canonical RadioGroup. Same as “Composed”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical RadioGroup. Same as “Composed”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { RadioGroup, radioGroupPropDefs, Typography } from \'ljkui\';\n\nconst args = {\n  size: radioGroupPropDefs.size.default,\n  color: radioGroupPropDefs.color.default,\n  highContrast: radioGroupPropDefs.highContrast.default,\n  disabled: false,\n};\nreturn (\n  <RadioGroup.Root defaultValue="1" {...args}>\n    <Typography.Text render={<label />} size="2">\n      <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n        <RadioGroup.Item value="1" /> Default\n      </div>\n    </Typography.Text>\n    <Typography.Text render={<label />} size="2">\n      <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n        <RadioGroup.Item value="2" /> Comfortable\n      </div>\n    </Typography.Text>\n    <Typography.Text render={<label />} size="2">\n      <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n        <RadioGroup.Item value="3" /> Compact\n      </div>\n    </Typography.Text>\n  </RadioGroup.Root>\n);',
+      },
+    },
+  },
 };
 
 export const Composed: Story = {
   name: 'Composed',
   render: () => render(examples['Composed']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { RadioGroup, radioGroupPropDefs, Typography } from \'ljkui\';\n\nconst args = {\n  size: radioGroupPropDefs.size.default,\n  color: radioGroupPropDefs.color.default,\n  highContrast: radioGroupPropDefs.highContrast.default,\n  disabled: false,\n};\nreturn (\n  <RadioGroup.Root defaultValue="1" {...args}>\n    <Typography.Text render={<label />} size="2">\n      <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n        <RadioGroup.Item value="1" /> Default\n      </div>\n    </Typography.Text>\n    <Typography.Text render={<label />} size="2">\n      <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n        <RadioGroup.Item value="2" /> Comfortable\n      </div>\n    </Typography.Text>\n    <Typography.Text render={<label />} size="2">\n      <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n        <RadioGroup.Item value="3" /> Compact\n      </div>\n    </Typography.Text>\n  </RadioGroup.Root>\n);',
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { RadioGroup } from \'ljkui\';\n\nconst args = { disabled: false };\nreturn (\n  <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-2)\' }}>\n    <RadioGroup.Root {...args} size="1" defaultValue="1">\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} size="2" defaultValue="1">\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} size="3" defaultValue="1">\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { RadioGroup } from \'ljkui\';\n\nconst args = { disabled: false };\nreturn (\n  <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n    <RadioGroup.Root {...args} color="indigo" defaultValue="1">\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} color="cyan" defaultValue="1">\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} color="orange" defaultValue="1">\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} color="rose" defaultValue="1">\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: () => render(examples['High Contrast']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { RadioGroup } from \'ljkui\';\n\nconst args = { disabled: false };\nreturn (\n  <div\n    style={{\n      display: \'inline-grid\',\n      gridTemplateRows: \'repeat(2, 1fr)\',\n      gap: \'var(--space-2)\',\n      gridAutoFlow: \'column\',\n    }}\n  >\n    <RadioGroup.Root {...args} color="indigo" defaultValue="1">\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} color="indigo" defaultValue="1" highContrast>\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} color="cyan" defaultValue="1">\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} color="cyan" defaultValue="1" highContrast>\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} color="orange" defaultValue="1">\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} color="orange" defaultValue="1" highContrast>\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} color="rose" defaultValue="1">\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} color="rose" defaultValue="1" highContrast>\n      <RadioGroup.Item value="1" />\n    </RadioGroup.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const AlignmentWithText: Story = {
   name: 'Alignment with text',
   render: () => render(examples['Alignment with text']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { RadioGroup, Typography } from \'ljkui\';\n\nconst args = { disabled: false };\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\' }}>\n    <Typography.Text style={{ marginBottom: 12 }}>\n      Composing <Typography.Code>RadioGroup</Typography.Code> within <Typography.Code>Text</Typography.Code>{\' \'}\n      automatically centers it with the first line of text.\n    </Typography.Text>\n    <RadioGroup.Root {...args} size="1" defaultValue="1">\n      <Typography.Text render={<label />} size="2">\n        <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n          <RadioGroup.Item value="1" /> Default\n        </div>\n      </Typography.Text>\n\n      <Typography.Text render={<label />} size="2">\n        <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n          <RadioGroup.Item value="2" /> Compact\n        </div>\n      </Typography.Text>\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} size="2" defaultValue="1">\n      <Typography.Text render={<label />} size="3">\n        <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n          <RadioGroup.Item value="1" /> Default\n        </div>\n      </Typography.Text>\n\n      <Typography.Text render={<label />} size="3">\n        <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n          <RadioGroup.Item value="2" /> Compact\n        </div>\n      </Typography.Text>\n    </RadioGroup.Root>\n\n    <RadioGroup.Root {...args} size="3" defaultValue="1">\n      <Typography.Text render={<label />} size="4">\n        <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n          <RadioGroup.Item value="1" /> Default\n        </div>\n      </Typography.Text>\n\n      <Typography.Text render={<label />} size="4">\n        <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n          <RadioGroup.Item value="2" /> Compact\n        </div>\n      </Typography.Text>\n    </RadioGroup.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const DisabledGroup: Story = {
   name: 'Disabled (Group)',
   render: () => render(examples['Disabled (Group)']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { RadioGroup } from \'ljkui\';\n\nconst args = { disabled: false };\nreturn (\n  <RadioGroup.Root {...args} defaultValue="1" disabled>\n    <RadioGroup.Item value="1">Default</RadioGroup.Item>\n    <RadioGroup.Item value="2">Comfortable</RadioGroup.Item>\n    <RadioGroup.Item value="3">Compact</RadioGroup.Item>\n  </RadioGroup.Root>\n);',
+      },
+    },
+  },
 };
 
 export const DisabledSingleItem: Story = {
   name: 'Disabled (Single Item)',
   render: () => render(examples['Disabled (Single Item)']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { RadioGroup } from \'ljkui\';\n\nconst args = { disabled: false };\nreturn (\n  <RadioGroup.Root {...args} defaultValue="1">\n    <RadioGroup.Item value="1">Default</RadioGroup.Item>\n    <RadioGroup.Item value="2" disabled>\n      Comfortable (disabled)\n    </RadioGroup.Item>\n    <RadioGroup.Item value="3">Compact</RadioGroup.Item>\n  </RadioGroup.Root>\n);',
+      },
+    },
+  },
 };
 
 export const InputRefGroup: Story = {
   name: 'Input Ref (Group)',
   render: () => render(examples['Input Ref (Group)']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, RadioGroup, Typography } from \'ljkui\';\n\nconst args = { disabled: false };\nconst inputRef = React.useRef<HTMLInputElement>(null);\nconst [error, setError] = React.useState<string | null>(null);\nconst [submitted, setSubmitted] = React.useState<string | null>(null);\n\nconst handleSubmit = (e: React.FormEvent) => {\n  e.preventDefault();\n  const input = inputRef.current;\n  if (!input) return;\n\n  if (!input.validity.valid) {\n    setError(\'Please select a shipping method\');\n    setSubmitted(null);\n    input.focus();\n  } else {\n    setError(null);\n    setSubmitted(`Selected: ${input.value}`);\n  }\n};\n\nreturn (\n  <form onSubmit={handleSubmit} style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-4)\' }}>\n    <Typography.Text render={<div />} size="2">\n      Use <Typography.Code>inputRef</Typography.Code> for form validation. Try submitting without selecting an\n      option.\n    </Typography.Text>\n\n    <div>\n      <Typography.Text render={<div />} size="2" weight="medium" style={{ marginBottom: \'var(--space-2)\' }}>\n        Shipping Method\n      </Typography.Text>\n      <RadioGroup.Root {...args} name="shipping" required inputRef={inputRef} onValueChange={() => setError(null)}>\n        <RadioGroup.Item value="standard">Standard (5-7 days)</RadioGroup.Item>\n        <RadioGroup.Item value="express">Express (2-3 days)</RadioGroup.Item>\n        <RadioGroup.Item value="overnight">Overnight</RadioGroup.Item>\n      </RadioGroup.Root>\n      {error && (\n        <Typography.Text render={<div />} size="1" color="red" style={{ marginTop: \'var(--space-2)\' }}>\n          {error}\n        </Typography.Text>\n      )}\n    </div>\n\n    <div style={{ display: \'flex\', gap: \'var(--space-2)\', alignItems: \'center\' }}>\n      <Button size="1" type="submit">\n        Submit\n      </Button>\n      {submitted && (\n        <Typography.Text render={<span />} size="2" color="green">\n          ✓ {submitted}\n        </Typography.Text>\n      )}\n    </div>\n  </form>\n);',
+      },
+    },
+  },
 };
 
 export const InputRefItem: Story = {
   name: 'Input Ref (Item)',
   render: () => render(examples['Input Ref (Item)']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { RadioGroup, Typography } from 'ljkui';\n\nconst args = { disabled: false };\nconst standardRef = React.useRef<HTMLInputElement>(null);\nconst expressRef = React.useRef<HTMLInputElement>(null);\nconst overnightRef = React.useRef<HTMLInputElement>(null);\nconst [, forceUpdate] = React.useReducer((x) => x + 1, 0);\n\nconst getCheckedStates = () => ({\n  standard: standardRef.current?.checked ?? false,\n  express: expressRef.current?.checked ?? false,\n  overnight: overnightRef.current?.checked ?? false,\n});\n\nconst states = getCheckedStates();\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>\n    <Typography.Text render={<div />} size=\"2\">\n      Use <Typography.Code>inputRef</Typography.Code> on individual items to read their native{' '}\n      <Typography.Code>checked</Typography.Code> state.\n    </Typography.Text>\n\n    <RadioGroup.Root {...args} defaultValue=\"standard\" onValueChange={() => forceUpdate()}>\n      <RadioGroup.Item value=\"standard\" inputRef={standardRef}>\n        Standard (5-7 days)\n      </RadioGroup.Item>\n      <RadioGroup.Item value=\"express\" inputRef={expressRef}>\n        Express (2-3 days)\n      </RadioGroup.Item>\n      <RadioGroup.Item value=\"overnight\" inputRef={overnightRef}>\n        Overnight\n      </RadioGroup.Item>\n    </RadioGroup.Root>\n\n    <Typography.Code\n      style={{ padding: 'var(--space-2)', background: 'var(--gray-100)', borderRadius: 'var(--radius-2)' }}\n    >\n      {JSON.stringify(states, null, 2)}\n    </Typography.Code>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const OnValueChangeTypeScript: Story = {
   name: 'onValueChange (TypeScript)',
   render: () => render(examples['onValueChange (TypeScript)']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { RadioGroup, Typography } from 'ljkui';\n\nconst args = { disabled: false };\nconst [selected, setSelected] = React.useState<ShippingMethod>('standard');\n\nconst handleChange = (value: unknown) => {\n  setSelected(value as ShippingMethod);\n};\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>\n    <Typography.Text render={<div />} size=\"2\">\n      Accept <Typography.Code>unknown</Typography.Code> and cast inside the handler. Use{' '}\n      <Typography.Code>RadioGroup.ChangeEventDetails</Typography.Code> for the second parameter if needed.\n    </Typography.Text>\n\n    <RadioGroup.Root {...args} value={selected} onValueChange={handleChange}>\n      <RadioGroup.Item value=\"standard\">Standard (5-7 days) — $5.99</RadioGroup.Item>\n      <RadioGroup.Item value=\"express\">Express (2-3 days) — $12.99</RadioGroup.Item>\n      <RadioGroup.Item value=\"overnight\">Overnight — $24.99</RadioGroup.Item>\n    </RadioGroup.Root>\n\n    <div\n      style={{\n        padding: 'var(--space-3)',\n        background: 'var(--gray-100)',\n        borderRadius: 'var(--radius-2)',\n      }}\n    >\n      <Typography.Text render={<div />} size=\"2\">\n        Selected: <Typography.Code>{selected}</Typography.Code>\n      </Typography.Text>\n      <Typography.Text render={<div />} size=\"2\">\n        Price: <strong>${shippingPrices[selected].toFixed(2)}</strong>\n      </Typography.Text>\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const OnValueChangeEventDetails: Story = {
   name: 'onValueChange (Event Details)',
   render: () => render(examples['onValueChange (Event Details)']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { RadioGroup, Typography } from 'ljkui';\n\nconst args = { disabled: false };\nconst [selected, setSelected] = React.useState<string>('free');\nconst [lastEvent, setLastEvent] = React.useState<{\n  type: string;\n  value: string;\n  wasCanceled: boolean;\n} | null>(null);\n\nconst handleChange = (value: unknown, eventDetails: RadioGroup.ChangeEventDetails) => {\n  // Premium tier requires confirmation\n  if (value === 'premium') {\n    const confirmed = window.confirm('Premium tier costs $99/month. Continue?');\n    if (!confirmed) {\n      eventDetails.cancel();\n      setLastEvent({\n        type: eventDetails.event.type,\n        value: value as string,\n        wasCanceled: true,\n      });\n      return;\n    }\n  }\n\n  setSelected(value as string);\n  setLastEvent({\n    type: eventDetails.event.type,\n    value: value as string,\n    wasCanceled: false,\n  });\n};\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>\n    <Typography.Text render={<div />} size=\"2\">\n      The <Typography.Code>eventDetails</Typography.Code> parameter provides{' '}\n      <Typography.Code>cancel()</Typography.Code> to prevent changes and <Typography.Code>event</Typography.Code>{' '}\n      for the native event. Try selecting Premium tier.\n    </Typography.Text>\n\n    <RadioGroup.Root {...args} value={selected} onValueChange={handleChange}>\n      <RadioGroup.Item value=\"free\">Free — $0/month</RadioGroup.Item>\n      <RadioGroup.Item value=\"pro\">Pro — $19/month</RadioGroup.Item>\n      <RadioGroup.Item value=\"premium\">Premium — $99/month (requires confirmation)</RadioGroup.Item>\n    </RadioGroup.Root>\n\n    <div\n      style={{\n        padding: 'var(--space-3)',\n        background: 'var(--gray-100)',\n        borderRadius: 'var(--radius-2)',\n        fontFamily: 'monospace',\n        fontSize: 'var(--font-size-1)',\n      }}\n    >\n      <Typography.Text render={<div />} size=\"2\" style={{ marginBottom: 'var(--space-2)' }}>\n        Current: <Typography.Code>{selected}</Typography.Code>\n      </Typography.Text>\n      {lastEvent && (\n        <>\n          <Typography.Text render={<div />} size=\"1\" color=\"gray\">\n            Last event: {lastEvent.type}\n          </Typography.Text>\n          <Typography.Text render={<div />} size=\"1\" color=\"gray\">\n            Attempted value: {lastEvent.value}\n          </Typography.Text>\n          <Typography.Text render={<div />} size=\"1\" color={lastEvent.wasCanceled ? 'red' : 'green'}>\n            {lastEvent.wasCanceled ? '✗ Change was canceled' : '✓ Change was applied'}\n          </Typography.Text>\n        </>\n      )}\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const FormName: Story = {
   name: 'Form Name',
   render: () => render(examples['Form Name']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, RadioGroup, Typography } from \'ljkui\';\n\nconst args = { disabled: false };\nconst INITIAL_PLAN = \'monthly\';\nconst INITIAL_PAYMENT = \'card\';\n\nconst [plan, setPlan] = React.useState(INITIAL_PLAN);\nconst [payment, setPayment] = React.useState(INITIAL_PAYMENT);\nconst [formData, setFormData] = React.useState<Record<string, string> | null>(null);\n\nconst handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {\n  e.preventDefault();\n  const data = new FormData(e.currentTarget);\n  const entries: Record<string, string> = {};\n  data.forEach((value, key) => {\n    entries[key] = value as string;\n  });\n  setFormData(entries);\n};\n\nconst handleReset = () => {\n  setPlan(INITIAL_PLAN);\n  setPayment(INITIAL_PAYMENT);\n  setFormData(null);\n};\n\nreturn (\n  <form\n    onSubmit={handleSubmit}\n    onReset={handleReset}\n    style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-4)\' }}\n  >\n    <Typography.Text render={<div />} size="2">\n      Use the <Typography.Code>name</Typography.Code> prop to include the RadioGroup value in form submissions.\n      Listen to the form\'s <Typography.Code>onReset</Typography.Code> event to reset controlled state when using{\' \'}\n      <Typography.Code>type="reset"</Typography.Code> buttons.\n    </Typography.Text>\n\n    <div>\n      <Typography.Text render={<div />} size="2" weight="medium" style={{ marginBottom: \'var(--space-2)\' }}>\n        Subscription Plan\n      </Typography.Text>\n      <RadioGroup.Root {...args} name="plan" value={plan} onValueChange={(v) => setPlan(v as string)}>\n        <RadioGroup.Item value="monthly">Monthly — $9/mo</RadioGroup.Item>\n        <RadioGroup.Item value="yearly">Yearly — $99/yr (save 8%)</RadioGroup.Item>\n        <RadioGroup.Item value="lifetime">Lifetime — $299 one-time</RadioGroup.Item>\n      </RadioGroup.Root>\n    </div>\n\n    <div>\n      <Typography.Text render={<div />} size="2" weight="medium" style={{ marginBottom: \'var(--space-2)\' }}>\n        Payment Method\n      </Typography.Text>\n      <RadioGroup.Root {...args} name="payment" value={payment} onValueChange={(v) => setPayment(v as string)}>\n        <RadioGroup.Item value="card">Credit Card</RadioGroup.Item>\n        <RadioGroup.Item value="paypal">PayPal</RadioGroup.Item>\n        <RadioGroup.Item value="crypto">Cryptocurrency</RadioGroup.Item>\n      </RadioGroup.Root>\n    </div>\n\n    <div style={{ display: \'flex\', gap: \'var(--space-2)\', alignItems: \'flex-start\' }}>\n      <Button size="1" type="submit">\n        Submit\n      </Button>\n      <Button size="1" type="reset" variant="soft">\n        Reset\n      </Button>\n    </div>\n\n    {formData && (\n      <Typography.Code\n        style={{\n          padding: \'var(--space-3)\',\n          background: \'var(--gray-100)\',\n          borderRadius: \'var(--radius-2)\',\n          display: \'block\',\n          whiteSpace: \'pre\',\n        }}\n      >\n        {JSON.stringify(formData, null, 2)}\n      </Typography.Code>\n    )}\n  </form>\n);',
+      },
+    },
+  },
 };
 
 export const ObjectValues: Story = {
   name: 'Object Values',
   render: () => render(examples['Object Values']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { RadioGroup, Typography } from 'ljkui';\n\nconst [selected, setSelected] = React.useState<Product>(products[0]);\n\nconst handleChange = (value: string) => {\n  setSelected(JSON.parse(value) as Product);\n};\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>\n    <Typography.Text render={<div />} size=\"2\">\n      For object values, serialize with <Typography.Code>JSON.stringify()</Typography.Code> and parse in{' '}\n      <Typography.Code>onValueChange</Typography.Code>.\n    </Typography.Text>\n\n    <RadioGroup.Root value={JSON.stringify(selected)} onValueChange={handleChange}>\n      {products.map((product) => (\n        <RadioGroup.Item key={product.id} value={JSON.stringify(product)}>\n          {product.name} — ${product.price}/mo\n        </RadioGroup.Item>\n      ))}\n    </RadioGroup.Root>\n\n    <div\n      style={{\n        padding: 'var(--space-3)',\n        background: 'var(--gray-100)',\n        borderRadius: 'var(--radius-2)',\n      }}\n    >\n      <Typography.Text render={<div />} size=\"2\" weight=\"medium\" style={{ marginBottom: 'var(--space-2)' }}>\n        Selected: {selected.name}\n      </Typography.Text>\n      <Typography.Text render={<div />} size=\"2\" style={{ marginBottom: 'var(--space-1)' }}>\n        Price: <strong>${selected.price}/mo</strong>\n      </Typography.Text>\n      <Typography.Text render={<div />} size=\"2\">\n        Features:\n      </Typography.Text>\n      <ul style={{ margin: 0, paddingLeft: 'var(--space-4)' }}>\n        {selected.features.map((feature) => (\n          <li key={feature}>\n            <Typography.Text size=\"2\">{feature}</Typography.Text>\n          </li>\n        ))}\n      </ul>\n    </div>\n\n    <Typography.Code\n      style={{\n        padding: 'var(--space-2)',\n        background: 'var(--gray-100)',\n        borderRadius: 'var(--radius-2)',\n        display: 'block',\n        whiteSpace: 'pre',\n        fontSize: 'var(--font-size-1)',\n      }}\n    >\n      {JSON.stringify(selected, null, 2)}\n    </Typography.Code>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const TypeSafeValues: Story = {
   name: 'Type-Safe Values',
   render: () => render(examples['Type-Safe Values']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { RadioGroup, Typography } from 'ljkui';\n\ntype ShippingMethod = 'standard' | 'express' | 'overnight';\nconst [method, setMethod] = React.useState<ShippingMethod>('standard');\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>\n    <Typography.Text render={<div />} size=\"2\">\n      The component is generic — pass a string union type to get autocomplete on{' '}\n      <Typography.Code>value</Typography.Code> props and type-check <Typography.Code>onValueChange</Typography.Code>\n      .\n    </Typography.Text>\n\n    <RadioGroup.Root<ShippingMethod> value={method} onValueChange={setMethod}>\n      <RadioGroup.Item value=\"standard\">Standard (5-7 days)</RadioGroup.Item>\n      <RadioGroup.Item value=\"express\">Express (2-3 days)</RadioGroup.Item>\n      <RadioGroup.Item value=\"overnight\">Overnight</RadioGroup.Item>\n    </RadioGroup.Root>\n\n    <Typography.Text size=\"2\">\n      Selected: <Typography.Code>{method}</Typography.Code>\n    </Typography.Text>\n\n    <Typography.Text size=\"1\" color=\"gray\">\n      Try changing a value to <Typography.Code>&quot;standarrd&quot;</Typography.Code> — TypeScript will catch the\n      typo!\n    </Typography.Text>\n  </div>\n);",
+      },
+    },
+  },
 };

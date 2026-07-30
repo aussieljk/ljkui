@@ -23,41 +23,103 @@ export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Color for emoji']),
   parameters: {
-    docs: { description: { story: 'The canonical EmojiColors. Same as “Color for emoji”, shown first.' } },
+    docs: {
+      description: { story: 'The canonical EmojiColors. Same as “Color for emoji”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: "import { emojiColorMap, getColorForEmoji, Typography } from 'ljkui';\n\n<div style={column}>\n  <Typography.Text size=\"2\" color=\"gray\" render={<div />} style={{ maxWidth: 520 }}>\n    <Typography.Code size=\"2\">getColorForEmoji(emoji)</Typography.Code> returns a scale name, or{' '}\n    <Typography.Code size=\"2\">undefined</Typography.Code> when the emoji is not in the map (\n    {Object.keys(emojiColorMap).length} entries).\n  </Typography.Text>\n  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-4)' }}>\n    {SAMPLE.map((emoji) => {\n      const color = getColorForEmoji(emoji) ?? 'gray';\n      return (\n        <div key={emoji} style={{ textAlign: 'center', width: 88 }}>\n          <div\n            style={{\n              display: 'flex',\n              alignItems: 'center',\n              justifyContent: 'center',\n              height: 'var(--space-8)',\n              fontSize: 28,\n              borderRadius: 'var(--radius-4)',\n              backgroundColor: `var(--${color}-200)`,\n              border: `1px solid var(--${color}-600)`,\n            }}\n          >\n            {emoji}\n          </div>\n          <Typography.Text render={<div />} size=\"1\" color=\"gray\" style={{ marginTop: 'var(--space-1)' }}>\n            {color}\n          </Typography.Text>\n        </div>\n      );\n    })}\n  </div>\n</div>",
+      },
+    },
   },
 };
 
 export const ColorForEmoji: Story = {
   name: 'Color for emoji',
   render: () => render(examples['Color for emoji']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { emojiColorMap, getColorForEmoji, Typography } from 'ljkui';\n\n<div style={column}>\n  <Typography.Text size=\"2\" color=\"gray\" render={<div />} style={{ maxWidth: 520 }}>\n    <Typography.Code size=\"2\">getColorForEmoji(emoji)</Typography.Code> returns a scale name, or{' '}\n    <Typography.Code size=\"2\">undefined</Typography.Code> when the emoji is not in the map (\n    {Object.keys(emojiColorMap).length} entries).\n  </Typography.Text>\n  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-4)' }}>\n    {SAMPLE.map((emoji) => {\n      const color = getColorForEmoji(emoji) ?? 'gray';\n      return (\n        <div key={emoji} style={{ textAlign: 'center', width: 88 }}>\n          <div\n            style={{\n              display: 'flex',\n              alignItems: 'center',\n              justifyContent: 'center',\n              height: 'var(--space-8)',\n              fontSize: 28,\n              borderRadius: 'var(--radius-4)',\n              backgroundColor: `var(--${color}-200)`,\n              border: `1px solid var(--${color}-600)`,\n            }}\n          >\n            {emoji}\n          </div>\n          <Typography.Text render={<div />} size=\"1\" color=\"gray\" style={{ marginTop: 'var(--space-1)' }}>\n            {color}\n          </Typography.Text>\n        </div>\n      );\n    })}\n  </div>\n</div>",
+      },
+    },
+  },
 };
 
 export const EmojiBadges: Story = {
   name: 'Emoji badges',
   render: () => render(examples['Emoji badges']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Badge, getColorForEmoji } from 'ljkui';\n\n<div style={row}>\n  {SAMPLE.map((emoji) => (\n    <Badge key={emoji} variant=\"soft\" color={getColorForEmoji(emoji) ?? 'gray'}>\n      {emoji} {getColorForEmoji(emoji) ?? 'unmapped'}\n    </Badge>\n  ))}\n</div>",
+      },
+    },
+  },
 };
 
 export const EmojiAvatars: Story = {
   name: 'Emoji avatars',
   render: () => render(examples['Emoji avatars']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Avatar, getColorForEmoji } from 'ljkui';\n\n<div style={row}>\n  {['🐳', '🦊', '🐸', '🍒', '🌻', '🫐'].map((emoji) => (\n    <Avatar key={emoji} size=\"4\" fallback={emoji} color={getColorForEmoji(emoji) ?? 'gray'} />\n  ))}\n</div>",
+      },
+    },
+  },
 };
 
 export const PickingAThemeFromAnEmoji: Story = {
   name: 'Picking a theme from an emoji',
   render: () => render(examples['Picking a theme from an emoji']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, Card, getColorForEmoji, Typography } from 'ljkui';\n\nconst [emoji, setEmoji] = React.useState('🔥');\nconst color: ColorScale | 'gray' = getColorForEmoji(emoji) ?? 'gray';\nreturn (\n  <Card size=\"2\" style={{ width: 380 }}>\n    <div style={column}>\n      <Label>tap an emoji to recolour the card</Label>\n      <div style={row}>\n        {SAMPLE.slice(0, 8).map((option) => (\n          <Button\n            key={option}\n            size=\"1\"\n            variant={option === emoji ? 'solid' : 'soft'}\n            color={getColorForEmoji(option) ?? 'gray'}\n            onClick={() => setEmoji(option)}\n          >\n            {option}\n          </Button>\n        ))}\n      </div>\n      <div\n        style={{\n          padding: 'var(--space-4)',\n          borderRadius: 'var(--radius-4)',\n          backgroundColor: `var(--${color}-100)`,\n          border: `1px solid var(--${color}-400)`,\n        }}\n      >\n        <Typography.Text size=\"6\">{emoji}</Typography.Text>\n        <Typography.Text render={<div />} size=\"2\" color={color}>\n          {color}\n        </Typography.Text>\n      </div>\n    </div>\n  </Card>\n);",
+      },
+    },
+  },
 };
 
 export const UnmappedInput: Story = {
   name: 'Unmapped input',
   render: () => render(examples['Unmapped input']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { getColorForEmoji, Typography } from 'ljkui';\n\nconst unmapped = ['🫥', 'a', ''];\nreturn (\n  <div style={column}>\n    <Label>anything not in the map returns undefined — supply your own fallback</Label>\n    {unmapped.map((value, index) => (\n      <div key={index} style={row}>\n        <Typography.Code size=\"2\">getColorForEmoji({JSON.stringify(value)})</Typography.Code>\n        <Typography.Text size=\"2\">→ {String(getColorForEmoji(value))}</Typography.Text>\n      </div>\n    ))}\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const AllEmojis: Story = {
   name: 'All Emojis',
   render: () => render(examples['All Emojis']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Avatar, Badge, emojiColorMap, Typography } from 'ljkui';\n\nconst entries = Object.entries(emojiColorMap) as Array<[string, ColorScale]>;\nconst byScale = new Map<ColorScale, string[]>();\nfor (const [emoji, color] of entries) {\n  const bucket = byScale.get(color);\n  if (bucket) bucket.push(emoji);\n  else byScale.set(color, [emoji]);\n}\nconst groups = [...byScale.entries()].sort((a, b) => b[1].length - a[1].length);\n\nreturn (\n  <div style={column}>\n    <Typography.Text size=\"2\" color=\"gray\" render={<div />} style={{ maxWidth: 620 }}>\n      The whole map — all {entries.length} entries — grouped by the scale each emoji resolves to. Every emoji is a\n      plain tinted <Typography.Code size=\"2\">span</Typography.Code>, not an{' '}\n      <Typography.Code size=\"2\">Avatar</Typography.Code> or <Typography.Code size=\"2\">Badge</Typography.Code>:{' '}\n      {entries.length} component trees would take seconds to mount and tells you nothing extra.\n    </Typography.Text>\n    {groups.map(([color, emojis]) => (\n      <div key={color}>\n        <Label>\n          {color} — {emojis.length}\n        </Label>\n        <div\n          style={{\n            display: 'flex',\n            flexWrap: 'wrap',\n            gap: 'var(--space-1)',\n            padding: 'var(--space-2)',\n            borderRadius: 'var(--radius-3)',\n            backgroundColor: `var(--${color}-100)`,\n            border: `1px solid var(--${color}-400)`,\n          }}\n        >\n          {emojis.map((emoji) => (\n            <span key={emoji} title={`${emoji} → ${color}`} style={{ fontSize: 18, lineHeight: 1.4 }}>\n              {emoji}\n            </span>\n          ))}\n        </div>\n      </div>\n    ))}\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Interactive: Story = {
   name: 'Interactive',
   render: () => render(examples['Interactive']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Avatar, Badge, Button, Card, getColorForEmoji, Input, type, Typography } from \'ljkui\';\n\nconst [value, setValue] = React.useState(\'🍑\');\nconst emoji = value.trim();\nconst color = getColorForEmoji(emoji);\nconst resolved: ColorScale | \'gray\' = color ?? \'gray\';\n\nreturn (\n  <Card size="3" style={{ width: 420 }}>\n    <div style={column}>\n      <Label>type or paste an emoji</Label>\n      <Input.Root size="3">\n        <Input.Control\n          value={value}\n          onChange={(event) => setValue(event.target.value)}\n          placeholder="🍑"\n          aria-label="Emoji"\n        />\n      </Input.Root>\n\n      <div\n        style={{\n          display: \'flex\',\n          alignItems: \'center\',\n          gap: \'var(--space-4)\',\n          padding: \'var(--space-4)\',\n          borderRadius: \'var(--radius-4)\',\n          backgroundColor: `var(--${resolved}-100)`,\n          border: `1px solid var(--${resolved}-400)`,\n        }}\n      >\n        <span style={{ fontSize: 40, lineHeight: 1 }}>{emoji || \'␀\'}</span>\n        <div>\n          <div>\n            <Typography.Code size="2">getColorForEmoji({JSON.stringify(emoji)})</Typography.Code>\n          </div>\n          <Typography.Text render={<div />} size="3" weight="medium" color={resolved}>\n            {color ?? \'undefined\'}\n          </Typography.Text>\n        </div>\n      </div>\n\n      <div style={row}>\n        <Badge variant="solid" color={resolved}>\n          solid\n        </Badge>\n        <Badge variant="soft" color={resolved}>\n          soft\n        </Badge>\n        <Badge variant="surface" color={resolved}>\n          surface\n        </Badge>\n        <Avatar size="3" fallback={emoji || \'?\'} color={resolved} />\n        <Button size="2" variant="solid" color={resolved}>\n          Button\n        </Button>\n      </div>\n\n      {!color && (\n        <Typography.Text size="1" color="gray">\n          Not in the map — everything above falls back to <Typography.Code size="1">gray</Typography.Code>. Try 🔥,\n          🌊 or 🍇.\n        </Typography.Text>\n      )}\n    </div>\n  </Card>\n);',
+      },
+    },
+  },
 };

@@ -45,20 +45,52 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical Progress. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Progress. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { Progress, progressPropDefs } from \'ljkui\';\n\nconst args = {\n  size: progressPropDefs.size.default,\n  color: progressPropDefs.color.default,\n  value: 40,\n  max: 100,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\', width: 300 }}>\n    <Progress {...args} size="6" />\n    <Progress {...args} size="5" />\n    <Progress {...args} size="4" />\n    <Progress {...args} size="3" />\n    <Progress {...args} size="2" />\n    <Progress {...args} size="1" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Progress, progressPropDefs } from \'ljkui\';\n\nconst args = {\n  size: progressPropDefs.size.default,\n  color: progressPropDefs.color.default,\n  value: 40,\n  max: 100,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\', width: 300 }}>\n    <Progress {...args} size="6" />\n    <Progress {...args} size="5" />\n    <Progress {...args} size="4" />\n    <Progress {...args} size="3" />\n    <Progress {...args} size="2" />\n    <Progress {...args} size="1" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Progress, progressPropDefs } from \'ljkui\';\n\nconst args = {\n  size: progressPropDefs.size.default,\n  color: progressPropDefs.color.default,\n  value: 40,\n  max: 100,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\', width: 300 }}>\n    <Progress {...args} color="indigo" />\n    <Progress {...args} color="cyan" />\n    <Progress {...args} color="orange" />\n    <Progress {...args} color="rose" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: () => render(examples['High Contrast']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Progress, progressPropDefs } from 'ljkui';\n\nconst args = {\n  size: progressPropDefs.size.default,\n  color: progressPropDefs.color.default,\n  value: 40,\n  max: 100,\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-2)' }}>\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>\n      <Progress {...args} highContrast={false} />\n    </div>\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>\n      <Progress {...args} highContrast />\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };

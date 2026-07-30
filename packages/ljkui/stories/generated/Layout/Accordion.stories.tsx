@@ -52,20 +52,52 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Single']),
-  parameters: { docs: { description: { story: 'The canonical Accordion. Same as “Single”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Accordion. Same as “Single”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: "import { Accordion } from 'ljkui';\n\nconst args = {\n  defaultValue: ['item-1'],\n  type: 'single' as const,\n};\nreturn (\n  <div>\n    <Accordion.Root\n      // collapsible\n      style={{ width: 600 }}\n      {...args}\n    >\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>\n        <Accordion.Item value=\"item-1\">\n          <Accordion.Trigger>Is it accessible?</Accordion.Trigger>\n          <Accordion.Content>Yes. It adheres to the WAI-ARIA design pattern.</Accordion.Content>\n        </Accordion.Item>\n\n        <Accordion.Item value=\"item-2\">\n          <Accordion.Trigger>Is it unstyled?</Accordion.Trigger>\n          <Accordion.Content>\n            Yes. It's unstyled by default, giving you freedom over the look and feel.\n          </Accordion.Content>\n        </Accordion.Item>\n\n        <Accordion.Item value=\"item-3\">\n          <Accordion.Trigger>Can it be animated?</Accordion.Trigger>\n          <Accordion.Content>Yes! You can animate the Accordion with CSS or JavaScript.</Accordion.Content>\n        </Accordion.Item>\n      </div>\n    </Accordion.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Single: Story = {
   name: 'Single',
   render: () => render(examples['Single']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Accordion } from 'ljkui';\n\nconst args = {\n  defaultValue: ['item-1'],\n  type: 'single' as const,\n};\nreturn (\n  <div>\n    <Accordion.Root\n      // collapsible\n      style={{ width: 600 }}\n      {...args}\n    >\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>\n        <Accordion.Item value=\"item-1\">\n          <Accordion.Trigger>Is it accessible?</Accordion.Trigger>\n          <Accordion.Content>Yes. It adheres to the WAI-ARIA design pattern.</Accordion.Content>\n        </Accordion.Item>\n\n        <Accordion.Item value=\"item-2\">\n          <Accordion.Trigger>Is it unstyled?</Accordion.Trigger>\n          <Accordion.Content>\n            Yes. It's unstyled by default, giving you freedom over the look and feel.\n          </Accordion.Content>\n        </Accordion.Item>\n\n        <Accordion.Item value=\"item-3\">\n          <Accordion.Trigger>Can it be animated?</Accordion.Trigger>\n          <Accordion.Content>Yes! You can animate the Accordion with CSS or JavaScript.</Accordion.Content>\n        </Accordion.Item>\n      </div>\n    </Accordion.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Multiple: Story = {
   name: 'Multiple',
   render: () => render(examples['Multiple']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Accordion } from 'ljkui';\n\nconst args = {\n  defaultValue: ['item-1', 'item-2'],\n  type: 'multiple' as const,\n};\nreturn (\n  <div>\n    <Accordion.Root style={{ width: 600 }} {...args}>\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>\n        <Accordion.Item value=\"item-1\">\n          <Accordion.Trigger>Is it accessible?</Accordion.Trigger>\n          <Accordion.Content>Yes. It adheres to the WAI-ARIA design pattern.</Accordion.Content>\n        </Accordion.Item>\n\n        <Accordion.Item value=\"item-2\">\n          <Accordion.Trigger>Is it unstyled?</Accordion.Trigger>\n          <Accordion.Content>\n            Yes. It's unstyled by default, giving you freedom over the look and feel.\n          </Accordion.Content>\n        </Accordion.Item>\n\n        <Accordion.Item value=\"item-3\">\n          <Accordion.Trigger>Can it be animated?</Accordion.Trigger>\n          <Accordion.Content>Yes! You can animate the Accordion with CSS or JavaScript.</Accordion.Content>\n        </Accordion.Item>\n      </div>\n    </Accordion.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const HiddenUntilFound: Story = {
   name: 'Hidden Until Found',
   render: () => render(examples['Hidden Until Found']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Accordion } from 'ljkui';\n\nconst args = {\n  hiddenUntilFound: true,\n};\nreturn (\n  <div>\n    <p style={{ marginBottom: 'var(--space-4)', maxWidth: 600, color: 'var(--gray-900)' }}>\n      Use your browser's find feature (Ctrl/Cmd + F) to search for \"secret keyword\" - the panel will automatically\n      expand when found.\n    </p>\n    <Accordion.Root\n      style={{ width: 600, display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}\n      {...args}\n    >\n      <Accordion.Item value=\"item-1\">\n        <Accordion.Trigger>First section</Accordion.Trigger>\n        <Accordion.Content>This is some visible content in the first section.</Accordion.Content>\n      </Accordion.Item>\n\n      <Accordion.Item value=\"item-2\">\n        <Accordion.Trigger>Second section (contains hidden text)</Accordion.Trigger>\n        <Accordion.Content>\n          This section contains a secret keyword that you can find using browser search.\n        </Accordion.Content>\n      </Accordion.Item>\n\n      <Accordion.Item value=\"item-3\">\n        <Accordion.Trigger>Third section</Accordion.Trigger>\n        <Accordion.Content>More content in the third section.</Accordion.Content>\n      </Accordion.Item>\n    </Accordion.Root>\n  </div>\n);",
+      },
+    },
+  },
 };

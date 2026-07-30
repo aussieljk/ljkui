@@ -65,30 +65,78 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical Heading. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Heading. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'const args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\' }}>\n    <Heading {...args} size="0">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="1">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="2">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="3">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="4">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="5">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="6">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="7">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="8">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="9">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'const args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\' }}>\n    <Heading {...args} size="0">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="1">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="2">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="3">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="4">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="5">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="6">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="7">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="8">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} size="9">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'const args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\' }}>\n    <Heading {...args} color="indigo">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} color="cyan">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} color="orange">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} color="rose">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Align: Story = {
   name: 'Align',
   render: () => render(examples['Align']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'const args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\', width: 500 }}>\n    <Heading {...args} align="left">\n      Left-aligned\n    </Heading>\n    <Heading {...args} align="center">\n      Center-aligned\n    </Heading>\n    <Heading {...args} align="right">\n      Right-aligned\n    </Heading>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Trim: Story = {
   name: 'Trim',
   render: () => render(examples['Trim']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "const args = {};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>\n    <Heading\n      {...args}\n      trim=\"normal\"\n      style={{\n        background: 'var(--gray-alpha-50)',\n        borderTop: '1px dashed var(--gray-alpha-500)',\n        borderBottom: '1px dashed var(--gray-alpha-500)',\n      }}\n    >\n      Without trim\n    </Heading>\n    <Heading\n      {...args}\n      trim=\"both\"\n      style={{\n        background: 'var(--gray-alpha-50)',\n        borderTop: '1px dashed var(--gray-alpha-500)',\n        borderBottom: '1px dashed var(--gray-alpha-500)',\n      }}\n    >\n      With trim\n    </Heading>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: () => render(examples['High Contrast']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'const args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\' }}>\n    <Heading {...args} highContrast color="indigo">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} highContrast color="cyan">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} highContrast color="orange">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n    <Heading {...args} highContrast color="rose">\n      The quick brown fox jumps over the lazy dog.\n    </Heading>\n  </div>\n);',
+      },
+    },
+  },
 };

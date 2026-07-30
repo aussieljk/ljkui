@@ -60,25 +60,65 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical DataTable. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical DataTable. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { DataTable, dataTableRootPropDefs, Link } from \'ljkui\';\n\nconst args = {\n  size: dataTableRootPropDefs.size.default,\n  orientation: dataTableRootPropDefs.orientation.default,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-8)\' }}>\n    <DataTable.Root {...args} size="1">\n      <DataTable.Item>\n        <DataTable.Label>Name</DataTable.Label>\n        <DataTable.Value>Artur Bień</DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label>Email</DataTable.Label>\n        <DataTable.Value>\n          <Link href="mailto:artur@example.com">artur@example.com</Link>\n        </DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label>Company</DataTable.Label>\n        <DataTable.Value>\n          <Link target="_blank" href="https://example.com">\n            Example Inc.\n          </Link>\n        </DataTable.Value>\n      </DataTable.Item>\n    </DataTable.Root>\n    <DataTable.Root {...args} size="2">\n      <DataTable.Item>\n        <DataTable.Label>Name</DataTable.Label>\n        <DataTable.Value>Artur Bień</DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label>Email</DataTable.Label>\n        <DataTable.Value>\n          <Link href="mailto:artur@example.com">artur@example.com</Link>\n        </DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label>Company</DataTable.Label>\n        <DataTable.Value>\n          <Link target="_blank" href="https://example.com">\n            Example Inc.\n          </Link>\n        </DataTable.Value>\n      </DataTable.Item>\n    </DataTable.Root>\n    <DataTable.Root {...args} size="3">\n      <DataTable.Item>\n        <DataTable.Label>Name</DataTable.Label>\n        <DataTable.Value>Artur Bień</DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label>Email</DataTable.Label>\n        <DataTable.Value>\n          <Link href="mailto:artur@example.com">artur@example.com</Link>\n        </DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label>Company</DataTable.Label>\n        <DataTable.Value>\n          <Link target="_blank" href="https://example.com">\n            Example Inc.\n          </Link>\n        </DataTable.Value>\n      </DataTable.Item>\n    </DataTable.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { DataTable, dataTableRootPropDefs, Link } from \'ljkui\';\n\nconst args = {\n  size: dataTableRootPropDefs.size.default,\n  orientation: dataTableRootPropDefs.orientation.default,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-8)\' }}>\n    <DataTable.Root {...args} size="1">\n      <DataTable.Item>\n        <DataTable.Label>Name</DataTable.Label>\n        <DataTable.Value>Artur Bień</DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label>Email</DataTable.Label>\n        <DataTable.Value>\n          <Link href="mailto:artur@example.com">artur@example.com</Link>\n        </DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label>Company</DataTable.Label>\n        <DataTable.Value>\n          <Link target="_blank" href="https://example.com">\n            Example Inc.\n          </Link>\n        </DataTable.Value>\n      </DataTable.Item>\n    </DataTable.Root>\n    <DataTable.Root {...args} size="2">\n      <DataTable.Item>\n        <DataTable.Label>Name</DataTable.Label>\n        <DataTable.Value>Artur Bień</DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label>Email</DataTable.Label>\n        <DataTable.Value>\n          <Link href="mailto:artur@example.com">artur@example.com</Link>\n        </DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label>Company</DataTable.Label>\n        <DataTable.Value>\n          <Link target="_blank" href="https://example.com">\n            Example Inc.\n          </Link>\n        </DataTable.Value>\n      </DataTable.Item>\n    </DataTable.Root>\n    <DataTable.Root {...args} size="3">\n      <DataTable.Item>\n        <DataTable.Label>Name</DataTable.Label>\n        <DataTable.Value>Artur Bień</DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label>Email</DataTable.Label>\n        <DataTable.Value>\n          <Link href="mailto:artur@example.com">artur@example.com</Link>\n        </DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label>Company</DataTable.Label>\n        <DataTable.Value>\n          <Link target="_blank" href="https://example.com">\n            Example Inc.\n          </Link>\n        </DataTable.Value>\n      </DataTable.Item>\n    </DataTable.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Orientation: Story = {
   name: 'Orientation',
   render: () => render(examples['Orientation']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { DataTable, dataTableRootPropDefs, Link, Separator, Typography } from \'ljkui\';\n\nconst args = {\n  size: dataTableRootPropDefs.size.default,\n  orientation: dataTableRootPropDefs.orientation.default,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-8)\' }}>\n    <div>\n      <Typography.Heading size="3">Horizontal</Typography.Heading>\n      <Separator orientation="horizontal" size="4" style={{ marginBottom: 16, marginTop: 16 }} />\n      <DataTable.Root {...args} orientation={\'horizontal\'}>\n        <DataTable.Item>\n          <DataTable.Label>Name</DataTable.Label>\n          <DataTable.Value>Artur Bień</DataTable.Value>\n        </DataTable.Item>\n        <DataTable.Item>\n          <DataTable.Label>Email</DataTable.Label>\n          <DataTable.Value>\n            <Link href="mailto:artur@example.com">artur@example.com</Link>\n          </DataTable.Value>\n        </DataTable.Item>\n        <DataTable.Item>\n          <DataTable.Label>Company</DataTable.Label>\n          <DataTable.Value>\n            <Link target="_blank" href="https://example.com">\n              Example Inc.\n            </Link>\n          </DataTable.Value>\n        </DataTable.Item>\n      </DataTable.Root>\n    </div>\n    <div>\n      <Typography.Heading size="3">Vertical</Typography.Heading>\n      <Separator orientation="horizontal" size="4" style={{ marginBottom: 16, marginTop: 16 }} />\n      <DataTable.Root {...args} orientation={\'vertical\'}>\n        <DataTable.Item>\n          <DataTable.Label>Name</DataTable.Label>\n          <DataTable.Value>Artur Bień</DataTable.Value>\n        </DataTable.Item>\n        <DataTable.Item>\n          <DataTable.Label>Email</DataTable.Label>\n          <DataTable.Value>\n            <Link href="mailto:artur@example.com">artur@example.com</Link>\n          </DataTable.Value>\n        </DataTable.Item>\n        <DataTable.Item>\n          <DataTable.Label>Company</DataTable.Label>\n          <DataTable.Value>\n            <Link target="_blank" href="https://example.com">\n              Example Inc.\n            </Link>\n          </DataTable.Value>\n        </DataTable.Item>\n      </DataTable.Root>\n    </div>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { DataTable, dataTableRootPropDefs, Typography } from 'ljkui';\n\nconst args = {\n  size: dataTableRootPropDefs.size.default,\n  orientation: dataTableRootPropDefs.orientation.default,\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>\n    <Typography.Text>\n      Use the <Typography.Code>color</Typography.Code> prop on the{' '}\n      <Typography.Code>{'<DataTable.Label />'}</Typography.Code> component to assign a specific color.\n    </Typography.Text>\n    <DataTable.Root {...args}>\n      <DataTable.Item>\n        <DataTable.Label color=\"indigo\" style={{ minWidth: 40 }}>\n          Color:\n        </DataTable.Label>\n        <DataTable.Value>Iris</DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label color=\"cyan\" style={{ minWidth: 40 }}>\n          Color:\n        </DataTable.Label>\n        <DataTable.Value>Cyan</DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label color=\"lime\" style={{ minWidth: 40 }}>\n          Color:\n        </DataTable.Label>\n        <DataTable.Value>Lime</DataTable.Value>\n      </DataTable.Item>\n      <DataTable.Item>\n        <DataTable.Label color=\"rose\" style={{ minWidth: 40 }}>\n          Color:\n        </DataTable.Label>\n        <DataTable.Value>Crimson</DataTable.Value>\n      </DataTable.Item>\n    </DataTable.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: () => render(examples['High Contrast']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { DataTable, dataTableRootPropDefs, Typography } from \'ljkui\';\n\nconst args = {\n  size: dataTableRootPropDefs.size.default,\n  orientation: dataTableRootPropDefs.orientation.default,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-4)\' }}>\n    <Typography.Text>\n      Use the <Typography.Code>highContrast</Typography.Code> prop on the{\' \'}\n      <Typography.Code>{\'<DataTable.Label />\'}</Typography.Code> component <br /> to increase color contrast with\n      the background.\n    </Typography.Text>\n    <div style={{ display: \'flex\', gap: \'var(--space-9)\' }}>\n      <DataTable.Root {...args}>\n        <DataTable.Item>\n          <DataTable.Label color="indigo">Name</DataTable.Label>\n          <DataTable.Value>Iris</DataTable.Value>\n        </DataTable.Item>\n        <DataTable.Item>\n          <DataTable.Label color="cyan">Name</DataTable.Label>\n          <DataTable.Value>Cyan</DataTable.Value>\n        </DataTable.Item>\n        <DataTable.Item>\n          <DataTable.Label color="lime">Name</DataTable.Label>\n          <DataTable.Value>Lime</DataTable.Value>\n        </DataTable.Item>\n        <DataTable.Item>\n          <DataTable.Label color="rose">Name</DataTable.Label>\n          <DataTable.Value>Crimson</DataTable.Value>\n        </DataTable.Item>\n      </DataTable.Root>\n\n      <DataTable.Root {...args}>\n        <DataTable.Item>\n          <DataTable.Label color="indigo" highContrast>\n            Name\n          </DataTable.Label>\n          <DataTable.Value>Iris</DataTable.Value>\n        </DataTable.Item>\n        <DataTable.Item>\n          <DataTable.Label color="cyan" highContrast>\n            Name\n          </DataTable.Label>\n          <DataTable.Value>Cyan</DataTable.Value>\n        </DataTable.Item>\n        <DataTable.Item>\n          <DataTable.Label color="lime" highContrast>\n            Name\n          </DataTable.Label>\n          <DataTable.Value>Lime</DataTable.Value>\n        </DataTable.Item>\n        <DataTable.Item>\n          <DataTable.Label color="rose" highContrast>\n            Name\n          </DataTable.Label>\n          <DataTable.Value>Crimson</DataTable.Value>\n        </DataTable.Item>\n      </DataTable.Root>\n    </div>\n  </div>\n);',
+      },
+    },
+  },
 };

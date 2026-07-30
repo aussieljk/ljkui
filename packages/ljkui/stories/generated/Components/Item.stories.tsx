@@ -34,19 +34,51 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Avatar, Button, Item } from \'ljkui\';\n\n(\n    <Item.Root style={{ maxWidth: 420 }}>\n      <Item.Media>\n        <Avatar fallback="AL" />\n      </Item.Media>\n      <Item.Content>\n        <Item.Title>Ada Lovelace</Item.Title>\n        <Item.Description>ada@example.com</Item.Description>\n      </Item.Content>\n      <Item.Actions>\n        <Button size="1" variant="surface">\n          Invite\n        </Button>\n      </Item.Actions>\n    </Item.Root>\n  )',
+      },
+    },
+  },
 };
 
 export const Group: Story = {
   name: 'Group',
   render: () => render(examples['Group']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Avatar, Badge, Card, Item } from 'ljkui';\n\n(\n          <React.Fragment key={person.email}>\n            {i > 0 && <Item.Separator />}\n            <Item.Root>\n              <Item.Media>\n                <Avatar\n                  fallback={person.name\n                    .split(' ')\n                    .map((w) => w[0])\n                    .join('')}\n                />\n              </Item.Media>\n              <Item.Content>\n                <Item.Title>{person.name}</Item.Title>\n                <Item.Description>{person.email}</Item.Description>\n              </Item.Content>\n              <Item.Actions>\n                <Badge>{person.role}</Badge>\n              </Item.Actions>\n            </Item.Root>\n          </React.Fragment>\n        ))}\n      </Item.Group>\n    </Card>\n  )",
+      },
+    },
+  },
 };
 
 export const Variants: Story = {
   name: 'Variants',
   render: () => render(examples['Variants']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Item, VStack } from 'ljkui';\n\n(\n        <Item.Root key={variant} variant={variant}>\n          <Item.Content>\n            <Item.Title>{variant}</Item.Title>\n            <Item.Description>The {variant} variant.</Item.Description>\n          </Item.Content>\n        </Item.Root>\n      ))}\n    </VStack>\n  )",
+      },
+    },
+  },
 };
 
 export const Sizes: Story = {
   name: 'Sizes',
   render: () => render(examples['Sizes']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Item, VStack } from \'ljkui\';\n\n(\n        <Item.Root key={size} variant="outline" size={size}>\n          <Item.Content>\n            <Item.Title>Size {size}</Item.Title>\n            <Item.Description>Supporting copy.</Item.Description>\n          </Item.Content>\n        </Item.Root>\n      ))}\n    </VStack>\n  )',
+      },
+    },
+  },
 };

@@ -541,7 +541,7 @@ interface CreatePaletteCssOptions extends ComputeScaleOptions {
 /**
  * Generate the ljkui CSS for one Tailwind-style palette. The returned CSS is
  * self-contained: inject it once (a css file or a <style> tag) and `name` becomes usable
- * everywhere a scale name works, e.g. `<Theme accentColor={'my-brand' as never}>` or
+ * everywhere a scale name works, e.g. `<Theme accentColor="my-brand">` or
  * `data-accent-color="my-brand"` on any subtree.
  */
 function createPaletteCss(name: string, palette: TailwindPalette, options: CreatePaletteCssOptions = {}): string {

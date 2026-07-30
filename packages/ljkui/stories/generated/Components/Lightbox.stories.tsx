@@ -22,94 +22,113 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: { docs: { source: { language: 'tsx', code: 'DefaultStory' } } },
 };
 
 export const WithThumbnails: Story = {
   name: 'WithThumbnails',
   render: () => render(examples['WithThumbnails']),
+  parameters: { docs: { source: { language: 'tsx', code: 'WithThumbnailsStory' } } },
 };
 
 export const Controlled: Story = {
   name: 'Controlled',
   render: () => render(examples['Controlled']),
+  parameters: { docs: { source: { language: 'tsx', code: 'ControlledStory' } } },
 };
 
 export const ImperativeAPI: Story = {
   name: 'ImperativeAPI',
   render: () => render(examples['ImperativeAPI']),
+  parameters: { docs: { source: { language: 'tsx', code: 'ImperativeAPIStory' } } },
 };
 
 export const LazyLoading: Story = {
   name: 'LazyLoading',
   render: () => render(examples['LazyLoading']),
+  parameters: { docs: { source: { language: 'tsx', code: 'LazyLoadingStory' } } },
 };
 
 export const WithScrollGallery: Story = {
   name: 'WithScrollGallery',
   render: () => render(examples['WithScrollGallery']),
+  parameters: { docs: { source: { language: 'tsx', code: 'WithScrollGalleryStory' } } },
 };
 
 export const WithinArticle: Story = {
   name: 'Within Article',
   render: () => render(examples['Within Article']),
+  parameters: { docs: { source: { language: 'tsx', code: 'WithinArticleStory' } } },
 };
 
 export const SocialFeed: Story = {
   name: 'Social Feed',
   render: () => render(examples['Social Feed']),
+  parameters: { docs: { source: { language: 'tsx', code: 'SocialFeedStory' } } },
 };
 
 export const RealEstateListing: Story = {
   name: 'Real Estate Listing',
   render: () => render(examples['Real Estate Listing']),
+  parameters: { docs: { source: { language: 'tsx', code: 'RealEstateListingStory' } } },
 };
 
 export const ColorPalette: Story = {
   name: 'Color Palette',
   render: () => render(examples['Color Palette']),
+  parameters: { docs: { source: { language: 'tsx', code: 'ColorPaletteStory' } } },
 };
 
 export const DesignFileInspector: Story = {
   name: 'Design File Inspector',
   render: () => render(examples['Design File Inspector']),
+  parameters: { docs: { source: { language: 'tsx', code: 'DesignFileInspectorStory' } } },
 };
 
 export const FilmTrailers: Story = {
   name: 'Film Trailers',
   render: () => render(examples['Film Trailers']),
+  parameters: { docs: { source: { language: 'tsx', code: 'FilmTrailersStory' } } },
 };
 
 export const TeamDirectory: Story = {
   name: 'Team Directory',
   render: () => render(examples['Team Directory']),
+  parameters: { docs: { source: { language: 'tsx', code: 'TeamDirectoryStory' } } },
 };
 
 export const LifecycleCallbacks: Story = {
   name: 'Lifecycle Callbacks',
   render: () => render(examples['Lifecycle Callbacks']),
+  parameters: { docs: { source: { language: 'tsx', code: 'LifecycleCallbacksStory' } } },
 };
 
 export const WithZoom: Story = {
   name: 'With Zoom',
   render: () => render(examples['With Zoom']),
+  parameters: { docs: { source: { language: 'tsx', code: 'WithZoomStory' } } },
 };
 
 export const ScrollGalleryWithZoom: Story = {
   name: 'Scroll Gallery with Zoom',
   render: () => render(examples['Scroll Gallery with Zoom']),
+  parameters: { docs: { source: { language: 'tsx', code: 'CarouselWithZoomStory' } } },
 };
 
 export const MorphToSetting: Story = {
   name: 'morphTo Setting',
   render: () => render(examples['morphTo Setting']),
+  parameters: { docs: { source: { language: 'tsx', code: 'MorphToSettingStory' } } },
 };
 
 export const TextMessage: Story = {
   name: 'Text Message',
   render: () => render(examples['Text Message']),
+  parameters: { docs: { source: { language: 'tsx', code: 'TextMessageStory' } } },
 };
 
 export const PerfectMorph: Story = {
   name: 'Perfect Morph',
   render: () => render(examples['Perfect Morph']),
+  parameters: { docs: { source: { language: 'tsx', code: 'PerfectMorphStory' } } },
 };

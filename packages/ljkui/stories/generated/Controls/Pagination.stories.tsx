@@ -30,14 +30,31 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: { docs: { source: { language: 'tsx', code: '<Interactive />' } } },
 };
 
 export const WithEllipsis: Story = {
   name: 'With ellipsis',
   render: () => render(examples['With ellipsis']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Pagination } from \'ljkui\';\n\n(\n    <Pagination.Root>\n      <Pagination.Content>\n        <Pagination.Item>\n          <Pagination.Previous href="#" />\n        </Pagination.Item>\n        <Pagination.Item>\n          <Pagination.Link href="#">1</Pagination.Link>\n        </Pagination.Item>\n        <Pagination.Item>\n          <Pagination.Link href="#" isActive>\n            2\n          </Pagination.Link>\n        </Pagination.Item>\n        <Pagination.Item>\n          <Pagination.Ellipsis />\n        </Pagination.Item>\n        <Pagination.Item>\n          <Pagination.Link href="#">24</Pagination.Link>\n        </Pagination.Item>\n        <Pagination.Item>\n          <Pagination.Next href="#" />\n        </Pagination.Item>\n      </Pagination.Content>\n    </Pagination.Root>\n  )',
+      },
+    },
+  },
 };
 
 export const Sizes: Story = {
   name: 'Sizes',
   render: () => render(examples['Sizes']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Pagination, VStack } from \'ljkui\';\n\n(\n        <Pagination.Root key={size} size={size}>\n          <Pagination.Content>\n            <Pagination.Item>\n              <Pagination.Previous href="#" />\n            </Pagination.Item>\n            <Pagination.Item>\n              <Pagination.Link href="#" isActive>\n                1\n              </Pagination.Link>\n            </Pagination.Item>\n            <Pagination.Item>\n              <Pagination.Link href="#">2</Pagination.Link>\n            </Pagination.Item>\n            <Pagination.Item>\n              <Pagination.Next href="#" />\n            </Pagination.Item>\n          </Pagination.Content>\n        </Pagination.Root>\n      ))}\n    </VStack>\n  )',
+      },
+    },
+  },
 };

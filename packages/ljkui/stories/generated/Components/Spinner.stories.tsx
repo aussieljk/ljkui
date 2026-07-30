@@ -35,15 +35,39 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical Spinner. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Spinner. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { Spinner, spinnerPropDefs } from \'ljkui\';\n\nconst args = {\n  size: spinnerPropDefs.size.default,\n  loading: spinnerPropDefs.loading.default,\n};\nreturn (\n  <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-4)\' }}>\n    <Spinner {...args} size="1" />\n    <Spinner {...args} size="2" />\n    <Spinner {...args} size="3" />\n    <Spinner {...args} size="4" />\n    <Spinner {...args} size="5" />\n    <Spinner {...args} size="6" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Spinner, spinnerPropDefs } from \'ljkui\';\n\nconst args = {\n  size: spinnerPropDefs.size.default,\n  loading: spinnerPropDefs.loading.default,\n};\nreturn (\n  <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-4)\' }}>\n    <Spinner {...args} size="1" />\n    <Spinner {...args} size="2" />\n    <Spinner {...args} size="3" />\n    <Spinner {...args} size="4" />\n    <Spinner {...args} size="5" />\n    <Spinner {...args} size="6" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const WithChildren: Story = {
   name: 'With children',
   render: () => render(examples['With children']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Spinner, spinnerPropDefs, Switch, Typography } from 'ljkui';\n\nconst args = {\n  size: spinnerPropDefs.size.default,\n  loading: spinnerPropDefs.loading.default,\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', maxWidth: 640 }}>\n    <Typography.Text>\n      Use the <Typography.Code>loading</Typography.Code> prop to control whether the spinner or its children are\n      displayed. Spinner preserves the dimensions of children when they are hidden and disables interactive\n      elements.\n    </Typography.Text>\n    <div style={{ display: 'flex', gap: 'var(--space-4)' }}>\n      <Spinner {...args} loading={true}>\n        <Switch defaultChecked />\n      </Spinner>\n\n      <Spinner {...args} loading={false}>\n        <Switch defaultChecked />\n      </Spinner>\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };

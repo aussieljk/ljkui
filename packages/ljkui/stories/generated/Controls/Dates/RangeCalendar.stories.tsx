@@ -23,14 +23,38 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Calendar } from 'ljkui';\n\nconst args = {\n  defaultValue: {\n    start: parseDate('2020-02-03'),\n    end: parseDate('2020-02-08'),\n  },\n  onChange: (dateRange: { start: DateValue; end: DateValue } | null) =>\n    console.log(dateRange ? dateRange.start.toString() + ' - ' + dateRange.end.toString() : dateRange),\n};\nreturn (\n  <div>\n    <Calendar.Range {...args} minValue={parseDate('1900-02-03')} />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Disabled: Story = {
   name: 'Disabled',
   render: () => render(examples['Disabled']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Calendar } from 'ljkui';\n\nconst args = {\n  defaultValue: {\n    start: parseDate('2020-02-03'),\n    end: parseDate('2020-02-08'),\n  },\n  onChange: (dateRange: { start: DateValue; end: DateValue } | null) =>\n    console.log(dateRange ? dateRange.start.toString() + ' - ' + dateRange.end.toString() : dateRange),\n};\nreturn (\n  <div>\n    <Calendar.Range {...args} isDisabled />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const UnavailableDates: Story = {
   name: 'Unavailable Dates',
   render: () => render(examples['Unavailable Dates']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Calendar } from 'ljkui';\n\nconst args = {\n  defaultValue: {\n    start: parseDate('2020-02-03'),\n    end: parseDate('2020-02-08'),\n  },\n  onChange: (dateRange: { start: DateValue; end: DateValue } | null) =>\n    console.log(dateRange ? dateRange.start.toString() + ' - ' + dateRange.end.toString() : dateRange),\n};\nconst now = today(getLocalTimeZone());\nconst disabledRanges = [\n  [now, now.add({ days: 5 })],\n  [now.add({ days: 14 }), now.add({ days: 16 })],\n  [now.add({ days: 23 }), now.add({ days: 24 })],\n];\n\nconst { locale } = useLocale();\nconst isDateUnavailable = (date: DateValue) =>\n  isWeekend(date, locale) ||\n  disabledRanges.some((interval) => date.compare(interval[0]) >= 0 && date.compare(interval[1]) <= 0);\n\nreturn (\n  <div style={{ width: 300 }}>\n    <Calendar.Range {...args} minValue={today(getLocalTimeZone())} isDateUnavailable={isDateUnavailable} />\n  </div>\n);",
+      },
+    },
+  },
 };

@@ -1,102 +1,51 @@
+#!/usr/bin/env node
+/// <reference types="node" />
 /**
- * lint-raw-colors.ts — a standalone codemod/checker that finds raw hex colors
- * (and, optionally, arbitrary Tailwind spacing) in a consumer's source and
- * suggests the nearest ljkui design token.
+ * ljkui-lint-raw-colors — a standalone checker/codemod that finds raw hex
+ * colors (and, optionally, arbitrary Tailwind spacing) in a project's source
+ * and suggests the nearest ljkui design token.
+ *
+ * This is the single source for both:
+ *   - the published bin:   `bunx ljkui-lint-raw-colors [path]`
+ *   - local development:   `bun src/bin/lint-raw-colors.ts [path]`
  *
  * ljkui ships a 12-step, Radix-style scale per palette (steps are ROLES, not
- * Tailwind stops: 10/50/100 backgrounds, 200/300 subtle bg, 400/500/600
- * borders, 700/800 solid, 900/950 text — see CLAUDE.md "Sharp Edges"). The
- * concrete light-mode hex seeds live in
- * src/styles/tokens/palettes.css. This tool parses those seeds at runtime,
- * builds a hex→token lookup, and for every raw color it finds it reports the
- * nearest token by CIELAB (ΔE) distance.
+ * Tailwind stops — see CLAUDE.md "Sharp Edges"). The concrete light-mode hex
+ * seeds live in src/styles/tokens/palettes.css; at build they're extracted into
+ * `dist/token-seeds.json` (via scripts/gen-token-seeds.ts) so the published bin
+ * can read them without shipping `src/`. This tool builds a hex→token lookup
+ * and, for every raw color it finds, reports the nearest token by CIELAB (ΔE).
  *
  * Usage:
- *   bun scripts/lint-raw-colors.ts [path]            # scan (default path: ".")
- *   bun scripts/lint-raw-colors.ts src --fix         # rewrite confident cases
- *   bun scripts/lint-raw-colors.ts src --report-only # never exit non-zero
- *   bun scripts/lint-raw-colors.ts src --spacing     # also flag arbitrary spacing
- *   bun scripts/lint-raw-colors.ts --help
- *
- * No new dependencies: hex→Lab conversion uses `color-convert` (already a
- * devDependency); everything else is inline and self-contained.
+ *   ljkui-lint-raw-colors [path]            # scan (default path: ".")
+ *   ljkui-lint-raw-colors src --fix         # rewrite confident className cases
+ *   ljkui-lint-raw-colors src --report-only # never exit non-zero
+ *   ljkui-lint-raw-colors src --spacing     # also flag arbitrary spacing
+ *   ljkui-lint-raw-colors --help
  */
 
 import convert from 'color-convert';
-import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, extname, join, resolve } from 'node:path';
-
-// ---------------------------------------------------------------------------
-// Config
-// ---------------------------------------------------------------------------
+import { fileURLToPath } from 'node:url';
 
 const SCAN_EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx', '.css']);
 const IGNORE_DIRS = new Set(['node_modules', 'dist', '.git', '.next', 'build', '.vercel', '.source']);
 
-// The palettes.css seeds we care about. accent/gray-alpha are themeable aliases
-// (`--accent-700: var(--gray-700)`), so they carry no literal hex and are
-// skipped by the parser. When a raw color's nearest match is a *chromatic*
-// palette we surface the equivalent `accent` step as the primary suggestion —
-// accent is the app's configurable brand color, which is almost always what a
-// consumer reaching for a blue/indigo/etc. literal actually wants.
+// When a raw color's nearest match is a *chromatic* palette we surface the
+// equivalent `accent` step as the primary suggestion — accent is the app's
+// configurable brand color, which is almost always what a consumer reaching for
+// a blue/indigo/etc. literal actually wants.
 const CHROMATIC_TO_ACCENT = true;
-
-// ---------------------------------------------------------------------------
-// Palette parsing
-// ---------------------------------------------------------------------------
 
 type Lab = [number, number, number];
 
 interface TokenSeed {
-  /** Palette family, e.g. "blue", "gray". */
   palette: string;
-  /** Role step, e.g. 700. */
   step: number;
-  /** The literal light-mode hex, e.g. "#216fff". */
   hex: string;
   lab: Lab;
 }
-
-/** Resolve palettes.css relative to this script, wherever it's run from. */
-function palettesCssPath(): string {
-  const here = dirname(fileURLToPath(import.meta.url));
-  return resolve(here, '..', 'src', 'styles', 'tokens', 'palettes.css');
-}
-
-/**
- * Parse the concrete `--<palette>-<step>: #hex;` declarations out of
- * palettes.css. We only take literal hex seeds (ignoring `var(...)` aliases and
- * `*-alpha-*` ladders, which aren't useful opaque targets), and we keep the
- * *first* occurrence of each palette+step — that's the light-theme block, which
- * is the canonical seed for a light UI.
- */
-function loadTokenSeeds(cssPath: string): TokenSeed[] {
-  const css = readFileSync(cssPath, 'utf8');
-  const seeds: TokenSeed[] = [];
-  const seen = new Set<string>();
-  // --name-step: #rgb | #rrggbb  (skip alpha ladders and var() aliases)
-  const re = /--([a-z]+)-(\d+)\s*:\s*(#[0-9a-fA-F]{3}(?:[0-9a-fA-F]{3})?)\s*;/g;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(css)) !== null) {
-    const palette = m[1];
-    // The `--<name>-alpha-<step>` form matches too (palette="<name>", but the
-    // "alpha" word sits between). Guard: alpha decls look like `--red-alpha-10`,
-    // whose captured palette would be "red" and step "10" only if the regex
-    // skipped "alpha" — it can't, so alpha lines simply don't match. Nothing to do.
-    const step = Number(m[2]);
-    const hex = normalizeHex(m[3]);
-    const key = `${palette}-${step}`;
-    if (seen.has(key)) continue;
-    seen.add(key);
-    seeds.push({ palette, step, hex, lab: convert.hex.lab(hex.slice(1)) as Lab });
-  }
-  return seeds;
-}
-
-// ---------------------------------------------------------------------------
-// Color utilities
-// ---------------------------------------------------------------------------
 
 /** Expand #rgb → #rrggbb and lowercase; drop any alpha channel. */
 function normalizeHex(hex: string): string {
@@ -106,11 +55,52 @@ function normalizeHex(hex: string): string {
       .split('')
       .map((c) => c + c)
       .join('');
-  if (h.length === 8) h = h.slice(0, 6); // strip alpha for matching
+  if (h.length === 8) h = h.slice(0, 6);
   return `#${h}`;
 }
 
-/** Plain Euclidean distance in CIELAB — a good enough ΔE for "nearest". */
+/**
+ * Load the hex seeds. Prefer the shipped `dist/token-seeds.json` (published
+ * bin); fall back to parsing palettes.css directly (running from source).
+ */
+function loadTokenSeeds(): TokenSeed[] {
+  const here = dirname(fileURLToPath(import.meta.url));
+  const toSeed = (palette: string, step: number, rawHex: string): TokenSeed => {
+    const hex = normalizeHex(rawHex);
+    return { palette, step, hex, lab: convert.hex.lab(hex.slice(1)) as Lab };
+  };
+
+  // 1. Shipped JSON (dist/bin/lint-raw-colors.js → dist/token-seeds.json).
+  const jsonCandidates = [resolve(here, '..', 'token-seeds.json'), resolve(here, 'token-seeds.json')];
+  for (const p of jsonCandidates) {
+    if (existsSync(p)) {
+      const raw = JSON.parse(readFileSync(p, 'utf8')) as Array<{ palette: string; step: number; hex: string }>;
+      return raw.map((s) => toSeed(s.palette, s.step, s.hex));
+    }
+  }
+
+  // 2. Source CSS (src/bin/lint-raw-colors.ts → src/styles/tokens/palettes.css).
+  const cssCandidates = [
+    resolve(here, '..', 'styles', 'tokens', 'palettes.css'),
+    resolve(here, '..', '..', 'src', 'styles', 'tokens', 'palettes.css'),
+  ];
+  const cssPath = cssCandidates.find((p) => existsSync(p));
+  if (!cssPath) return [];
+
+  const css = readFileSync(cssPath, 'utf8');
+  const seeds: TokenSeed[] = [];
+  const seen = new Set<string>();
+  const re = /--([a-z]+)-(\d+)\s*:\s*(#[0-9a-fA-F]{3}(?:[0-9a-fA-F]{3})?)\s*;/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(css)) !== null) {
+    const key = `${m[1]}-${m[2]}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    seeds.push(toSeed(m[1], Number(m[2]), m[3]));
+  }
+  return seeds;
+}
+
 function labDistance(a: Lab, b: Lab): number {
   const dl = a[0] - b[0];
   const da = a[1] - b[1];
@@ -121,7 +111,6 @@ function labDistance(a: Lab, b: Lab): number {
 interface Match {
   seed: TokenSeed;
   distance: number;
-  /** The token family we recommend using (accent for chromatic matches). */
   suggestedPalette: string;
 }
 
@@ -141,26 +130,16 @@ function nearestToken(hex: string, seeds: TokenSeed[]): Match {
   return { seed: best, distance: bestDist, suggestedPalette };
 }
 
-// ---------------------------------------------------------------------------
-// Utility-prefix inference (for a nicer suggestion + confident --fix)
-// ---------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------
-// Scanning
-// ---------------------------------------------------------------------------
-
 interface Finding {
   file: string;
   line: number;
   column: number;
-  raw: string; // the matched hex as written
+  raw: string;
   match: Match;
-  /** The full arbitrary-utility text if this was `prefix-[#hex]`, else undefined. */
   utility?: { prefix: string; full: string; start: number };
 }
 
 const HEX_RE = /#[0-9a-fA-F]{3}\b|#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{8}\b/g;
-// A whole arbitrary utility token, e.g. `bg-[#3b82f6]`.
 const ARB_UTILITY_RE =
   /\b(bg|text|border|ring|fill|stroke|from|via|to|outline|divide|shadow|caret|accent|decoration)-\[(#[0-9a-fA-F]{3,8})\]/g;
 
@@ -187,7 +166,6 @@ function scanFile(file: string, seeds: TokenSeed[]): Finding[] {
   const findings: Finding[] = [];
 
   lines.forEach((text, i) => {
-    // First, whole arbitrary utilities so we can offer a confident rewrite.
     const utilityRanges: Array<{ start: number; end: number; prefix: string; full: string; hex: string }> = [];
     let um: RegExpExecArray | null;
     ARB_UTILITY_RE.lastIndex = 0;
@@ -216,12 +194,7 @@ function scanFile(file: string, seeds: TokenSeed[]): Finding[] {
   return findings;
 }
 
-// ---------------------------------------------------------------------------
-// Suggestion formatting
-// ---------------------------------------------------------------------------
-
 function tokenClass(prefix: string | undefined, palette: string, step: number): string {
-  // If we know the utility prefix, produce a real class; otherwise default to bg-.
   return `${prefix ?? 'bg'}-${palette}-${step}`;
 }
 
@@ -236,14 +209,10 @@ function formatSuggestion(f: Finding): string {
   return `${cls} / ${v}`;
 }
 
-// ---------------------------------------------------------------------------
-// --fix rewriting (conservative)
-// ---------------------------------------------------------------------------
-
 /**
  * Only arbitrary-utility className cases (`bg-[#hex]` → `bg-accent-700`) are
- * rewritten: they are unambiguous and lossless in intent. Bare hex in a style
- * object, a CSS value, or free text is reported but never touched.
+ * rewritten: they are unambiguous. Bare hex in a style object, a CSS value, or
+ * free text is reported but never touched.
  */
 function applyFixes(file: string, findings: Finding[]): number {
   const src = readFileSync(file, 'utf8');
@@ -260,7 +229,6 @@ function applyFixes(file: string, findings: Finding[]): number {
 
   for (const [lineNo, fs] of byLine) {
     let text = lines[lineNo - 1];
-    // Replace each unique utility token once.
     const seenFull = new Set<string>();
     for (const f of fs) {
       if (!f.utility || seenFull.has(f.utility.full)) continue;
@@ -278,11 +246,6 @@ function applyFixes(file: string, findings: Finding[]): number {
   return rewrites;
 }
 
-// ---------------------------------------------------------------------------
-// Optional: arbitrary Tailwind spacing
-// ---------------------------------------------------------------------------
-
-// e.g. p-[13px], mt-[7px], gap-[3px] — flags px values that aren't on the 4px grid.
 const ARB_SPACING_RE = /\b([mp][trblxy]?|gap|space-[xy]|inset|top|right|bottom|left|w|h)-\[(\d+)px\]/g;
 
 interface SpacingFinding {
@@ -300,29 +263,20 @@ function scanSpacing(file: string): SpacingFinding[] {
     ARB_SPACING_RE.lastIndex = 0;
     while ((m = ARB_SPACING_RE.exec(text)) !== null) {
       const px = Number(m[2]);
-      const nearestStep = Math.round(px / 4); // Tailwind scale: 1 = 4px
-      out.push({
-        file,
-        line: i + 1,
-        raw: m[0],
-        suggestion: `${m[1]}-${nearestStep} (${nearestStep * 4}px)`,
-      });
+      const nearestStep = Math.round(px / 4);
+      out.push({ file, line: i + 1, raw: m[0], suggestion: `${m[1]}-${nearestStep} (${nearestStep * 4}px)` });
     }
   });
   return out;
 }
 
-// ---------------------------------------------------------------------------
-// CLI
-// ---------------------------------------------------------------------------
-
 function printHelp(): void {
   console.log(
     [
-      'lint-raw-colors — suggest ljkui tokens for raw hex colors',
+      'ljkui-lint-raw-colors — suggest ljkui tokens for raw hex colors',
       '',
       'Usage:',
-      '  bun scripts/lint-raw-colors.ts [path]        scan (default ".")',
+      '  ljkui-lint-raw-colors [path]        scan (default ".")',
       '',
       'Flags:',
       '  --fix           rewrite confident className cases in place',
@@ -331,6 +285,11 @@ function printHelp(): void {
       '  --help          show this help',
     ].join('\n'),
   );
+}
+
+function rel(p: string): string {
+  const cwd = process.cwd();
+  return p.startsWith(cwd) ? p.slice(cwd.length + 1) : p;
 }
 
 function main(): void {
@@ -346,9 +305,9 @@ function main(): void {
   const target = argv.find((a) => !a.startsWith('-')) ?? '.';
   const root = resolve(process.cwd(), target);
 
-  const seeds = loadTokenSeeds(palettesCssPath());
+  const seeds = loadTokenSeeds();
   if (seeds.length === 0) {
-    console.error('No token seeds parsed from palettes.css — is this an ljkui checkout?');
+    console.error('ljkui: could not load color token seeds (token-seeds.json / palettes.css not found).');
     process.exit(2);
   }
 
@@ -366,8 +325,6 @@ function main(): void {
     if (doSpacing) spacingFindings.push(...scanSpacing(file));
   }
 
-  // Report (re-scan not needed; report original findings — after --fix the
-  // rewritten ones simply become the "before" record of what changed).
   for (const f of allFindings) {
     const loc = `${rel(f.file)}:${f.line}:${f.column}`;
     const dist = f.match.distance.toFixed(1);
@@ -390,11 +347,6 @@ function main(): void {
   );
 
   if (total > 0 && !reportOnly) process.exit(1);
-}
-
-function rel(p: string): string {
-  const cwd = process.cwd();
-  return p.startsWith(cwd) ? p.slice(cwd.length + 1) : p;
 }
 
 main();

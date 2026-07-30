@@ -53,45 +53,117 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical Button. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Button. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: "import { Button, buttonPropDefs } from 'ljkui';\n\nconst args = {\n  children: 'Button',\n  variant: buttonPropDefs.variant.default,\n  color: buttonPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>\n    <Button {...args} size=\"4\" />\n    <Button {...args} size=\"3\" />\n    <Button {...args} size=\"2\" />\n    <Button {...args} size=\"1\" />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, buttonPropDefs } from 'ljkui';\n\nconst args = {\n  children: 'Button',\n  variant: buttonPropDefs.variant.default,\n  color: buttonPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>\n    <Button {...args} size=\"4\" />\n    <Button {...args} size=\"3\" />\n    <Button {...args} size=\"2\" />\n    <Button {...args} size=\"1\" />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Variant: Story = {
   name: 'Variant',
   render: () => render(examples['Variant']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, buttonPropDefs } from \'ljkui\';\n\nconst args = {\n  children: \'Button\',\n  size: buttonPropDefs.size.default,\n  color: buttonPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-4)\' }}>\n    <Button {...args} variant="classic" />\n    <Button {...args} variant="solid" />\n    <Button {...args} variant="soft" />\n    <Button {...args} variant="surface" />\n    <Button {...args} variant="ghost" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, buttonPropDefs } from 'ljkui';\n\nconst args = { children: 'Button', size: buttonPropDefs.size.default, disabled: false };\nreturn (\n  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>\n    <Button {...args} color=\"indigo\" />\n    <Button {...args} color=\"cyan\" />\n    <Button {...args} color=\"orange\" />\n    <Button {...args} color=\"rose\" />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const SemanticColor: Story = {
   name: 'Semantic color',
   render: () => render(examples['Semantic color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, buttonPropDefs } from \'ljkui\';\n\nconst args = { size: buttonPropDefs.size.default, disabled: false };\nreturn (\n  <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-2)\' }}>\n    <Button {...args} color="info">\n      Info\n    </Button>\n    <Button {...args} color="success">\n      Success\n    </Button>\n    <Button {...args} color="warning">\n      Warning\n    </Button>\n    <Button {...args} color="danger">\n      Danger\n    </Button>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: () => render(examples['High Contrast']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button } from \'ljkui\';\n\nconst args = { children: \'Button\', disabled: false };\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-2)\' }}>\n    <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n      <Button {...args} highContrast={false} variant="classic" />\n      <Button {...args} highContrast={false} variant="solid" />\n      <Button {...args} highContrast={false} variant="soft" />\n      <Button {...args} highContrast={false} variant="surface" />\n      <Button {...args} highContrast={false} variant="ghost" />\n    </div>\n    <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n      <Button {...args} variant="classic" highContrast />\n      <Button {...args} variant="solid" highContrast />\n      <Button {...args} variant="soft" highContrast />\n      <Button {...args} variant="surface" highContrast />\n      <Button {...args} variant="ghost" highContrast />\n    </div>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const WithIcons: Story = {
   name: 'With Icons',
   render: () => render(examples['With Icons']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, buttonPropDefs } from 'ljkui';\n\nconst args = { size: buttonPropDefs.size.default, disabled: false };\nreturn (\n  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>\n    <Button {...args}>\n      <ExampleIcon /> With icon\n    </Button>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Loading: Story = {
   name: 'Loading',
   render: () => render(examples['Loading']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, buttonPropDefs, Spinner, Typography } from 'ljkui';\n\nconst args = {\n  children: 'Button',\n  size: buttonPropDefs.size.default,\n  color: buttonPropDefs.color.default,\n  loading: true,\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', maxWidth: 650 }}>\n    <Typography.Text>\n      Buttons have their own <Typography.Code>loading</Typography.Code> prop that automatically composes a spinner.\n    </Typography.Text>\n    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>\n      <Button {...args} variant=\"classic\" />\n      <Button {...args} variant=\"solid\" />\n      <Button {...args} variant=\"soft\" />\n      <Button {...args} variant=\"surface\" />\n      <Button {...args} variant=\"ghost\" />\n    </div>\n    <Typography.Text>\n      If you have an icon inside the button, you can use the button`s <Typography.Code>disabled</Typography.Code>{' '}\n      state and wrap the icon in a standalone <Typography.Code>{`<Spinner>`}</Typography.Code> to achieve a more\n      sophisticated design.\n    </Typography.Text>\n    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>\n      <Button {...args} loading={false} variant=\"classic\">\n        <Spinner loading={false}>\n          <DownloadIcon size={16} />\n        </Spinner>\n        Download\n      </Button>\n      <Button {...args} loading={false} variant=\"classic\" disabled>\n        <Spinner loading>\n          <DownloadIcon size={16} />\n        </Spinner>\n        Download\n      </Button>\n    </div>\n    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>\n      <Button {...args} loading={false} variant=\"soft\">\n        <Spinner loading={false}>\n          <DownloadIcon size={16} />\n        </Spinner>\n        Download\n      </Button>\n      <Button {...args} loading={false} variant=\"soft\" disabled>\n        <Spinner loading>\n          <DownloadIcon size={16} />\n        </Spinner>\n        Download\n      </Button>\n    </div>\n    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>\n      <Button {...args} loading={false} variant=\"solid\">\n        <Spinner loading={false}>\n          <DownloadIcon size={16} />\n        </Spinner>\n        Download\n      </Button>\n      <Button {...args} loading={false} variant=\"solid\" disabled>\n        <Spinner loading>\n          <DownloadIcon size={16} />\n        </Spinner>\n        Download\n      </Button>\n    </div>\n    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>\n      <Button {...args} loading={false} variant=\"surface\">\n        <Spinner loading={false}>\n          <DownloadIcon size={16} />\n        </Spinner>\n        Download\n      </Button>\n      <Button {...args} loading={false} variant=\"surface\" disabled>\n        <Spinner loading>\n          <DownloadIcon size={16} />\n        </Spinner>\n        Download\n      </Button>\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const RenderAsDifferentElement: Story = {
   name: 'Render as Different Element',
   render: () => render(examples['Render as Different Element']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, buttonPropDefs, Typography } from \'ljkui\';\n\nconst args = {\n  size: buttonPropDefs.size.default,\n  variant: buttonPropDefs.variant.default,\n  color: buttonPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-4)\', maxWidth: 550 }}>\n    <Typography.Text>\n      Use the <Typography.Code>render</Typography.Code> prop to render the button as a different element, such as an\n      anchor tag for navigation links or a span for non-interactive styling.\n    </Typography.Text>\n    <Typography.Text weight="bold">As a link:</Typography.Text>\n    <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-2)\' }}>\n      <Button {...args} render={<a href="https://example.com" target="_blank" rel="noopener noreferrer" />}>\n        Visit Example\n      </Button>\n      <Button\n        {...args}\n        variant="soft"\n        render={<a href="https://example.com" target="_blank" rel="noopener noreferrer" />}\n      >\n        Soft Link\n      </Button>\n      <Button\n        {...args}\n        variant="ghost"\n        render={<a href="https://example.com" target="_blank" rel="noopener noreferrer" />}\n      >\n        Ghost Link\n      </Button>\n    </div>\n    <Typography.Text weight="bold">As a span:</Typography.Text>\n    <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-2)\' }}>\n      <Button {...args} render={<span />}>\n        Span Button\n      </Button>\n      <Button {...args} variant="soft" render={<span />}>\n        Soft Span\n      </Button>\n      <Button {...args} variant="surface" render={<span />}>\n        Surface Span\n      </Button>\n    </div>\n  </div>\n);',
+      },
+    },
+  },
 };

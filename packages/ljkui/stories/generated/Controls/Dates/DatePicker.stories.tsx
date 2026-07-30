@@ -40,15 +40,39 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Sizes']),
-  parameters: { docs: { description: { story: 'The canonical DatePicker. Same as “Sizes”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical DatePicker. Same as “Sizes”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: "import { DatePicker, datePickerPropDefs } from 'ljkui';\n\nconst args = {\n  size: datePickerPropDefs.size.default,\n  color: datePickerPropDefs.color.default,\n  minValue: parseDate('1901-01-03'),\n  defaultValue: parseDate('2020-02-03'),\n  maxValue: parseDate('2022-03-03'),\n  onChange: (date: DateValue | null) => console.log(date?.toString()),\n  'aria-label': 'Birth date',\n  isDisabled: false,\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>\n    <DatePicker {...args} size=\"1\" />\n    <DatePicker {...args} size=\"2\" />\n    <DatePicker {...args} size=\"3\" />\n    <DatePicker {...args} size=\"4\" />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Sizes: Story = {
   name: 'Sizes',
   render: () => render(examples['Sizes']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { DatePicker, datePickerPropDefs } from 'ljkui';\n\nconst args = {\n  size: datePickerPropDefs.size.default,\n  color: datePickerPropDefs.color.default,\n  minValue: parseDate('1901-01-03'),\n  defaultValue: parseDate('2020-02-03'),\n  maxValue: parseDate('2022-03-03'),\n  onChange: (date: DateValue | null) => console.log(date?.toString()),\n  'aria-label': 'Birth date',\n  isDisabled: false,\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>\n    <DatePicker {...args} size=\"1\" />\n    <DatePicker {...args} size=\"2\" />\n    <DatePicker {...args} size=\"3\" />\n    <DatePicker {...args} size=\"4\" />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Custom: Story = {
   name: 'Custom',
   render: () => render(examples['Custom']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, Calendar, Popover } from 'ljkui';\n\nconst [date, setDate] = React.useState<DateValue>(parseDate('2020-02-03'));\nconst [open, setOpen] = React.useState(true);\nreturn (\n  <div style={{ marginTop: -200 }}>\n    <Popover.Root open={open} onOpenChange={setOpen}>\n      <Popover.Trigger>\n        <Button size=\"3\">\n          {' '}\n          <CalendarIcon /> {date.toString()}\n        </Button>\n      </Popover.Trigger>\n      <Popover.Content variant=\"translucent\" align=\"center\" style={{ width: 'unset' }}>\n        <Calendar.Root\n          minValue={parseDate('2020-01-03')}\n          defaultValue={date}\n          maxValue={parseDate('2020-03-03')}\n          onChange={(value) => {\n            setDate(value);\n            setOpen(false);\n          }}\n        />\n      </Popover.Content>\n    </Popover.Root>\n  </div>\n);",
+      },
+    },
+  },
 };

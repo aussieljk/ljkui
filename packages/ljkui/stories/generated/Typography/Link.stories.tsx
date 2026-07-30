@@ -60,30 +60,78 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical Link. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Link. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { Link, linkPropDefs } from \'ljkui\';\n\nconst args = {\n  children: \'ljkui\',\n  href: \'https://ljkui.localhost/\',\n  target: \'_blank\',\n  color: linkPropDefs.color.default,\n  size: linkPropDefs.size.default,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\' }}>\n    <Link {...args} size="0" />\n    <Link {...args} size="1" />\n    <Link {...args} size="2" />\n    <Link {...args} size="3" />\n    <Link {...args} size="4" />\n    <Link {...args} size="5" />\n    <Link {...args} size="6" />\n    <Link {...args} size="7" />\n    <Link {...args} size="8" />\n    <Link {...args} size="9" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Link, linkPropDefs } from \'ljkui\';\n\nconst args = {\n  children: \'ljkui\',\n  href: \'https://ljkui.localhost/\',\n  target: \'_blank\',\n  color: linkPropDefs.color.default,\n  size: linkPropDefs.size.default,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\' }}>\n    <Link {...args} size="0" />\n    <Link {...args} size="1" />\n    <Link {...args} size="2" />\n    <Link {...args} size="3" />\n    <Link {...args} size="4" />\n    <Link {...args} size="5" />\n    <Link {...args} size="6" />\n    <Link {...args} size="7" />\n    <Link {...args} size="8" />\n    <Link {...args} size="9" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Link, linkPropDefs } from 'ljkui';\n\nconst args = {\n  children: 'ljkui',\n  href: 'https://ljkui.localhost/',\n  target: '_blank',\n  color: linkPropDefs.color.default,\n  size: linkPropDefs.size.default,\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>\n    <Link {...args} color=\"indigo\" />\n    <Link {...args} color=\"cyan\" />\n    <Link {...args} color=\"orange\" />\n    <Link {...args} color=\"rose\" />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Underline: Story = {
   name: 'Underline',
   render: () => render(examples['Underline']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Link, linkPropDefs } from 'ljkui';\n\nconst args = {\n  children: 'ljkui',\n  href: 'https://ljkui.localhost/',\n  target: '_blank',\n  color: linkPropDefs.color.default,\n  size: linkPropDefs.size.default,\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>\n    <Link {...args} underline=\"auto\" />\n    <Link {...args} underline=\"hover\" />\n    <Link {...args} underline=\"always\" />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: () => render(examples['High Contrast']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Link, linkPropDefs } from 'ljkui';\n\nconst args = {\n  children: 'ljkui',\n  href: 'https://ljkui.localhost/',\n  target: '_blank',\n  color: linkPropDefs.color.default,\n  size: linkPropDefs.size.default,\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column' }}>\n    <Link {...args} />\n    <Link {...args} highContrast />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const AsButton: Story = {
   name: 'As Button',
   render: () => render(examples['As Button']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Link } from 'ljkui';\n\n<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 16 }}>\n  {/* Link rendered as a button - useful for actions that look like links */}\n  <Link render={<button type=\"button\" onClick={() => alert('Button clicked!')} />} size=\"2\">\n    Click me (I&apos;m a button!)\n  </Link>\n</div>",
+      },
+    },
+  },
 };

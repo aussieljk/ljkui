@@ -45,20 +45,52 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical Textarea. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Textarea. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { Textarea, textareaPropDefs } from \'ljkui\';\n\nconst args = {\n  size: textareaPropDefs.size.default,\n  variant: textareaPropDefs.variant.default,\n  color: textareaPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\', maxWidth: 500 }}>\n    <Textarea placeholder="Reply to comment…" {...args} size="1" />\n    <Textarea placeholder="Reply to comment…" {...args} size="2" />\n    <Textarea placeholder="Reply to comment…" {...args} size="3" />\n    <Textarea placeholder="Reply to comment…" {...args} size="4" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Textarea, textareaPropDefs } from \'ljkui\';\n\nconst args = {\n  size: textareaPropDefs.size.default,\n  variant: textareaPropDefs.variant.default,\n  color: textareaPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\', maxWidth: 500 }}>\n    <Textarea placeholder="Reply to comment…" {...args} size="1" />\n    <Textarea placeholder="Reply to comment…" {...args} size="2" />\n    <Textarea placeholder="Reply to comment…" {...args} size="3" />\n    <Textarea placeholder="Reply to comment…" {...args} size="4" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Variant: Story = {
   name: 'Variant',
   render: () => render(examples['Variant']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Textarea, textareaPropDefs } from \'ljkui\';\n\nconst args = {\n  size: textareaPropDefs.size.default,\n  variant: textareaPropDefs.variant.default,\n  color: textareaPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\', maxWidth: 500 }}>\n    <Textarea placeholder="Reply to comment…" {...args} variant="surface" />\n    <Textarea placeholder="Reply to comment…" {...args} variant="soft" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Textarea, textareaPropDefs } from \'ljkui\';\n\nconst args = {\n  size: textareaPropDefs.size.default,\n  variant: textareaPropDefs.variant.default,\n  color: textareaPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\', maxWidth: 500 }}>\n    <Textarea placeholder="Reply to comment…" {...args} color="blue" />\n    <Textarea placeholder="Reply to comment…" {...args} color="green" />\n    <Textarea placeholder="Reply to comment…" {...args} color="red" />\n  </div>\n);',
+      },
+    },
+  },
 };

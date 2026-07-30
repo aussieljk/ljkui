@@ -30,4 +30,12 @@ type Story = StoryObj<typeof meta>;
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Kbd } from \'ljkui\';\n\nconst args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\' }}>\n    <div>\n      <Kbd {...args} size="1">\n        Shift + Tab\n      </Kbd>\n    </div>\n    <div>\n      <Kbd {...args} size="2">\n        Shift + Tab\n      </Kbd>\n    </div>\n    <div>\n      <Kbd {...args} size="3">\n        Shift + Tab\n      </Kbd>\n    </div>\n    <div>\n      <Kbd {...args} size="4">\n        Shift + Tab\n      </Kbd>\n    </div>\n    <div>\n      <Kbd {...args} size="5">\n        Shift + Tab\n      </Kbd>\n    </div>\n    <div>\n      <Kbd {...args} size="6">\n        Shift + Tab\n      </Kbd>\n    </div>\n    <div>\n      <Kbd {...args} size="7">\n        Shift + Tab\n      </Kbd>\n    </div>\n    <div>\n      <Kbd {...args} size="8">\n        Shift + Tab\n      </Kbd>\n    </div>\n    <div>\n      <Kbd {...args} size="9">\n        Shift + Tab\n      </Kbd>\n    </div>\n  </div>\n);',
+      },
+    },
+  },
 };

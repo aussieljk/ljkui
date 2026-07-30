@@ -36,20 +36,52 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['With links']),
-  parameters: { docs: { description: { story: 'The canonical Breadcrumb. Same as “With links”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Breadcrumb. Same as “With links”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { Breadcrumb, breadcrumbPropDefs } from \'ljkui\';\n\nconst args = {\n  color: breadcrumbPropDefs.color.default,\n};\nreturn (\n  <Breadcrumb.Root {...args}>\n    <Breadcrumb.Item render={<a href="#" />} nativeButton={false}>\n      Home\n    </Breadcrumb.Item>\n    <Breadcrumb.Item render={<a href="#user-profiles" />} nativeButton={false}>\n      User Profiles\n    </Breadcrumb.Item>\n    <Breadcrumb.Item>Products</Breadcrumb.Item>\n  </Breadcrumb.Root>\n);',
+      },
+    },
+  },
 };
 
 export const WithLinks: Story = {
   name: 'With links',
   render: () => render(examples['With links']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Breadcrumb, breadcrumbPropDefs } from \'ljkui\';\n\nconst args = {\n  color: breadcrumbPropDefs.color.default,\n};\nreturn (\n  <Breadcrumb.Root {...args}>\n    <Breadcrumb.Item render={<a href="#" />} nativeButton={false}>\n      Home\n    </Breadcrumb.Item>\n    <Breadcrumb.Item render={<a href="#user-profiles" />} nativeButton={false}>\n      User Profiles\n    </Breadcrumb.Item>\n    <Breadcrumb.Item>Products</Breadcrumb.Item>\n  </Breadcrumb.Root>\n);',
+      },
+    },
+  },
 };
 
 export const WithOnClick: Story = {
   name: 'With onClick',
   render: () => render(examples['With onClick']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Breadcrumb, breadcrumbPropDefs } from 'ljkui';\n\nconst args = {\n  color: breadcrumbPropDefs.color.default,\n};\nreturn (\n  <Breadcrumb.Root {...args}>\n    <Breadcrumb.Item onClick={() => alert('Home')}>Home</Breadcrumb.Item>\n    <Breadcrumb.Item onClick={() => alert('Products')}>Products</Breadcrumb.Item>\n    <Breadcrumb.Item onClick={() => alert('Sneaker Bot')}>Sneaker Bot</Breadcrumb.Item>\n  </Breadcrumb.Root>\n);",
+      },
+    },
+  },
 };
 
 export const Truncated: Story = {
   name: 'Truncated',
   render: () => render(examples['Truncated']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Breadcrumb, breadcrumbPropDefs } from \'ljkui\';\n\nconst args = {\n  color: breadcrumbPropDefs.color.default,\n};\nreturn (\n  <Breadcrumb.Root {...args}>\n    <Breadcrumb.Item render={<a href="#">Home</a>} />\n    <Breadcrumb.Dropdown>\n      <Breadcrumb.DropdownItem render={<a href="#">Products</a>} />\n      <Breadcrumb.DropdownItem render={<a href="#">Categories</a>} />\n      <Breadcrumb.DropdownItem render={<a href="#">Software</a>} />\n    </Breadcrumb.Dropdown>\n    <Breadcrumb.Item render={<a href="#">Bots</a>} />\n    <Breadcrumb.Item>Sneaker Bot</Breadcrumb.Item>\n  </Breadcrumb.Root>\n);',
+      },
+    },
+  },
 };

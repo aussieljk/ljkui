@@ -36,19 +36,51 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { InputOTP } from 'ljkui';\n\nconst otherArgs = {};\nreturn (\n  <div>\n    <InputOTP.Root\n      {...otherArgs}\n      maxLength={6}\n      render={({ slots }) => (\n        <>\n          <InputOTP.Group>\n            {slots.slice(0, 3).map((slot, index) => (\n              <InputOTP.Slot key={index} {...slot} />\n            ))}{' '}\n          </InputOTP.Group>\n          <InputOTP.Separator />\n          <InputOTP.Group>\n            {slots.slice(3).map((slot, index) => (\n              <InputOTP.Slot key={index} {...slot} />\n            ))}\n          </InputOTP.Group>\n        </>\n      )}\n    />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Pattern: Story = {
   name: 'Pattern',
   render: () => render(examples['Pattern']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { InputOTP } from 'ljkui';\n\nconst otherArgs = {};\nreturn (\n  <div>\n    <InputOTP.Root\n      {...otherArgs}\n      maxLength={6}\n      pattern={REGEXP_ONLY_DIGITS_AND_CHARS}\n      render={({ slots }) => (\n        <InputOTP.Group>\n          {slots.map((slot, index) => (\n            <InputOTP.Slot key={index} {...slot} />\n          ))}{' '}\n        </InputOTP.Group>\n      )}\n    />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Separator: Story = {
   name: 'Separator',
   render: () => render(examples['Separator']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { InputOTP } from 'ljkui';\n\nconst otherArgs = {};\nreturn (\n  <div>\n    <InputOTP.Root\n      {...otherArgs}\n      maxLength={6}\n      render={({ slots }) => (\n        <InputOTP.Group style={{ gap: 4 }}>\n          {slots.map((slot, index) => (\n            <React.Fragment key={index}>\n              <InputOTP.Slot style={{ borderRadius: 10 }} {...slot} />\n              {index !== slots.length - 1 && <InputOTP.Separator />}\n            </React.Fragment>\n          ))}{' '}\n        </InputOTP.Group>\n      )}\n    />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Controlled: Story = {
   name: 'Controlled',
   render: () => render(examples['Controlled']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { InputOTP, Typography } from 'ljkui';\n\nconst otherArgs = {};\nconst [value, setValue] = React.useState('');\n\nreturn (\n  <div>\n    <div style={{ marginBottom: 16 }}>\n      <InputOTP.Root\n        {...otherArgs}\n        maxLength={6}\n        value={value}\n        onChange={(value) => setValue(value)}\n        render={({ slots }) => (\n          <InputOTP.Group>\n            {slots.map((slot, index) => (\n              <InputOTP.Slot key={index} {...slot} />\n            ))}{' '}\n          </InputOTP.Group>\n        )}\n      />\n    </div>\n    <Typography.Text align=\"center\" color=\"gray\" size=\"2\" render={<div />}>\n      {value === '' ? <>Enter your one-time password.</> : <>You entered: {value}</>}\n    </Typography.Text>\n  </div>\n);",
+      },
+    },
+  },
 };

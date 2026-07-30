@@ -48,14 +48,38 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { AvatarGroup } from 'ljkui';\n\nconst args = {};\nconst [users, setUsers] = React.useState(availableUsers);\n\nreturn (\n  <div style={{ display: 'flex', gap: 'var(--space-2)' }}>\n    <AvatarGroup.Root {...args} size=\"3\">\n      {users.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n    <AvatarGroup.Root {...args} size=\"9\">\n      {users.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>\n      {availableUsers.map((user) => (\n        <Button\n          key={user.name}\n          onPress={() => {\n            setUsers((prev) =>\n              prev.map((a) => a.name).includes(user.name)\n                ? prev.filter((u) => u.name !== user.name)\n                : [...prev, user],\n            );\n          }}\n        >\n          Toggle {user.name}\n        </Button>\n      ))}\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { AvatarGroup } from \'ljkui\';\n\nconst args = {};\nreturn (\n  <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-4)\' }}>\n    <AvatarGroup.Root {...args} size="1">\n      {availableUsers.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n    <AvatarGroup.Root {...args} size="2">\n      {availableUsers.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n    <AvatarGroup.Root {...args} size="3">\n      {availableUsers.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n    <AvatarGroup.Root {...args} size="4">\n      {availableUsers.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n    <AvatarGroup.Root {...args} size="5">\n      {availableUsers.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n    <AvatarGroup.Root {...args} size="6">\n      {availableUsers.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n    <AvatarGroup.Root {...args} size="7">\n      {availableUsers.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n    <AvatarGroup.Root {...args} size="8">\n      {availableUsers.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n    <AvatarGroup.Root {...args} size="9">\n      {availableUsers.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { AvatarGroup } from \'ljkui\';\n\nconst args = {};\nreturn (\n  <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n    <AvatarGroup.Root size="5" {...args} color="indigo">\n      {availableUsers.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n    <AvatarGroup.Root size="5" {...args} color="cyan">\n      {availableUsers.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n    <AvatarGroup.Root size="5" {...args} color="orange">\n      {availableUsers.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n    <AvatarGroup.Root size="5" {...args} color="yellow">\n      {availableUsers.map((user) => (\n        <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />\n      ))}\n    </AvatarGroup.Root>\n  </div>\n);',
+      },
+    },
+  },
 };

@@ -23,14 +23,38 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Collapsible, Typography } from \'ljkui\';\n\n(\n    <Collapsible.Root>\n      <Collapsible.Trigger render={<Button variant="ghost" />}>Advanced options</Collapsible.Trigger>\n      <Collapsible.Content>\n        <Typography.Text size="2" color="gray">\n          Requests are retried three times before the job is marked as failed.\n        </Typography.Text>\n      </Collapsible.Content>\n    </Collapsible.Root>\n  )',
+      },
+    },
+  },
 };
 
 export const OpenByDefault: Story = {
   name: 'Open by default',
   render: () => render(examples['Open by default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Collapsible, Typography } from \'ljkui\';\n\n(\n    <Collapsible.Root defaultOpen>\n      <Collapsible.Trigger render={<Button variant="ghost" />}>Delivery details</Collapsible.Trigger>\n      <Collapsible.Content>\n        <Typography.Text size="2" color="gray">\n          Ships in 2–3 business days.\n        </Typography.Text>\n      </Collapsible.Content>\n    </Collapsible.Root>\n  )',
+      },
+    },
+  },
 };
 
 export const Disabled: Story = {
   name: 'Disabled',
   render: () => render(examples['Disabled']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Collapsible, Typography } from \'ljkui\';\n\n(\n    <Collapsible.Root disabled>\n      <Collapsible.Trigger render={<Button variant="ghost" />}>Unavailable</Collapsible.Trigger>\n      <Collapsible.Content>\n        <Typography.Text size="2">Never shown.</Typography.Text>\n      </Collapsible.Content>\n    </Collapsible.Root>\n  )',
+      },
+    },
+  },
 };

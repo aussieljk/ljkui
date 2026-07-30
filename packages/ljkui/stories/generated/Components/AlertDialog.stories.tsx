@@ -25,54 +25,142 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { AlertDialog, alertDialogContentPropDefs, Button } from \'ljkui\';\n\nconst args = { size: alertDialogContentPropDefs.size.default };\nreturn (\n  <AlertDialog.Root>\n    <AlertDialog.Trigger>\n      <Button variant="classic" color="red">\n        Revoke access\n      </Button>\n    </AlertDialog.Trigger>\n    <AlertDialog.Content style={{ maxWidth: 450 }} {...args}>\n      <AlertDialog.Title>Revoke access</AlertDialog.Title>\n      <AlertDialog.Description>\n        Are you sure? This application will no longer be accessible and any existing sessions will be expired.\n      </AlertDialog.Description>\n\n      <div\n        style={{ display: \'flex\', gap: \'var(--space-3)\', marginTop: \'var(--space-4)\', justifyContent: \'flex-end\' }}\n      >\n        <AlertDialog.Cancel>\n          <Button variant="soft" color="gray">\n            Cancel\n          </Button>\n        </AlertDialog.Cancel>\n        <AlertDialog.Action>\n          <Button variant="classic" color="red">\n            Revoke access\n          </Button>\n        </AlertDialog.Action>\n      </div>\n    </AlertDialog.Content>\n  </AlertDialog.Root>\n);',
+      },
+    },
+  },
 };
 
 export const Sizes: Story = {
   name: 'Sizes',
   render: () => render(examples['Sizes']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { AlertDialog, alertDialogContentPropDefs, Button } from \'ljkui\';\n\nconst args = { size: alertDialogContentPropDefs.size.default };\nreturn (\n  <div style={{ display: \'flex\', gap: \'var(--space-4)\' }}>\n    <AlertDialog.Root>\n      <AlertDialog.Trigger>\n        <Button variant="classic" color="red">\n          Size 1\n        </Button>\n      </AlertDialog.Trigger>\n      <AlertDialog.Content style={{ maxWidth: 350 }} {...args} size="1">\n        <AlertDialog.Title>Revoke access</AlertDialog.Title>\n        <AlertDialog.Description>\n          Are you sure? This application will no longer be accessible and any existing sessions will be expired.\n        </AlertDialog.Description>\n\n        <div style={{ display: \'flex\', gap: \'var(--space-2)\', justifyContent: \'flex-end\' }}>\n          <AlertDialog.Cancel>\n            <Button size="1" variant="soft" color="gray">\n              Cancel\n            </Button>\n          </AlertDialog.Cancel>\n          <AlertDialog.Action>\n            <Button size="1" variant="classic" color="red">\n              Revoke access\n            </Button>\n          </AlertDialog.Action>\n        </div>\n      </AlertDialog.Content>\n    </AlertDialog.Root>\n\n    <AlertDialog.Root>\n      <AlertDialog.Trigger>\n        <Button variant="classic" color="red">\n          Size 2\n        </Button>\n      </AlertDialog.Trigger>\n      <AlertDialog.Content style={{ maxWidth: 350 }} size="2">\n        <AlertDialog.Title>Revoke access</AlertDialog.Title>\n        <AlertDialog.Description>\n          Are you sure? This application will no longer be accessible and any existing sessions will be expired.\n        </AlertDialog.Description>\n\n        <div style={{ display: \'flex\', gap: \'var(--space-2)\', justifyContent: \'flex-end\' }}>\n          <AlertDialog.Cancel>\n            <Button size="2" variant="soft" color="gray">\n              Cancel\n            </Button>\n          </AlertDialog.Cancel>\n          <AlertDialog.Action>\n            <Button size="2" variant="classic" color="red">\n              Revoke access\n            </Button>\n          </AlertDialog.Action>\n        </div>\n      </AlertDialog.Content>\n    </AlertDialog.Root>\n\n    <AlertDialog.Root>\n      <AlertDialog.Trigger>\n        <Button variant="classic" color="red">\n          Size 3\n        </Button>\n      </AlertDialog.Trigger>\n      <AlertDialog.Content style={{ maxWidth: 350 }} size="3">\n        <AlertDialog.Title>Revoke access</AlertDialog.Title>\n        <AlertDialog.Description>\n          Are you sure? This application will no longer be accessible and any existing sessions will be expired.\n        </AlertDialog.Description>\n\n        <div style={{ display: \'flex\', gap: \'var(--space-3)\', justifyContent: \'flex-end\' }}>\n          <AlertDialog.Cancel>\n            <Button size="2" variant="soft" color="gray">\n              Cancel\n            </Button>\n          </AlertDialog.Cancel>\n          <AlertDialog.Action>\n            <Button size="2" variant="classic" color="red">\n              Revoke access\n            </Button>\n          </AlertDialog.Action>\n        </div>\n      </AlertDialog.Content>\n    </AlertDialog.Root>\n\n    <AlertDialog.Root>\n      <AlertDialog.Trigger>\n        <Button variant="classic" color="red">\n          Size 4\n        </Button>\n      </AlertDialog.Trigger>\n      <AlertDialog.Content style={{ maxWidth: 350 }} size="4">\n        <AlertDialog.Title>Revoke access</AlertDialog.Title>\n        <AlertDialog.Description>\n          Are you sure? This application will no longer be accessible and any existing sessions will be expired.\n        </AlertDialog.Description>\n\n        <div style={{ display: \'flex\', gap: \'var(--space-3)\', justifyContent: \'flex-end\' }}>\n          <AlertDialog.Cancel>\n            <Button size="3" variant="soft" color="gray">\n              Cancel\n            </Button>\n          </AlertDialog.Cancel>\n          <AlertDialog.Action>\n            <Button size="3" variant="classic" color="red">\n              Revoke access\n            </Button>\n          </AlertDialog.Action>\n        </div>\n      </AlertDialog.Content>\n    </AlertDialog.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const WithInsetContent: Story = {
   name: 'With inset content',
   render: () => render(examples['With inset content']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { AlertDialog, alertDialogContentPropDefs, Button, Inset, Table, Typography } from 'ljkui';\n\nconst args = { size: alertDialogContentPropDefs.size.default };\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-6)' }}>\n    <Typography.Text>\n      Use the <Typography.Code>Inset</Typography.Code> component to align content flush with the sides of the dialog\n      (bypassing its padding).\n    </Typography.Text>\n    <div>\n      <AlertDialog.Root>\n        <AlertDialog.Trigger>\n          <Button color=\"red\" variant=\"classic\">\n            Delete users\n          </Button>\n        </AlertDialog.Trigger>\n        <AlertDialog.Content style={{ maxWidth: 500 }} {...args}>\n          <AlertDialog.Title>Delete Users</AlertDialog.Title>\n          <AlertDialog.Description>\n            Are you sure you want to delete these users? This action is permanent and cannot be undone.\n          </AlertDialog.Description>\n\n          <Inset side=\"x\" style={{ marginTop: 'var(--space-5)', marginBottom: 'var(--space-5)' }}>\n            <Table.Root>\n              <Table.Header>\n                <Table.Row>\n                  <Table.ColumnHeaderCell>Full name</Table.ColumnHeaderCell>\n                  <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>\n                  <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>\n                </Table.Row>\n              </Table.Header>\n\n              <Table.Body>\n                <Table.Row>\n                  <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>\n                  <Table.Cell>danilo@example.com</Table.Cell>\n                  <Table.Cell>Developer</Table.Cell>\n                </Table.Row>\n\n                <Table.Row>\n                  <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>\n                  <Table.Cell>zahra@example.com</Table.Cell>\n                  <Table.Cell>Admin</Table.Cell>\n                </Table.Row>\n              </Table.Body>\n            </Table.Root>\n          </Inset>\n\n          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'flex-end' }}>\n            <AlertDialog.Cancel>\n              <Button variant=\"soft\" color=\"gray\">\n                Cancel\n              </Button>\n            </AlertDialog.Cancel>\n            <AlertDialog.Action>\n              <Button color=\"red\" variant=\"classic\">\n                Delete users\n              </Button>\n            </AlertDialog.Action>\n          </div>\n        </AlertDialog.Content>\n      </AlertDialog.Root>\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const UsingCloseComponent: Story = {
   name: 'Using Close Component',
   render: () => render(examples['Using Close Component']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { AlertDialog, alertDialogContentPropDefs, Button, Typography } from 'ljkui';\n\nconst args = { size: alertDialogContentPropDefs.size.default };\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>\n    <Typography.Text>\n      Base UI provides a single <Typography.Code>Close</Typography.Code> component instead of separate{' '}\n      <Typography.Code>Action</Typography.Code> and <Typography.Code>Cancel</Typography.Code>. Both close the dialog\n      - use styling to differentiate.\n    </Typography.Text>\n    <AlertDialog.Root>\n      <AlertDialog.Trigger>\n        <Button variant=\"classic\" color=\"red\">\n          Delete item\n        </Button>\n      </AlertDialog.Trigger>\n      <AlertDialog.Content style={{ maxWidth: 400 }} {...args}>\n        <AlertDialog.Title>Delete item?</AlertDialog.Title>\n        <AlertDialog.Description>This action cannot be undone.</AlertDialog.Description>\n        <div\n          style={{\n            display: 'flex',\n            gap: 'var(--space-3)',\n            marginTop: 'var(--space-4)',\n            justifyContent: 'flex-end',\n          }}\n        >\n          <AlertDialog.Close>\n            <Button variant=\"soft\" color=\"gray\">\n              Cancel\n            </Button>\n          </AlertDialog.Close>\n          <AlertDialog.Close>\n            <Button variant=\"classic\" color=\"red\">\n              Delete\n            </Button>\n          </AlertDialog.Close>\n        </div>\n      </AlertDialog.Content>\n    </AlertDialog.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const DetachedTriggers: Story = {
   name: 'Detached Triggers',
   render: () => render(examples['Detached Triggers']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { AlertDialog, alertDialogContentPropDefs, Button, Typography } from 'ljkui';\n\nconst args = { size: alertDialogContentPropDefs.size.default };\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>\n    <Typography.Text>\n      Use <Typography.Code>AlertDialog.createHandle()</Typography.Code> to control a dialog from a trigger located\n      outside the <Typography.Code>AlertDialog.Root</Typography.Code>.\n    </Typography.Text>\n\n    <AlertDialog.Trigger handle={detachedHandle}>\n      <Button color=\"red\" variant=\"classic\">\n        Detached Trigger\n      </Button>\n    </AlertDialog.Trigger>\n\n    <AlertDialog.Root handle={detachedHandle}>\n      <AlertDialog.Content {...args} style={{ maxWidth: 400 }}>\n        <AlertDialog.Title>Detached Alert Dialog</AlertDialog.Title>\n        <AlertDialog.Description>\n          This dialog is controlled by a trigger outside of its Root component.\n        </AlertDialog.Description>\n        <div\n          style={{\n            display: 'flex',\n            gap: 'var(--space-3)',\n            marginTop: 'var(--space-4)',\n            justifyContent: 'flex-end',\n          }}\n        >\n          <AlertDialog.Close>\n            <Button variant=\"soft\" color=\"gray\">\n              Cancel\n            </Button>\n          </AlertDialog.Close>\n          <AlertDialog.Close>\n            <Button variant=\"classic\" color=\"red\">\n              Confirm\n            </Button>\n          </AlertDialog.Close>\n        </div>\n      </AlertDialog.Content>\n    </AlertDialog.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const MultipleTriggersWithPayload: Story = {
   name: 'Multiple Triggers with Payload',
   render: () => render(examples['Multiple Triggers with Payload']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { AlertDialog, alertDialogContentPropDefs, Button, Typography } from 'ljkui';\n\nconst args = { size: alertDialogContentPropDefs.size.default };\nconst handle = React.useMemo(\n  () => AlertDialog.createHandle<{ item: string; action: 'archive' | 'delete' | 'reset' }>(),\n  [],\n);\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>\n    <Typography.Text>\n      Multiple triggers can control the same dialog. Each trigger can pass a different{' '}\n      <Typography.Code>payload</Typography.Code>. The payload type is inferred from the handle - TypeScript will\n      catch type errors.\n    </Typography.Text>\n\n    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>\n      {/* TypeScript will catch payload type errors because handle infers the type */}\n      <AlertDialog.Trigger handle={handle} payload={{ item: 'Project A', action: 'archive' }}>\n        <Button variant=\"soft\" color=\"orange\">\n          Archive Project A\n        </Button>\n      </AlertDialog.Trigger>\n      <AlertDialog.Trigger handle={handle} payload={{ item: 'Project B', action: 'delete' }}>\n        <Button variant=\"soft\" color=\"red\">\n          Delete Project B\n        </Button>\n      </AlertDialog.Trigger>\n      <AlertDialog.Trigger handle={handle} payload={{ item: 'All data', action: 'reset' }}>\n        <Button variant=\"classic\" color=\"red\">\n          Reset All Data\n        </Button>\n      </AlertDialog.Trigger>\n    </div>\n\n    <AlertDialog.Root handle={handle}>\n      {({ payload }) => (\n        <AlertDialog.Content {...args} style={{ maxWidth: 450 }}>\n          <AlertDialog.Title>\n            {payload?.action === 'archive' && 'Archive item?'}\n            {payload?.action === 'delete' && 'Delete item?'}\n            {payload?.action === 'reset' && 'Reset all data?'}\n          </AlertDialog.Title>\n          <AlertDialog.Description>\n            {payload?.action === 'archive' &&\n              `Are you sure you want to archive \"${payload?.item}\"? You can restore it later.`}\n            {payload?.action === 'delete' &&\n              `Are you sure you want to delete \"${payload?.item}\"? This cannot be undone.`}\n            {payload?.action === 'reset' &&\n              'This will permanently delete all your data. This action cannot be undone.'}\n          </AlertDialog.Description>\n          <div\n            style={{\n              display: 'flex',\n              gap: 'var(--space-3)',\n              marginTop: 'var(--space-4)',\n              justifyContent: 'flex-end',\n            }}\n          >\n            <AlertDialog.Close>\n              <Button variant=\"soft\" color=\"gray\">\n                Cancel\n              </Button>\n            </AlertDialog.Close>\n            <AlertDialog.Close>\n              <Button variant=\"classic\" color={payload?.action === 'archive' ? 'orange' : 'red'}>\n                {payload?.action === 'archive' && 'Archive'}\n                {payload?.action === 'delete' && 'Delete'}\n                {payload?.action === 'reset' && 'Reset'}\n              </Button>\n            </AlertDialog.Close>\n          </div>\n        </AlertDialog.Content>\n      )}\n    </AlertDialog.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const ControlledMode: Story = {
   name: 'Controlled Mode',
   render: () => render(examples['Controlled Mode']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { AlertDialog, alertDialogContentPropDefs, Button, Typography } from 'ljkui';\n\nconst args = { size: alertDialogContentPropDefs.size.default };\nconst [open, setOpen] = React.useState(false);\nconst [pendingAction, setPendingAction] = React.useState<string | null>(null);\n\nconst handleAction = (action: string) => {\n  setPendingAction(action);\n  setOpen(true);\n};\n\nconst handleConfirm = () => {\n  console.log(`Confirmed action: ${pendingAction}`);\n  setOpen(false);\n  setPendingAction(null);\n};\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>\n    <Typography.Text>\n      Use <Typography.Code>open</Typography.Code> and <Typography.Code>onOpenChange</Typography.Code> for fully\n      controlled mode.\n    </Typography.Text>\n\n    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>\n      <Button onClick={() => handleAction('save')} variant=\"soft\">\n        Save Changes\n      </Button>\n      <Button onClick={() => handleAction('discard')} variant=\"soft\" color=\"red\">\n        Discard Changes\n      </Button>\n    </div>\n\n    <AlertDialog.Root open={open} onOpenChange={setOpen}>\n      <AlertDialog.Content {...args} style={{ maxWidth: 400 }}>\n        <AlertDialog.Title>{pendingAction === 'save' ? 'Save changes?' : 'Discard changes?'}</AlertDialog.Title>\n        <AlertDialog.Description>\n          {pendingAction === 'save'\n            ? 'Your changes will be saved permanently.'\n            : 'All unsaved changes will be lost.'}\n        </AlertDialog.Description>\n        <div\n          style={{\n            display: 'flex',\n            gap: 'var(--space-3)',\n            marginTop: 'var(--space-4)',\n            justifyContent: 'flex-end',\n          }}\n        >\n          <AlertDialog.Close>\n            <Button variant=\"soft\" color=\"gray\">\n              Cancel\n            </Button>\n          </AlertDialog.Close>\n          <Button variant=\"classic\" color={pendingAction === 'save' ? 'green' : 'red'} onClick={handleConfirm}>\n            {pendingAction === 'save' ? 'Save' : 'Discard'}\n          </Button>\n        </div>\n      </AlertDialog.Content>\n    </AlertDialog.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const ActionsRef: Story = {
   name: 'Actions Ref',
   render: () => render(examples['Actions Ref']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { AlertDialog, alertDialogContentPropDefs, Button, Typography } from 'ljkui';\n\nconst args = { size: alertDialogContentPropDefs.size.default };\nconst actionsRef = React.useRef<AlertDialog.Actions>(null!);\nconst [isDeleting, setIsDeleting] = React.useState(false);\n\nconst handleDelete = async () => {\n  setIsDeleting(true);\n  // Simulate async operation\n  await new Promise((resolve) => setTimeout(resolve, 1500));\n  setIsDeleting(false);\n  // Close dialog programmatically after operation completes\n  actionsRef.current?.close();\n};\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>\n    <Typography.Text>\n      Use <Typography.Code>actionsRef</Typography.Code> to close the dialog programmatically after an async\n      operation.\n    </Typography.Text>\n\n    <AlertDialog.Root actionsRef={actionsRef}>\n      <AlertDialog.Trigger>\n        <Button variant=\"classic\" color=\"red\">\n          Delete with async operation\n        </Button>\n      </AlertDialog.Trigger>\n      <AlertDialog.Content {...args} style={{ maxWidth: 400 }}>\n        <AlertDialog.Title>Delete item?</AlertDialog.Title>\n        <AlertDialog.Description>\n          This will permanently delete the item. The dialog will close automatically when the operation completes.\n        </AlertDialog.Description>\n        <div\n          style={{\n            display: 'flex',\n            gap: 'var(--space-3)',\n            marginTop: 'var(--space-4)',\n            justifyContent: 'flex-end',\n          }}\n        >\n          <AlertDialog.Close>\n            <Button variant=\"soft\" color=\"gray\" disabled={isDeleting}>\n              Cancel\n            </Button>\n          </AlertDialog.Close>\n          <Button variant=\"classic\" color=\"red\" onClick={handleDelete} disabled={isDeleting}>\n            {isDeleting ? 'Deleting...' : 'Delete'}\n          </Button>\n        </div>\n      </AlertDialog.Content>\n    </AlertDialog.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const InitialFocus: Story = {
   name: 'Initial Focus',
   render: () => render(examples['Initial Focus']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { AlertDialog, alertDialogContentPropDefs, Button, Typography } from 'ljkui';\n\nconst args = { size: alertDialogContentPropDefs.size.default };\nconst cancelRef = React.useRef<HTMLButtonElement>(null);\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>\n    <Typography.Text>\n      Use <Typography.Code>initialFocus</Typography.Code> to control which element receives focus when the dialog\n      opens. For destructive actions, focus the cancel button to prevent accidental confirmation.\n    </Typography.Text>\n\n    <AlertDialog.Root>\n      <AlertDialog.Trigger>\n        <Button variant=\"classic\" color=\"red\">\n          Delete account\n        </Button>\n      </AlertDialog.Trigger>\n      <AlertDialog.Content {...args} style={{ maxWidth: 400 }} initialFocus={cancelRef}>\n        <AlertDialog.Title>Delete your account?</AlertDialog.Title>\n        <AlertDialog.Description>\n          This will permanently delete your account and all associated data. This action cannot be undone.\n        </AlertDialog.Description>\n        <div\n          style={{\n            display: 'flex',\n            gap: 'var(--space-3)',\n            marginTop: 'var(--space-4)',\n            justifyContent: 'flex-end',\n          }}\n        >\n          <AlertDialog.Close>\n            <Button ref={cancelRef} variant=\"soft\" color=\"gray\">\n              Cancel\n            </Button>\n          </AlertDialog.Close>\n          <AlertDialog.Close>\n            <Button variant=\"classic\" color=\"red\">\n              Delete account\n            </Button>\n          </AlertDialog.Close>\n        </div>\n      </AlertDialog.Content>\n    </AlertDialog.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const FinalFocus: Story = {
   name: 'Final Focus',
   render: () => render(examples['Final Focus']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { AlertDialog, alertDialogContentPropDefs, Button, Input, Typography } from 'ljkui';\n\nconst args = { size: alertDialogContentPropDefs.size.default };\nconst inputRef = React.useRef<HTMLInputElement>(null);\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>\n    <Typography.Text>\n      Use <Typography.Code>finalFocus</Typography.Code> to control where focus returns when the dialog closes.\n    </Typography.Text>\n\n    <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>\n      <AlertDialog.Root>\n        <AlertDialog.Trigger>\n          <Button variant=\"soft\" color=\"red\">\n            Clear input\n          </Button>\n        </AlertDialog.Trigger>\n        <AlertDialog.Content {...args} style={{ maxWidth: 400 }} finalFocus={inputRef}>\n          <AlertDialog.Title>Clear input?</AlertDialog.Title>\n          <AlertDialog.Description>\n            This will clear the text you entered. Focus will return to the input field after closing.\n          </AlertDialog.Description>\n          <div\n            style={{\n              display: 'flex',\n              gap: 'var(--space-3)',\n              marginTop: 'var(--space-4)',\n              justifyContent: 'flex-end',\n            }}\n          >\n            <AlertDialog.Close>\n              <Button variant=\"soft\" color=\"gray\">\n                Cancel\n              </Button>\n            </AlertDialog.Close>\n            <AlertDialog.Close>\n              <Button variant=\"classic\" color=\"red\">\n                Clear\n              </Button>\n            </AlertDialog.Close>\n          </div>\n        </AlertDialog.Content>\n      </AlertDialog.Root>\n      <Input.Control ref={inputRef} placeholder=\"Type something...\" style={{ width: 200 }} />\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const OpenChangeComplete: Story = {
   name: 'Open Change Complete',
   render: () => render(examples['Open Change Complete']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { AlertDialog, alertDialogContentPropDefs, Button, Typography } from 'ljkui';\n\nconst args = { size: alertDialogContentPropDefs.size.default };\nconst [logs, setLogs] = React.useState<string[]>([]);\n\nconst addLog = (message: string) => {\n  const time = new Date().toLocaleTimeString('en-US', {\n    hour12: false,\n    hour: '2-digit',\n    minute: '2-digit',\n    second: '2-digit',\n    fractionalSecondDigits: 3,\n  });\n  setLogs((prev) => [`[${time}] ${message}`, ...prev].slice(0, 10));\n};\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>\n    <Typography.Text>\n      Compare <Typography.Code>onOpenChange</Typography.Code> (fires immediately) vs{' '}\n      <Typography.Code>onOpenChangeComplete</Typography.Code> (fires after animations).\n    </Typography.Text>\n\n    <AlertDialog.Root\n      onOpenChange={(open) => addLog(`onOpenChange: ${open ? 'opening' : 'closing'}`)}\n      onOpenChangeComplete={(open) => addLog(`onOpenChangeComplete: ${open ? 'opened' : 'closed'}`)}\n    >\n      <AlertDialog.Trigger>\n        <Button variant=\"classic\" color=\"red\">\n          Open Alert Dialog\n        </Button>\n      </AlertDialog.Trigger>\n      <AlertDialog.Content {...args} style={{ maxWidth: 400 }}>\n        <AlertDialog.Title>Confirm action</AlertDialog.Title>\n        <AlertDialog.Description>Watch the event log to see callback timing.</AlertDialog.Description>\n        <div\n          style={{\n            display: 'flex',\n            gap: 'var(--space-3)',\n            marginTop: 'var(--space-4)',\n            justifyContent: 'flex-end',\n          }}\n        >\n          <AlertDialog.Close>\n            <Button variant=\"soft\" color=\"gray\">\n              Cancel\n            </Button>\n          </AlertDialog.Close>\n          <AlertDialog.Close>\n            <Button variant=\"classic\" color=\"red\">\n              Confirm\n            </Button>\n          </AlertDialog.Close>\n        </div>\n      </AlertDialog.Content>\n    </AlertDialog.Root>\n\n    <div\n      style={{\n        padding: 'var(--space-3)',\n        background: 'var(--gray-alpha-100)',\n        borderRadius: 'var(--radius-2)',\n        fontFamily: 'monospace',\n        fontSize: 'var(--font-size-1)',\n        minHeight: 150,\n        width: 400,\n      }}\n    >\n      <Typography.Text size=\"1\" weight=\"medium\" style={{ marginBottom: 8, display: 'block' }}>\n        Event Log:\n      </Typography.Text>\n      {logs.length === 0 ? (\n        <Typography.Text size=\"1\" color=\"gray\">\n          Open/close the dialog to see events...\n        </Typography.Text>\n      ) : (\n        logs.map((log, i) => (\n          <div key={i} style={{ color: log.includes('Complete') ? 'var(--accent-900)' : 'var(--gray-900)' }}>\n            {log}\n          </div>\n        ))\n      )}\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };

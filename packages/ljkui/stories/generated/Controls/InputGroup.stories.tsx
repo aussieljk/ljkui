@@ -22,14 +22,38 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { InputGroup } from \'ljkui\';\n\n(\n    <InputGroup.Root style={{ maxWidth: 320 }}>\n      <InputGroup.Addon>\n        <SearchIcon />\n      </InputGroup.Addon>\n      <InputGroup.Input placeholder="Search…" />\n    </InputGroup.Root>\n  )',
+      },
+    },
+  },
 };
 
 export const WithUnit: Story = {
   name: 'With unit',
   render: () => render(examples['With unit']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { InputGroup } from \'ljkui\';\n\n(\n    <InputGroup.Root style={{ maxWidth: 240 }}>\n      <InputGroup.Addon>\n        <InputGroup.Text>$</InputGroup.Text>\n      </InputGroup.Addon>\n      <InputGroup.Input placeholder="0.00" inputMode="decimal" />\n      <InputGroup.Addon>\n        <InputGroup.Text>USD</InputGroup.Text>\n      </InputGroup.Addon>\n    </InputGroup.Root>\n  )',
+      },
+    },
+  },
 };
 
 export const Sizes: Story = {
   name: 'Sizes',
   render: () => render(examples['Sizes']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { InputGroup, VStack } from 'ljkui';\n\n(\n        <InputGroup.Root key={size} size={size}>\n          <InputGroup.Addon>\n            <SearchIcon />\n          </InputGroup.Addon>\n          <InputGroup.Input placeholder={`Size ${size}`} />\n        </InputGroup.Root>\n      ))}\n    </VStack>\n  )",
+      },
+    },
+  },
 };

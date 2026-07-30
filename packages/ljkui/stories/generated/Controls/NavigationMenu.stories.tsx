@@ -40,4 +40,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { NavigationMenu } from \'ljkui\';\n\n(\n    <NavigationMenu.Root>\n      <NavigationMenu.List>\n        <NavigationMenu.Item>\n          <NavigationMenu.Trigger>Product</NavigationMenu.Trigger>\n          <NavigationMenu.Content>\n            <NavigationMenu.Link href="#overview">Overview</NavigationMenu.Link>\n            <NavigationMenu.Link href="#pricing">Pricing</NavigationMenu.Link>\n            <NavigationMenu.Link href="#changelog">Changelog</NavigationMenu.Link>\n          </NavigationMenu.Content>\n        </NavigationMenu.Item>\n\n        <NavigationMenu.Item>\n          <NavigationMenu.Trigger>Developers</NavigationMenu.Trigger>\n          <NavigationMenu.Content>\n            <NavigationMenu.Link href="#docs">Documentation</NavigationMenu.Link>\n            <NavigationMenu.Link href="#api">API reference</NavigationMenu.Link>\n          </NavigationMenu.Content>\n        </NavigationMenu.Item>\n\n        <NavigationMenu.Item>\n          <NavigationMenu.Link href="#support">Support</NavigationMenu.Link>\n        </NavigationMenu.Item>\n      </NavigationMenu.List>\n\n      <NavigationMenu.Viewport />\n    </NavigationMenu.Root>\n  )',
+      },
+    },
+  },
 };

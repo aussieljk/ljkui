@@ -48,20 +48,52 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical CircularProgress. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical CircularProgress. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: "import { CircularProgress, circularProgressPropDefs } from 'ljkui';\n\nconst args = {\n  size: circularProgressPropDefs.size.default,\n  color: circularProgressPropDefs.color.default,\n  value: 40,\n  max: 100,\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>\n    {circularProgressPropDefs.size.values.map((size) => (\n      <CircularProgress {...args} size={size} key={size} />\n    ))}\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { CircularProgress, circularProgressPropDefs } from 'ljkui';\n\nconst args = {\n  size: circularProgressPropDefs.size.default,\n  color: circularProgressPropDefs.color.default,\n  value: 40,\n  max: 100,\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>\n    {circularProgressPropDefs.size.values.map((size) => (\n      <CircularProgress {...args} size={size} key={size} />\n    ))}\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { CircularProgress, circularProgressPropDefs } from \'ljkui\';\n\nconst args = {\n  size: circularProgressPropDefs.size.default,\n  color: circularProgressPropDefs.color.default,\n  value: 40,\n  max: 100,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\', width: 300 }}>\n    <CircularProgress {...args} color="indigo" value={15} />\n    <CircularProgress {...args} color="cyan" value={50} />\n    <CircularProgress {...args} color="orange" value={95} />\n    <CircularProgress {...args} color="rose" value={100} />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: () => render(examples['High Contrast']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { CircularProgress, circularProgressPropDefs } from 'ljkui';\n\nconst args = {\n  size: circularProgressPropDefs.size.default,\n  color: circularProgressPropDefs.color.default,\n  value: 40,\n  max: 100,\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-2)' }}>\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>\n      <CircularProgress {...args} highContrast={false} />\n    </div>\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>\n      <CircularProgress {...args} highContrast />\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };

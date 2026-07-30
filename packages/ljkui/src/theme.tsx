@@ -12,6 +12,45 @@ import { WithThemeEvents } from './use-theme-events';
 
 const noop = () => {};
 
+// `@types/node` isn't a dependency, but bundlers still statically replace `process.env.NODE_ENV`.
+declare const process: { env: { NODE_ENV?: string } } | undefined;
+
+// Fires at most once per page load, even across root Theme remounts.
+let didWarnUnlayeredReset = false;
+
+// Dev-only: the #1 silent setup failure is importing `ljkui/styles.css` without the
+// Tailwind `@layer` wrapper, which leaves the global reset unlayered so it beats every
+// utility and flattens all headings site-wide. Detect the symptom with an offscreen
+// probe `<h1>` and warn once with the fix.
+function warnIfHeadingsFlattened() {
+  if (didWarnUnlayeredReset) return;
+  didWarnUnlayeredReset = true;
+  try {
+    const container = document.createElement('div');
+    container.className = 'ljkui';
+    container.style.cssText = 'position:absolute;left:-9999px;top:0;visibility:hidden';
+    const h1 = document.createElement('h1');
+    h1.textContent = 'Probe';
+    const span = document.createElement('span');
+    span.textContent = 'Probe';
+    container.append(h1, span);
+    document.body.append(container);
+
+    const headingSize = parseFloat(getComputedStyle(h1).fontSize);
+    const baseSize = parseFloat(getComputedStyle(span).fontSize);
+    container.remove();
+
+    // A browser-default <h1> is ~2em; the reset collapses it to the inherited base.
+    if (baseSize > 0 && headingSize / baseSize < 1.2) {
+      console.warn(
+        "ljkui: headings look flattened — this usually means ljkui/styles.css was imported without the Tailwind @layer wrapper. Import it as `@import 'ljkui/styles.css' layer(ljkui)` and declare `@layer theme, base, ljkui, components, utilities;` first. See https://github.com/aussieljk/ljkui (Installation & Layers guide).",
+      );
+    }
+  } catch {
+    /* never throw in a consumer app */
+  }
+}
+
 interface ThemeChangeHandlers {
   onAppearanceChange: (appearance: ThemeOptions['appearance']) => void;
   onAccentColorChange: (accentColor: ThemeOptions['accentColor']) => void;
@@ -101,6 +140,13 @@ const ThemeRoot = (props: ThemeRootProps) => {
 
   // Client-side only changes when `appearance` prop is changed while developing
   React.useEffect(() => updateThemeAppearanceClass(appearanceProp), [appearanceProp]);
+
+  // Dev-only, browser-only, root-only: warn once if the global reset is unlayered.
+  React.useEffect(() => {
+    if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production' && typeof document !== 'undefined') {
+      warnIfHeadingsFlattened();
+    }
+  }, []);
 
   const resolvedGrayColor = grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor;
 

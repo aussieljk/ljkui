@@ -54,25 +54,65 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Variant']),
-  parameters: { docs: { description: { story: 'The canonical Code. Same as “Variant”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Code. Same as “Variant”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: "import { codePropDefs } from 'ljkui';\n\nconst args = { children: 'Code', size: codePropDefs.size.default };\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>\n    <Code {...args} variant=\"solid\">\n      console.log()\n    </Code>\n    <Code {...args} variant=\"soft\">\n      console.log()\n    </Code>\n    <Code {...args} variant=\"outline\">\n      console.log()\n    </Code>\n    <Code {...args} variant=\"ghost\">\n      console.log()\n    </Code>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Variant: Story = {
   name: 'Variant',
   render: () => render(examples['Variant']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { codePropDefs } from 'ljkui';\n\nconst args = { children: 'Code', size: codePropDefs.size.default };\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>\n    <Code {...args} variant=\"solid\">\n      console.log()\n    </Code>\n    <Code {...args} variant=\"soft\">\n      console.log()\n    </Code>\n    <Code {...args} variant=\"outline\">\n      console.log()\n    </Code>\n    <Code {...args} variant=\"ghost\">\n      console.log()\n    </Code>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'const args = { children: \'Code\' };\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\' }}>\n    <Code {...args} size="1">\n      console.log()\n    </Code>\n    <Code {...args} size="2">\n      console.log()\n    </Code>\n    <Code {...args} size="3">\n      console.log()\n    </Code>\n    <Code {...args} size="4">\n      console.log()\n    </Code>\n    <Code {...args} size="5">\n      console.log()\n    </Code>\n    <Code {...args} size="6">\n      console.log()\n    </Code>\n    <Code {...args} size="7">\n      console.log()\n    </Code>\n    <Code {...args} size="8">\n      console.log()\n    </Code>\n    <Code {...args} size="9">\n      console.log()\n    </Code>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { codePropDefs } from 'ljkui';\n\nconst args = { children: 'Code', size: codePropDefs.size.default };\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>\n    <Code {...args} color=\"indigo\">\n      console.log()\n    </Code>\n    <Code {...args} color=\"rose\">\n      console.log()\n    </Code>\n    <Code {...args} color=\"cyan\">\n      console.log()\n    </Code>\n    <Code {...args} color=\"orange\">\n      console.log()\n    </Code>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: () => render(examples['High Contrast']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { codePropDefs } from 'ljkui';\n\nconst args = { children: 'Code', size: codePropDefs.size.default };\nreturn (\n  <div style={{ display: 'flex', gap: 'var(--space-3)' }}>\n    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>\n      <Code {...args} variant=\"solid\">\n        console.log()\n      </Code>\n      <Code {...args} variant=\"soft\">\n        console.log()\n      </Code>\n      <Code {...args} variant=\"outline\">\n        console.log()\n      </Code>\n      <Code {...args} variant=\"ghost\">\n        console.log()\n      </Code>\n    </div>\n\n    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>\n      <Code {...args} variant=\"solid\" highContrast>\n        console.log()\n      </Code>\n      <Code {...args} variant=\"soft\" highContrast>\n        console.log()\n      </Code>\n      <Code {...args} variant=\"outline\" highContrast>\n        console.log()\n      </Code>\n      <Code {...args} variant=\"ghost\" highContrast>\n        console.log()\n      </Code>\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };

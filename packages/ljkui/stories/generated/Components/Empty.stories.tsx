@@ -22,89 +22,233 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Empty, Link } from \'ljkui\';\n\n<Empty.Root>\n  <Empty.Header>\n    <Empty.Media>\n      <FolderPlus size={24} />\n    </Empty.Media>\n    <Empty.Title>No projects found</Empty.Title>\n    <Empty.Description>\n      Projects help you organize your work. Get started by creating a new project or importing an existing one.\n    </Empty.Description>\n  </Empty.Header>\n  <Empty.Actions\n    style={{\n      display: \'flex\',\n      flexDirection: \'row\',\n    }}\n  >\n    <Button variant="surface">Clear search</Button>\n    <Button variant="solid">Create project</Button>\n  </Empty.Actions>\n  <Link underline="always" href="#" size="2">\n    Learn more\n  </Link>\n</Empty.Root>',
+      },
+    },
+  },
 };
 
 export const SearchResults: Story = {
   name: 'SearchResults',
   render: () => render(examples['SearchResults']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Empty } from 'ljkui';\n\n<Empty.Root>\n  <Empty.Header>\n    <Empty.Media>\n      <Frown size={24} />\n    </Empty.Media>\n    <Empty.Title>No results found</Empty.Title>\n    <Empty.Description>\n      We couldn't find anything matching your search. Try using different keywords.\n    </Empty.Description>\n  </Empty.Header>\n</Empty.Root>",
+      },
+    },
+  },
 };
 
 export const Minimal: Story = {
   name: 'Minimal',
   render: () => render(examples['Minimal']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Empty } from 'ljkui';\n\n<Empty.Root>\n  <Empty.Header>\n    <Empty.Title>Nothing here yet</Empty.Title>\n    <Empty.Description>This section will be populated once you add some items.</Empty.Description>\n  </Empty.Header>\n</Empty.Root>",
+      },
+    },
+  },
 };
 
 export const Colors: Story = {
   name: 'Colors',
   render: () => render(examples['Colors']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Empty } from \'ljkui\';\n\n<div style={{ display: \'grid\', gridTemplateColumns: \'repeat(2, 1fr)\', gap: 16 }}>\n  <Empty.Root>\n    <Empty.Header>\n      <Empty.Media color="blue">\n        <File size={24} />\n      </Empty.Media>\n      <Empty.Title>No documents</Empty.Title>\n      <Empty.Description>Create your first document to get started.</Empty.Description>\n    </Empty.Header>\n    <Empty.Actions>\n      <Button variant="surface" color="blue">\n        <Plus size={16} />\n        New document\n      </Button>\n    </Empty.Actions>\n  </Empty.Root>\n\n  <Empty.Root>\n    <Empty.Header>\n      <Empty.Media color="green">\n        <Plus size={16} />\n      </Empty.Media>\n      <Empty.Title>No deployments</Empty.Title>\n      <Empty.Description>Deploy your first app to see it here.</Empty.Description>\n    </Empty.Header>\n    <Empty.Actions>\n      <Button variant="soft" color="green">\n        Deploy now\n      </Button>\n    </Empty.Actions>\n  </Empty.Root>\n\n  <Empty.Root>\n    <Empty.Header>\n      <Empty.Media color="lime">\n        <Bell size={24} />\n      </Empty.Media>\n      <Empty.Title>No notifications</Empty.Title>\n      <Empty.Description>Configure alerts to stay informed.</Empty.Description>\n    </Empty.Header>\n    <Empty.Actions>\n      <Button variant="solid" color="lime">\n        Set up alerts\n      </Button>\n    </Empty.Actions>\n  </Empty.Root>\n\n  <Empty.Root>\n    <Empty.Header>\n      <Empty.Media color="danger">\n        <Frown size={24} />\n      </Empty.Media>\n      <Empty.Title>Too many errors</Empty.Title>\n      <Empty.Description>Your application has critical issues that need attention.</Empty.Description>\n    </Empty.Header>\n    <Empty.Actions>\n      <Button variant="solid" color="danger">\n        View errors\n      </Button>\n    </Empty.Actions>\n  </Empty.Root>\n</div>',
+      },
+    },
+  },
 };
 
 export const Emojis: Story = {
   name: 'Emojis',
   render: () => render(examples['Emojis']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, Empty, getColorForEmoji } from 'ljkui';\n\nconst emojis = [\n  {\n    emoji: '💕',\n    title: 'No favorites',\n    description: 'Save items you love for quick access.',\n    action: 'Browse items',\n  },\n  {\n    emoji: '🎉',\n    title: 'No celebrations',\n    description: 'Complete milestones to earn achievements.',\n    action: 'View goals',\n  },\n  {\n    emoji: '💩',\n    title: 'No bugs found',\n    description: 'Your code is squeaky clean. Nice work!',\n    action: 'Run tests',\n  },\n  {\n    emoji: '🌱',\n    title: 'No projects',\n    description: 'Plant the seed for your next big idea.',\n    action: 'Start project',\n  },\n];\n\nreturn (\n  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>\n    {emojis.map(({ emoji, title, description, action }) => {\n      const color = getColorForEmoji(emoji) ?? 'gray';\n      return (\n        <Empty.Root key={emoji}>\n          <Empty.Header>\n            <Empty.Media color={color}>{emoji}</Empty.Media>\n            <Empty.Title>{title}</Empty.Title>\n            <Empty.Description>{description}</Empty.Description>\n          </Empty.Header>\n          <Empty.Actions>\n            <Button variant=\"solid\" color={color}>\n              {action}\n            </Button>\n          </Empty.Actions>\n        </Empty.Root>\n      );\n    })}\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const ShinyEmojis: Story = {
   name: 'ShinyEmojis',
   render: () => render(examples['ShinyEmojis']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, Empty, getColorForEmoji, Shine } from 'ljkui';\n\nconst emojis = [\n  {\n    emoji: '💕',\n    title: 'No favorites',\n    description: 'Save items you love for quick access.',\n    action: 'Browse items',\n  },\n  {\n    emoji: '🎉',\n    title: 'No celebrations',\n    description: 'Complete milestones to earn achievements.',\n    action: 'View goals',\n  },\n  {\n    emoji: '💩',\n    title: 'No bugs found',\n    description: 'Your code is squeaky clean. Nice work!',\n    action: 'Run tests',\n  },\n  {\n    emoji: '🌱',\n    title: 'No projects',\n    description: 'Plant the seed for your next big idea.',\n    action: 'Start project',\n  },\n];\n\nreturn (\n  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>\n    {emojis.map(({ emoji, title, description, action }) => {\n      const color = getColorForEmoji(emoji) ?? 'gray';\n      return (\n        <Empty.Root key={emoji}>\n          <Shine\n            style={{\n              fontSize: 64,\n              lineHeight: 1,\n            }}\n          >\n            {emoji}\n          </Shine>\n          <Empty.Header>\n            <Empty.Title>{title}</Empty.Title>\n            <Empty.Description>{description}</Empty.Description>\n          </Empty.Header>\n\n          <Empty.Actions>\n            <Button variant=\"solid\" color={color}>\n              {action}\n            </Button>\n          </Empty.Actions>\n        </Empty.Root>\n      );\n    })}\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const WithAvatar: Story = {
   name: 'WithAvatar',
   render: () => render(examples['WithAvatar']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Avatar, Button, Empty } from \'ljkui\';\n\n<Empty.Root>\n  <Empty.Header>\n    <Empty.Media variant="ghost">\n      <Avatar\n        size="5"\n        fallback="Luna Rose"\n        color="pink"\n        src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=256&h=256&q=70&crop=faces&fit=crop"\n      />\n    </Empty.Media>\n    <Empty.Title>User Offline</Empty.Title>\n    <Empty.Description>\n      This user is currently offline. You can leave a message to notify them or try again later.\n    </Empty.Description>\n  </Empty.Header>\n  <Empty.Actions>\n    <Button>\n      <MessageCircle size={16} />\n      Leave Message\n    </Button>\n  </Empty.Actions>\n</Empty.Root>',
+      },
+    },
+  },
 };
 
 export const WithAvatarStack: Story = {
   name: 'WithAvatarStack',
   render: () => render(examples['WithAvatarStack']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Avatar, AvatarStack, Button, Empty } from \'ljkui\';\n\n<Empty.Root>\n  <Empty.Header>\n    <Empty.Media variant="ghost">\n      <AvatarStack.Root size="5">\n        <AvatarStack.Avatar\n          fallback="Cameron Zoub"\n          color="blue"\n          src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"\n        />\n        <AvatarStack.Avatar fallback="Luna Rose" color="pink" />\n        <AvatarStack.Avatar fallback="Ethan Livers" color="green" />\n      </AvatarStack.Root>\n    </Empty.Media>\n    <Empty.Title>No Team Members</Empty.Title>\n    <Empty.Description>Invite your team to collaborate on this project.</Empty.Description>\n  </Empty.Header>\n  <Empty.Actions>\n    <Button variant="solid">\n      <Plus size={16} />\n      Invite Members\n    </Button>\n  </Empty.Actions>\n</Empty.Root>',
+      },
+    },
+  },
 };
 
 export const WithTextFieldAndButton: Story = {
   name: 'WithTextFieldAndButton',
   render: () => render(examples['WithTextFieldAndButton']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Empty, Input } from \'ljkui\';\n\n<Empty.Root>\n  <Empty.Header>\n    <Empty.Media color="green">\n      <UserPlus size={24} />\n    </Empty.Media>\n    <Empty.Title>Invite teammates</Empty.Title>\n    <Empty.Description>Enter an email address to send an invitation.</Empty.Description>\n  </Empty.Header>\n  <Empty.Actions>\n    <div style={{ display: \'flex\', gap: 8, width: \'100%\' }}>\n      <Input.Root style={{ flex: 1 }}>\n        <Input.Control type="email" placeholder="colleague@company.com" />\n      </Input.Root>\n      <Button variant="solid" color="green">\n        Invite\n      </Button>\n    </div>\n  </Empty.Actions>\n</Empty.Root>',
+      },
+    },
+  },
 };
 
 export const WithCheckbox: Story = {
   name: 'WithCheckbox',
   render: () => render(examples['WithCheckbox']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Checkbox, Empty, Field, Typography } from \'ljkui\';\n\n<Empty.Root>\n  <Empty.Header>\n    <Empty.Media color="blue">\n      <Hand size={24} />\n    </Empty.Media>\n    <Empty.Title>Welcome to the app!</Empty.Title>\n    <Empty.Description>\n      We\'ve prepared a quick tour to help you get started with the main features.\n    </Empty.Description>\n  </Empty.Header>\n  <Empty.Actions>\n    <Button variant="solid" color="blue">\n      Start tour\n    </Button>\n    <Field.Root>\n      <Field.Label style={{ display: \'flex\', margin: \'auto\', alignItems: \'center\', gap: 8, cursor: \'pointer\' }}>\n        <Checkbox size="1" />\n        <Typography.Text size="1" color="gray">\n          Don\'t show this again\n        </Typography.Text>\n      </Field.Label>\n    </Field.Root>\n  </Empty.Actions>\n</Empty.Root>',
+      },
+    },
+  },
 };
 
 export const FileDropHint: Story = {
   name: 'FileDropHint',
   render: () => render(examples['FileDropHint']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Empty, Typography } from \'ljkui\';\n\n<Empty.Root\n  style={{\n    border: \'2px dashed var(--color-stroke)\',\n  }}\n>\n  <Empty.Header>\n    <Empty.Media>\n      <FileText size={24} />\n    </Empty.Media>\n    <Empty.Title>Cloud Storage empty</Empty.Title>\n    <Empty.Description>Upload files to your cloud storage to access them anywhere.</Empty.Description>\n  </Empty.Header>\n  <Empty.Actions>\n    <Button variant="surface">\n      <UploadIcon size={16} />\n      Upload files\n    </Button>\n    <Typography.Text size="1" color="gray">\n      Supports PDF, PNG, JPG up to 10MB\n    </Typography.Text>\n  </Empty.Actions>\n</Empty.Root>',
+      },
+    },
+  },
 };
 
 export const ErrorWithRetry: Story = {
   name: 'ErrorWithRetry',
   render: () => render(examples['ErrorWithRetry']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Empty, Link } from \'ljkui\';\n\nconst [loading, setLoading] = React.useState(false);\n\nconst handleRetry = () => {\n  setLoading(true);\n  setTimeout(() => setLoading(false), 2000);\n};\n\nreturn (\n  <Empty.Root>\n    <Empty.Header>\n      <Empty.Media color="danger">\n        <CircleX size={24} />\n      </Empty.Media>\n      <Empty.Title>Connection failed</Empty.Title>\n      <Empty.Description>\n        We couldn\'t connect to the server. Please check your internet connection and try again.\n      </Empty.Description>\n    </Empty.Header>\n    <Empty.Actions>\n      <Button variant="solid" color="danger" onClick={handleRetry} loading={loading}>\n        Try again\n      </Button>\n      <Link href="#" size="2" underline="always">\n        View status page\n      </Link>\n    </Empty.Actions>\n  </Empty.Root>\n);',
+      },
+    },
+  },
 };
 
 export const Achievement: Story = {
   name: 'Achievement',
   render: () => render(examples['Achievement']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Empty, Typography } from \'ljkui\';\n\n<Empty.Root>\n  <Empty.Header>\n    <Empty.Media variant="ghost">\n      <Typography.Text size="8">🏆</Typography.Text>\n    </Empty.Media>\n    <Empty.Title>Achievement Unlocked!</Empty.Title>\n    <Empty.Description>\n      You\'ve completed your first project. Keep going to unlock more achievements and rewards.\n    </Empty.Description>\n  </Empty.Header>\n  <Empty.Actions>\n    <Button variant="solid" color="amber">\n      View all achievements\n    </Button>\n    <Typography.Text size="1" color="gray">\n      3 of 12 achievements unlocked\n    </Typography.Text>\n  </Empty.Actions>\n</Empty.Root>',
+      },
+    },
+  },
 };
 
 export const WithKeyboardShortcut: Story = {
   name: 'WithKeyboardShortcut',
   render: () => render(examples['WithKeyboardShortcut']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Empty, Kbd, Typography } from \'ljkui\';\n\n<Empty.Root>\n  <Empty.Header>\n    <Empty.Media color="gray">\n      <Search size={24} />\n    </Empty.Media>\n    <Empty.Title>Quick search</Empty.Title>\n    <Empty.Description>Find anything in your workspace instantly using the command palette.</Empty.Description>\n  </Empty.Header>\n  <Empty.Actions>\n    <div style={{ display: \'flex\', alignItems: \'center\', gap: 8 }}>\n      <Typography.Text size="2" color="gray">\n        Press\n      </Typography.Text>\n      <Kbd size="2">⌘</Kbd>\n      <Kbd size="2">K</Kbd>\n      <Typography.Text size="2" color="gray">\n        to search\n      </Typography.Text>\n    </div>\n  </Empty.Actions>\n</Empty.Root>',
+      },
+    },
+  },
 };
 
 export const WithOTPField: Story = {
   name: 'WithOTPField',
   render: () => render(examples['WithOTPField']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Empty, InputOTP } from \'ljkui\';\n\n<Empty.Root>\n  <Empty.Header>\n    <Empty.Media color="green">\n      <Settings size={24} />\n    </Empty.Media>\n    <Empty.Title>Verify your device</Empty.Title>\n    <Empty.Description>Enter the 6-digit code sent to your phone ending in ••••42.</Empty.Description>\n  </Empty.Header>\n  <Empty.Actions>\n    <InputOTP.Root\n      color="green"\n      maxLength={6}\n      render={({ slots }) => (\n        <>\n          <InputOTP.Group>\n            {slots.slice(0, 3).map((slot, index) => (\n              <InputOTP.Slot key={index} {...slot} />\n            ))}\n          </InputOTP.Group>\n          <InputOTP.Separator />\n          <InputOTP.Group>\n            {slots.slice(3).map((slot, index) => (\n              <InputOTP.Slot key={index + 3} {...slot} />\n            ))}\n          </InputOTP.Group>\n        </>\n      )}\n    />\n    <Button variant="ghost" size="2" color="green" style={{ textDecoration: \'underline\' }}>\n      Resend code\n    </Button>\n  </Empty.Actions>\n</Empty.Root>',
+      },
+    },
+  },
 };
 
 export const NotFound404: Story = {
   name: 'NotFound404',
   render: () => render(examples['NotFound404']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Empty, Input } from \'ljkui\';\n\n<Empty.Root style={{ maxWidth: 480 }}>\n  <Empty.Header>\n    <Empty.Title size="5" weight="bold">\n      404 - Not Found\n    </Empty.Title>\n    <Empty.Description size="3">\n      The page you\'re looking for doesn\'t exist. Try searching for what you need below.\n    </Empty.Description>\n  </Empty.Header>\n  <Empty.Actions>\n    <Input.Root size="3" style={{ width: \'100%\' }}>\n      <Input.Slot>\n        <Search size={16} />\n      </Input.Slot>\n      <Input.Control placeholder="Try searching for pages..." />\n    </Input.Root>\n    <Button size="2" variant="ghost" color="gray" style={{ textDecoration: \'underline\' }}>\n      Contact support\n    </Button>\n  </Empty.Actions>\n</Empty.Root>',
+      },
+    },
+  },
 };
 
 export const AIAssistant: Story = {
   name: 'AIAssistant',
   render: () => render(examples['AIAssistant']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Empty, Kbd, Typography } from \'ljkui\';\n\n<Empty.Root style={{ maxWidth: 420 }}>\n  <Empty.Header>\n    <Empty.Media>\n      <Sparkles size={24} />\n    </Empty.Media>\n    <Empty.Title>Start a conversation</Empty.Title>\n    <Empty.Description>\n      Ask me anything — I can help you write, brainstorm, analyze data, or answer questions.\n    </Empty.Description>\n  </Empty.Header>\n  <Empty.Actions>\n    <div style={{ display: \'flex\', gap: 8, flexWrap: \'wrap\', justifyContent: \'center\' }}>\n      <Button size="1" variant="surface" color="gray" style={{ cursor: \'pointer\' }}>\n        ✍️ Help me write\n      </Button>\n      <Button size="1" variant="surface" color="gray" style={{ cursor: \'pointer\' }}>\n        💡 Brainstorm ideas\n      </Button>\n      <Button size="1" variant="surface" color="gray" style={{ cursor: \'pointer\' }}>\n        📊 Analyze data\n      </Button>\n      <Button size="1" variant="surface" color="gray" style={{ cursor: \'pointer\' }}>\n        🔍 Research topic\n      </Button>\n      <Button size="1" variant="surface" color="gray" style={{ cursor: \'pointer\' }}>\n        💬 Answer questions\n      </Button>\n    </div>\n    <Typography.Text size="1" color="gray">\n      Press{\' \'}\n      <Kbd size="1" style={{ marginInline: 2 }}>\n        /\n      </Kbd>{\' \'}\n      to see all commands\n    </Typography.Text>\n  </Empty.Actions>\n</Empty.Root>',
+      },
+    },
+  },
 };
 
 export const UpgradeToPro: Story = {
   name: 'UpgradeToPro',
   render: () => render(examples['UpgradeToPro']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, Empty, Typography } from 'ljkui';\n\n<Empty.Root\n  style={{\n    maxWidth: 420,\n    borderRadius: 24,\n    border: '1px solid var(--color-stroke)',\n    background: 'var(--color-panel-solid)',\n    paddingTop: 48,\n  }}\n>\n  <Empty.Header>\n    <Empty.Media color=\"amber\">\n      <Zap size={24} />\n    </Empty.Media>\n    <Empty.Title>Unlock Pro features</Empty.Title>\n    <Empty.Description>\n      You've hit the free plan limit. Upgrade to continue and access premium features.\n    </Empty.Description>\n  </Empty.Header>\n  <div\n    style={{\n      display: 'flex',\n      flexDirection: 'column',\n      gap: 8,\n      width: '100%',\n      padding: 12,\n      background: 'var(--gray-alpha-50)',\n      borderRadius: 'var(--radius-3)',\n    }}\n  >\n    {['Unlimited projects', 'Priority support', 'Advanced analytics', 'Custom integrations'].map((feature) => (\n      <div key={feature} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\n        <CircleCheck size={16} style={{ color: 'var(--green-alpha-900)' }} />\n        <Typography.Text size=\"2\">{feature}</Typography.Text>\n      </div>\n    ))}\n  </div>\n  <Empty.Actions style={{ display: 'flex', gap: 8, flexDirection: 'row', width: '100%' }}>\n    <Button size=\"3\" variant=\"surface\" color=\"gray\" style={{ flex: 1 }}>\n      Maybe later\n    </Button>\n    <Button size=\"3\" variant=\"solid\" color=\"amber\" style={{ flex: 1 }}>\n      Upgrade — $9/mo\n    </Button>\n  </Empty.Actions>\n</Empty.Root>",
+      },
+    },
+  },
 };

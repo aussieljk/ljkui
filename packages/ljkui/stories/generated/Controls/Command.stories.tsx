@@ -23,14 +23,17 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: { docs: { source: { language: 'tsx', code: '<Palette />' } } },
 };
 
 export const WithSelection: Story = {
   name: 'With selection',
   render: () => render(examples['With selection']),
+  parameters: { docs: { source: { language: 'tsx', code: '<WithSelection />' } } },
 };
 
 export const InADialog: Story = {
   name: 'In a dialog',
   render: () => render(examples['In a dialog']),
+  parameters: { docs: { source: { language: 'tsx', code: '<InDialog />' } } },
 };

@@ -40,20 +40,52 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical Separator. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Separator. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { Separator, separatorPropDefs } from \'ljkui\';\n\nconst args = {\n  size: separatorPropDefs.size.default,\n  color: separatorPropDefs.color.default,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-6)\' }}>\n    <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-4)\' }}>\n      <Separator {...args} orientation="horizontal" size="4" />\n      <Separator {...args} orientation="horizontal" size="3" />\n      <Separator {...args} orientation="horizontal" size="2" />\n      <Separator {...args} orientation="horizontal" size="1" />\n    </div>\n    <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-4)\', height: 96 }}>\n      <Separator {...args} orientation="vertical" size="4" />\n      <Separator {...args} orientation="vertical" size="3" />\n      <Separator {...args} orientation="vertical" size="2" />\n      <Separator {...args} orientation="vertical" size="1" />\n    </div>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Separator, separatorPropDefs } from \'ljkui\';\n\nconst args = {\n  size: separatorPropDefs.size.default,\n  color: separatorPropDefs.color.default,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-6)\' }}>\n    <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-4)\' }}>\n      <Separator {...args} orientation="horizontal" size="4" />\n      <Separator {...args} orientation="horizontal" size="3" />\n      <Separator {...args} orientation="horizontal" size="2" />\n      <Separator {...args} orientation="horizontal" size="1" />\n    </div>\n    <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-4)\', height: 96 }}>\n      <Separator {...args} orientation="vertical" size="4" />\n      <Separator {...args} orientation="vertical" size="3" />\n      <Separator {...args} orientation="vertical" size="2" />\n      <Separator {...args} orientation="vertical" size="1" />\n    </div>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Separator, separatorPropDefs } from \'ljkui\';\n\nconst args = {\n  size: separatorPropDefs.size.default,\n  color: separatorPropDefs.color.default,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\' }}>\n    <Separator {...args} color="indigo" size="3" />\n    <Separator {...args} color="cyan" size="3" />\n    <Separator {...args} color="orange" size="3" />\n    <Separator {...args} color="rose" size="3" />\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Orientation: Story = {
   name: 'Orientation',
   render: () => render(examples['Orientation']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Separator, separatorPropDefs } from 'ljkui';\n\nconst args = {\n  size: separatorPropDefs.size.default,\n  color: separatorPropDefs.color.default,\n};\nreturn (\n  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>\n    <Separator {...args} orientation=\"horizontal\" />\n    <Separator {...args} orientation=\"vertical\" />\n  </div>\n);",
+      },
+    },
+  },
 };

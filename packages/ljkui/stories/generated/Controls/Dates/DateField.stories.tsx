@@ -40,20 +40,52 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical DateField. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical DateField. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: "import { DateField, dateFieldPropDefs } from 'ljkui';\n\nconst args = {\n  size: dateFieldPropDefs.size.default,\n  color: dateFieldPropDefs.color.default,\n  'aria-label': 'Birth date',\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 300 }}>\n    <DateField {...args} defaultValue={parseDate('2020-02-03')} size=\"1\" />\n    <DateField {...args} defaultValue={parseDate('2020-02-03')} size=\"2\" />\n    <DateField {...args} defaultValue={parseDate('2020-02-03')} size=\"3\" />\n    <DateField {...args} defaultValue={parseDate('2020-02-03')} size=\"4\" />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { DateField, dateFieldPropDefs } from 'ljkui';\n\nconst args = {\n  size: dateFieldPropDefs.size.default,\n  color: dateFieldPropDefs.color.default,\n  'aria-label': 'Birth date',\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 300 }}>\n    <DateField {...args} defaultValue={parseDate('2020-02-03')} size=\"1\" />\n    <DateField {...args} defaultValue={parseDate('2020-02-03')} size=\"2\" />\n    <DateField {...args} defaultValue={parseDate('2020-02-03')} size=\"3\" />\n    <DateField {...args} defaultValue={parseDate('2020-02-03')} size=\"4\" />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const MinValue: Story = {
   name: 'MinValue',
   render: () => render(examples['MinValue']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { DateField, dateFieldPropDefs } from 'ljkui';\n\nconst args = {\n  size: dateFieldPropDefs.size.default,\n  color: dateFieldPropDefs.color.default,\n  'aria-label': 'Birth date',\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 300 }}>\n    <DateField\n      {...args}\n      minValue={today(getLocalTimeZone())}\n      defaultValue={parseDate('2020-02-03')}\n      validationBehavior=\"aria\"\n    />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const WithTime: Story = {
   name: 'With time',
   render: () => render(examples['With time']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { DateField, dateFieldPropDefs } from 'ljkui';\n\nconst args = {\n  size: dateFieldPropDefs.size.default,\n  color: dateFieldPropDefs.color.default,\n  'aria-label': 'Birth date',\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 300 }}>\n    <DateField {...args} defaultValue={parseZonedDateTime('2022-11-07T00:45[America/Los_Angeles]')} />\n    <DateField {...args} defaultValue={parseZonedDateTime('2022-11-07T00:45[America/Los_Angeles]')} hideTimeZone />\n    <DateField\n      {...args}\n      defaultValue={parseZonedDateTime('2022-11-07T00:45[America/Los_Angeles]')}\n      hideTimeZone\n      granularity=\"second\"\n    />\n  </div>\n);",
+      },
+    },
+  },
 };

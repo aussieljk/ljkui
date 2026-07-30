@@ -39,29 +39,77 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { FilterChip, filterChipPropDefs } from 'ljkui';\n\nconst args = { children: null, size: filterChipPropDefs.size.default };\nreturn (\n  <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row' }}>\n    <FilterChip defaultChecked {...args}>\n      <ExampleIcon size={16} />\n      Default\n    </FilterChip>\n    <FilterChip defaultChecked={true} disabled {...args}>\n      <ExampleIcon size={16} />\n      Disabled checked\n    </FilterChip>\n    <FilterChip defaultChecked={false} disabled {...args}>\n      <ExampleIcon size={16} />\n      Disabled unchecked\n    </FilterChip>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { FilterChip } from \'ljkui\';\n\nconst args = { children: null };\nreturn (\n  <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n    <FilterChip defaultChecked {...args} size="1">\n      <ExampleIcon size={16} /> Size 1\n    </FilterChip>\n    <FilterChip defaultChecked {...args} size="2">\n      <ExampleIcon size={20} /> Size 2\n    </FilterChip>\n    <FilterChip defaultChecked {...args} size="3">\n      <ExampleIcon size={24} /> Size 3\n    </FilterChip>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { FilterChip } from \'ljkui\';\n\nconst args = { children: null };\nreturn (\n  <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n    <FilterChip {...args} color="indigo" defaultChecked>\n      <ExampleIcon size={20} />\n      Indigo\n    </FilterChip>\n    <FilterChip {...args} color="cyan" defaultChecked>\n      <ExampleIcon size={20} />\n      Cyan\n    </FilterChip>\n    <FilterChip {...args} color="orange" defaultChecked>\n      <ExampleIcon size={20} />\n      Orange\n    </FilterChip>\n    <FilterChip {...args} color="rose" defaultChecked>\n      <ExampleIcon size={20} />\n      Crimson\n    </FilterChip>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const ReadOnly: Story = {
   name: 'Read Only',
   render: () => render(examples['Read Only']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { FilterChip, Typography } from 'ljkui';\n\nconst args = { children: null };\nconst activeFilters = {\n  inStock: true,\n  onSale: false,\n  freeShipping: true,\n};\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 400 }}>\n    <Typography.Text>\n      The <Typography.Code>readOnly</Typography.Code> prop prevents users from toggling a filter chip while still\n      showing its current state. Unlike <Typography.Code>disabled</Typography.Code>, read-only chips remain\n      focusable and their values are submitted with forms.\n    </Typography.Text>\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>\n      <Typography.Text size=\"2\" weight=\"medium\">\n        Applied Filters (from saved search)\n      </Typography.Text>\n      <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>\n        <FilterChip {...args} checked={activeFilters.inStock} readOnly>\n          In Stock\n        </FilterChip>\n        <FilterChip {...args} checked={activeFilters.onSale} readOnly>\n          On Sale\n        </FilterChip>\n        <FilterChip {...args} checked={activeFilters.freeShipping} readOnly>\n          Free Shipping\n        </FilterChip>\n      </div>\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const InputRef: Story = {
   name: 'Input Ref',
   render: () => render(examples['Input Ref']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, FilterChip, Typography } from 'ljkui';\n\nconst args = { children: null };\nconst inputRef = React.useRef<HTMLInputElement>(null);\nconst [info, setInfo] = React.useState<string>('Click a button to inspect the input');\n\nconst focusInput = () => {\n  inputRef.current?.focus();\n  setInfo('Input focused programmatically');\n};\n\nconst checkState = () => {\n  const input = inputRef.current;\n  if (input) {\n    const isChecked = input.checked;\n    const name = input.name;\n    setInfo(`Name: \"${name}\", Checked: ${isChecked}`);\n  }\n};\n\nconst toggleChecked = () => {\n  const input = inputRef.current;\n  if (input) {\n    input.click();\n    setInfo(`Toggled via native click. New state: ${!input.checked}`);\n  }\n};\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 400 }}>\n    <Typography.Text>\n      The <Typography.Code>inputRef</Typography.Code> prop provides direct access to the hidden native{' '}\n      <Typography.Code>&lt;input&gt;</Typography.Code> element. This is useful for programmatic focus, form\n      validation, or integrating with third-party libraries.\n    </Typography.Text>\n    <FilterChip {...args} inputRef={inputRef} name=\"featured\" defaultChecked>\n      <ExampleIcon size={16} />\n      Featured Items\n    </FilterChip>\n    <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>\n      <Button size=\"1\" variant=\"soft\" onClick={focusInput}>\n        Focus Input\n      </Button>\n      <Button size=\"1\" variant=\"soft\" onClick={checkState}>\n        Check State\n      </Button>\n      <Button size=\"1\" variant=\"soft\" onClick={toggleChecked}>\n        Toggle via Ref\n      </Button>\n    </div>\n    <Typography.Code style={{ padding: 'var(--space-2)', display: 'block' }}>{info}</Typography.Code>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const FormWithValueUncheckedValue: Story = {
   name: 'Form with value & uncheckedValue',
   render: () => render(examples['Form with value & uncheckedValue']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, FilterChip, Typography } from 'ljkui';\n\nconst args = { children: null };\nconst [formData, setFormData] = React.useState<Record<string, FormDataEntryValue>>({});\nconst handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {\n  e.preventDefault();\n  const data = Object.fromEntries(new FormData(e.currentTarget).entries());\n  setFormData(data);\n};\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 500 }}>\n    <Typography.Text>\n      Use <Typography.Code>value</Typography.Code> and <Typography.Code>uncheckedValue</Typography.Code> props to\n      customize what gets submitted with the form. By default, checked chips submit{' '}\n      <Typography.Code>\"on\"</Typography.Code> and unchecked chips submit nothing.\n    </Typography.Text>\n    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>\n      <Typography.Text size=\"2\" weight=\"medium\">\n        Product Filters\n      </Typography.Text>\n      <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>\n        <FilterChip {...args} name=\"availability\" defaultChecked value=\"in-stock\" uncheckedValue=\"all\">\n          In Stock\n        </FilterChip>\n        <FilterChip {...args} name=\"shipping\" value=\"free\" uncheckedValue=\"any\">\n          Free Shipping\n        </FilterChip>\n        <FilterChip {...args} name=\"discount\" defaultChecked value=\"on-sale\" uncheckedValue=\"no-filter\">\n          On Sale\n        </FilterChip>\n      </div>\n      <Button variant=\"solid\" type=\"submit\" style={{ alignSelf: 'flex-start', marginTop: 'var(--space-2)' }}>\n        Apply Filters\n      </Button>\n    </form>\n    <div>\n      <Typography.Text size=\"2\" weight=\"medium\">\n        Form Data:\n      </Typography.Text>\n      <Typography.Code\n        style={{ display: 'block', marginTop: 'var(--space-2)', whiteSpace: 'pre', padding: 'var(--space-2)' }}\n      >\n        {JSON.stringify(formData, null, 2)}\n      </Typography.Code>\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };

@@ -50,84 +50,220 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Typography } from 'ljkui';\n\n<div style={{ display: 'flex', gap: 64 }}>\n  <div style={{ width: 300, display: 'flex', flexDirection: 'column', gap: 16 }}>\n    {(['1', '2', '3', '4'] as const).map((size) => (\n      <div key={size}>\n        <Typography.Text size=\"1\" color=\"gray\" style={{ marginBottom: 4, display: 'block' }}>\n          Size {size}\n        </Typography.Text>\n        <DefaultDemo size={size} variant=\"surface\" />\n      </div>\n    ))}\n  </div>\n  <div style={{ width: 300, display: 'flex', flexDirection: 'column', gap: 16 }}>\n    {(['1', '2', '3', '4'] as const).map((size) => (\n      <div key={size}>\n        <Typography.Text size=\"1\" color=\"gray\" style={{ marginBottom: 4, display: 'block' }}>\n          Size {size}\n        </Typography.Text>\n        <DefaultDemo size={size} variant=\"soft\" />\n      </div>\n    ))}\n  </div>\n</div>",
+      },
+    },
+  },
 };
 
 export const Multiple: Story = {
   name: 'Multiple',
   render: () => render(examples['Multiple']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Typography } from 'ljkui';\n\n<div style={{ display: 'flex', gap: 64 }}>\n  <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>\n    {(['1', '2', '3', '4'] as const).map((size) => (\n      <div key={size}>\n        <Typography.Text size=\"1\" color=\"gray\" style={{ marginBottom: 4, display: 'block' }}>\n          Size {size}\n        </Typography.Text>\n        <MultipleDemo size={size} variant=\"surface\" />\n      </div>\n    ))}\n  </div>\n  <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>\n    {(['1', '2', '3', '4'] as const).map((size) => (\n      <div key={size}>\n        <Typography.Text size=\"1\" color=\"gray\" style={{ marginBottom: 4, display: 'block' }}>\n          Size {size}\n        </Typography.Text>\n        <MultipleDemo size={size} variant=\"soft\" />\n      </div>\n    ))}\n  </div>\n</div>",
+      },
+    },
+  },
 };
 
 export const Grouped: Story = {
   name: 'Grouped',
   render: () => render(examples['Grouped']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Combobox, Input, ScrollArea } from \'ljkui\';\n\n<div style={{ width: 300 }}>\n  <Combobox.Root items={produceGroups} size="2">\n    <Combobox.InputRoot>\n      <Combobox.Input placeholder="Select produce" />\n    </Combobox.InputRoot>\n    <Combobox.Content>\n      <ScrollArea type="auto" style={{ maxHeight: 300 }}>\n        <Combobox.Empty>No results.</Combobox.Empty>\n        <Combobox.List>\n          {(group: ProduceGroup, index) => {\n            return (\n              <React.Fragment key={group.label}>\n                {index > 0 && <Combobox.Separator />}\n                <Combobox.Group items={group.items}>\n                  <Combobox.GroupLabel>{group.label}</Combobox.GroupLabel>\n                  <Combobox.Collection>\n                    {(item) => (\n                      <Combobox.Item key={item as string} value={item}>\n                        {item as string}\n                      </Combobox.Item>\n                    )}\n                  </Combobox.Collection>\n                </Combobox.Group>\n              </React.Fragment>\n            );\n          }}\n        </Combobox.List>\n      </ScrollArea>\n    </Combobox.Content>\n  </Combobox.Root>\n</div>',
+      },
+    },
+  },
 };
 
 export const CustomItems: Story = {
   name: 'CustomItems',
   render: () => render(examples['CustomItems']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Combobox, Input, ScrollArea } from \'ljkui\';\n\n<div style={{ width: 300 }}>\n  <Combobox.Root\n    items={frameworks}\n    itemToStringLabel={(f) => (f as Framework).label}\n    itemToStringValue={(f) => (f as Framework).value}\n    size="2"\n  >\n    <Combobox.InputRoot>\n      <Combobox.Input placeholder="Select framework" />\n    </Combobox.InputRoot>\n    <Combobox.Content>\n      <ScrollArea type="auto" style={{ maxHeight: 300 }}>\n        <Combobox.Empty>No frameworks found.</Combobox.Empty>\n        <Combobox.List>\n          {(item) => {\n            const f = item as Framework;\n            return (\n              <Combobox.Item key={f.value} value={f}>\n                {f.label}\n              </Combobox.Item>\n            );\n          }}\n        </Combobox.List>\n      </ScrollArea>\n    </Combobox.Content>\n  </Combobox.Root>\n</div>',
+      },
+    },
+  },
 };
 
 export const ClearButton: Story = {
   name: 'ClearButton',
   render: () => render(examples['ClearButton']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Combobox, Input, ScrollArea } from \'ljkui\';\n\n<div style={{ width: 300 }}>\n  <Combobox.Root items={fruits} defaultValue="Mango" size="2">\n    <Combobox.InputRoot showClear>\n      <Combobox.Input placeholder="Choose a fruit..." />\n    </Combobox.InputRoot>\n    <Combobox.Content>\n      <ScrollArea type="auto" style={{ maxHeight: 300 }}>\n        <Combobox.Empty>No fruits found.</Combobox.Empty>\n        <Combobox.List>\n          {(item) => (\n            <Combobox.Item key={item} value={item}>\n              {item}\n            </Combobox.Item>\n          )}\n        </Combobox.List>\n      </ScrollArea>\n    </Combobox.Content>\n  </Combobox.Root>\n</div>',
+      },
+    },
+  },
 };
 
 export const InputInsidePopup: Story = {
   name: 'InputInsidePopup',
   render: () => render(examples['InputInsidePopup']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Combobox, Input, ScrollArea } from \'ljkui\';\n\n<div style={{ width: 300 }}>\n  <Combobox.Root items={fruits} size="2">\n    <Combobox.Trigger\n      render={\n        <Button variant="soft" color="gray">\n          <Combobox.Value>{(value) => (value != null ? String(value) : \'Select fruit\')}</Combobox.Value>\n          <ChevronDown size={16} />\n        </Button>\n      }\n    />\n    <Combobox.Content>\n      <div style={{ padding: 8, borderBottom: \'1px solid var(--gray-alpha-300)\' }}>\n        <Combobox.InputRoot>\n          <Combobox.InputSlot>\n            <SearchIcon size={16} />\n          </Combobox.InputSlot>\n          <Combobox.Input placeholder="Search..." />\n        </Combobox.InputRoot>\n      </div>\n      <ScrollArea type="auto" style={{ maxHeight: 300 }}>\n        <Combobox.Empty>No results.</Combobox.Empty>\n        <Combobox.List>\n          {(item) => (\n            <Combobox.Item key={item} value={item}>\n              {item}\n            </Combobox.Item>\n          )}\n        </Combobox.List>\n      </ScrollArea>\n    </Combobox.Content>\n  </Combobox.Root>\n</div>',
+      },
+    },
+  },
 };
 
 export const DisabledReadOnly: Story = {
   name: 'Disabled & Read Only',
   render: () => render(examples['Disabled & Read Only']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Combobox, Input, Typography } from \'ljkui\';\n\n<div style={{ display: \'flex\', flexDirection: \'column\', gap: 24, width: 340 }}>\n  <div>\n    <Typography.Text size="2" weight="medium" style={{ marginBottom: 4, display: \'block\' }}>\n      Disabled (single)\n    </Typography.Text>\n    <Combobox.Root items={fruits} defaultValue="Apple" disabled size="2">\n      <Combobox.InputRoot showClear showTrigger>\n        <Combobox.Input placeholder="Choose a fruit..." />\n      </Combobox.InputRoot>\n      <DisabledReadOnlyList />\n    </Combobox.Root>\n  </div>\n\n  <div>\n    <Typography.Text size="2" weight="medium" style={{ marginBottom: 4, display: \'block\' }}>\n      Disabled (multiple)\n    </Typography.Text>\n    <Combobox.Root items={fruits} defaultValue={[\'Apple\', \'Mango\']} multiple disabled size="2">\n      <Combobox.Chips>\n        <Combobox.Value>\n          {(values: string[]) => (\n            <React.Fragment>\n              {values.map((v) => (\n                <Combobox.Chip key={v}>{v}</Combobox.Chip>\n              ))}\n              <Combobox.ChipsInput placeholder={values.length > 0 ? \'\' : \'Choose fruits...\'} />\n            </React.Fragment>\n          )}\n        </Combobox.Value>\n      </Combobox.Chips>\n      <DisabledReadOnlyList />\n    </Combobox.Root>\n  </div>\n\n  <div>\n    <Typography.Text size="2" weight="medium" style={{ marginBottom: 4, display: \'block\' }}>\n      Read Only (single)\n    </Typography.Text>\n    <Combobox.Root items={fruits} defaultValue="Mango" readOnly size="2">\n      <Combobox.InputRoot showClear showTrigger>\n        <Combobox.Input placeholder="Choose a fruit..." />\n      </Combobox.InputRoot>\n      <DisabledReadOnlyList />\n    </Combobox.Root>\n  </div>\n\n  <div>\n    <Typography.Text size="2" weight="medium" style={{ marginBottom: 4, display: \'block\' }}>\n      Read Only (multiple)\n    </Typography.Text>\n    <Combobox.Root items={fruits} defaultValue={[\'Grape\', \'Strawberry\']} multiple readOnly size="2">\n      <Combobox.Chips>\n        <Combobox.Value>\n          {(values: string[]) => (\n            <React.Fragment>\n              {values.map((v) => (\n                <Combobox.Chip key={v}>{v}</Combobox.Chip>\n              ))}\n              <Combobox.ChipsInput placeholder={values.length > 0 ? \'\' : \'Choose fruits...\'} />\n            </React.Fragment>\n          )}\n        </Combobox.Value>\n      </Combobox.Chips>\n      <DisabledReadOnlyList />\n    </Combobox.Root>\n  </div>\n</div>',
+      },
+    },
+  },
 };
 
 export const AutoHighlight: Story = {
   name: 'Auto Highlight',
   render: () => render(examples['Auto Highlight']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Combobox, Input, ScrollArea, Typography } from \'ljkui\';\n\n<div style={{ width: 300 }}>\n  <Typography.Text size="1" color="gray" style={{ marginBottom: \'var(--space-1)\', display: \'block\' }}>\n    First matching item is highlighted as you type.\n  </Typography.Text>\n  <Combobox.Root items={fruits} autoHighlight size="2">\n    <Combobox.InputRoot>\n      <Combobox.Input placeholder="Start typing..." />\n    </Combobox.InputRoot>\n    <Combobox.Content>\n      <ScrollArea type="auto" style={{ maxHeight: 300 }}>\n        <Combobox.Empty>No fruits found.</Combobox.Empty>\n        <Combobox.List>\n          {(item) => (\n            <Combobox.Item key={item} value={item}>\n              {item}\n            </Combobox.Item>\n          )}\n        </Combobox.List>\n      </ScrollArea>\n    </Combobox.Content>\n  </Combobox.Root>\n</div>',
+      },
+    },
+  },
 };
 
 export const FormValidation: Story = {
   name: 'Form Validation',
   render: () => render(examples['Form Validation']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Alert, Button, Combobox, Field, Form, Input, ScrollArea } from \'ljkui\';\n\nconst [submitted, setSubmitted] = React.useState<Record<string, string> | null>(null);\nconst handleSubmit = React.useCallback((e: React.FormEvent<HTMLFormElement>) => {\n  e.preventDefault();\n  const data = new FormData(e.currentTarget);\n  setSubmitted(Object.fromEntries(data.entries()) as Record<string, string>);\n}, []);\nreturn (\n  <div style={{ width: 300 }}>\n    <Form onSubmit={handleSubmit}>\n      <Field.Root>\n        <Field.Label>Fruit</Field.Label>\n        <Combobox.Root items={fruits} name="fruit" required size="2">\n          <Combobox.InputRoot>\n            <Combobox.Input placeholder="Choose a fruit..." />\n          </Combobox.InputRoot>\n          <Combobox.Content>\n            <ScrollArea type="auto" style={{ maxHeight: 300 }}>\n              <Combobox.Empty>No fruits found.</Combobox.Empty>\n              <Combobox.List>\n                {(item) => (\n                  <Combobox.Item key={item} value={item}>\n                    {item}\n                  </Combobox.Item>\n                )}\n              </Combobox.List>\n            </ScrollArea>\n          </Combobox.Content>\n        </Combobox.Root>\n        <Field.Error match="valueMissing">Please select a fruit.</Field.Error>\n      </Field.Root>\n      <Button type="submit" variant="solid">\n        Submit\n      </Button>\n    </Form>\n    {submitted && (\n      <Alert.Root style={{ marginTop: 12 }}>\n        <Alert.Title>\n          Submitted: <strong>{JSON.stringify(submitted)}</strong>\n        </Alert.Title>\n      </Alert.Root>\n    )}\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const ManyItems: Story = {
   name: 'Many Items',
   render: () => render(examples['Many Items']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Combobox, Input, ScrollArea, Typography } from \'ljkui\';\n\n<div style={{ width: 300 }}>\n  <Typography.Text size="1" color="gray" style={{ marginBottom: \'var(--space-1)\', display: \'block\' }}>\n    {manyCountries.length} countries with scroll\n  </Typography.Text>\n  <Combobox.Root items={manyCountries} size="2">\n    <Combobox.InputRoot>\n      <Combobox.Input placeholder="Search countries..." />\n    </Combobox.InputRoot>\n    <Combobox.Content>\n      <ScrollArea type="auto" style={{ maxHeight: 300 }}>\n        <Combobox.Empty>No countries found.</Combobox.Empty>\n        <Combobox.List>\n          {(country) => (\n            <Combobox.Item key={country} value={country}>\n              {country}\n            </Combobox.Item>\n          )}\n        </Combobox.List>\n      </ScrollArea>\n    </Combobox.Content>\n  </Combobox.Root>\n</div>',
+      },
+    },
+  },
 };
 
 export const Empty: Story = {
   name: 'Empty',
   render: () => render(examples['Empty']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Combobox, Input, ScrollArea } from \'ljkui\';\n\n<div style={{ width: 300 }}>\n  <Combobox.Root items={fruits} size="2">\n    <Combobox.InputRoot>\n      <Combobox.Input placeholder="Type to filter (e.g. xyz)" />\n    </Combobox.InputRoot>\n    <Combobox.Content>\n      <ScrollArea type="auto" style={{ maxHeight: 300 }}>\n        <Combobox.Empty>No fruits found. Try a different search.</Combobox.Empty>\n        <Combobox.List>\n          {(item) => (\n            <Combobox.Item key={item} value={item}>\n              {item}\n            </Combobox.Item>\n          )}\n        </Combobox.List>\n      </ScrollArea>\n    </Combobox.Content>\n  </Combobox.Root>\n</div>',
+      },
+    },
+  },
 };
 
 export const TriggerOnly: Story = {
   name: 'TriggerOnly',
   render: () => render(examples['TriggerOnly']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Combobox, ScrollArea } from \'ljkui\';\n\nconst [open, setOpen] = React.useState(false);\nconst [inputValue, setInputValue] = React.useState(\'\');\nreturn (\n  <div style={{ width: 300 }}>\n    <Combobox.Root\n      items={fruits}\n      defaultValue="Orange"\n      size="2"\n      open={open}\n      onOpenChange={(nextOpen) => {\n        setOpen(nextOpen);\n        if (nextOpen) setInputValue(\'\');\n      }}\n      inputValue={inputValue}\n      onInputValueChange={(value) => setInputValue(value)}\n    >\n      <Combobox.Trigger\n        render={\n          <Button variant="surface">\n            <Combobox.Value>{(value) => (value != null ? String(value) : \'Choose a fruit\')}</Combobox.Value>\n            <ChevronDown size={16} />\n          </Button>\n        }\n      />\n      <Combobox.Content>\n        <ScrollArea type="auto" style={{ maxHeight: 300 }}>\n          <Combobox.Empty>No fruits found.</Combobox.Empty>\n          <Combobox.List>\n            {(item) => (\n              <Combobox.Item key={item} value={item}>\n                {item}\n              </Combobox.Item>\n            )}\n          </Combobox.List>\n        </ScrollArea>\n      </Combobox.Content>\n    </Combobox.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const AsyncSearchSingle: Story = {
   name: 'Async Search (Single)',
   render: () => render(examples['Async Search (Single)']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Avatar, Combobox, Field, Input, ScrollArea, Spinner, Typography } from 'ljkui';\n\nconst [results, setResults] = React.useState<User[]>([]);\nconst [selected, setSelected] = React.useState<User | null>(null);\nconst [loading, setLoading] = React.useState(false);\nconst [inputValue, setInputValue] = React.useState('');\n\nconst items = React.useMemo(() => {\n  if (selected && !results.some((r) => r.login === selected.login)) {\n    return [selected, ...results];\n  }\n  return results;\n}, [results, selected]);\n\nconst handleInputValueChange = React.useCallback((query: string) => {\n  setInputValue(query);\n  setResults([]);\n  setLoading(true);\n  fakeSearchUsers(query).then((res) => {\n    setResults(res);\n    setLoading(false);\n  });\n}, []);\n\nreturn (\n  <div style={{ width: 300 }}>\n    <Field.Root>\n      <Field.Label>Assign reviewer</Field.Label>\n      <Combobox.Root\n        items={items}\n        filter={null}\n        size=\"3\"\n        value={selected}\n        onValueChange={setSelected}\n        onInputValueChange={handleInputValueChange}\n        itemToStringLabel={(u) => (u as User).name}\n        isItemEqualToValue={(a, b) => (a as User).login === (b as User).login}\n      >\n        <Combobox.InputRoot showClear>\n          <Combobox.InputSlot>{loading ? <Spinner size=\"2\" /> : <SearchIcon size={16} />}</Combobox.InputSlot>\n          <Combobox.Input placeholder=\"Search users...\" />\n        </Combobox.InputRoot>\n        <Combobox.Content>\n          <ScrollArea type=\"auto\" style={{ maxHeight: 300 }}>\n            <Combobox.Empty>\n              {loading ? 'Searching...' : inputValue ? 'No users found.' : 'Start typing to search users...'}\n            </Combobox.Empty>\n            <Combobox.List>\n              {(item) => {\n                const user = item as User;\n                return (\n                  <Combobox.Item\n                    key={user.login}\n                    value={user}\n                    style={{ height: 'auto', paddingTop: 8, paddingBottom: 8 }}\n                  >\n                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\n                      <Avatar src={user.avatar} fallback={user.name} size=\"2\" />\n                      <div style={{ display: 'flex', flexDirection: 'column' }}>\n                        <Typography.Text size=\"2\" weight=\"medium\">\n                          {user.name}\n                        </Typography.Text>\n                        <Typography.Text size=\"1\" color=\"gray\">\n                          @{user.login}\n                        </Typography.Text>\n                      </div>\n                    </div>\n                  </Combobox.Item>\n                );\n              }}\n            </Combobox.List>\n          </ScrollArea>\n        </Combobox.Content>\n      </Combobox.Root>\n    </Field.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const AsyncSearchMultiple: Story = {
   name: 'Async Search (Multiple)',
   render: () => render(examples['Async Search (Multiple)']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Avatar, Combobox, Field, ScrollArea, Spinner, Typography } from 'ljkui';\n\nconst [results, setResults] = React.useState<User[]>([]);\nconst [selected, setSelected] = React.useState<User[]>([]);\nconst [inputValue, setInputValue] = React.useState('');\nconst [loading, setLoading] = React.useState(false);\n\nconst items = React.useMemo(() => {\n  if (loading) return [];\n  const resultLogins = new Set(results.map((r) => r.login));\n  const missingSelected = selected.filter((s) => !resultLogins.has(s.login));\n  return [...missingSelected, ...results];\n}, [results, selected, loading]);\n\nconst handleInputValueChange = React.useCallback((query: string) => {\n  setInputValue(query);\n  setResults([]);\n  setLoading(true);\n  fakeSearchUsers(query).then((res) => {\n    setResults(res);\n    setLoading(false);\n  });\n}, []);\n\nreturn (\n  <div style={{ width: 400 }}>\n    <Field.Root>\n      <Field.Label>Assign reviewers</Field.Label>\n      <Combobox.Root\n        items={items}\n        filter={null}\n        multiple\n        size=\"3\"\n        value={selected}\n        onValueChange={setSelected}\n        onInputValueChange={handleInputValueChange}\n        itemToStringLabel={(u) => (u as User).name}\n        isItemEqualToValue={(a, b) => (a as User).login === (b as User).login}\n      >\n        <Combobox.Chips>\n          <Combobox.Value>\n            {(values: User[]) => (\n              <React.Fragment>\n                {values.map((user) => (\n                  <Combobox.Chip key={user.login} style={{ borderRadius: 999, paddingLeft: 4 }}>\n                    <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>\n                      <Avatar src={user.avatar} fallback={user.name} size=\"0\" style={{ height: 20, width: 20 }} />\n                      <Typography.Text weight=\"medium\">{user.name}</Typography.Text>\n                    </span>\n                  </Combobox.Chip>\n                ))}\n                <Combobox.ChipsInput placeholder={values.length > 0 ? '' : 'Search users...'} />\n              </React.Fragment>\n            )}\n          </Combobox.Value>\n        </Combobox.Chips>\n        <Combobox.Content>\n          <ScrollArea type=\"auto\" style={{ maxHeight: 300 }}>\n            <Combobox.Empty>\n              {loading ? (\n                <>\n                  <Spinner size=\"2\" style={{ marginRight: 6 }} /> Searching...\n                </>\n              ) : inputValue ? (\n                'No users found.'\n              ) : (\n                'Start typing to search users...'\n              )}\n            </Combobox.Empty>\n            <Combobox.List>\n              {(item) => {\n                const user = item as User;\n                return (\n                  <Combobox.Item\n                    key={user.login}\n                    value={user}\n                    style={{ height: 'auto', paddingTop: 8, paddingBottom: 8 }}\n                  >\n                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\n                      <Avatar src={user.avatar} fallback={user.name} size=\"2\" />\n                      <div style={{ display: 'flex', flexDirection: 'column' }}>\n                        <Typography.Text size=\"2\" weight=\"medium\">\n                          {user.name}\n                        </Typography.Text>\n                        <Typography.Text size=\"1\" color=\"gray\">\n                          @{user.login}\n                        </Typography.Text>\n                      </div>\n                    </div>\n                  </Combobox.Item>\n                );\n              }}\n            </Combobox.List>\n          </ScrollArea>\n        </Combobox.Content>\n      </Combobox.Root>\n    </Field.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const LoopFocus: Story = {
   name: 'Loop Focus',
   render: () => render(examples['Loop Focus']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Combobox, Input, ScrollArea, Typography } from \'ljkui\';\n\n<div style={{ display: \'flex\', gap: \'var(--space-6)\' }}>\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\', maxWidth: 260 }}>\n    <Typography.Text size="2" weight="bold">\n      Default (looping)\n    </Typography.Text>\n    <Typography.Text size="1" color="gray">\n      Arrow keys wrap around by default — past the last item loops back to the first, and vice versa.\n    </Typography.Text>\n    <Combobox.Root items={fruits} size="2">\n      <Combobox.InputRoot>\n        <Combobox.Input placeholder="Choose a fruit..." />\n      </Combobox.InputRoot>\n      <Combobox.Content>\n        <ScrollArea type="auto" style={{ maxHeight: 300 }}>\n          <Combobox.Empty>No fruits found.</Combobox.Empty>\n          <Combobox.List>\n            {(item) => (\n              <Combobox.Item key={item} value={item}>\n                {item}\n              </Combobox.Item>\n            )}\n          </Combobox.List>\n        </ScrollArea>\n      </Combobox.Content>\n    </Combobox.Root>\n    <Typography.Text size="1" color="gray">\n      <em>Watermelon → ↓ → Apple (loops to top)</em>\n    </Typography.Text>\n  </div>\n\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\', maxWidth: 260 }}>\n    <Typography.Text size="2" weight="bold">\n      loopFocus={\'{false}\'}\n    </Typography.Text>\n    <Typography.Text size="1" color="gray">\n      Arrow keys stop at the first and last item. Press ↓ on the last item — nothing happens.\n    </Typography.Text>\n    <Combobox.Root items={fruits} size="2" loopFocus={false}>\n      <Combobox.InputRoot>\n        <Combobox.Input placeholder="Choose a fruit..." />\n      </Combobox.InputRoot>\n      <Combobox.Content>\n        <ScrollArea type="auto" style={{ maxHeight: 300 }}>\n          <Combobox.Empty>No fruits found.</Combobox.Empty>\n          <Combobox.List>\n            {(item) => (\n              <Combobox.Item key={item} value={item}>\n                {item}\n              </Combobox.Item>\n            )}\n          </Combobox.List>\n        </ScrollArea>\n      </Combobox.Content>\n    </Combobox.Root>\n    <Typography.Text size="1" color="gray">\n      <em>Watermelon → ↓ → stays on Watermelon</em>\n    </Typography.Text>\n  </div>\n</div>',
+      },
+    },
+  },
 };
 
 export const Creatable: Story = {
   name: 'Creatable',
   render: () => render(examples['Creatable']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, Combobox, Dialog, Field, Input, ScrollArea, Typography } from 'ljkui';\n\nconst [labels, setLabels] = React.useState<LabelItem[]>(initialLabels);\nconst [selected, setSelected] = React.useState<LabelItem[]>([]);\nconst [query, setQuery] = React.useState('');\nconst [dialogOpen, setDialogOpen] = React.useState(false);\nconst pendingQueryRef = React.useRef('');\nconst createInputRef = React.useRef<HTMLInputElement | null>(null);\nconst comboboxInputRef = React.useRef<HTMLInputElement | null>(null);\nconst highlightedItemRef = React.useRef<LabelItem | undefined>(undefined);\n\nconst trimmed = query.trim();\nconst lowered = trimmed.toLocaleLowerCase();\nconst exactExists = labels.some((l) => l.value.trim().toLocaleLowerCase() === lowered);\nconst items: LabelItem[] =\n  trimmed && !exactExists\n    ? [...labels, { creatable: trimmed, id: `create:${lowered}`, value: `Create \"${trimmed}\"` }]\n    : labels;\n\nfunction handleCreate() {\n  const input = createInputRef.current || comboboxInputRef.current;\n  const value = input ? input.value.trim() : '';\n  if (!value) return;\n\n  const normalized = value.toLocaleLowerCase();\n  const existing = labels.find((l) => l.value.trim().toLocaleLowerCase() === normalized);\n\n  if (existing) {\n    setSelected((prev) => (prev.some((i) => i.id === existing.id) ? prev : [...prev, existing]));\n  } else {\n    const baseId = normalized.replace(/\\s+/g, '-');\n    const existingIds = new Set(labels.map((l) => l.id));\n    let uniqueId = baseId;\n    let counter = 2;\n    while (existingIds.has(uniqueId)) {\n      uniqueId = `${baseId}-${counter++}`;\n    }\n    const newItem: LabelItem = { id: uniqueId, value };\n    setLabels((prev) => [...prev, newItem]);\n    setSelected((prev) => [...prev, newItem]);\n  }\n\n  setDialogOpen(false);\n  setQuery('');\n}\n\nreturn (\n  <div style={{ width: 300 }}>\n    <Field.Root>\n      <Field.Label>Labels</Field.Label>\n      <Combobox.Root\n        items={items}\n        multiple\n        size=\"3\"\n        value={selected}\n        inputValue={query}\n        onInputValueChange={setQuery}\n        onItemHighlighted={(item) => {\n          highlightedItemRef.current = item as LabelItem | undefined;\n        }}\n        onValueChange={(next) => {\n          const nextTyped = next as LabelItem[];\n          const creatableItem = nextTyped.find((item) => item.creatable && !selected.some((s) => s.id === item.id));\n          if (creatableItem?.creatable) {\n            pendingQueryRef.current = creatableItem.creatable;\n            setDialogOpen(true);\n            return;\n          }\n          setSelected(nextTyped.filter((i) => !i.creatable));\n          setQuery('');\n        }}\n        itemToStringLabel={(item) => (item as LabelItem).value}\n        isItemEqualToValue={(a, b) => (a as LabelItem).id === (b as LabelItem).id}\n      >\n        <Combobox.Chips>\n          <Combobox.Value>\n            {(values: LabelItem[]) => (\n              <React.Fragment>\n                {values.map((label) => (\n                  <Combobox.Chip key={label.id} variant=\"solid\" color=\"orange\">\n                    {label.value}\n                  </Combobox.Chip>\n                ))}\n                <Combobox.ChipsInput\n                  ref={comboboxInputRef}\n                  placeholder={values.length > 0 ? '' : 'e.g. bug'}\n                  onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {\n                    if (e.key !== 'Enter' || highlightedItemRef.current) return;\n                    const currentTrimmed = query.trim();\n                    if (!currentTrimmed) return;\n                    const norm = currentTrimmed.toLocaleLowerCase();\n                    const existing = labels.find((l) => l.value.trim().toLocaleLowerCase() === norm);\n                    if (existing) {\n                      setSelected((prev) => (prev.some((i) => i.id === existing.id) ? prev : [...prev, existing]));\n                      setQuery('');\n                      return;\n                    }\n                    pendingQueryRef.current = currentTrimmed;\n                    setDialogOpen(true);\n                  }}\n                />\n              </React.Fragment>\n            )}\n          </Combobox.Value>\n        </Combobox.Chips>\n        <Combobox.Content>\n          <ScrollArea type=\"auto\" style={{ maxHeight: 300 }}>\n            <Combobox.Empty>No labels found.</Combobox.Empty>\n            <Combobox.List>\n              {(item) => {\n                const label = item as LabelItem;\n                return label.creatable ? (\n                  <Combobox.Item key={label.id} value={label}>\n                    <Typography.Text weight=\"medium\">Create &ldquo;{label.creatable}&rdquo;</Typography.Text>\n                  </Combobox.Item>\n                ) : (\n                  <Combobox.Item key={label.id} value={label}>\n                    {label.value}\n                  </Combobox.Item>\n                );\n              }}\n            </Combobox.List>\n          </ScrollArea>\n        </Combobox.Content>\n      </Combobox.Root>\n    </Field.Root>\n\n    <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>\n      <Dialog.Content size=\"2\" style={{ width: 360 }} finalFocus={comboboxInputRef}>\n        <Dialog.Title>Create new label</Dialog.Title>\n        <Dialog.Description>Add a new label to select.</Dialog.Description>\n        <form\n          onSubmit={(e) => {\n            e.preventDefault();\n            handleCreate();\n          }}\n        >\n          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 16 }}>\n            <Input.Root>\n              <Input.Control\n                ref={createInputRef}\n                placeholder=\"Label name\"\n                defaultValue={pendingQueryRef.current}\n                autoFocus\n              />\n            </Input.Root>\n            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>\n              <Dialog.Close>\n                <Button variant=\"soft\" color=\"gray\">\n                  Cancel\n                </Button>\n              </Dialog.Close>\n              <Button type=\"submit\" variant=\"solid\">\n                Create\n              </Button>\n            </div>\n          </div>\n        </form>\n      </Dialog.Content>\n    </Dialog.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const EmptyState: Story = {
   name: 'Empty State',
   render: () => render(examples['Empty State']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Combobox, Input, Typography } from \'ljkui\';\n\n<div style={{ display: \'flex\', gap: 64, alignItems: \'flex-start\' }}>\n  <div style={{ width: 300 }}>\n    <Typography.Text size="1" color="gray" style={{ marginBottom: 4, display: \'block\' }}>\n      Nothing to filter — <Typography.Code size="1">items</Typography.Code> is empty\n    </Typography.Text>\n    <Combobox.Root items={noItems} size="2">\n      <Combobox.InputRoot>\n        <Combobox.Input placeholder="No fruits yet" />\n      </Combobox.InputRoot>\n      <Combobox.Content>\n        <Combobox.Empty>\n          <div style={{ display: \'flex\', flexDirection: \'column\', alignItems: \'center\', gap: 8, padding: 12 }}>\n            <SearchIcon size={20} />\n            <Typography.Text size="2" weight="medium">\n              Nothing here yet\n            </Typography.Text>\n            <Typography.Text size="1" color="gray" style={{ textAlign: \'center\' }}>\n              Fruits you add will show up in this list.\n            </Typography.Text>\n          </div>\n        </Combobox.Empty>\n        <Combobox.List>\n          {(item: string) => (\n            <Combobox.Item key={item} value={item}>\n              {item}\n            </Combobox.Item>\n          )}\n        </Combobox.List>\n      </Combobox.Content>\n    </Combobox.Root>\n  </div>\n\n  <div style={{ width: 300 }}>\n    <Typography.Text size="1" color="gray" style={{ marginBottom: 4, display: \'block\' }}>\n      Query matches nothing — opens straight onto the empty state\n    </Typography.Text>\n    <Combobox.Root items={fruits} size="2" defaultInputValue="zzz" defaultOpen>\n      <Combobox.InputRoot showClear>\n        <Combobox.Input placeholder="Search fruits" />\n      </Combobox.InputRoot>\n      <Combobox.Content>\n        <Combobox.Empty>\n          <div style={{ display: \'flex\', flexDirection: \'column\', alignItems: \'center\', gap: 8, padding: 12 }}>\n            <SearchIcon size={20} />\n            <Typography.Text size="2" weight="medium">\n              No fruits found\n            </Typography.Text>\n            <Typography.Text size="1" color="gray" style={{ textAlign: \'center\' }}>\n              Clear the search or try a shorter term.\n            </Typography.Text>\n          </div>\n        </Combobox.Empty>\n        <Combobox.List>\n          {(item: string) => (\n            <Combobox.Item key={item} value={item}>\n              {item}\n            </Combobox.Item>\n          )}\n        </Combobox.List>\n      </Combobox.Content>\n    </Combobox.Root>\n  </div>\n</div>',
+      },
+    },
+  },
 };

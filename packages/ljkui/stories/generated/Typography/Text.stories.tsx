@@ -59,50 +59,130 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical Text. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Text. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'const args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: 12 }}>\n    <Text {...args} size="0">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="1">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="2">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="3">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="4">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="5">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="6">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="7">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="8">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="9">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'const args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: 12 }}>\n    <Text {...args} size="0">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="1">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="2">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="3">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="4">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="5">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="6">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="7">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="8">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} size="9">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Weight: Story = {
   name: 'Weight',
   render: () => render(examples['Weight']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'const args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: 12 }}>\n    <Text {...args} weight="light">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} weight="regular">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} weight="medium">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} weight="semi-bold">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} weight="bold">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'const args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: 12 }}>\n    <Text {...args} color="indigo">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} color="cyan">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} color="orange">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} color="rose">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Align: Story = {
   name: 'Align',
   render: () => render(examples['Align']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'const args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: 12, width: 500 }}>\n    <Text {...args} align="left">\n      Left-aligned\n    </Text>\n    <Text {...args} align="center">\n      Center-aligned\n    </Text>\n    <Text {...args} align="right">\n      Right-aligned\n    </Text>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Trim: Story = {
   name: 'Trim',
   render: () => render(examples['Trim']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "const args = {};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n    <Text\n      {...args}\n      trim=\"normal\"\n      style={{\n        background: 'var(--gray-alpha-50)',\n        borderTop: '1px dashed var(--gray-alpha-500)',\n        borderBottom: '1px dashed var(--gray-alpha-500)',\n      }}\n    >\n      Without trim\n    </Text>\n    <Text\n      {...args}\n      trim=\"both\"\n      style={{\n        background: 'var(--gray-alpha-50)',\n        borderTop: '1px dashed var(--gray-alpha-500)',\n        borderBottom: '1px dashed var(--gray-alpha-500)',\n      }}\n    >\n      With trim\n    </Text>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Formatting: Story = {
   name: 'Formatting',
   render: () => render(examples['Formatting']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Kbd, Link } from \'ljkui\';\n\nconst args = {};\nreturn (\n  <Text size="5" {...args}>\n    Look, such a helpful <Link href="#">link</Link>, an <Em>italic emphasis</Em>, a piece of computer{\' \'}\n    <Code>code</Code>, and even a hotkey combination <Kbd>⇧⌘A</Kbd> within the text.\n  </Text>\n);',
+      },
+    },
+  },
 };
 
 export const WithFormControls: Story = {
   name: 'With form controls',
   render: () => render(examples['With form controls']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Checkbox } from 'ljkui';\n\n<div style={{ maxWidth: 300 }}>\n  <Text size=\"3\" render={<div />} style={{ display: 'flex', gap: 12 }}>\n    <Checkbox defaultChecked /> Composing Text with a form control like Checkbox, RadioGroup, or Switch\n    automatically centers the control with the first line of text, even when the text is multi-line.\n  </Text>\n</div>",
+      },
+    },
+  },
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: () => render(examples['High Contrast']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'const args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: 12 }}>\n    <Text {...args} highContrast color="indigo">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} highContrast color="cyan">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} highContrast color="orange">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n    <Text {...args} highContrast color="rose">\n      The quick brown fox jumps over the lazy dog.\n    </Text>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const AsFormLabel: Story = {
   name: 'As Form Label',
   render: () => render(examples['As Form Label']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Input } from \'ljkui\';\n\n<div style={{ display: \'flex\', flexDirection: \'column\', gap: 24, width: 300 }}>\n  <Text size="2" weight="medium" render={<button type="button" />}>\n    as button\n  </Text>\n  {/* Using the render prop to render Text as a label element */}\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: 6 }}>\n    <Text size="2" weight="medium" render={<label htmlFor="email-input" />}>\n      Email address\n    </Text>\n    <Input.Root>\n      <Input.Control id="email-input" placeholder="Enter your email" />\n    </Input.Root>\n  </div>\n\n  {/* Another example with required indicator */}\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: 6 }}>\n    <Text size="2" weight="medium" render={<label htmlFor="password-input" />}>\n      Password <Text color="red">*</Text>\n    </Text>\n    <Input.Root>\n      <Input.Control id="password-input" type="password" placeholder="Enter your password" />\n    </Input.Root>\n  </div>\n\n  {/* Using render prop with htmlFor */}\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: 6 }}>\n    <Text size="2" weight="medium" render={<label htmlFor="username-input" />}>\n      Username\n    </Text>\n    <Input.Root>\n      <Input.Control id="username-input" placeholder="Enter your username" />\n    </Input.Root>\n  </div>\n</div>',
+      },
+    },
+  },
 };

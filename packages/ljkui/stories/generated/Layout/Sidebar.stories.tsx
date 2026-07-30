@@ -40,14 +40,17 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: { docs: { source: { language: 'tsx', code: '<Shell />' } } },
 };
 
 export const CollapseToIconRail: Story = {
   name: 'Collapse to icon rail',
   render: () => render(examples['Collapse to icon rail']),
+  parameters: { docs: { source: { language: 'tsx', code: '<Shell collapsible="icon" />' } } },
 };
 
 export const NotCollapsible: Story = {
   name: 'Not collapsible',
   render: () => render(examples['Not collapsible']),
+  parameters: { docs: { source: { language: 'tsx', code: '<Shell collapsible="none" />' } } },
 };

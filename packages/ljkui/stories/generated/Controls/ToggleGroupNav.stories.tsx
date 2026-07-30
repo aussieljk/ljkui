@@ -22,9 +22,25 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { ToggleGroupNav } from \'ljkui\';\n\nconst args = {};\nreturn (\n  <div style={{ width: 600 }}>\n    <ToggleGroupNav.Root {...args}>\n      <ToggleGroupNav.Link active={true} href="#">\n        Account\n      </ToggleGroupNav.Link>\n      <ToggleGroupNav.Link href="#">Documents</ToggleGroupNav.Link>\n      <ToggleGroupNav.Link href="#">Settings</ToggleGroupNav.Link>\n    </ToggleGroupNav.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const RenderPropClientSideRouting: Story = {
   name: 'Render Prop (Client-Side Routing)',
   render: () => render(examples['Render Prop (Client-Side Routing)']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { ToggleGroupNav, Typography } from \'ljkui\';\n\nconst args = {};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-4)\', maxWidth: 400 }}>\n    <Typography.Text>\n      Use the <Typography.Code>render</Typography.Code> prop to integrate with your framework&apos;s router for\n      client-side navigation.\n    </Typography.Text>\n    <ToggleGroupNav.Root {...args}>\n      <ToggleGroupNav.Link active render={<a href="/account" />}>\n        Account\n      </ToggleGroupNav.Link>\n      <ToggleGroupNav.Link render={<a href="/documents" />}>Documents</ToggleGroupNav.Link>\n      <ToggleGroupNav.Link render={<a href="/settings" />}>Settings</ToggleGroupNav.Link>\n    </ToggleGroupNav.Root>\n    <Typography.Text size="1" color="gray">\n      In a real app, replace <Typography.Code>{\'<a />\'}</Typography.Code> with your router&apos;s Link component,\n      e.g. <Typography.Code>{\'<NextLink href="/account" />\'}</Typography.Code> for Next.js.\n    </Typography.Text>\n  </div>\n);',
+      },
+    },
+  },
 };

@@ -23,31 +23,77 @@ export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Hidden by default']),
   parameters: {
-    docs: { description: { story: 'The canonical Scrollbars. Same as “Hidden by default”, shown first.' } },
+    docs: {
+      description: { story: 'The canonical Scrollbars. Same as “Hidden by default”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: '<div style={column}>\n  <Label>no class — the content scrolls, the scrollbar is invisible</Label>\n  <div style={box}>\n    <Paragraphs />\n  </div>\n</div>',
+      },
+    },
   },
 };
 
 export const HiddenByDefault: Story = {
   name: 'Hidden by default',
   render: () => render(examples['Hidden by default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: '<div style={column}>\n  <Label>no class — the content scrolls, the scrollbar is invisible</Label>\n  <div style={box}>\n    <Paragraphs />\n  </div>\n</div>',
+      },
+    },
+  },
 };
 
 export const ThinScrollbar: Story = {
   name: 'Thin scrollbar',
   render: () => render(examples['Thin scrollbar']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: '<div style={row}>\n  <div>\n    <Label>default</Label>\n    <div style={box}>\n      <Paragraphs />\n    </div>\n  </div>\n  <div>\n    <Label>className=&quot;{THIN}&quot;</Label>\n    <div className={THIN} style={box}>\n      <Paragraphs />\n    </div>\n  </div>\n</div>',
+      },
+    },
+  },
 };
 
 export const Horizontal: Story = {
   name: 'Horizontal',
   render: () => render(examples['Horizontal']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Typography } from 'ljkui';\n\n<div style={column}>\n  <Label>the same class styles the horizontal scrollbar</Label>\n  <div className={THIN} style={{ ...box, height: 'auto', width: 420, whiteSpace: 'nowrap' }}>\n    <Typography.Text size=\"2\">\n      A single very long line that has to scroll sideways, because wrapping is turned off and the container is\n      narrower than the text it holds.\n    </Typography.Text>\n  </div>\n</div>",
+      },
+    },
+  },
 };
 
 export const BothAxes: Story = {
   name: 'Both axes',
   render: () => render(examples['Both axes']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: '<div style={column}>\n  <Label>both scrollbars plus the corner</Label>\n  <div className={THIN} style={{ ...box, width: 320 }}>\n    <div style={{ width: 640 }}>\n      <Paragraphs count={8} />\n    </div>\n  </div>\n</div>',
+      },
+    },
+  },
 };
 
 export const InACard: Story = {
   name: 'In a card',
   render: () => render(examples['In a card']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Card, Typography } from 'ljkui';\n\n<Card size=\"2\" style={{ width: 360 }}>\n  <Typography.Text render={<div />} size=\"2\" weight=\"bold\" style={{ marginBottom: 'var(--space-2)' }}>\n    Release notes\n  </Typography.Text>\n  <div className={THIN} style={{ maxHeight: 180, overflowY: 'auto', paddingRight: 'var(--space-2)' }}>\n    <Paragraphs count={10} />\n  </div>\n</Card>",
+      },
+    },
+  },
 };

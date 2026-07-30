@@ -51,75 +51,195 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical Select. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Select. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { Select, selectTriggerPropDefs } from \'ljkui\';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', gap: \'var(--space-3)\', alignItems: \'center\' }}>\n    <Select.Root size="1" defaultValue="Apple">\n      <Select.Trigger {...args} />\n      <Select.Content>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n\n    <Select.Root size="2" defaultValue="Apple">\n      <Select.Trigger {...args} />\n      <Select.Content>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n\n    <Select.Root size="3" defaultValue="Apple">\n      <Select.Trigger {...args} />\n      <Select.Content>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n\n    <Select.Root size="4" defaultValue="Apple">\n      <Select.Trigger {...args} />\n      <Select.Content>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Select, selectTriggerPropDefs } from \'ljkui\';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', gap: \'var(--space-3)\', alignItems: \'center\' }}>\n    <Select.Root size="1" defaultValue="Apple">\n      <Select.Trigger {...args} />\n      <Select.Content>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n\n    <Select.Root size="2" defaultValue="Apple">\n      <Select.Trigger {...args} />\n      <Select.Content>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n\n    <Select.Root size="3" defaultValue="Apple">\n      <Select.Trigger {...args} />\n      <Select.Content>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n\n    <Select.Root size="4" defaultValue="Apple">\n      <Select.Trigger {...args} />\n      <Select.Content>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const TriggerVariant: Story = {
   name: 'TriggerVariant',
   render: () => render(examples['TriggerVariant']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Select, selectTriggerPropDefs } from \'ljkui\';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', gap: \'var(--space-3)\', alignItems: \'center\', flexDirection: \'column\' }}>\n    <div style={{ display: \'flex\', gap: \'var(--space-3)\', alignItems: \'center\' }}>\n      <Select.Root defaultValue="Apple">\n        <Select.Trigger {...args} variant="surface" />\n        <Select.Content>\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n        </Select.Content>\n      </Select.Root>\n\n      <Select.Root defaultValue="Apple">\n        <Select.Trigger {...args} variant="soft" />\n        <Select.Content>\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n        </Select.Content>\n      </Select.Root>\n\n      <Select.Root defaultValue="Apple">\n        <Select.Trigger {...args} variant="ghost" />\n        <Select.Content>\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n        </Select.Content>\n      </Select.Root>\n    </div>\n    <div style={{ display: \'flex\', gap: \'var(--space-3)\', alignItems: \'center\' }}>\n      <Select.Root defaultValue="Apple" disabled>\n        <Select.Trigger {...args} variant="surface" />\n        <Select.Content>\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n        </Select.Content>\n      </Select.Root>\n\n      <Select.Root defaultValue="Apple" disabled>\n        <Select.Trigger {...args} variant="soft" />\n        <Select.Content>\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n        </Select.Content>\n      </Select.Root>\n\n      <Select.Root defaultValue="Apple" disabled>\n        <Select.Trigger {...args} variant="ghost" />\n        <Select.Content>\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n        </Select.Content>\n      </Select.Root>\n    </div>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Select, selectTriggerPropDefs } from \'ljkui\';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', gap: \'var(--space-3)\' }}>\n    <Select.Root defaultValue="Apple">\n      <Select.Trigger {...args} color="indigo" />\n      <Select.Content>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n\n    <Select.Root defaultValue="Apple">\n      <Select.Trigger {...args} color="cyan" />\n      <Select.Content>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n\n    <Select.Root defaultValue="Apple">\n      <Select.Trigger {...args} color="orange" />\n      <Select.Content>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n\n    <Select.Root defaultValue="Apple">\n      <Select.Trigger {...args} color="rose" />\n      <Select.Content>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Placeholder: Story = {
   name: 'Placeholder',
   render: () => render(examples['Placeholder']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Select, selectTriggerPropDefs } from \'ljkui\';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <Select.Root>\n    <Select.Trigger {...args} placeholder="Pick a fruit" />\n    <Select.Content>\n      <Select.Group>\n        <Select.GroupLabel>Fruits</Select.GroupLabel>\n        <Select.Item value="Orange">Orange</Select.Item>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Grape" disabled>\n          Grape\n        </Select.Item>\n      </Select.Group>\n      <Select.Separator />\n      <Select.Group>\n        <Select.GroupLabel>Vegetables</Select.GroupLabel>\n        <Select.Item value="Carrot">Carrot</Select.Item>\n        <Select.Item value="Potato">Potato</Select.Item>\n      </Select.Group>\n    </Select.Content>\n  </Select.Root>\n);',
+      },
+    },
+  },
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: () => render(examples['High Contrast']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Select, selectTriggerPropDefs } from \'ljkui\';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', gap: \'var(--space-3)\' }}>\n    <Select.Root defaultValue="Apple">\n      <Select.Trigger {...args} />\n      <Select.Content>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n\n    <Select.Root defaultValue="Apple">\n      <Select.Trigger {...args} />\n      <Select.Content highContrast>\n        <Select.Item value="Apple">Apple</Select.Item>\n        <Select.Item value="Orange">Orange</Select.Item>\n      </Select.Content>\n    </Select.Root>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const FormattingTheValue: Story = {
   name: 'Formatting the Value',
   render: () => render(examples['Formatting the Value']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Select, selectTriggerPropDefs, Typography } from \'ljkui\';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-6)\' }}>\n    <Typography.Text render={<div />} style={{ maxWidth: 700 }}>\n      By default, <Typography.Code>Select.Value</Typography.Code> displays the raw{\' \'}\n      <Typography.Code>value</Typography.Code>, not the label text. Here are different ways to show a formatted\n      label in the trigger.\n    </Typography.Text>\n\n    <div style={{ display: \'flex\', gap: \'var(--space-6)\', flexWrap: \'wrap\' }}>\n      {/* Default: Raw value */}\n      <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-2)\' }}>\n        <Typography.Text size="2" weight="bold">\n          Default (raw value)\n        </Typography.Text>\n        <Select.Root defaultValue="roboto">\n          <Select.Trigger {...args} style={{ width: 160 }} />\n          <Select.Content alignItemWithTrigger={false}>\n            {fontItems.map((item) => (\n              <Select.Item key={item.value} value={item.value}>\n                {item.label}\n              </Select.Item>\n            ))}\n          </Select.Content>\n        </Select.Root>\n        <Typography.Text size="1" color="gray" style={{ maxWidth: 180 }}>\n          Shows "roboto" instead of "Roboto". This is the default Base UI behavior.\n        </Typography.Text>\n      </div>\n\n      {/* With items prop for label lookup */}\n      <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-2)\' }}>\n        <Typography.Text size="2" weight="bold">\n          Using <Typography.Code>items</Typography.Code> prop\n        </Typography.Text>\n        <Select.Root defaultValue="roboto" items={fontItems}>\n          <Select.Trigger {...args} style={{ width: 160 }} />\n          <Select.Content alignItemWithTrigger={false}>\n            {fontItems.map((item) => (\n              <Select.Item key={item.value} value={item.value}>\n                {item.label}\n              </Select.Item>\n            ))}\n          </Select.Content>\n        </Select.Root>\n        <Typography.Text size="1" color="gray" style={{ maxWidth: 180 }}>\n          Pass <Typography.Code>{`{ value, label }`}</Typography.Code> objects to Root. Base UI automatically maps\n          values to labels.\n        </Typography.Text>\n      </div>\n\n      {/* Using itemToStringLabel */}\n      <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-2)\' }}>\n        <Typography.Text size="2" weight="bold">\n          Using <Typography.Code>itemToStringLabel</Typography.Code>\n        </Typography.Text>\n        <Select.Root\n          defaultValue="roboto"\n          itemToStringLabel={(value) => {\n            const labels: Record<string, string> = { roboto: \'Roboto\', inter: \'Inter\', poppins: \'Poppins\' };\n            return labels[value as string] ?? String(value);\n          }}\n        >\n          <Select.Trigger {...args} style={{ width: 160 }} />\n          <Select.Content alignItemWithTrigger={false}>\n            <Select.Item value="roboto">Roboto</Select.Item>\n            <Select.Item value="inter">Inter</Select.Item>\n            <Select.Item value="poppins">Poppins</Select.Item>\n          </Select.Content>\n        </Select.Root>\n        <Typography.Text size="1" color="gray" style={{ maxWidth: 180 }}>\n          Provide a function to transform any value into its display label.\n        </Typography.Text>\n      </div>\n\n      {/* Custom render function */}\n      <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-2)\' }}>\n        <Typography.Text size="2" weight="bold">\n          Using <Typography.Code>renderValue</Typography.Code>\n        </Typography.Text>\n        <Select.Root defaultValue="EUR">\n          <Select.Trigger\n            {...args}\n            style={{ width: 200 }}\n            renderValue={(value) => (\n              <span style={{ display: \'flex\', alignItems: \'center\', gap: 6, minWidth: 0 }}>\n                <InfoCircledIcon style={{ width: 14, height: 14, flexShrink: 0 }} />\n                <span style={{ overflow: \'hidden\', textOverflow: \'ellipsis\', whiteSpace: \'nowrap\' }}>\n                  {currencyItems[value as keyof typeof currencyItems]} ({value as string})\n                </span>\n              </span>\n            )}\n          />\n          <Select.Content alignItemWithTrigger={false}>\n            {Object.entries(currencyItems).map(([code, name]) => (\n              <Select.Item key={code} value={code}>\n                {name} ({code})\n              </Select.Item>\n            ))}\n          </Select.Content>\n        </Select.Root>\n        <Typography.Text size="1" color="gray" style={{ maxWidth: 180 }}>\n          Full control via render function. Great for icons or complex formatting.\n        </Typography.Text>\n      </div>\n\n      {/* Value equals label */}\n      <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-2)\' }}>\n        <Typography.Text size="2" weight="bold">\n          Value = Label\n        </Typography.Text>\n        <Select.Root defaultValue="Roboto">\n          <Select.Trigger {...args} style={{ width: 160 }} />\n          <Select.Content alignItemWithTrigger={false}>\n            <Select.Item value="Roboto">Roboto</Select.Item>\n            <Select.Item value="Inter">Inter</Select.Item>\n            <Select.Item value="Poppins">Poppins</Select.Item>\n          </Select.Content>\n        </Select.Root>\n        <Typography.Text size="1" color="gray" style={{ maxWidth: 180 }}>\n          Simplest: use display text as value. Works for simple cases.\n        </Typography.Text>\n      </div>\n    </div>\n\n    <Typography.Text render={<div />} size="2" color="gray" style={{ maxWidth: 700, marginTop: \'var(--space-2)\' }}>\n      <strong>Recommendation:</strong> Use <Typography.Code>items</Typography.Code> prop for data-driven selects, or{\' \'}\n      <Typography.Code>renderValue</Typography.Code> for custom formatting. Using value=label works for simple cases\n      but can be problematic if you need stable IDs for form submission.\n    </Typography.Text>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const DropdownPositioning: Story = {
   name: 'Dropdown Positioning',
   render: () => render(examples['Dropdown Positioning']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Select, selectTriggerPropDefs, Typography } from 'ljkui';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>\n    <Typography.Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>\n      By default, Base UI Select aligns the selected item with the trigger (native select behavior). Set{' '}\n      <Typography.Code>alignItemWithTrigger=&#123;false&#125;</Typography.Code> for standard dropdown positioning.\n    </Typography.Text>\n\n    <div style={{ display: 'flex', gap: 'var(--space-4)' }}>\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', alignItems: 'center' }}>\n        <Typography.Text size=\"1\" color=\"gray\">\n          Default (item-aligned)\n        </Typography.Text>\n        <Select.Root defaultValue=\"banana\">\n          <Select.Trigger {...args} />\n          <Select.Content>\n            <Select.Item value=\"Apple\">Apple</Select.Item>\n            <Select.Item value=\"banana\">Banana</Select.Item>\n            <Select.Item value=\"cherry\">Cherry</Select.Item>\n            <Select.Item value=\"date\">Date</Select.Item>\n            <Select.Item value=\"elderberry\">Elderberry</Select.Item>\n          </Select.Content>\n        </Select.Root>\n      </div>\n\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', alignItems: 'center' }}>\n        <Typography.Text size=\"1\" color=\"gray\">\n          alignItemWithTrigger=false\n        </Typography.Text>\n        <Select.Root defaultValue=\"banana\">\n          <Select.Trigger {...args} />\n          <Select.Content alignItemWithTrigger={false}>\n            <Select.Item value=\"Apple\">Apple</Select.Item>\n            <Select.Item value=\"banana\">Banana</Select.Item>\n            <Select.Item value=\"cherry\">Cherry</Select.Item>\n            <Select.Item value=\"date\">Date</Select.Item>\n            <Select.Item value=\"elderberry\">Elderberry</Select.Item>\n          </Select.Content>\n        </Select.Root>\n      </div>\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const SideAndAlign: Story = {
   name: 'Side and Align',
   render: () => render(examples['Side and Align']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Select, selectTriggerPropDefs, Typography } from \'ljkui\';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-6)\', alignItems: \'center\' }}>\n    <Typography.Text render={<div />} style={{ maxWidth: 500, textAlign: \'center\' }}>\n      Control where the popup appears using <Typography.Code>side</Typography.Code> and{\' \'}\n      <Typography.Code>align</Typography.Code> props. These only take effect when{\' \'}\n      <Typography.Code>alignItemWithTrigger=&#123;false&#125;</Typography.Code>.\n    </Typography.Text>\n\n    <div style={{ display: \'flex\', gap: \'var(--space-3)\', flexWrap: \'wrap\', justifyContent: \'center\' }}>\n      <Select.Root defaultValue="Apple">\n        <Select.Trigger {...args} placeholder="Bottom Start" />\n        <Select.Content alignItemWithTrigger={false} side="bottom" align="start">\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n          <Select.Item value="banana">Banana</Select.Item>\n        </Select.Content>\n      </Select.Root>\n\n      <Select.Root defaultValue="Apple">\n        <Select.Trigger {...args} placeholder="Bottom Center" />\n        <Select.Content alignItemWithTrigger={false} side="bottom" align="center">\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n          <Select.Item value="banana">Banana</Select.Item>\n        </Select.Content>\n      </Select.Root>\n\n      <Select.Root defaultValue="Apple">\n        <Select.Trigger {...args} placeholder="Bottom End" />\n        <Select.Content alignItemWithTrigger={false} side="bottom" align="end">\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n          <Select.Item value="banana">Banana</Select.Item>\n        </Select.Content>\n      </Select.Root>\n    </div>\n\n    <div style={{ display: \'flex\', gap: \'var(--space-3)\', flexWrap: \'wrap\', justifyContent: \'center\' }}>\n      <Select.Root defaultValue="Apple">\n        <Select.Trigger {...args} placeholder="Top Start" />\n        <Select.Content alignItemWithTrigger={false} side="top" align="start">\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n          <Select.Item value="banana">Banana</Select.Item>\n        </Select.Content>\n      </Select.Root>\n\n      <Select.Root defaultValue="Apple">\n        <Select.Trigger {...args} placeholder="Right Start" />\n        <Select.Content alignItemWithTrigger={false} side="right" align="start">\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n          <Select.Item value="banana">Banana</Select.Item>\n        </Select.Content>\n      </Select.Root>\n\n      <Select.Root defaultValue="Apple">\n        <Select.Trigger {...args} placeholder="Left Start" />\n        <Select.Content alignItemWithTrigger={false} side="left" align="start">\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n          <Select.Item value="banana">Banana</Select.Item>\n        </Select.Content>\n      </Select.Root>\n    </div>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const SideOffsetAndAlignOffset: Story = {
   name: 'Side Offset and Align Offset',
   render: () => render(examples['Side Offset and Align Offset']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Select, selectTriggerPropDefs, Typography } from \'ljkui\';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-6)\', alignItems: \'center\' }}>\n    <Typography.Text render={<div />} style={{ maxWidth: 500, textAlign: \'center\' }}>\n      Fine-tune positioning with <Typography.Code>sideOffset</Typography.Code> (distance from trigger) and{\' \'}\n      <Typography.Code>alignOffset</Typography.Code> (shift along the alignment axis). Requires{\' \'}\n      <Typography.Code>alignItemWithTrigger=&#123;false&#125;</Typography.Code>.\n    </Typography.Text>\n\n    <div style={{ display: \'flex\', gap: \'var(--space-4)\', flexWrap: \'wrap\', justifyContent: \'center\' }}>\n      <Select.Root defaultValue="Apple">\n        <Select.Trigger {...args} placeholder="Default (4px)" />\n        <Select.Content alignItemWithTrigger={false}>\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n          <Select.Item value="banana">Banana</Select.Item>\n        </Select.Content>\n      </Select.Root>\n\n      <Select.Root defaultValue="Apple">\n        <Select.Trigger {...args} placeholder="sideOffset: 16" />\n        <Select.Content alignItemWithTrigger={false} sideOffset={16}>\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n          <Select.Item value="banana">Banana</Select.Item>\n        </Select.Content>\n      </Select.Root>\n\n      <Select.Root defaultValue="Apple">\n        <Select.Trigger {...args} placeholder="alignOffset: 20" />\n        <Select.Content alignItemWithTrigger={false} alignOffset={20}>\n          <Select.Item value="Apple">Apple</Select.Item>\n          <Select.Item value="Orange">Orange</Select.Item>\n          <Select.Item value="banana">Banana</Select.Item>\n        </Select.Content>\n      </Select.Root>\n    </div>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const ControlledMode: Story = {
   name: 'Controlled Mode',
   render: () => render(examples['Controlled Mode']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Select, selectTriggerPropDefs, Typography } from 'ljkui';\n\nconst [value, setValue] = React.useState<string | null>('apple');\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>\n    <Typography.Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>\n      Control the select's value externally with <Typography.Code>value</Typography.Code> and{' '}\n      <Typography.Code>onValueChange</Typography.Code> props.\n    </Typography.Text>\n\n    <Select.Root value={value} onValueChange={(newValue) => setValue(newValue as string | null)}>\n      <Select.Trigger {...args} placeholder=\"Pick a fruit\" />\n      <Select.Content>\n        <Select.Item value=\"Apple\">Apple</Select.Item>\n        <Select.Item value=\"Orange\">Orange</Select.Item>\n        <Select.Item value=\"banana\">Banana</Select.Item>\n        <Select.Item value=\"cherry\">Cherry</Select.Item>\n      </Select.Content>\n    </Select.Root>\n\n    <Typography.Text size=\"2\" color=\"gray\">\n      Selected: <Typography.Code>{value ?? 'none'}</Typography.Code>\n    </Typography.Text>\n\n    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>\n      <button onClick={() => setValue('cherry')}>Set to Cherry</button>\n      <button onClick={() => setValue(null)}>Clear</button>\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const ManyItems: Story = {
   name: 'Many Items',
   render: () => render(examples['Many Items']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Select, selectTriggerPropDefs, Typography } from 'ljkui';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nconst items = Array.from({ length: 50 }, (_, i) => `Item ${i + 1}`);\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', alignItems: 'center' }}>\n    <Typography.Text render={<div />} style={{ maxWidth: 600, textAlign: 'center' }}>\n      Select with many items. Compare <Typography.Code>alignItemWithTrigger</Typography.Code> behavior.\n    </Typography.Text>\n\n    <div style={{ display: 'flex', gap: 'var(--space-6)', flexWrap: 'wrap', justifyContent: 'center' }}>\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', alignItems: 'center' }}>\n        <Typography.Text size=\"2\" weight=\"medium\">\n          alignItemWithTrigger={'{true}'} (default)\n        </Typography.Text>\n        <Select.Root defaultValue=\"Item 25\">\n          <Select.Trigger {...args} />\n          <Select.Content>\n            {items.map((item) => (\n              <Select.Item key={item} value={item}>\n                {item}\n              </Select.Item>\n            ))}\n          </Select.Content>\n        </Select.Root>\n        <Typography.Text size=\"1\" color=\"gray\" style={{ maxWidth: 200, textAlign: 'center' }}>\n          Selected item aligns with trigger. Popup expands as you scroll.\n        </Typography.Text>\n      </div>\n\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', alignItems: 'center' }}>\n        <Typography.Text size=\"2\" weight=\"medium\">\n          alignItemWithTrigger={'{false}'}\n        </Typography.Text>\n        <Select.Root defaultValue=\"Item 25\">\n          <Select.Trigger {...args} />\n          <Select.Content alignItemWithTrigger={false}>\n            {items.map((item) => (\n              <Select.Item key={item} value={item}>\n                {item}\n              </Select.Item>\n            ))}\n          </Select.Content>\n        </Select.Root>\n        <Typography.Text size=\"1\" color=\"gray\" style={{ maxWidth: 200, textAlign: 'center' }}>\n          Standard dropdown positioning below trigger.\n        </Typography.Text>\n      </div>\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const MultipleSelection: Story = {
   name: 'Multiple Selection',
   render: () => render(examples['Multiple Selection']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Select, selectTriggerPropDefs, Typography } from 'ljkui';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nconst languageKeys = Object.keys(languages) as Language[];\n\nconst renderValue = (value: Language[]) => {\n  if (value.length === 0) {\n    return 'Select languages...';\n  }\n  const firstLanguage = languages[value[0]];\n  const additionalCount = value.length > 1 ? ` (+${value.length - 1} more)` : '';\n  return firstLanguage + additionalCount;\n};\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>\n    <Typography.Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>\n      Add the <Typography.Code>multiple</Typography.Code> prop to <Typography.Code>Select.Root</Typography.Code> to\n      allow multiple selections. Use the <Typography.Code>renderValue</Typography.Code> prop on the Trigger to\n      customize how the selection is displayed.\n    </Typography.Text>\n\n    <Select.Root multiple defaultValue={['javascript', 'typescript']}>\n      <Select.Trigger {...args} renderValue={renderValue} />\n      <Select.Content alignItemWithTrigger={false}>\n        {languageKeys.map((key) => (\n          <Select.Item key={key} value={key}>\n            {languages[key]}\n          </Select.Item>\n        ))}\n      </Select.Content>\n    </Select.Root>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Controlled: Story = {
   name: 'Controlled',
   render: () => render(examples['Controlled']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Select, selectTriggerPropDefs, Typography } from 'ljkui';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nconst [singleValue, setSingleValue] = React.useState<string>('Apple');\nconst [multipleValue, setMultipleValue] = React.useState<string[]>(['javascript', 'typescript']);\n\nconst fruits = ['Apple', 'Orange', 'Banana', 'Grape', 'Mango'];\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>\n    <Typography.Text render={<div />} style={{ maxWidth: 600 }}>\n      Use <Typography.Code>value</Typography.Code> and <Typography.Code>onValueChange</Typography.Code> props to\n      control the Select. When <Typography.Code>multiple</Typography.Code> is set, value types automatically become\n      arrays. Use generics like <Typography.Code>{'Select.Root<string>'}</Typography.Code> or{' '}\n      <Typography.Code>{'Select.Root<string, true>'}</Typography.Code> for full type safety.\n    </Typography.Text>\n\n    <div style={{ display: 'flex', gap: 'var(--space-6)', flexWrap: 'wrap' }}>\n      {/* Single Selection - value is typed as string */}\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>\n        <Typography.Text size=\"2\" weight=\"bold\">\n          Single Selection\n        </Typography.Text>\n        <Select.Root<string>\n          value={singleValue}\n          onValueChange={(value) => {\n            // value is typed as string | null\n            if (value !== null) setSingleValue(value);\n          }}\n        >\n          <Select.Trigger {...args} style={{ width: 180 }} />\n          <Select.Content>\n            {fruits.map((fruit) => (\n              <Select.Item key={fruit} value={fruit}>\n                {fruit}\n              </Select.Item>\n            ))}\n          </Select.Content>\n        </Select.Root>\n        <Typography.Code size=\"1\">value: \"{singleValue}\"</Typography.Code>\n      </div>\n\n      {/* Multiple Selection - value is typed as string[] */}\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>\n        <Typography.Text size=\"2\" weight=\"bold\">\n          Multiple Selection\n        </Typography.Text>\n        <Select.Root<string, true>\n          multiple\n          value={multipleValue}\n          onValueChange={(value) => {\n            // value is typed as string[] when multiple={true}\n            setMultipleValue(value);\n          }}\n        >\n          <Select.Trigger\n            {...args}\n            style={{ width: 220 }}\n            renderValue={(value) => {\n              const arr = value as string[];\n              if (arr.length === 0) return 'Select languages...';\n              if (arr.length === 1) return languages[arr[0] as Language];\n              return `${languages[arr[0] as Language]} (+${arr.length - 1} more)`;\n            }}\n          />\n          <Select.Content alignItemWithTrigger={false}>\n            {(Object.keys(languages) as Language[]).map((key) => (\n              <Select.Item key={key} value={key}>\n                {languages[key]}\n              </Select.Item>\n            ))}\n          </Select.Content>\n        </Select.Root>\n        <Typography.Code size=\"1\">value: [{multipleValue.map((v) => `\"${v}\"`).join(', ')}]</Typography.Code>\n      </div>\n    </div>\n\n    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>\n      <button\n        type=\"button\"\n        onClick={() => {\n          setSingleValue('Mango');\n          setMultipleValue(['python', 'rust', 'go']);\n        }}\n        style={{\n          padding: '6px 12px',\n          borderRadius: 6,\n          border: '1px solid var(--gray-400)',\n          background: 'var(--gray-100)',\n          cursor: 'pointer',\n        }}\n      >\n        Set programmatically\n      </button>\n      <button\n        type=\"button\"\n        onClick={() => {\n          setSingleValue('Apple');\n          setMultipleValue(['javascript', 'typescript']);\n        }}\n        style={{\n          padding: '6px 12px',\n          borderRadius: 6,\n          border: '1px solid var(--gray-400)',\n          background: 'var(--gray-100)',\n          cursor: 'pointer',\n        }}\n      >\n        Reset\n      </button>\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const ObjectValues: Story = {
   name: 'Object Values',
   render: () => render(examples['Object Values']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Select, selectTriggerPropDefs, Typography } from 'ljkui';\n\nconst args = {\n  variant: selectTriggerPropDefs.variant.default,\n  color: selectTriggerPropDefs.color.default,\n  disabled: false,\n};\nconst shippingMethods: ShippingMethod[] = [\n  {\n    id: 'standard',\n    name: 'Standard',\n    duration: 'Delivers in 4-6 business days',\n    price: '$4.99',\n  },\n  {\n    id: 'express',\n    name: 'Express',\n    duration: 'Delivers in 2-3 business days',\n    price: '$9.99',\n  },\n  {\n    id: 'overnight',\n    name: 'Overnight',\n    duration: 'Delivers next business day',\n    price: '$19.99',\n  },\n];\n\nconst renderShippingValue = (method: ShippingMethod) => (\n  <span style={{ display: 'flex', flexDirection: 'column', gap: 2, textAlign: 'left' }}>\n    <span style={{ fontWeight: 500 }}>{method.name}</span>\n    <span style={{ fontSize: '0.85em', color: 'var(--gray-900)' }}>\n      {method.duration} ({method.price})\n    </span>\n  </span>\n);\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>\n    <Typography.Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>\n      Select items can use objects as values instead of primitives. Use{' '}\n      <Typography.Code>itemToStringValue</Typography.Code> to convert objects to strings for comparison, and{' '}\n      <Typography.Code>renderValue</Typography.Code> to display the full object. Note:{' '}\n      <Typography.Code>alignItemWithTrigger=&#123;false&#125;</Typography.Code> is recommended for variable-height\n      items.\n    </Typography.Text>\n\n    <Select.Root\n      defaultValue={shippingMethods[0]}\n      itemToStringValue={(item) => (item as ShippingMethod).id}\n      size=\"3\"\n    >\n      <Select.Trigger\n        {...args}\n        renderValue={renderShippingValue}\n        style={{ height: 'auto', minHeight: 'var(--space-8)', paddingTop: 8, paddingBottom: 8 }}\n      />\n      <Select.Content alignItemWithTrigger={false}>\n        {shippingMethods.map((method) => (\n          <Select.Item key={method.id} value={method} style={{ height: 'auto', paddingTop: 8, paddingBottom: 8 }}>\n            <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>\n              <span style={{ fontWeight: 500 }}>{method.name}</span>\n              <span style={{ fontSize: '0.85em', color: 'var(--gray-900)' }}>\n                {method.duration} ({method.price})\n              </span>\n            </span>\n          </Select.Item>\n        ))}\n      </Select.Content>\n    </Select.Root>\n  </div>\n);",
+      },
+    },
+  },
 };

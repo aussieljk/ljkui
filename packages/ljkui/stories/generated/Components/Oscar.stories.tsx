@@ -22,65 +22,169 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Oscar’s profile']),
-  parameters: { docs: { description: { story: 'The canonical Oscar. Same as “Oscar’s profile”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Oscar. Same as “Oscar’s profile”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { Avatar, Badge, Card } from \'ljkui\';\n\n<Card size="2" style={{ width: 420 }}>\n  <div style={{ display: \'flex\', gap: \'var(--space-3)\', alignItems: \'center\' }}>\n    <Avatar size="4" fallback="OW" color="amber" />\n    <div style={{ minWidth: 0 }}>\n      <Heading render={<div />} size="3">\n        Oscar Wilde\n      </Heading>\n      <Text render={<div />} size="2" color="gray">\n        Nominated for Best Original Aphorism\n      </Text>\n    </div>\n    <div style={{ marginLeft: \'auto\' }}>\n      <Badge color="success" variant="soft">\n        Oscar winner\n      </Badge>\n    </div>\n  </div>\n</Card>',
+      },
+    },
+  },
 };
 
 export const OscarSProfile: Story = {
   name: 'Oscar’s profile',
   render: () => render(examples['Oscar’s profile']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Avatar, Badge, Card } from \'ljkui\';\n\n<Card size="2" style={{ width: 420 }}>\n  <div style={{ display: \'flex\', gap: \'var(--space-3)\', alignItems: \'center\' }}>\n    <Avatar size="4" fallback="OW" color="amber" />\n    <div style={{ minWidth: 0 }}>\n      <Heading render={<div />} size="3">\n        Oscar Wilde\n      </Heading>\n      <Text render={<div />} size="2" color="gray">\n        Nominated for Best Original Aphorism\n      </Text>\n    </div>\n    <div style={{ marginLeft: \'auto\' }}>\n      <Badge color="success" variant="soft">\n        Oscar winner\n      </Badge>\n    </div>\n  </div>\n</Card>',
+      },
+    },
+  },
 };
 
 export const OscarSBadges: Story = {
   name: 'Oscar’s badges',
   render: () => render(examples['Oscar’s badges']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Badge } from \'ljkui\';\n\n<div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-2)\', flexWrap: \'wrap\' }}>\n  <Badge variant="solid" color="amber">\n    Oscar nominee\n  </Badge>\n  <Badge variant="soft" color="indigo">\n    Oscar winner\n  </Badge>\n  <Badge variant="outline" color="cyan">\n    Oscar snubbed\n  </Badge>\n  <Badge variant="surface" color="rose">\n    Oscar bait\n  </Badge>\n</div>',
+      },
+    },
+  },
 };
 
 export const OscarSGuestList: Story = {
   name: 'Oscar’s guest list',
   render: () => render(examples['Oscar’s guest list']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Avatar, AvatarGroup } from \'ljkui\';\n\n<div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-4)\' }}>\n  <AvatarGroup.Root size="3">\n    <AvatarGroup.Avatar fallback="OW" color="amber" />\n    <AvatarGroup.Avatar fallback="OG" color="green" />\n    <AvatarGroup.Avatar fallback="OP" color="indigo" />\n    <AvatarGroup.Avatar fallback="OC" color="orange" />\n  </AvatarGroup.Root>\n  <Text size="2" color="gray">\n    Four Oscars and counting\n  </Text>\n</div>',
+      },
+    },
+  },
 };
 
 export const OscarSShortlist: Story = {
   name: 'Oscar’s shortlist',
   render: () => render(examples['Oscar’s shortlist']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Avatar, Button, Card, Item, Separator } from \'ljkui\';\n\n<Card style={{ width: 460 }}>\n  <Item.Group>\n    {nominees.map((nominee, i) => (\n      <React.Fragment key={nominee.name}>\n        {i > 0 && <Item.Separator />}\n        <Item.Root>\n          <Item.Media>\n            <Avatar fallback={nominee.name.slice(0, 2)} color="amber" />\n          </Item.Media>\n          <Item.Content>\n            <Item.Title>{nominee.name}</Item.Title>\n            <Item.Description>{nominee.category}</Item.Description>\n          </Item.Content>\n          <Item.Actions>\n            <Button size="1" variant="surface">\n              Vote for Oscar\n            </Button>\n          </Item.Actions>\n        </Item.Root>\n      </React.Fragment>\n    ))}\n  </Item.Group>\n</Card>',
+      },
+    },
+  },
 };
 
 export const OscarSBallot: Story = {
   name: 'Oscar’s ballot',
   render: () => render(examples['Oscar’s ballot']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Table } from \'ljkui\';\n\n<div style={{ width: 420 }}>\n  <Table.Root variant="surface">\n    <Table.Header>\n      <Table.Row>\n        <Table.ColumnHeaderCell>Oscar</Table.ColumnHeaderCell>\n        <Table.ColumnHeaderCell>Category</Table.ColumnHeaderCell>\n        <Table.ColumnHeaderCell>Wins</Table.ColumnHeaderCell>\n      </Table.Row>\n    </Table.Header>\n    <Table.Body>\n      {nominees.map((nominee) => (\n        <Table.Row key={nominee.name}>\n          <Table.Cell>{nominee.name}</Table.Cell>\n          <Table.Cell>{nominee.category}</Table.Cell>\n          <Table.Cell>{nominee.wins}</Table.Cell>\n        </Table.Row>\n      ))}\n    </Table.Body>\n  </Table.Root>\n</div>',
+      },
+    },
+  },
 };
 
 export const OscarSCampaignProgress: Story = {
   name: 'Oscar’s campaign progress',
   render: () => render(examples['Oscar’s campaign progress']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Progress } from \'ljkui\';\n\n<div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-3)\', width: 320 }}>\n  <Text size="2">Oscar’s votes counted</Text>\n  <Progress value={82} max={100} color="amber" />\n  <Text size="2" color="gray">\n    82% of the Academy has voted for an Oscar named Oscar\n  </Text>\n</div>',
+      },
+    },
+  },
 };
 
 export const OscarSPreferences: Story = {
   name: 'Oscar’s preferences',
   render: () => render(examples['Oscar’s preferences']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Switch } from 'ljkui';\n\n<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>\n  <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>\n    <Switch defaultChecked color=\"amber\" />\n    <Text size=\"2\">Notify me when Oscar wins</Text>\n  </label>\n  <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>\n    <Switch color=\"amber\" />\n    <Text size=\"2\">Let Oscar pick the after-party playlist</Text>\n  </label>\n  <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>\n    <Switch defaultChecked color=\"amber\" />\n    <Text size=\"2\">Seat Oscar next to Oscar</Text>\n  </label>\n</div>",
+      },
+    },
+  },
 };
 
 export const OscarSAnnouncement: Story = {
   name: 'Oscar’s announcement',
   render: () => render(examples['Oscar’s announcement']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Alert } from \'ljkui\';\n\n<div style={{ maxWidth: 560 }}>\n  <Alert.Root>\n    <Alert.Icon>\n      <PartyPopper size={16} />\n    </Alert.Icon>\n    <Alert.Title>Oscar has been nominated</Alert.Title>\n    <Alert.Description>\n      The envelope is sealed and the Academy has spoken — Oscar is up for four awards this year.\n    </Alert.Description>\n    <Alert.Actions>\n      <Alert.Action>Congratulate Oscar</Alert.Action>\n      <Alert.Action variant="secondary">Remind me on the night</Alert.Action>\n    </Alert.Actions>\n  </Alert.Root>\n</div>',
+      },
+    },
+  },
 };
 
 export const OscarSCategories: Story = {
   name: 'Oscar’s categories',
   render: () => render(examples['Oscar’s categories']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Tabs } from \'ljkui\';\n\n<div style={{ width: 520 }}>\n  <Tabs.Root defaultValue="wilde">\n    <Tabs.List>\n      <Tabs.Trigger value="wilde">Oscar Wilde</Tabs.Trigger>\n      <Tabs.Trigger value="grouch">Oscar the Grouch</Tabs.Trigger>\n      <Tabs.Trigger value="peterson">Oscar Peterson</Tabs.Trigger>\n    </Tabs.List>\n\n    <Tabs.Content value="wilde" style={{ padding: \'12px 16px 8px 16px\' }}>\n      <Text size="2">Oscar Wilde takes Best Original Aphorism, as he does every year.</Text>\n    </Tabs.Content>\n\n    <Tabs.Content value="grouch" style={{ padding: \'12px 16px 8px 16px\' }}>\n      <Text size="2">Oscar the Grouch declines the award and returns to his bin.</Text>\n    </Tabs.Content>\n\n    <Tabs.Content value="peterson" style={{ padding: \'12px 16px 8px 16px\' }}>\n      <Text size="2">Oscar Peterson plays the acceptance speech instead of giving one.</Text>\n    </Tabs.Content>\n  </Tabs.Root>\n</div>',
+      },
+    },
+  },
 };
 
 export const OscarSAcceptanceSpeech: Story = {
   name: 'Oscar’s acceptance speech',
   render: () => render(examples['Oscar’s acceptance speech']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Separator } from 'ljkui';\n\n<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 520 }}>\n  <Blockquote>\n    I have nothing to declare except my genius — and this Oscar. — <Strong>Oscar Wilde</Strong>\n  </Blockquote>\n  <Separator size=\"4\" />\n  <Text size=\"2\">\n    The trophy is <Em>technically</Em> called an Academy Award, but everyone calls it an{' '}\n    <Code variant=\"soft\">Oscar</Code>.\n  </Text>\n</div>",
+      },
+    },
+  },
 };
 
 export const OscarSShortcuts: Story = {
   name: 'Oscar’s shortcuts',
   render: () => render(examples['Oscar’s shortcuts']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, Kbd, Tooltip } from \'ljkui\';\n\n<div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-3)\' }}>\n  <Tooltip content="Give Oscar the award">\n    <Button variant="solid" color="amber">\n      <Trophy size={16} />\n      Award Oscar\n    </Button>\n  </Tooltip>\n  <Text size="2" color="gray">\n    or press <Kbd size="2">⌘ + O</Kbd>\n  </Text>\n</div>',
+      },
+    },
+  },
 };
 
 export const NoOscarsFound: Story = {
   name: 'No Oscars found',
   render: () => render(examples['No Oscars found']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, Empty } from 'ljkui';\n\n<Empty.Root>\n  <Empty.Header>\n    <Empty.Media>\n      <Cat size={24} />\n    </Empty.Media>\n    <Empty.Title>No Oscars found</Empty.Title>\n    <Empty.Description>\n      Nobody named Oscar has been nominated in this category yet. Try another category, or nominate an Oscar\n      yourself.\n    </Empty.Description>\n  </Empty.Header>\n  <Empty.Actions style={{ display: 'flex', flexDirection: 'row' }}>\n    <Button variant=\"surface\">Clear filters</Button>\n    <Button variant=\"solid\">Nominate Oscar</Button>\n  </Empty.Actions>\n</Empty.Root>",
+      },
+    },
+  },
 };

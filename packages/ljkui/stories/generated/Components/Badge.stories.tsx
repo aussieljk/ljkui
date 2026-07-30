@@ -49,30 +49,78 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical Badge. Same as “Size”, shown first.' } } },
+  parameters: {
+    docs: {
+      description: { story: 'The canonical Badge. Same as “Size”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: "import { Badge, badgePropDefs } from 'ljkui';\n\nconst args = {\n  children: 'Badge',\n  size: badgePropDefs.size.default,\n  variant: badgePropDefs.variant.default,\n  color: badgePropDefs.color.default,\n};\nreturn (\n  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>\n    <Badge {...args} size=\"2\" />\n    <Badge {...args} size=\"1\" />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Badge, badgePropDefs } from 'ljkui';\n\nconst args = {\n  children: 'Badge',\n  size: badgePropDefs.size.default,\n  variant: badgePropDefs.variant.default,\n  color: badgePropDefs.color.default,\n};\nreturn (\n  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>\n    <Badge {...args} size=\"2\" />\n    <Badge {...args} size=\"1\" />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Variant: Story = {
   name: 'Variant',
   render: () => render(examples['Variant']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Badge, badgePropDefs } from 'ljkui';\n\nconst args = {\n  children: 'Badge',\n  size: badgePropDefs.size.default,\n  color: badgePropDefs.color.default,\n};\nreturn (\n  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>\n    <Badge {...args} variant=\"solid\" />\n    <Badge {...args} variant=\"soft\" />\n    <Badge {...args} variant=\"outline\" />\n    <Badge {...args} variant=\"surface\" />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const Color: Story = {
   name: 'Color',
   render: () => render(examples['Color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Badge, badgePropDefs } from 'ljkui';\n\nconst args = {\n  children: 'Badge',\n  size: badgePropDefs.size.default,\n};\nreturn (\n  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>\n    <Badge {...args} color=\"indigo\" />\n    <Badge {...args} color=\"cyan\" />\n    <Badge {...args} color=\"orange\" />\n    <Badge {...args} color=\"rose\" />\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const SemanticColor: Story = {
   name: 'Semantic color',
   render: () => render(examples['Semantic color']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Badge, badgePropDefs } from \'ljkui\';\n\nconst args = {\n  size: badgePropDefs.size.default,\n};\nreturn (\n  <div style={{ display: \'flex\', alignItems: \'center\', gap: \'var(--space-2)\' }}>\n    <Badge {...args} color="info">\n      Info\n    </Badge>\n    <Badge {...args} color="success">\n      Success\n    </Badge>\n    <Badge {...args} color="warning">\n      Warning\n    </Badge>\n    <Badge {...args} color="danger">\n      Danger\n    </Badge>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: () => render(examples['High Contrast']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Badge } from 'ljkui';\n\nconst args = {\n  children: 'Badge',\n};\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>\n    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>\n      <Badge {...args} highContrast={false} variant=\"solid\" />\n      <Badge {...args} highContrast={false} variant=\"soft\" />\n      <Badge {...args} highContrast={false} variant=\"outline\" />\n      <Badge {...args} highContrast={false} variant=\"surface\" />\n    </div>\n    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>\n      <Badge {...args} variant=\"solid\" highContrast />\n      <Badge {...args} variant=\"soft\" highContrast />\n      <Badge {...args} variant=\"outline\" highContrast />\n      <Badge {...args} variant=\"surface\" highContrast />\n    </div>\n  </div>\n);",
+      },
+    },
+  },
 };

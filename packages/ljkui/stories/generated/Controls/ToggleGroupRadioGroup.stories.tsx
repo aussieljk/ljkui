@@ -23,21 +23,51 @@ export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Input Ref']),
   parameters: {
-    docs: { description: { story: 'The canonical ToggleGroupRadioGroup. Same as “Input Ref”, shown first.' } },
+    docs: {
+      description: { story: 'The canonical ToggleGroupRadioGroup. Same as “Input Ref”, shown first.' },
+      source: {
+        language: 'tsx',
+        code: 'import { Button, ToggleGroupRadioGroup, Typography } from \'ljkui\';\n\nconst args = {};\nconst inputRef = React.useRef<HTMLInputElement>(null);\n\nconst handleFocus = () => {\n  inputRef.current?.focus();\n};\n\nconst handleReportValidity = () => {\n  const isValid = inputRef.current?.reportValidity();\n  console.log(\'Validity:\', isValid);\n};\n\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-4)\', maxWidth: 400 }}>\n    <Typography.Text>\n      The <Typography.Code>inputRef</Typography.Code> prop provides access to the underlying hidden input element,\n      enabling programmatic control for focus management, form validation, and integration with form libraries.\n    </Typography.Text>\n\n    <ToggleGroupRadioGroup.Root {...args} name="theme-preference" required inputRef={inputRef}>\n      <ToggleGroupRadioGroup.Item value="system">\n        <Monitor size={20} />\n      </ToggleGroupRadioGroup.Item>\n      <ToggleGroupRadioGroup.Item value="light-mode">\n        <Sun size={20} />\n      </ToggleGroupRadioGroup.Item>\n      <ToggleGroupRadioGroup.Item value="dark-mode">\n        <Moon size={20} />\n      </ToggleGroupRadioGroup.Item>\n    </ToggleGroupRadioGroup.Root>\n\n    <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n      <Button size="1" variant="soft" onClick={handleFocus}>\n        Focus Input\n      </Button>\n      <Button size="1" variant="soft" onClick={handleReportValidity}>\n        Check Validity\n      </Button>\n    </div>\n\n    <Typography.Text size="1" color="gray">\n      Click &quot;Check Validity&quot; without selecting an option to see the browser&apos;s native validation\n      message in the console (the group has <Typography.Code>required</Typography.Code> set).\n    </Typography.Text>\n  </div>\n);',
+      },
+    },
   },
 };
 
 export const InputRef: Story = {
   name: 'Input Ref',
   render: () => render(examples['Input Ref']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, ToggleGroupRadioGroup, Typography } from \'ljkui\';\n\nconst args = {};\nconst inputRef = React.useRef<HTMLInputElement>(null);\n\nconst handleFocus = () => {\n  inputRef.current?.focus();\n};\n\nconst handleReportValidity = () => {\n  const isValid = inputRef.current?.reportValidity();\n  console.log(\'Validity:\', isValid);\n};\n\nreturn (\n  <div style={{ display: \'flex\', flexDirection: \'column\', gap: \'var(--space-4)\', maxWidth: 400 }}>\n    <Typography.Text>\n      The <Typography.Code>inputRef</Typography.Code> prop provides access to the underlying hidden input element,\n      enabling programmatic control for focus management, form validation, and integration with form libraries.\n    </Typography.Text>\n\n    <ToggleGroupRadioGroup.Root {...args} name="theme-preference" required inputRef={inputRef}>\n      <ToggleGroupRadioGroup.Item value="system">\n        <Monitor size={20} />\n      </ToggleGroupRadioGroup.Item>\n      <ToggleGroupRadioGroup.Item value="light-mode">\n        <Sun size={20} />\n      </ToggleGroupRadioGroup.Item>\n      <ToggleGroupRadioGroup.Item value="dark-mode">\n        <Moon size={20} />\n      </ToggleGroupRadioGroup.Item>\n    </ToggleGroupRadioGroup.Root>\n\n    <div style={{ display: \'flex\', gap: \'var(--space-2)\' }}>\n      <Button size="1" variant="soft" onClick={handleFocus}>\n        Focus Input\n      </Button>\n      <Button size="1" variant="soft" onClick={handleReportValidity}>\n        Check Validity\n      </Button>\n    </div>\n\n    <Typography.Text size="1" color="gray">\n      Click &quot;Check Validity&quot; without selecting an option to see the browser&apos;s native validation\n      message in the console (the group has <Typography.Code>required</Typography.Code> set).\n    </Typography.Text>\n  </div>\n);',
+      },
+    },
+  },
 };
 
 export const Controlled: Story = {
   name: 'Controlled',
   render: () => render(examples['Controlled']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { ToggleGroupRadioGroup, Typography } from 'ljkui';\n\nconst [theme, setTheme] = React.useState('system');\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 400 }}>\n    <Typography.Text>\n      Use <Typography.Code>value</Typography.Code> and <Typography.Code>onValueChange</Typography.Code> for\n      controlled state.\n    </Typography.Text>\n\n    <ToggleGroupRadioGroup.Root value={theme} onValueChange={setTheme}>\n      <ToggleGroupRadioGroup.Item value=\"system\">\n        <Monitor size={20} />\n      </ToggleGroupRadioGroup.Item>\n      <ToggleGroupRadioGroup.Item value=\"light\">\n        <Sun size={20} />\n      </ToggleGroupRadioGroup.Item>\n      <ToggleGroupRadioGroup.Item value=\"dark\">\n        <Moon size={20} />\n      </ToggleGroupRadioGroup.Item>\n    </ToggleGroupRadioGroup.Root>\n\n    <Typography.Text size=\"2\">\n      Selected: <Typography.Code>{theme}</Typography.Code>\n    </Typography.Text>\n  </div>\n);",
+      },
+    },
+  },
 };
 
 export const TypeSafeValues: Story = {
   name: 'Type-Safe Values',
   render: () => render(examples['Type-Safe Values']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { ToggleGroupRadioGroup, Typography } from 'ljkui';\n\ntype Theme = 'system' | 'light' | 'dark';\nconst [theme, setTheme] = React.useState<Theme>('system');\n\nreturn (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 400 }}>\n    <Typography.Text>\n      Pass a string union type to get autocomplete and catch typos at compile time. Without an explicit type\n      parameter, the value type is inferred from props like <Typography.Code>value</Typography.Code> and{' '}\n      <Typography.Code>onValueChange</Typography.Code>.\n    </Typography.Text>\n\n    <ToggleGroupRadioGroup.Root<Theme> value={theme} onValueChange={setTheme}>\n      <ToggleGroupRadioGroup.Item value=\"system\">\n        <Monitor size={20} />\n      </ToggleGroupRadioGroup.Item>\n      <ToggleGroupRadioGroup.Item value=\"light\">\n        <Sun size={20} />\n      </ToggleGroupRadioGroup.Item>\n      <ToggleGroupRadioGroup.Item value=\"dark\">\n        <Moon size={20} />\n      </ToggleGroupRadioGroup.Item>\n    </ToggleGroupRadioGroup.Root>\n\n    <Typography.Text size=\"2\">\n      Selected: <Typography.Code>{theme}</Typography.Code>\n    </Typography.Text>\n\n    <Typography.Text size=\"1\" color=\"gray\">\n      Try changing a value to <Typography.Code>&quot;sytsem&quot;</Typography.Code> — TypeScript will catch the\n      typo!\n    </Typography.Text>\n  </div>\n);",
+      },
+    },
+  },
 };

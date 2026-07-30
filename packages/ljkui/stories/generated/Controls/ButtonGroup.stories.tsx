@@ -29,24 +29,64 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   name: 'Default',
   render: () => render(examples['Default']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, ButtonGroup } from 'ljkui';\n\n(\n    <ButtonGroup.Root>\n      <Button>Save</Button>\n      <Button>Save and publish</Button>\n    </ButtonGroup.Root>\n  )",
+      },
+    },
+  },
 };
 
 export const WithTextSegment: Story = {
   name: 'With text segment',
   render: () => render(examples['With text segment']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, ButtonGroup } from \'ljkui\';\n\n(\n    <ButtonGroup.Root>\n      <ButtonGroup.Text>https://</ButtonGroup.Text>\n      <Button variant="surface">example.com</Button>\n      <Button variant="solid">Copy</Button>\n    </ButtonGroup.Root>\n  )',
+      },
+    },
+  },
 };
 
 export const WithSeparator: Story = {
   name: 'With separator',
   render: () => render(examples['With separator']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, ButtonGroup } from \'ljkui\';\n\n(\n    <ButtonGroup.Root>\n      <Button variant="surface">Undo</Button>\n      <ButtonGroup.Separator />\n      <Button variant="surface">Redo</Button>\n    </ButtonGroup.Root>\n  )',
+      },
+    },
+  },
 };
 
 export const Vertical: Story = {
   name: 'Vertical',
   render: () => render(examples['Vertical']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: 'import { Button, ButtonGroup } from \'ljkui\';\n\n(\n    <ButtonGroup.Root orientation="vertical">\n      <Button variant="surface">Top</Button>\n      <Button variant="surface">Middle</Button>\n      <Button variant="surface">Bottom</Button>\n    </ButtonGroup.Root>\n  )',
+      },
+    },
+  },
 };
 
 export const Sizes: Story = {
   name: 'Sizes',
   render: () => render(examples['Sizes']),
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: "import { Button, ButtonGroup, VStack } from 'ljkui';\n\n(\n        <ButtonGroup.Root key={size}>\n          <Button size={size}>Previous</Button>\n          <Button size={size}>Next</Button>\n        </ButtonGroup.Root>\n      ))}\n    </VStack>\n  )",
+      },
+    },
+  },
 };
