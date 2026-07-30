@@ -10,7 +10,8 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Examples for `Tabs`, from examples/tabs.examples.tsx.',
+        component:
+          'Examples for `Tabs`, from examples/tabs.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `←` / `→` | Move between tabs (horizontal orientation). |\n| `↑` / `↓` | Move between tabs (vertical orientation). |\n| `Home` / `End` | Focus the first / last tab. |\n| `Space` / `Enter` | Activate the focused tab (manual activation). |\n\n## Accessibility\n\n- `role="tablist"` with a roving tabindex; each tab points at its panel via `aria-controls`.',
       },
     },
   },

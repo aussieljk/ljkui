@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `DropdownMenu`, from examples/dropdown-menu.examples.tsx.',
+        component:
+          'Examples for `DropdownMenu`, from examples/dropdown-menu.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Space` / `Enter` / `↓` | Open the menu from the trigger. |\n| `Space` / `Enter` | Activate the focused item; open a submenu. |\n| `↓` / `↑` | Move focus to the next / previous item. |\n| `→` / `←` | Open the submenu / return to the parent menu. |\n| `Home` / `End` | Focus the first / last item. |\n| `Esc` | Close the menu and return focus to the trigger. |\n| `A`–`Z` | Typeahead: focus the next item starting with that character. |\n\n## Accessibility\n\n- Trigger is a `button` with `aria-haspopup="menu"` and `aria-expanded`; items are `role="menuitem"`.',
       },
     },
   },

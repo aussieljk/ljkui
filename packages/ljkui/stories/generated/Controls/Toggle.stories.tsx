@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `Toggle`, from examples/toggle.examples.tsx.',
+        component:
+          'Examples for `Toggle`, from examples/toggle.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Space` / `Enter` | Toggle pressed state. |\n\n## Accessibility\n\n- A button with `aria-pressed` reflecting its state.',
       },
     },
   },

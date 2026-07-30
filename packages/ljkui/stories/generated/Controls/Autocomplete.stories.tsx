@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `Autocomplete`, from examples/autocomplete.examples.tsx.',
+        component:
+          'Examples for `Autocomplete`, from examples/autocomplete.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `↓` / `↑` | Open and move through suggestions. |\n| `Enter` | Accept the highlighted suggestion. |\n| `Esc` | Dismiss the suggestions. |\n\n## Accessibility\n\n- Editable combobox; typing filters the `listbox` while the text field keeps focus.',
       },
     },
   },

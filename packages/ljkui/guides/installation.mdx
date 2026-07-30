@@ -1,0 +1,85 @@
+---
+title: Installation & Layers
+description: Install ljkui and wire its CSS up correctly — the layer order is the one thing that has to be right.
+---
+
+## Install
+
+```sh
+bun add ljkui
+```
+
+`ljkui` ships ESM only and lists `react` / `react-dom` as peers. The icon adapters
+(`ljkui/icons/lucide`, `ljkui/icons/heroicons`, …) each have an optional peer on the
+matching icon package — install only the one you use.
+
+## The three stylesheets
+
+ljkui ships three CSS entry points. Which you import depends on whether you use Tailwind.
+
+| File | What it is |
+| --- | --- |
+| `ljkui/styles.css` | The full stylesheet: design tokens **plus** a global reset and every component's CSS. |
+| `ljkui/styles.lite.css` | The same, minus the global reset — for apps that already own their reset. |
+| `ljkui/theme.css` | The Tailwind bridge: exposes every design token as a Tailwind utility (`bg-accent-700`, `text-gray-900`, `border-gray-alpha-300`). Import it **only** alongside Tailwind. |
+
+## Without Tailwind
+
+Import the stylesheet once, at the root of your app, and wrap the tree in `<Theme>`:
+
+```tsx
+import { Theme, Button } from 'ljkui';
+import 'ljkui/styles.css';
+
+export default function App() {
+  return (
+    <Theme accentColor="blue" grayColor="auto" radius="medium" appearance="inherit">
+      <Button>Click me</Button>
+    </Theme>
+  );
+}
+```
+
+## With Tailwind — the layer order matters
+
+This is the one thing that has to be exactly right. `ljkui/styles.css` carries a **global
+reset**, including `h1..h6 { font-size: inherit; font-weight: inherit }`. If that reset is
+imported **unlayered**, it outranks every Tailwind utility — because unlayered CSS beats all
+`@layer`s — and your headings silently flatten site-wide: `text-4xl` does nothing.
+
+The fix is to declare the layer order up front and import ljkui's reset **into** the `ljkui`
+layer, so Tailwind's `utilities` layer can still win:
+
+```css
+/* app.css — the @layer statement must come first (an empty @layer is one of the
+   few things allowed before @import). */
+@layer theme, base, ljkui, components, utilities;
+
+@import 'tailwindcss';
+@import 'ljkui/styles.css' layer(ljkui);
+@import 'ljkui/theme.css';
+```
+
+Two details that trip people up:
+
+> **`theme.css` stays unlayered — on purpose.** It only defines custom properties. Demote it
+> below Tailwind's `theme` layer and Tailwind's own `--color-*` defaults would win instead of
+> ljkui's tokens.
+
+> **Never add a remote `@import url(...)` to your ljkui imports.** A remote `@import` is only
+> legal at the very top of the final stylesheet; dropped in among these it lands thousands of
+> lines deep in the concatenated output, where every CSS parser rejects it. A webfont belongs in
+> your document `<head>`, not here.
+
+## Fonts
+
+The library ships **no** `font-family` and **no** `letter-spacing` — only the size / line-height /
+weight scale. Text inherits its typeface from your page, and `<Code>` / `<Kbd>` / `<DateField>`
+fall back to the generic `monospace` keyword. Set your own font on `html`/`body` (or via
+Tailwind's `--default-font-family`) and every component follows.
+
+## Verify the setup
+
+If headings look flat, or Tailwind utilities appear to do nothing on ljkui components, the layer
+order is almost always the cause — re-check that `@layer theme, base, ljkui, components, utilities;`
+is declared **before** the `@import`s and that `styles.css` is imported with `layer(ljkui)`.

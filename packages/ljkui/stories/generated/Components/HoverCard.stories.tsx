@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `HoverCard`, from examples/hover-card.examples.tsx.',
+        component:
+          'Examples for `HoverCard`, from examples/hover-card.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Esc` | Dismiss the card. |\n\n## Accessibility\n\n- Opens on hover / focus of the trigger; intended for rich non-essential preview content.',
       },
     },
   },

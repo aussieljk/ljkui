@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `RadioButtonGroup`, from examples/radio-button-group.examples.tsx.',
+        component:
+          'Examples for `RadioButtonGroup`, from examples/radio-button-group.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `↑` / `↓` / `←` / `→` | Move selection. |\n| `Space` | Select the focused option. |\n\n## Accessibility\n\n- Radio-group semantics rendered as a segmented button set.',
       },
     },
   },

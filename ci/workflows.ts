@@ -79,8 +79,13 @@ const ci: Workflow = {
         sh('Workflows in sync', 'bun run workflows:check'),
         sh('Format', 'bun run format:check'),
         sh('Lint', 'bun run lint'),
+        // Every component must ship a *.props.ts (or be exempt) — no silent prop-table gaps.
+        sh('Props coverage', 'bun run --filter=ljkui check:props'),
         sh('Typecheck', 'bun run typecheck'),
         sh('Build', 'bun run build'),
+        // Bundle-size budgets per entry point — fails if a change (e.g. flipping `sideEffects`)
+        // breaks tree-shaking or bloats the public surface. Runs on the just-built dist/.
+        sh('Size limit', 'bun run --filter=ljkui size'),
         // Compiles every generated story module, so a story that stops building fails CI.
         sh('Build Storybook', 'bun run --filter=ljkui build-storybook'),
         sh('Package health', 'bun run --filter=ljkui health'),
@@ -114,7 +119,7 @@ const release: Workflow = {
     workflow_dispatch: {
       inputs: {
         deploy: {
-          description: 'Also deploy the docs site to production',
+          description: 'Also deploy Storybook to production',
           type: 'boolean',
           default: true,
         },

@@ -10,7 +10,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Examples for `Sidebar`, from examples/sidebar.examples.tsx.',
+        component:
+          'Examples for `Sidebar`, from examples/sidebar.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Tab` | Move through navigation items. |\n| `Enter` / `Space` | Activate the focused item or toggle a group. |\n\n## Accessibility\n\n- A `nav` landmark; collapsible groups expose `aria-expanded`, the active item `aria-current`.',
       },
     },
   },

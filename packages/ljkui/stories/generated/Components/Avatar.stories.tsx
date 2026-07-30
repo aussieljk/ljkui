@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `Avatar`, from examples/avatar.examples.tsx.',
+        component:
+          'Examples for `Avatar`, from examples/avatar.examples.tsx.\n\n## Accessibility\n\n- Provide `alt` text; the fallback initials/icon are hidden from assistive tech when an image loads.',
       },
     },
   },

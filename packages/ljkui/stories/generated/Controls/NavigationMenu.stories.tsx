@@ -10,8 +10,26 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Examples for `NavigationMenu`, from examples/navigation-menu.examples.tsx.',
+        component:
+          'Examples for `NavigationMenu`, from examples/navigation-menu.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Tab` | Move to the next trigger or link. |\n| `Enter` / `Space` | Open the focused menu. |\n| `Esc` | Close the open menu. |\n\n## Accessibility\n\n- A site-navigation disclosure pattern (not a `role="menu"`); triggers expose `aria-expanded` / `aria-controls`.',
       },
+    },
+  },
+  argTypes: {
+    delay: {
+      description: 'How long to wait before opening the navigation popup, in milliseconds.',
+      table: { type: { summary: 'string | number' }, defaultValue: { summary: '50' } },
+      control: false,
+    },
+    closeDelay: {
+      description: 'How long to wait before closing the navigation popup, in milliseconds.',
+      table: { type: { summary: 'string | number' }, defaultValue: { summary: '50' } },
+      control: false,
+    },
+    orientation: {
+      description: 'The orientation of the navigation menu.',
+      table: { type: { summary: '"horizontal" | "vertical"' }, defaultValue: { summary: 'horizontal' } },
+      control: false,
     },
   },
 } satisfies Meta;

@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `Progress`, from examples/progress.examples.tsx.',
+        component:
+          'Examples for `Progress`, from examples/progress.examples.tsx.\n\n## Accessibility\n\n- `role="progressbar"` with `aria-valuenow` / `aria-valuemin` / `aria-valuemax`; omit `aria-valuenow` for indeterminate.',
       },
     },
   },

@@ -10,7 +10,8 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Examples for `Breadcrumb`, from examples/breadcrumb.examples.tsx.',
+        component:
+          'Examples for `Breadcrumb`, from examples/breadcrumb.examples.tsx.\n\n## Accessibility\n\n- A `nav` labelled "breadcrumb" wrapping an ordered list; the last crumb uses `aria-current="page"`.',
       },
     },
   },

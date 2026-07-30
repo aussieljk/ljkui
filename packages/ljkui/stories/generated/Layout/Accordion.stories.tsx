@@ -10,8 +10,38 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Examples for `Accordion`, from examples/accordion.examples.tsx.',
+        component:
+          'Examples for `Accordion`, from examples/accordion.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Enter` / `Space` | Toggle the focused section. |\n| `↓` / `↑` | Move focus between headers. |\n| `Home` / `End` | Focus the first / last header. |\n\n## Accessibility\n\n- Each header is a `button` with `aria-expanded` and `aria-controls` pointing at its `region` panel.',
       },
+    },
+  },
+  argTypes: {
+    multiple: {
+      description:
+        'Whether multiple items can be open at the same time. When omitted, falls back to the deprecated `type` prop (`type="multiple"`).',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    type: {
+      description:
+        'Deprecated radix-ui-style API for `multiple`. Kept for backwards compatibility — use `multiple` instead.',
+      table: { type: { summary: '"single" | "multiple"' } },
+      control: false,
+    },
+    disabled: {
+      description: 'Whether the accordion should ignore user interaction.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    keepMounted: {
+      description: 'Whether to keep the panel in the DOM while it is closed.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    orientation: {
+      description: 'The component orientation.',
+      table: { type: { summary: '"horizontal" | "vertical"' }, defaultValue: { summary: 'vertical' } },
+      control: false,
     },
   },
 } satisfies Meta;

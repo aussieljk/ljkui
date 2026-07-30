@@ -10,8 +10,42 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `Calendar`, from examples/calendar.examples.tsx.',
+        component:
+          'Examples for `Calendar`, from examples/calendar.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `←` / `→` | Previous / next day. |\n| `↑` / `↓` | Previous / next week. |\n| `Page Up` / `Page Down` | Previous / next month. |\n| `Home` / `End` | Start / end of the week. |\n| `Enter` / `Space` | Select the focused date. |\n\n## Accessibility\n\n- `role="grid"` calendar (react-aria); the focused date is a single tab stop and changes are announced.',
       },
+    },
+  },
+  argTypes: {
+    isDisabled: {
+      description: 'Whether the calendar is disabled.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    isReadOnly: {
+      description: 'Whether the calendar value is immutable.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    autoFocus: {
+      description: 'Whether to automatically focus the calendar when it mounts.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    isInvalid: {
+      description: 'Whether the current selection is invalid according to application logic.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+    pageBehavior: {
+      description:
+        "Controls the behavior of paging. Pagination either advances the visible page by `visibleDuration` (`'visible'`) or by one unit of it (`'single'`).",
+      table: { type: { summary: '"visible" | "single"' }, defaultValue: { summary: 'visible' } },
+      control: false,
+    },
+    firstDayOfWeek: {
+      description: 'The day that starts the week.',
+      table: { type: { summary: '"sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat"' } },
+      control: false,
     },
   },
 } satisfies Meta;

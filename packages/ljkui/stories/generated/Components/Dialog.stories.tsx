@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `Dialog`, from examples/dialog.examples.tsx.',
+        component:
+          'Examples for `Dialog`, from examples/dialog.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Esc` | Close the dialog. |\n| `Tab` / `Shift+Tab` | Cycle focus within the dialog (focus is trapped). |\n\n## Accessibility\n\n- Rendered as `role="dialog"` with `aria-modal="true"`; the rest of the page is inert while open.\n- Focus moves to the dialog on open and returns to the trigger on close.\n- Give it an accessible name via the title, or `aria-label` when there is no visible title.',
       },
     },
   },

@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `Slider`, from examples/slider.examples.tsx.',
+        component:
+          'Examples for `Slider`, from examples/slider.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `←` / `↓` | Decrease by one step. |\n| `→` / `↑` | Increase by one step. |\n| `Page Up` / `Page Down` | Change by a larger step. |\n| `Home` / `End` | Jump to the minimum / maximum. |\n\n## Accessibility\n\n- Each thumb is `role="slider"` with `aria-valuenow` / `aria-valuemin` / `aria-valuemax`.',
       },
     },
   },

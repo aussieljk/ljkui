@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 // Scaffold a new ljkui component and wire it into every place the repo
-// expects: component files, the components barrel, the CSS aggregate, a docs page
-// in packages/docs, and a usage demo.
+// expects: component files, the components barrel, the CSS aggregate, and a usage demo.
+// Its Storybook page is generated from examples/*.examples.tsx, so none is authored here.
 //
 // Usage:
 //   bun run new:component <kebab-name> [--namespace] [--no-docs]
@@ -162,20 +162,8 @@ create(
 `,
 );
 
-// One docs page per component in packages/docs (the file name is the sidebar slug): the live
-// demo (when there is one) followed by its generated prop table.
-create(
-  join(UI, '../docs/content/docs/components', `${name}.mdx`),
-  `---
-title: ${pascal}
-description: ${pascal} component.
----
-${withDocs ? `\n<Demo name="${name}" />\n` : ''}
-## Props
-
-<PropsTable component="${name}" />
-`,
-);
+// Storybook pages are generated from `examples/*.examples.tsx` by generate-storybook.ts, and
+// the prop table from `*.props.ts` via gen-props.ts — a new component needs no page authored here.
 
 create(
   join(componentDir, 'index.ts'),

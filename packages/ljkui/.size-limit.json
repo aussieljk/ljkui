@@ -1,0 +1,30 @@
+[
+  {
+    "name": "core — import * (full public surface, tree-shaken)",
+    "path": "dist/index.js",
+    "import": "*",
+    "ignore": ["react", "react-dom"],
+    "limit": "280 kB"
+  },
+  {
+    "name": "core — { Button } (single component, guards tree-shaking)",
+    "path": "dist/index.js",
+    "import": "{ Button }",
+    "ignore": ["react", "react-dom"],
+    "limit": "8 kB"
+  },
+  {
+    "name": "core — { Theme } (theming runtime only)",
+    "path": "dist/index.js",
+    "import": "{ Theme }",
+    "ignore": ["react", "react-dom"],
+    "limit": "42 kB"
+  },
+  {
+    "name": "icons/lucide — adapter glue (guards sideEffects tree-shaking)",
+    "path": "dist/icons/adapters/lucide.js",
+    "import": "*",
+    "ignore": ["react", "react-dom", "lucide-react"],
+    "limit": "3 kB"
+  }
+]

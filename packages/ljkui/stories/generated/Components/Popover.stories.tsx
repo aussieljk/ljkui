@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `Popover`, from examples/popover.examples.tsx.',
+        component:
+          'Examples for `Popover`, from examples/popover.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Esc` | Close the popover and return focus to the trigger. |\n| `Tab` | Move through focusable content inside the popover. |\n\n## Accessibility\n\n- The trigger has `aria-expanded` and `aria-controls`; the popover is `role="dialog"` when it holds interactive content.\n- Closes on outside click and on `Esc`.',
       },
     },
   },

@@ -14,6 +14,15 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    data: {
+      description:
+        "Segments to render, in order. Each segment's width is its `value` as a percentage of the sum of all segment values. Every segment has a `label`, a numeric `value`, and a theme accent `color`.",
+      table: { type: { summary: 'ChartData[]' } },
+      required: true,
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;

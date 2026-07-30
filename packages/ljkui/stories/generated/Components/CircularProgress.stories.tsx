@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `CircularProgress`, from examples/circular-progress.examples.tsx.',
+        component:
+          'Examples for `CircularProgress`, from examples/circular-progress.examples.tsx.\n\n## Accessibility\n\n- `role="progressbar"` with the same value attributes as the linear progress bar.',
       },
     },
   },

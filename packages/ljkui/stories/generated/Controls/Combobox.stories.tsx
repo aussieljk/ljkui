@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `Combobox`, from examples/combobox.examples.tsx.',
+        component:
+          'Examples for `Combobox`, from examples/combobox.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `↓` / `↑` | Open the list / move the active option. |\n| `Enter` | Select the active option. |\n| `Esc` | Close the list, then clear the field. |\n| `Home` / `End` | Jump to the first / last option. |\n\n## Accessibility\n\n- `role="combobox"` with `aria-expanded` and `aria-activedescendant`; the popup is a `listbox`.',
       },
     },
   },

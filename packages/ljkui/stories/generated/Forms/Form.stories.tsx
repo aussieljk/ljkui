@@ -10,8 +10,17 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Examples for `Form`, from examples/form.examples.tsx.',
+        component:
+          'Examples for `Form`, from examples/form.examples.tsx.\n\n## Accessibility\n\n- Validation messages are wired to their fields via `aria-describedby` and `aria-invalid`; the first invalid field receives focus on submit.',
       },
+    },
+  },
+  argTypes: {
+    validationMode: {
+      description:
+        "Determines when the form should be validated: - `'onSubmit'`: validate on submit, afterwards fields re-validate on change. - `'onBlur'`: validate a field when it loses focus. - `'onChange'`: validate the field on every change to its value. The `validationMode` prop on `<Field.Root>` takes precedence over this.",
+      table: { type: { summary: '"onSubmit" | "onBlur" | "onChange"' }, defaultValue: { summary: 'onSubmit' } },
+      control: false,
     },
   },
 } satisfies Meta;

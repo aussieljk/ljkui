@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `DatePicker`, from examples/date-picker.examples.tsx.',
+        component:
+          'Examples for `DatePicker`, from examples/date-picker.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `↓` / `Enter` | Open the calendar from the field. |\n| `Esc` | Close the calendar. |\n\n## Accessibility\n\n- A `DateField` plus a popover `Calendar`; see both for their segment and grid keys.',
       },
     },
   },

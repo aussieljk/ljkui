@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `DateRangePicker`, from examples/date-range-picker.examples.tsx.',
+        component:
+          'Examples for `DateRangePicker`, from examples/date-range-picker.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `↓` / `Enter` | Open the range calendar. |\n| `Esc` | Close it. |\n\n## Accessibility\n\n- Two date fields plus a popover `RangeCalendar`.',
       },
     },
   },

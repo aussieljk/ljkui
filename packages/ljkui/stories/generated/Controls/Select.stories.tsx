@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `Select`, from examples/select.examples.tsx.',
+        component:
+          'Examples for `Select`, from examples/select.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Space` / `Enter` / `↓` | Open the listbox. |\n| `↑` / `↓` | Move the highlighted option. |\n| `Enter` | Select and close. |\n| `Esc` | Close without changing the value. |\n| `A`–`Z` | Typeahead to a matching option. |\n\n## Accessibility\n\n- Trigger has `aria-haspopup="listbox"` and `aria-expanded`; options are `role="option"` with `aria-selected`.',
       },
     },
   },

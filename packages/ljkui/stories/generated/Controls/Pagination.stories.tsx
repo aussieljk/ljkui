@@ -10,7 +10,8 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Examples for `Pagination`, from examples/pagination.examples.tsx.',
+        component:
+          'Examples for `Pagination`, from examples/pagination.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Tab` | Move between page links. |\n| `Enter` / `Space` | Go to the focused page. |\n\n## Accessibility\n\n- A `nav` labelled "pagination"; the current page carries `aria-current="page"`.',
       },
     },
   },

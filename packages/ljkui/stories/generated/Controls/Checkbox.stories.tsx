@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `Checkbox`, from examples/checkbox.examples.tsx.',
+        component:
+          'Examples for `Checkbox`, from examples/checkbox.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Space` | Toggle checked / unchecked. |\n\n## Accessibility\n\n- `role="checkbox"` with `aria-checked` (`"mixed"` when indeterminate); label the control with a `<label>` or `aria-label`.',
       },
     },
   },

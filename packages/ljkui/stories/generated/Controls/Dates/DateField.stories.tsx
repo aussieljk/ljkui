@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `DateField`, from examples/date-field.examples.tsx.',
+        component:
+          'Examples for `DateField`, from examples/date-field.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `←` / `→` | Move between the day / month / year segments. |\n| `↑` / `↓` | Increment / decrement the focused segment. |\n| `0`–`9` | Type a value into the focused segment. |\n| `Backspace` | Clear the focused segment. |\n\n## Accessibility\n\n- Segmented `spinbutton`s (react-aria) — locale-aware, with each segment individually announced.',
       },
     },
   },

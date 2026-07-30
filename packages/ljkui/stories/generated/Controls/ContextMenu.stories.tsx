@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `ContextMenu`, from examples/context-menu.examples.tsx.',
+        component:
+          'Examples for `ContextMenu`, from examples/context-menu.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Shift+F10` / `Menu` | Open the menu at the focused element. |\n| `Space` / `Enter` | Activate the focused item; open a submenu. |\n| `↓` / `↑` | Move focus to the next / previous item. |\n| `→` / `←` | Open the submenu / return to the parent menu. |\n| `Home` / `End` | Focus the first / last item. |\n| `Esc` | Close the menu and return focus to the trigger. |\n| `A`–`Z` | Typeahead: focus the next item starting with that character. |\n\n## Accessibility\n\n- Opened by right-click or the keyboard menu key; same `role="menu"` semantics as the dropdown menu.',
       },
     },
   },

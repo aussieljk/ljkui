@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `Switch`, from examples/switch.examples.tsx.',
+        component:
+          'Examples for `Switch`, from examples/switch.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Space` / `Enter` | Toggle on / off. |\n\n## Accessibility\n\n- `role="switch"` with `aria-checked`.',
       },
     },
   },

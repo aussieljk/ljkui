@@ -20,10 +20,6 @@
     "lint:css": {
       "outputs": []
     },
-    "@ljkui/docs#build": {
-      "dependsOn": ["^build"],
-      "outputs": [".vercel/output/**", ".nitro/**", ".tanstack/**"]
-    },
     "typecheck": {
       "dependsOn": ["^build"],
       "outputs": []

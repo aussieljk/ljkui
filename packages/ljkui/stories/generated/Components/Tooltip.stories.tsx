@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `Tooltip`, from examples/tooltip.examples.tsx.',
+        component:
+          'Examples for `Tooltip`, from examples/tooltip.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Esc` | Dismiss the tooltip while the trigger stays focused. |\n\n## Accessibility\n\n- Shows on hover and on keyboard focus of the trigger; content is `role="tooltip"` and referenced via `aria-describedby`.\n- Non-interactive by design — never put focusable content in a tooltip.',
       },
     },
   },

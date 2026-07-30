@@ -10,7 +10,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Examples for `Table`, from examples/table.examples.tsx.',
+        component:
+          'Examples for `Table`, from examples/table.examples.tsx.\n\n## Accessibility\n\n- Semantic `<table>` markup — `<th scope>` for headers, caption for the accessible name.',
       },
     },
   },

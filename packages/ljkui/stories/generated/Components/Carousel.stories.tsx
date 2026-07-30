@@ -10,8 +10,39 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Examples for `Carousel`, from examples/carousel.examples.tsx.',
+        component:
+          'Examples for `Carousel`, from examples/carousel.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `←` / `→` | Previous / next slide. |\n| `Tab` | Reach the previous/next controls and slide content. |\n\n## Accessibility\n\n- Region labelled as a carousel; the previous/next buttons are labelled and slides use `aria-roledescription="slide"`.',
       },
+    },
+  },
+  argTypes: {
+    defaultValue: {
+      description: 'The initial active item index (uncontrolled mode).',
+      table: { type: { summary: 'string | number' }, defaultValue: { summary: '0' } },
+      control: false,
+    },
+    value: {
+      description:
+        'The active item index (controlled mode). When provided, the component is fully controlled — external changes scroll the viewport to the corresponding item.',
+      table: { type: { summary: 'string | number' } },
+      control: false,
+    },
+    loop: {
+      description:
+        'When true, navigation wraps around at boundaries: previous/next buttons jump to the other end instead of disabling, and marker arrow keys wrap instead of clamping.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    orientation: {
+      description: 'The scroll orientation of the gallery.',
+      table: { type: { summary: '"horizontal" | "vertical"' }, defaultValue: { summary: 'horizontal' } },
+      control: false,
+    },
+    scrollBehavior: {
+      description:
+        "Controls whether programmatic scrolls animate smoothly or jump instantly. Reduced motion always forces `'instant'` regardless of this value.",
+      table: { type: { summary: '"smooth" | "instant"' }, defaultValue: { summary: 'smooth' } },
+      control: false,
     },
   },
 } satisfies Meta;

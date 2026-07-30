@@ -10,7 +10,8 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Examples for `Field`, from examples/field.examples.tsx.',
+        component:
+          'Examples for `Field`, from examples/field.examples.tsx.\n\n## Accessibility\n\n- Associates a label, description and error with the control via `aria-describedby` / `aria-invalid`, so the error is announced.',
       },
     },
   },

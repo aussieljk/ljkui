@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `NumberField`, from examples/number-field.examples.tsx.',
+        component:
+          'Examples for `NumberField`, from examples/number-field.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `↑` / `↓` | Increment / decrement by the step. |\n| `Page Up` / `Page Down` | Change by a larger step. |\n| `Home` / `End` | Set to the minimum / maximum. |\n\n## Accessibility\n\n- `role="spinbutton"` with `aria-valuenow`; the stepper buttons are labelled and focus stays in the field.',
       },
     },
   },

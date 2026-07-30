@@ -10,7 +10,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Examples for `Command`, from examples/command.examples.tsx.',
+        component:
+          'Examples for `Command`, from examples/command.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `↑` / `↓` | Move through the filtered results. |\n| `Enter` | Run the highlighted command. |\n| `Esc` | Close the palette. |\n| type | Filter the list. |\n\n## Accessibility\n\n- A combobox-backed command palette: the input owns `aria-activedescendant`, results are a `listbox`.',
       },
     },
   },

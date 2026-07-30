@@ -10,7 +10,8 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Examples for `Fieldset`, from examples/fieldset.examples.tsx.',
+        component:
+          'Examples for `Fieldset`, from examples/fieldset.examples.tsx.\n\n## Accessibility\n\n- A `<fieldset>` with a `<legend>` naming the group of controls.',
       },
     },
   },

@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `ToggleGroup`, from examples/toggle-group.examples.tsx.',
+        component:
+          'Examples for `ToggleGroup`, from examples/toggle-group.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `←` / `→` | Move between items. |\n| `Space` / `Enter` | Toggle the focused item. |\n\n## Accessibility\n\n- Single tab stop with a roving tabindex; single- or multiple-selection via `aria-pressed`.',
       },
     },
   },

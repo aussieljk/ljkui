@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `RadioGroup`, from examples/radio-group.examples.tsx.',
+        component:
+          'Examples for `RadioGroup`, from examples/radio-group.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `↑` / `↓` / `←` / `→` | Move selection between radios (single tab stop). |\n| `Space` | Select the focused radio. |\n\n## Accessibility\n\n- `role="radiogroup"` wrapping `role="radio"` options; arrow keys move both focus and selection.',
       },
     },
   },

@@ -10,7 +10,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Examples for `DataTable`, from examples/data-table.examples.tsx.',
+        component:
+          'Examples for `DataTable`, from examples/data-table.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Tab` | Reach interactive cells, sort headers and controls. |\n| `Enter` / `Space` | Toggle sorting on a sortable header. |\n\n## Accessibility\n\n- Sortable column headers expose `aria-sort`; selection checkboxes are individually labelled.',
       },
     },
   },

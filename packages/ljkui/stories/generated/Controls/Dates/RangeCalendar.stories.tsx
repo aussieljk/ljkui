@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `RangeCalendar`, from examples/range-calendar.examples.tsx.',
+        component:
+          'Examples for `RangeCalendar`, from examples/range-calendar.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `←` `→` `↑` `↓` | Move the focused date. |\n| `Enter` | Set the range start, then the range end. |\n| `Esc` | Cancel an in-progress selection. |\n\n## Accessibility\n\n- Grid calendar for a start/end range; the highlighted range is announced as it grows.',
       },
     },
   },

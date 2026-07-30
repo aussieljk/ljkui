@@ -10,7 +10,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Examples for `Sheet`, from examples/sheet.examples.tsx.',
+        component:
+          'Examples for `Sheet`, from examples/sheet.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Esc` | Close the sheet. |\n| `Tab` / `Shift+Tab` | Cycle focus within the sheet. |\n\n## Accessibility\n\n- Edge-anchored modal dialog; focus is trapped and restored to the trigger on close.',
       },
     },
   },

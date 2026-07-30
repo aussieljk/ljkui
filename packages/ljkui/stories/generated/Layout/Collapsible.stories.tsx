@@ -10,7 +10,8 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Examples for `Collapsible`, from examples/collapsible.examples.tsx.',
+        component:
+          'Examples for `Collapsible`, from examples/collapsible.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Enter` / `Space` | Toggle the panel. |\n\n## Accessibility\n\n- Trigger button carries `aria-expanded` and `aria-controls`.',
       },
     },
   },

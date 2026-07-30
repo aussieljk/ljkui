@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `IconButton`, from examples/icon-button.examples.tsx.',
+        component:
+          'Examples for `IconButton`, from examples/icon-button.examples.tsx.\n\n## Accessibility\n\n- Icon-only button — always give it an `aria-label`, since there is no visible text.',
       },
     },
   },

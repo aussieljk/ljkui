@@ -10,7 +10,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Examples for `InputOTP`, from examples/input-otp.examples.tsx.',
+        component:
+          'Examples for `InputOTP`, from examples/input-otp.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `0`–`9` | Fill the current cell and advance. |\n| `←` / `→` | Move between cells. |\n| `Backspace` | Clear the current cell and step back. |\n| paste | Distribute a pasted code across the cells. |\n\n## Accessibility\n\n- Presented as a single labelled input to assistive tech; individual cells are visual.',
       },
     },
   },

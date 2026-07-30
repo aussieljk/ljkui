@@ -10,7 +10,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Examples for `Menubar`, from examples/menubar.examples.tsx.',
+        component:
+          'Examples for `Menubar`, from examples/menubar.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `←` / `→` | Move between top-level menus. |\n| `↓` / `Space` / `Enter` | Open the focused menu. |\n| `↑` / `↓` | Move between items in an open menu. |\n| `Esc` | Close the open menu. |\n\n## Accessibility\n\n- `role="menubar"` with a single tab stop; arrow keys move focus, matching the APG menubar pattern.',
       },
     },
   },

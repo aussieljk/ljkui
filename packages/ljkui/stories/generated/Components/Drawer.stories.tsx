@@ -10,8 +10,27 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Examples for `Drawer`, from examples/drawer.examples.tsx.',
+        component:
+          'Examples for `Drawer`, from examples/drawer.examples.tsx.\n\n## Keyboard\n\n| Key | Action |\n| --- | --- |\n| `Esc` | Close the drawer. |\n| `Tab` / `Shift+Tab` | Cycle focus within the drawer (focus is trapped). |\n\n## Accessibility\n\n- A modal dialog anchored to an edge — same focus trap and `aria-modal` semantics as `Dialog`.',
       },
+    },
+  },
+  argTypes: {
+    open: {
+      description: 'Whether the drawer is open (controlled). Pair with `onOpenChange`.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+    defaultOpen: {
+      description:
+        'Whether the drawer is initially open (uncontrolled). To render a controlled drawer, use `open` instead.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    disablePointerDismissal: {
+      description: 'Whether to prevent the drawer from closing on outside presses.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
     },
   },
 } satisfies Meta;
