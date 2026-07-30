@@ -21,7 +21,6 @@ import {
 import { Plus } from 'lucide-react';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
 import * as React from 'react';
-import { Controller, useForm as useReactHookForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const countryItems = [
@@ -123,7 +122,7 @@ async function submitUsername(_previousState: { serverErrors?: FormErrors }, for
   return {};
 }
 
-type ReactHookFormData = {
+type ContactFormData = {
   firstName: string;
   lastName: string;
   email: string;
@@ -1386,104 +1385,130 @@ export const examples = {
     );
   },
 
-  'React Hook Form Integration'() {
-    const {
-      control,
-      handleSubmit,
-      formState: { errors, isSubmitting },
-    } = useReactHookForm<ReactHookFormData>({
+  'Form Library Field Binding'() {
+    const [result, setResult] = React.useState<ContactFormData | null>(null);
+
+    const form = useTanStackForm({
       defaultValues: {
         firstName: '',
         lastName: '',
         email: '',
+      } as ContactFormData,
+      onSubmit: async ({ value }) => {
+        // Mimic an API call
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        setResult(value);
       },
     });
-
-    const [result, setResult] = React.useState<ReactHookFormData | null>(null);
-
-    const onSubmit = async (data: ReactHookFormData) => {
-      // Mimic an API call
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      setResult(data);
-    };
 
     return (
       <div style={{ width: 320 }}>
         <Typography.Heading size="3" style={{ marginBottom: 8 }}>
-          React Hook Form Integration
+          Form Library Field Binding
         </Typography.Heading>
         <Typography.Text size="2" color="gray" style={{ marginBottom: 12, display: 'block' }}>
-          You can integrate Field components with{' '}
-          <Link href="https://react-hook-form.com" target="_blank" underline="always">
-            React Hook Form
+          Any form library that exposes a controlled field API can drive ljkui inputs. With{' '}
+          <Link href="https://tanstack.com/form" target="_blank" underline="always">
+            TanStack Form
           </Link>{' '}
-          using the <Typography.Code>Controller</Typography.Code> component.
+          the <Typography.Code>form.Field</Typography.Code> render prop supplies{' '}
+          <Typography.Code>value</Typography.Code>, <Typography.Code>handleChange</Typography.Code>, and{' '}
+          <Typography.Code>handleBlur</Typography.Code>, which map directly onto{' '}
+          <Typography.Code>{'<Input.Control>'}</Typography.Code>.
         </Typography.Text>
         <Typography.Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
-          The <Typography.Code>Controller</Typography.Code> wraps your input and provides{' '}
-          <Typography.Code>field</Typography.Code> props (like <Typography.Code>onChange</Typography.Code>,{' '}
-          <Typography.Code>onBlur</Typography.Code>, <Typography.Code>value</Typography.Code>) that connect it to the
-          form state.
+          Forward <Typography.Code>field.state.meta.errors</Typography.Code> into{' '}
+          <Typography.Code>{'<Field.Root invalid>'}</Typography.Code> so the wrapper renders its error state.
         </Typography.Text>
 
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            form.handleSubmit();
+          }}
           style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}
         >
-          <Controller
+          <form.Field
             name="firstName"
-            control={control}
-            rules={{ required: 'First name is required' }}
-            render={({ field }) => (
-              <Field.Root name={field.name} invalid={!!errors.firstName}>
+            validators={{ onChange: ({ value }) => (!value ? 'First name is required' : undefined) }}
+          >
+            {(field) => (
+              <Field.Root name={field.name} invalid={field.state.meta.errors.length > 0}>
                 <Field.Label>First Name</Field.Label>
                 <Input.Root>
-                  <Input.Control placeholder="Enter first name" {...field} />
+                  <Input.Control
+                    placeholder="Enter first name"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
                 </Input.Root>
-                {errors.firstName && <Field.Error match={true}>{errors.firstName.message}</Field.Error>}
+                {field.state.meta.errors.length > 0 && (
+                  <Field.Error match={true}>{field.state.meta.errors[0]}</Field.Error>
+                )}
               </Field.Root>
             )}
-          />
+          </form.Field>
 
-          <Controller
+          <form.Field
             name="lastName"
-            control={control}
-            rules={{ required: 'Last name is required' }}
-            render={({ field }) => (
-              <Field.Root name={field.name} invalid={!!errors.lastName}>
+            validators={{ onChange: ({ value }) => (!value ? 'Last name is required' : undefined) }}
+          >
+            {(field) => (
+              <Field.Root name={field.name} invalid={field.state.meta.errors.length > 0}>
                 <Field.Label>Last Name</Field.Label>
                 <Input.Root>
-                  <Input.Control placeholder="Smith" {...field} />
+                  <Input.Control
+                    placeholder="Smith"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
                 </Input.Root>
-                {errors.lastName && <Field.Error match={true}>{errors.lastName.message}</Field.Error>}
+                {field.state.meta.errors.length > 0 && (
+                  <Field.Error match={true}>{field.state.meta.errors[0]}</Field.Error>
+                )}
               </Field.Root>
             )}
-          />
+          </form.Field>
 
-          <Controller
+          <form.Field
             name="email"
-            control={control}
-            rules={{
-              required: 'Email is required',
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'Invalid email address',
+            validators={{
+              onChange: ({ value }) => {
+                if (!value) return 'Email is required';
+                if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) return 'Invalid email address';
+                return undefined;
               },
             }}
-            render={({ field }) => (
-              <Field.Root name={field.name} invalid={!!errors.email}>
+          >
+            {(field) => (
+              <Field.Root name={field.name} invalid={field.state.meta.errors.length > 0}>
                 <Field.Label>Email</Field.Label>
                 <Input.Root>
-                  <Input.Control type="email" placeholder="user@example.com" {...field} />
+                  <Input.Control
+                    type="email"
+                    placeholder="user@example.com"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
                 </Input.Root>
-                {errors.email && <Field.Error match={true}>{errors.email.message}</Field.Error>}
+                {field.state.meta.errors.length > 0 && (
+                  <Field.Error match={true}>{field.state.meta.errors[0]}</Field.Error>
+                )}
               </Field.Root>
             )}
-          />
+          </form.Field>
 
-          <Button type="submit" loading={isSubmitting}>
-            Submit
-          </Button>
+          <form.Subscribe selector={(state) => state.isSubmitting}>
+            {(isSubmitting) => (
+              <Button type="submit" loading={isSubmitting}>
+                Submit
+              </Button>
+            )}
+          </form.Subscribe>
         </form>
 
         {result && (

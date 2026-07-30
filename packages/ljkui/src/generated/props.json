@@ -328,6 +328,22 @@
       "description": "Increases color contrast with the background for better legibility."
     }
   },
+  "collapsible": {
+    "open": {
+      "type": "boolean",
+      "description": "Whether the panel is open (controlled). To render an uncontrolled collapsible, use `defaultOpen`."
+    },
+    "defaultOpen": {
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the panel is initially open (uncontrolled). To render a controlled collapsible, use `open`."
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the collapsible should ignore user interaction."
+    }
+  },
   "combobox": {
     "variant": {
       "type": "\"solid\" | \"soft\"",
@@ -346,6 +362,21 @@
       "type": "\"1\" | \"2\" | \"3\" | \"4\"",
       "default": "2",
       "description": "The size shared with the combobox parts (`Input`, `Chips`, `Content`) via context."
+    }
+  },
+  "command": {
+    "heading": {
+      "type": "ReactNode",
+      "description": "The label shown above the group."
+    },
+    "value": {
+      "type": "string",
+      "description": "The search text, when controlling the filter yourself. Pair with `onValueChange`."
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the item can be selected."
     }
   },
   "container": {
@@ -374,6 +405,17 @@
     "variant": {
       "type": "\"solid\" | \"translucent\"",
       "default": "translucent"
+    }
+  },
+  "credit-card": {
+    "face": {
+      "type": "\"front\" | \"back\"",
+      "description": "The active face in controlled mode. Pair with `onFaceChange` to keep state in sync."
+    },
+    "defaultFace": {
+      "type": "\"front\" | \"back\"",
+      "default": "front",
+      "description": "The initial face in uncontrolled mode."
     }
   },
   "data-table": {
@@ -476,6 +518,28 @@
       "default": "translucent"
     }
   },
+  "field": {
+    "name": {
+      "type": "string",
+      "description": "Identifies the field when a form is submitted. Takes precedence over the `name` prop on `Field.Control`."
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field should ignore user interaction. Takes precedence over the `disabled` prop on `Field.Control`."
+    },
+    "invalid": {
+      "type": "boolean",
+      "description": "Whether the field is invalid. Useful when the field state is controlled by an external library."
+    }
+  },
+  "fieldset": {
+    "variant": {
+      "type": "\"legend\" | \"label\"",
+      "default": "legend",
+      "description": "The visual variant of the legend. `'legend'` is a larger section heading (size 3, bold); `'label'` matches a field label (size 2, medium)."
+    }
+  },
   "filter-chip": {
     "size": {
       "type": "\"1\" | \"2\" | \"3\"",
@@ -538,6 +602,23 @@
     "highContrast": {
       "type": "boolean",
       "description": "Increases color contrast with the background for better legibility."
+    }
+  },
+  "input-group": {
+    "size": {
+      "type": "\"1\" | \"2\" | \"3\" | \"4\"",
+      "default": "1",
+      "description": "Controls the height, text size and padding of the field."
+    },
+    "variant": {
+      "type": "\"classic\" | \"solid\" | \"soft\" | \"surface\" | \"ghost\"",
+      "default": "ghost",
+      "description": "Controls the visual style of the field."
+    },
+    "color": {
+      "type": "\"danger\" | \"warning\" | \"success\" | \"info\" | \"red\" | \"orange\" | \"amber\" | \"yellow\" | \"lime\" | \"green\" | \"emerald\" | \"teal\" | \"cyan\" | \"sky\" | \"blue\" | \"indigo\" | \"violet\" | \"purple\" | \"fuchsia\" | \"pink\" | \"rose\" | \"slate\" | \"gray\" | \"zinc\" | \"neutral\" | \"stone\"",
+      "default": "gray",
+      "description": "Overrides the accent color used for the field's background tint and focus ring."
     }
   },
   "input-otp": {
@@ -622,6 +703,46 @@
       "description": "Sets the key cap size on the theme's typographic scale. When unset, the Kbd scales relative to the surrounding text."
     }
   },
+  "lightbox": {
+    "open": {
+      "type": "boolean",
+      "description": "Controlled open state. Pair with `onOpenChange`."
+    },
+    "defaultOpen": {
+      "type": "boolean",
+      "default": "false",
+      "description": "Uncontrolled initial open state."
+    },
+    "value": {
+      "type": "string | number",
+      "description": "Controlled active item index. Pair with `onValueChange`."
+    },
+    "defaultValue": {
+      "type": "string | number",
+      "default": "0",
+      "description": "Uncontrolled initial active item index."
+    },
+    "loop": {
+      "type": "boolean",
+      "default": "false",
+      "description": "Wrap navigation at the first and last items."
+    },
+    "viewTransition": {
+      "type": "boolean",
+      "default": "false",
+      "description": "Enable the View Transitions morph animation between trigger and lightbox item. Falls back to a fade when unsupported or when `prefers-reduced-motion` is set."
+    },
+    "morphTo": {
+      "type": "\"active\" | \"origin\" | \"closest\"",
+      "default": "active",
+      "description": "Which trigger receives the morph on close: `'active'` (the current item), `'origin'` (the trigger that opened the lightbox), or `'closest'` (the nearest registered trigger)."
+    },
+    "awaitImageDecode": {
+      "type": "boolean",
+      "default": "true",
+      "description": "Whether the open morph waits for the destination image to decode before starting. Only relevant when `viewTransition` is enabled."
+    }
+  },
   "link": {
     "size": {
       "type": "\"0\" | \"1\" | \"2\" | \"3\" | \"4\" | \"5\" | \"6\" | \"7\" | \"8\" | \"9\"",
@@ -647,6 +768,38 @@
     "highContrast": {
       "type": "boolean",
       "description": "Renders a higher-contrast color variant for improved accessibility."
+    }
+  },
+  "menubar": {
+    "orientation": {
+      "type": "\"horizontal\" | \"vertical\"",
+      "default": "horizontal",
+      "description": "The orientation of the menubar."
+    },
+    "modal": {
+      "type": "boolean",
+      "default": "true",
+      "description": "Whether the open menu traps focus and blocks interaction with the rest of the page."
+    },
+    "loopFocus": {
+      "type": "boolean",
+      "default": "true",
+      "description": "Whether arrow-key focus loops back to the first item when it reaches the end."
+    }
+  },
+  "meter": {
+    "size": {
+      "type": "\"1\" | \"2\" | \"3\" | \"4\" | \"5\" | \"6\"",
+      "default": "4",
+      "description": "Controls the height of the meter."
+    },
+    "color": {
+      "type": "\"danger\" | \"warning\" | \"success\" | \"info\" | \"red\" | \"orange\" | \"amber\" | \"yellow\" | \"lime\" | \"green\" | \"emerald\" | \"teal\" | \"cyan\" | \"sky\" | \"blue\" | \"indigo\" | \"violet\" | \"purple\" | \"fuchsia\" | \"pink\" | \"rose\" | \"slate\" | \"gray\" | \"zinc\" | \"neutral\" | \"stone\"",
+      "description": "Overrides the theme accent color for the indicator (default undefined = inherit the theme accent)."
+    },
+    "highContrast": {
+      "type": "boolean",
+      "description": "Renders a higher-contrast indicator color."
     }
   },
   "navigation-menu": {
@@ -754,6 +907,27 @@
       "description": "Renders a higher-contrast selected state."
     }
   },
+  "resizable": {
+    "withHandle": {
+      "type": "boolean",
+      "description": "Shows a grip so the handle is discoverable without hovering."
+    },
+    "defaultSize": {
+      "type": "string | number",
+      "default": "50",
+      "description": "The panel's starting size, relative to its siblings. Normalised so the group totals 100."
+    },
+    "minSize": {
+      "type": "string | number",
+      "default": "10",
+      "description": "The smallest size, as a percentage of the group, the panel can be dragged to."
+    },
+    "direction": {
+      "type": "\"horizontal\" | \"vertical\"",
+      "default": "horizontal",
+      "description": "The axis the panels are laid out along."
+    }
+  },
   "result": {
     "status": {
       "type": "\"success\" | \"error\" | \"warning\" | \"info\"",
@@ -820,6 +994,22 @@
       "type": "\"danger\" | \"warning\" | \"success\" | \"info\" | \"red\" | \"orange\" | \"amber\" | \"yellow\" | \"lime\" | \"green\" | \"emerald\" | \"teal\" | \"cyan\" | \"sky\" | \"blue\" | \"indigo\" | \"violet\" | \"purple\" | \"fuchsia\" | \"pink\" | \"rose\" | \"slate\" | \"gray\" | \"zinc\" | \"neutral\" | \"stone\"",
       "default": "gray",
       "description": "Overrides the color of the separator line."
+    }
+  },
+  "sheet": {
+    "open": {
+      "type": "boolean",
+      "description": "Whether the sheet is open (controlled). Pair with `onOpenChange`."
+    },
+    "defaultOpen": {
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the sheet is initially open (uncontrolled). To render a controlled sheet, use `open`."
+    },
+    "dismissible": {
+      "type": "boolean",
+      "default": "true",
+      "description": "When `false`, swiping, clicking outside and pressing Escape will not close the sheet."
     }
   },
   "sidebar": {
@@ -902,6 +1092,22 @@
       "type": "boolean",
       "default": "true",
       "description": "Whether the spinner is shown. When `false`, the component renders its children (if any) instead of the spinner."
+    }
+  },
+  "stepper": {
+    "size": {
+      "type": "\"1\" | \"2\" | \"3\"",
+      "default": "2",
+      "description": "The size of the step markers and labels."
+    },
+    "orientation": {
+      "type": "\"horizontal\" | \"vertical\"",
+      "default": "horizontal",
+      "description": "Whether the steps are laid out in a row or a column."
+    },
+    "color": {
+      "type": "\"danger\" | \"warning\" | \"success\" | \"info\" | \"red\" | \"orange\" | \"amber\" | \"yellow\" | \"lime\" | \"green\" | \"emerald\" | \"teal\" | \"cyan\" | \"sky\" | \"blue\" | \"indigo\" | \"violet\" | \"purple\" | \"fuchsia\" | \"pink\" | \"rose\" | \"slate\" | \"gray\" | \"zinc\" | \"neutral\" | \"stone\"",
+      "description": "Overrides the theme accent color for completed / current markers."
     }
   },
   "switch": {
@@ -988,6 +1194,32 @@
       "type": "\"danger\" | \"warning\" | \"success\" | \"info\" | \"red\" | \"orange\" | \"amber\" | \"yellow\" | \"lime\" | \"green\" | \"emerald\" | \"teal\" | \"cyan\" | \"sky\" | \"blue\" | \"indigo\" | \"violet\" | \"purple\" | \"fuchsia\" | \"pink\" | \"rose\" | \"slate\" | \"gray\" | \"zinc\" | \"neutral\" | \"stone\"",
       "default": "gray",
       "description": "Overrides the accent color used for the text area's background tint and focus ring."
+    }
+  },
+  "toggle-group-radio-group": {
+    "value": {
+      "type": "string",
+      "required": true,
+      "description": "The value of the selected item (controlled). Pair with `onValueChange`."
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the group should ignore user interaction."
+    },
+    "defaultValue": {
+      "type": "string",
+      "description": "The value of the initially selected item (uncontrolled)."
+    }
+  },
+  "toggle-group": {
+    "value": {
+      "type": "string",
+      "description": "The value of the selected segment (controlled). Pair with `onValueChange`."
+    },
+    "defaultValue": {
+      "type": "string",
+      "description": "The value of the initially selected segment (uncontrolled)."
     }
   },
   "toggle": {

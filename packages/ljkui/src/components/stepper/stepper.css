@@ -1,0 +1,135 @@
+.fui-StepperRoot {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  --stepper-marker-size: 24px;
+  --stepper-gap: var(--space-2);
+  --stepper-label-size: var(--font-size-2);
+  --stepper-desc-size: var(--font-size-1);
+}
+.fui-StepperRoot:where(.fui-r-size-1) {
+  --stepper-marker-size: 20px;
+  --stepper-label-size: var(--font-size-1);
+  --stepper-desc-size: var(--font-size-1);
+}
+.fui-StepperRoot:where(.fui-r-size-3) {
+  --stepper-marker-size: 32px;
+  --stepper-label-size: var(--font-size-3);
+  --stepper-desc-size: var(--font-size-2);
+}
+
+.fui-StepperItem {
+  display: flex;
+  gap: var(--stepper-gap);
+  min-width: 0;
+}
+
+.fui-StepperMarkerColumn {
+  display: flex;
+  align-items: center;
+}
+
+.fui-StepperMarker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--stepper-marker-size);
+  height: var(--stepper-marker-size);
+  border-radius: 100%;
+  font-size: calc(var(--stepper-marker-size) * 0.5);
+  font-weight: 500;
+  line-height: 1;
+
+  background-color: var(--gray-alpha-200);
+  color: var(--gray-a11);
+  box-shadow: inset 0 0 0 1px var(--gray-a5);
+}
+
+.fui-StepperItem:where([data-status='complete']) .fui-StepperMarker {
+  background-color: var(--accent-700);
+  color: var(--accent-contrast);
+  box-shadow: none;
+}
+.fui-StepperItem:where([data-status='current']) .fui-StepperMarker {
+  background-color: var(--color-background);
+  color: var(--accent-700);
+  box-shadow: inset 0 0 0 2px var(--accent-700);
+}
+
+.fui-StepperContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.fui-StepperLabel {
+  font-size: var(--stepper-label-size);
+  font-weight: 500;
+  line-height: var(--stepper-marker-size);
+  color: var(--gray-12);
+}
+.fui-StepperItem:where([data-status='upcoming']) .fui-StepperLabel {
+  color: var(--gray-a10);
+  font-weight: 400;
+}
+.fui-StepperDescription {
+  font-size: var(--stepper-desc-size);
+  color: var(--gray-a10);
+  line-height: 1.4;
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * ORIENTATION                                                                                     *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-StepperRoot:where(.fui-orientation-horizontal) {
+  flex-direction: row;
+  align-items: flex-start;
+
+  & .fui-StepperItem {
+    flex: 1 1 0;
+    flex-direction: column;
+  }
+  & .fui-StepperMarkerColumn {
+    width: 100%;
+  }
+  & .fui-StepperConnector {
+    flex: 1;
+    height: 2px;
+    margin-inline: var(--space-2);
+    background-color: var(--gray-a5);
+  }
+  & .fui-StepperItem:where([data-status='complete']) .fui-StepperConnector {
+    background-color: var(--accent-700);
+  }
+}
+
+.fui-StepperRoot:where(.fui-orientation-vertical) {
+  flex-direction: column;
+
+  & .fui-StepperItem {
+    flex-direction: row;
+    padding-bottom: var(--space-4);
+  }
+  & .fui-StepperItem:where(:last-child) {
+    padding-bottom: 0;
+  }
+  & .fui-StepperMarkerColumn {
+    flex-direction: column;
+  }
+  & .fui-StepperConnector {
+    width: 2px;
+    flex: 1;
+    min-height: var(--space-4);
+    margin-block: var(--space-1);
+    background-color: var(--gray-a5);
+  }
+  & .fui-StepperItem:where([data-status='complete']) .fui-StepperConnector {
+    background-color: var(--accent-700);
+  }
+}

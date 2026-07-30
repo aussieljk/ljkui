@@ -31,6 +31,17 @@ const APPEARANCES = ['inherit', 'light', 'dark'] as const;
 const ACCENT_COLORS = themeAccentColorsOrdered as readonly string[];
 const GRAY_COLORS = themeGrayColorsGrouped[0].values as readonly string[];
 
+/** The 12 role-scale steps ljkui computes for the current accent (see tailwind-palette.ts). */
+const ACCENT_STEPS = [10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
+
+/** Detect a raw CSS color string (`#hex`, `rgb()`, `oklch()`, …) vs. one of the named scales. */
+function isCustomAccent(value: string): boolean {
+  return !ACCENT_COLORS.includes(value);
+}
+
+/** Fallback hex the color picker shows when the accent is a named scale rather than a raw color. */
+const DEFAULT_CUSTOM_HEX = '#7c3aed';
+
 interface ThemeState {
   appearance: (typeof APPEARANCES)[number];
   accentColor: string;
@@ -208,6 +219,55 @@ const CSS = `
   line-height: 1.6;
   white-space: pre;
 }
+.tp-custom {
+  display: flex;
+  gap: 8px;
+}
+.tp-color {
+  width: 40px;
+  height: 32px;
+  padding: 2px;
+  border: 1px solid var(--gray-alpha-400);
+  border-radius: 8px;
+  background: var(--gray-50);
+  cursor: pointer;
+}
+.tp-text {
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--gray-alpha-400);
+  border-radius: 8px;
+  background: var(--gray-50);
+  color: var(--gray-950);
+  font-family: monospace;
+  font-size: 13px;
+}
+.tp-hint {
+  margin: 2px 0 0;
+  color: var(--gray-600);
+  font-size: 11px;
+}
+.tp-scale {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 4px;
+}
+.tp-step {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  font-size: 10px;
+  color: var(--gray-600);
+}
+.tp-step-chip {
+  width: 100%;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--gray-alpha-400);
+}
 `;
 
 /** Build the `<Theme …>` JSX string, emitting only props that differ from the defaults. */
@@ -301,8 +361,10 @@ function ThemePlaygroundPage() {
         <h1 className="tp-title">Theme playground</h1>
         <p className="tp-desc">
           Tune a nested <code>&lt;Theme&gt;</code> live — every control below maps to a real prop and re-themes only the
-          preview panel. Copy the resulting <code>&lt;Theme&gt;</code> JSX (or the data-attributes ljkui stamps on the
-          element) to reproduce the exact look in your own app.
+          preview panel. Pick a named scale <em>or paste any brand color</em> into the custom accent field: ljkui fits a
+          full 12-step OKLab role scale from it at runtime (watch the scale strip below re-tint). Copy the resulting{' '}
+          <code>&lt;Theme&gt;</code> JSX (or the data-attributes ljkui stamps on the element) to reproduce the exact
+          look in your own app.
         </p>
       </header>
 
@@ -316,10 +378,34 @@ function ThemePlaygroundPage() {
           />
           <SelectField
             label="accentColor"
-            value={state.accentColor}
+            value={isCustomAccent(state.accentColor) ? ACCENT_COLORS[0] : state.accentColor}
             options={ACCENT_COLORS}
             onChange={(value) => set('accentColor', value)}
           />
+          <div className="tp-field">
+            <span className="tp-label">custom accent</span>
+            <div className="tp-custom">
+              <input
+                type="color"
+                className="tp-color"
+                aria-label="custom accent color picker"
+                value={isCustomAccent(state.accentColor) ? state.accentColor : DEFAULT_CUSTOM_HEX}
+                onChange={(event) => set('accentColor', event.target.value)}
+              />
+              <input
+                type="text"
+                className="tp-text"
+                aria-label="custom accent color value"
+                spellCheck={false}
+                placeholder="#7c3aed / oklch(…) / rgb(…)"
+                value={isCustomAccent(state.accentColor) ? state.accentColor : ''}
+                onChange={(event) => set('accentColor', event.target.value)}
+              />
+            </div>
+            <p className="tp-hint">
+              Any CSS color — ljkui fits a full 12-step OKLab role scale at runtime and auto-picks a matching gray.
+            </p>
+          </div>
           <SelectField
             label="grayColor"
             value={state.grayColor}
@@ -419,6 +505,20 @@ function ThemePlaygroundPage() {
                   A surface card. The border, background, and accent links all track the current gray and accent scales.
                 </Typography.Text>
               </Card>
+
+              <div>
+                <Typography.Text render={<div />} size="1" color="gray" weight="medium">
+                  Resolved accent scale (--accent-10 → --accent-950)
+                </Typography.Text>
+                <div className="tp-scale" style={{ marginTop: 8 }}>
+                  {ACCENT_STEPS.map((step) => (
+                    <div key={step} className="tp-step">
+                      <span className="tp-step-chip" style={{ background: `var(--accent-${step})` }} />
+                      {step}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </Theme>
 

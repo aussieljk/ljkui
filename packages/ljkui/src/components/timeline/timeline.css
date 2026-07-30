@@ -1,0 +1,80 @@
+.fui-TimelineRoot {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  --timeline-dot-size: 12px;
+  --timeline-gap: var(--space-3);
+  --timeline-title-size: var(--font-size-2);
+  --timeline-time-size: var(--font-size-1);
+}
+.fui-TimelineRoot:where(.fui-r-size-1) {
+  --timeline-dot-size: 10px;
+  --timeline-title-size: var(--font-size-1);
+}
+.fui-TimelineRoot:where(.fui-r-size-3) {
+  --timeline-dot-size: 14px;
+  --timeline-title-size: var(--font-size-3);
+  --timeline-time-size: var(--font-size-2);
+}
+
+.fui-TimelineItem {
+  display: flex;
+  gap: var(--timeline-gap);
+  min-height: var(--space-6);
+}
+
+.fui-TimelineMarkerColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: none;
+  padding-top: 4px;
+}
+
+.fui-TimelineDot {
+  width: var(--timeline-dot-size);
+  height: var(--timeline-dot-size);
+  border-radius: 100%;
+  flex: none;
+  background-color: var(--accent-700);
+  box-shadow: 0 0 0 2px var(--color-background);
+}
+
+.fui-TimelineConnector {
+  flex: 1;
+  width: 2px;
+  margin-top: 4px;
+  background-color: var(--gray-a5);
+}
+.fui-TimelineItem:where(:last-child) .fui-TimelineConnector {
+  display: none;
+}
+
+.fui-TimelineContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: var(--space-4);
+  min-width: 0;
+}
+.fui-TimelineItem:where(:last-child) .fui-TimelineContent {
+  padding-bottom: 0;
+}
+
+.fui-TimelineTime {
+  font-size: var(--timeline-time-size);
+  color: var(--gray-a10);
+}
+.fui-TimelineTitle {
+  font-size: var(--timeline-title-size);
+  font-weight: 500;
+  color: var(--gray-12);
+}
+.fui-TimelineBody {
+  font-size: var(--timeline-time-size);
+  color: var(--gray-a11);
+  line-height: 1.5;
+}

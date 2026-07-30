@@ -1,0 +1,52 @@
+.fui-MeterRoot {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: var(--meter-height);
+  border-radius: var(--radius-thumb);
+  overflow: hidden;
+
+  background-color: var(--gray-alpha-200);
+}
+.fui-MeterIndicator {
+  height: 100%;
+  width: 0%;
+  background-color: var(--accent-700);
+  border-radius: inherit;
+  transition: width 120ms ease-out;
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * SIZES                                                                                           *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-MeterRoot {
+  &:where(.fui-r-size-1) {
+    --meter-height: 2px;
+  }
+  &:where(.fui-r-size-2) {
+    --meter-height: 4px;
+  }
+  &:where(.fui-r-size-3) {
+    --meter-height: 6px;
+  }
+  &:where(.fui-r-size-4) {
+    --meter-height: 8px;
+  }
+  &:where(.fui-r-size-5) {
+    --meter-height: 12px;
+  }
+  &:where(.fui-r-size-6) {
+    --meter-height: 16px;
+  }
+}
+
+/* high-contrast */
+
+.fui-MeterRoot:where(.fui-high-contrast) {
+  & :where(.fui-MeterIndicator) {
+    background-color: var(--accent-950);
+  }
+}

@@ -1,0 +1,159 @@
+---
+title: "Forms & Field Binding"
+description: "The prop contract every ljkui input honors, controlled vs uncontrolled, and binding a form library with TanStack Form."
+---
+
+Every ljkui input is a thin, styled wrapper over a native control. The library owns
+the look — you own the state. That means an input binds to whatever holds your form
+state (React `useState`, a native `<Form>`, or a form library) through one small,
+predictable prop contract, and never depends on the form library itself.
+
+The `ljkui` package ships **no** form dependency. `@tanstack/react-form` is a dev
+dependency used only by the examples — you bring your own.
+
+## The binding contract
+
+Each input exposes a controlled/uncontrolled surface plus the native form attributes:
+
+| Concern | Text-like inputs | Boolean inputs (Checkbox, Switch) | Choice inputs (Select, RadioGroup) |
+| --- | --- | --- | --- |
+| Controlled value | `value` | `checked` | `value` |
+| Uncontrolled default | `defaultValue` | `defaultChecked` | `defaultValue` |
+| Change callback | `onValueChange` / native `onChange` | `onCheckedChange` | `onValueChange` |
+| Submission key | `name` | `name` | `name` |
+| Disabled | `disabled` | `disabled` | `disabled` |
+| Required | `required` | `required` | `required` |
+
+`Input.Control` forwards native DOM props, so `value` + `onChange` (the native event)
+work exactly as they do on a plain `<input>`; the higher-level controls (Checkbox,
+Switch, Select) expose the semantic `onCheckedChange` / `onValueChange` callbacks.
+
+### Error / invalid state
+
+Validation state lives on the **wrapper**, not the input. `<Field.Root>` and
+`<Fieldset.Root>` own the invalid state and the error message:
+
+- `<Field.Root invalid>` — mark the field invalid from an external source (a form
+  library, a server response). This is the escape hatch when you are not using native
+  constraint validation.
+- `<Field.Error match="valueMissing">…</Field.Error>` — render an error keyed to a
+  native validity state (`valueMissing`, `typeMismatch`, `tooShort`, `patternMismatch`, …).
+- `<Field.Error match={true}>…</Field.Error>` — always render when the field is invalid,
+  which is how you surface a message string that came from a form library.
+- `<Field.Description>` — non-error helper text.
+
+```tsx
+<Field.Root name="email">
+  <Field.Label>Email</Field.Label>
+  <Input.Root>
+    <Input.Control type="email" required placeholder="you@example.com" />
+  </Input.Root>
+  <Field.Error match="valueMissing">Email is required</Field.Error>
+  <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
+</Field.Root>
+```
+
+## Controlled vs uncontrolled
+
+**Uncontrolled** is the default and the least code. Wrap fields in `<Form>` (a native
+`<form>` with consolidated error handling) and read values on submit — either from the
+native event or from the `onFormSubmit` callback, which hands you a plain object:
+
+```tsx
+<Form onFormSubmit={(values) => console.log(values)}>
+  <Field.Root name="name">
+    <Field.Label>Name</Field.Label>
+    <Input.Root>
+      <Input.Control placeholder="Jane Smith" defaultValue="" />
+    </Input.Root>
+  </Field.Root>
+  <Button type="submit">Submit</Button>
+</Form>
+```
+
+Native constraint validation (`required`, `minLength`, `pattern`, …) plus
+`<Field.Error match="…">` covers most forms with no JavaScript state at all.
+
+**Controlled** is what you reach for when the value drives other UI (conditional
+fields, live previews, debounced auto-save) or when a form library owns the state:
+
+```tsx
+const [country, setCountry] = React.useState('us');
+
+<Select.Root value={country} onValueChange={(v) => v && setCountry(v)} items={items}>
+  <Select.Trigger placeholder="Select a country" />
+  <Select.Content>…</Select.Content>
+</Select.Root>;
+```
+
+## Binding a form library (TanStack Form)
+
+Because the contract is just `value` + a change callback + an `invalid` flag, any form
+library binds cleanly. With `@tanstack/react-form`, `form.Field` is a render prop that
+supplies the field state; map it onto the input and forward errors into
+`<Field.Root invalid>`:
+
+```tsx
+import { useForm } from '@tanstack/react-form';
+import { Button, Field, Input } from 'ljkui';
+
+function ProfileForm() {
+  const form = useForm({
+    defaultValues: { username: '' },
+    onSubmit: async ({ value }) => save(value),
+  });
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
+      }}
+    >
+      <form.Field
+        name="username"
+        validators={{
+          onChange: ({ value }) =>
+            value.length < 3 ? 'Username must be at least 3 characters' : undefined,
+        }}
+      >
+        {(field) => (
+          <Field.Root name={field.name} invalid={field.state.meta.errors.length > 0}>
+            <Field.Label>Username</Field.Label>
+            <Input.Root>
+              <Input.Control
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+              />
+            </Input.Root>
+            {field.state.meta.errors.length > 0 && (
+              <Field.Error match={true}>{field.state.meta.errors[0]}</Field.Error>
+            )}
+          </Field.Root>
+        )}
+      </form.Field>
+
+      <form.Subscribe selector={(state) => state.isSubmitting}>
+        {(isSubmitting) => (
+          <Button type="submit" loading={isSubmitting}>
+            Save
+          </Button>
+        )}
+      </form.Subscribe>
+    </form>
+  );
+}
+```
+
+The three moving parts are always the same, whatever the library:
+
+1. **Value in** — feed the library's value into `value` (or `checked`).
+2. **Change out** — call the library's change handler from `onChange` /
+   `onValueChange` / `onCheckedChange`.
+3. **Errors** — set `invalid` on `<Field.Root>` and render `<Field.Error match={true}>`
+   with the library's message.
+
+Boolean and choice controls follow the same shape — bind `checked`/`onCheckedChange`
+for `<Checkbox>` and `<Switch>`, and `value`/`onValueChange` for `<Select>`.

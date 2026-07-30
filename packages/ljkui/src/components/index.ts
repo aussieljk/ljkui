@@ -35,6 +35,7 @@ export * from './form';
 export * from './filter-chip';
 export * from './number-field';
 export * from './progress';
+export * from './meter';
 export * from './radio-button-group';
 export * from './radio-group';
 export * from './select';
@@ -107,6 +108,12 @@ export * from './sidebar';
 export * from './resizable';
 export * from './toggle';
 export * from './aspect-ratio';
+
+// DATA DISPLAY
+//------------------------------------------------------------------------------
+export * from './stepper';
+export * from './timeline';
+export * from './tree-view';
 
 // UTILITIES
 //------------------------------------------------------------------------------

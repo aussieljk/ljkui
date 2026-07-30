@@ -51,6 +51,7 @@
 @import '../components/lightbox/lightbox.css';
 @import '../components/popover/popover.css';
 @import '../components/progress/progress.css';
+@import '../components/meter/meter.css';
 @import '../components/circular-progress/circular-progress.css';
 @import '../components/typography/quote.css';
 @import '../components/radio-group/radio-group.css';
@@ -118,3 +119,6 @@ because Autocomplete overrides base-menu content transitions.
 @import '../components/resizable/resizable.css';
 @import '../components/toggle/toggle.css';
 @import '../components/aspect-ratio/aspect-ratio.css';
+@import '../components/stepper/stepper.css';
+@import '../components/timeline/timeline.css';
+@import '../components/tree-view/tree-view.css';

@@ -170,7 +170,6 @@
     "postcss-nesting": "^14.0.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "react-hook-form": "^7.82.0",
     "size-limit": "^13.0.2",
     "stylelint": "^17.14.1",
     "tailwindcss": "^4.3.3",

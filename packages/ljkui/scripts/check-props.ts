@@ -27,20 +27,7 @@ const PRIMITIVES = new Set([
 ]);
 
 /** User-facing components that still owe a props.ts — shrink this list, don't grow it. */
-const BACKLOG = new Set([
-  'collapsible',
-  'command',
-  'credit-card',
-  'field',
-  'fieldset',
-  'input-group',
-  'lightbox',
-  'menubar',
-  'resizable',
-  'sheet',
-  'toggle-group',
-  'toggle-group-radio-group',
-]);
+const BACKLOG = new Set<string>([]);
 
 const exempt = new Set([...PRIMITIVES, ...BACKLOG]);
 
