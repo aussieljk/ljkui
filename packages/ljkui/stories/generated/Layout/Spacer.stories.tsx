@@ -19,12 +19,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  name: 'Default',
-  render: () => render(examples['Example']),
-  parameters: { docs: { description: { story: 'The canonical Spacer. Same as “Example”, shown first.' } } },
-};
-
 export const Example: Story = {
   name: 'Example',
   render: () => render(examples['Example']),

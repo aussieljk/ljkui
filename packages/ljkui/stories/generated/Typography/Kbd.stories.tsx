@@ -27,12 +27,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  name: 'Default',
-  render: () => render(examples['Size']),
-  parameters: { docs: { description: { story: 'The canonical Kbd. Same as “Size”, shown first.' } } },
-};
-
 export const Size: Story = {
   name: 'Size',
   render: () => render(examples['Size']),

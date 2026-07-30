@@ -264,8 +264,10 @@ async function storyModule(slug: string, category: string): Promise<string> {
    * Whop's Storybook leads every component with `Default`. Where the examples already
    * define one, it is used as-is; otherwise the first example stands in as the canonical
    * "what does this look like" entry, since Storybook opens a component on its first story.
+   * Single-example components are skipped — there a synthesised `Default` is a pure
+   * duplicate of the only story (the layout primitives are all shaped this way).
    */
-  if (!names.includes('Default') && names.length > 0) {
+  if (!names.includes('Default') && names.length > 1) {
     stories.unshift(
       story('Default', 'Default', names[0], `The canonical ${component}. Same as “${names[0]}”, shown first.`),
     );
