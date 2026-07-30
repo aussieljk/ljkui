@@ -14,6 +14,28 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    withHandle: {
+      description: 'Shows a grip so the handle is discoverable without hovering.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+    defaultSize: {
+      description: "The panel's starting size, relative to its siblings. Normalised so the group totals 100.",
+      table: { type: { summary: 'string | number' }, defaultValue: { summary: '50' } },
+      control: false,
+    },
+    minSize: {
+      description: 'The smallest size, as a percentage of the group, the panel can be dragged to.',
+      table: { type: { summary: 'string | number' }, defaultValue: { summary: '10' } },
+      control: false,
+    },
+    direction: {
+      description: 'The axis the panels are laid out along.',
+      table: { type: { summary: '"horizontal" | "vertical"' }, defaultValue: { summary: 'horizontal' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;

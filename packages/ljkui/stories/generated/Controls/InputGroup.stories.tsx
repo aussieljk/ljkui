@@ -14,6 +14,32 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    size: {
+      description: 'Controls the height, text size and padding of the field.',
+      table: { type: { summary: '"1" | "2" | "3" | "4"' }, defaultValue: { summary: '1' } },
+      control: false,
+    },
+    variant: {
+      description: 'Controls the visual style of the field.',
+      table: {
+        type: { summary: '"classic" | "solid" | "soft" | "surface" | "ghost"' },
+        defaultValue: { summary: 'ghost' },
+      },
+      control: false,
+    },
+    color: {
+      description: "Overrides the accent color used for the field's background tint and focus ring.",
+      table: {
+        type: {
+          summary:
+            '"danger" | "warning" | "success" | "info" | "red" | "orange" | "amber" | "yellow" | "lime" | "green" | "emerald" | "teal" | "cyan" | "sky" | "blue" | "indigo" | "violet" | "purple" | "fuchsia" | "pink" | "rose" | "slate" | "gray" | "zinc" | "neutral" | "stone"',
+        },
+        defaultValue: { summary: 'gray' },
+      },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;

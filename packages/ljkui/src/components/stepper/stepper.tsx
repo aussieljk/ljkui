@@ -54,6 +54,7 @@ const Stepper = (props: StepperProps) => {
     size = stepperPropDefs.size.default,
     orientation = stepperPropDefs.orientation.default,
     color = stepperPropDefs.color.default,
+    highContrast = stepperPropDefs.highContrast.default,
     steps,
     activeStep = 0,
     ...rootProps
@@ -63,7 +64,9 @@ const Stepper = (props: StepperProps) => {
     <ol
       data-accent-color={color}
       {...rootProps}
-      className={classNames('fui-StepperRoot', className, `fui-r-size-${size}`, `fui-orientation-${orientation}`)}
+      className={classNames('fui-StepperRoot', className, `fui-r-size-${size}`, `fui-orientation-${orientation}`, {
+        'fui-high-contrast': highContrast,
+      })}
     >
       {steps.map((step, index) => {
         const status: StepStatus =

@@ -14,6 +14,24 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    value: {
+      description: 'The value of the selected item (controlled). Pair with `onValueChange`.',
+      table: { type: { summary: 'string' } },
+      required: true,
+      control: false,
+    },
+    disabled: {
+      description: 'Whether the group should ignore user interaction.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    defaultValue: {
+      description: 'The value of the initially selected item (uncontrolled).',
+      table: { type: { summary: 'string' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;

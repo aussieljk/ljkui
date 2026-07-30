@@ -10,4 +10,5 @@ export * from './props';
 export * from './tailwind-colors';
 export * from './tailwind-palette';
 export * from './use-callback-ref';
+export * from './use-controllable-state';
 export * from './use-layout-effect';

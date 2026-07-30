@@ -15,6 +15,23 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    open: {
+      description: 'Whether the sheet is open (controlled). Pair with `onOpenChange`.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+    defaultOpen: {
+      description: 'Whether the sheet is initially open (uncontrolled). To render a controlled sheet, use `open`.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    dismissible: {
+      description: 'When `false`, swiping, clicking outside and pressing Escape will not close the sheet.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'true' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;

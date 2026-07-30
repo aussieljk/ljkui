@@ -312,4 +312,32 @@ export const A11Y: Record<string, A11y> = {
     ],
   },
   'circular-progress': { notes: ['`role="progressbar"` with the same value attributes as the linear progress bar.'] },
+  meter: {
+    notes: [
+      '`role="meter"` with `aria-valuenow` / `aria-valuemin` / `aria-valuemax` — a static gauge, not a moving progress bar.',
+      'When `low`, `high`, and `optimum` are set the bar auto-colours (success / warning / danger); an explicit `color` overrides this.',
+    ],
+  },
+  stepper: {
+    notes: [
+      'Rendered as an ordered list (`<ol>`/`<li>`); the active step carries `aria-current="step"`.',
+      'A non-interactive progress indicator — steps are not focusable. Pair it with the navigable control (form, wizard buttons) that drives `activeStep`.',
+    ],
+  },
+  timeline: {
+    notes: ['An ordered list (`<ol>`/`<li>`) of events; dot markers and connectors are decorative (`aria-hidden`).'],
+  },
+  'tree-view': {
+    keyboard: [
+      ['`↓` / `↑`', 'Move focus to the next / previous visible node.'],
+      ['`→`', 'Expand a collapsed node, or move focus to its first child.'],
+      ['`←`', 'Collapse an expanded node, or move focus to its parent.'],
+      ['`Home` / `End`', 'Focus the first / last visible node.'],
+      ['`Enter` / `Space`', 'Select the node and toggle its expansion.'],
+    ],
+    notes: [
+      'Rendered as `role="tree"` with `role="treeitem"` rows and `role="group"` child lists; each item exposes `aria-level`, `aria-expanded`, and `aria-selected`.',
+      'Uses roving `tabindex` — one node is tabbable at a time, and arrow keys move focus between nodes.',
+    ],
+  },
 };

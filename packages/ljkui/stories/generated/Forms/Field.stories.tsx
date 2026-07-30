@@ -15,6 +15,25 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    name: {
+      description:
+        'Identifies the field when a form is submitted. Takes precedence over the `name` prop on `Field.Control`.',
+      table: { type: { summary: 'string' } },
+      control: false,
+    },
+    disabled: {
+      description:
+        'Whether the field should ignore user interaction. Takes precedence over the `disabled` prop on `Field.Control`.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    invalid: {
+      description: 'Whether the field is invalid. Useful when the field state is controlled by an external library.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;

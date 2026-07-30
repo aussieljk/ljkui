@@ -3,6 +3,11 @@
 // cannot resolve members of such an object across a client-reference boundary
 // (<Tabs.Root> renders undefined in Next.js), so this script rewrites the ESM
 // output back to real `export * as` syntax after every tsdown build.
+//
+// Spike (2026-07-30, tsdown 0.22 / rolldown): tried eliminating this at emit time
+// with `outputOptions.minifyInternalExports: false` — rolldown still materialized
+// the `__exportAll` getters even under `unbundle`. There is no emit-time lever in
+// this version, so the post-build rewrite stays. Re-check when bumping rolldown.
 import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 

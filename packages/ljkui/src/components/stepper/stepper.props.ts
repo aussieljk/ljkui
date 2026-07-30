@@ -1,5 +1,5 @@
 import type { PropDef } from '../../helpers';
-import { colorProp } from '../../helpers';
+import { colorProp, highContrastProp } from '../../helpers';
 
 const sizes = ['1', '2', '3'] as const;
 const orientations = ['horizontal', 'vertical'] as const;
@@ -17,10 +17,13 @@ const stepperPropDefs = {
   orientation: { type: 'enum', values: orientations, default: 'horizontal' },
   /** Overrides the theme accent color for completed / current markers. */
   color: { ...colorProp, default: undefined },
+  /** Renders higher-contrast completed / current markers. */
+  highContrast: highContrastProp,
 } satisfies {
   size: PropDef<(typeof sizes)[number]>;
   orientation: PropDef<(typeof orientations)[number]>;
   color: typeof colorProp;
+  highContrast: typeof highContrastProp;
 };
 
 export { stepperPropDefs };

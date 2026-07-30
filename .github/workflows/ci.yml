@@ -49,6 +49,10 @@ jobs:
         run: bun run lint
       - name: Props coverage
         run: bun run --filter=ljkui check:props
+      - name: Component shape
+        run: bun run --filter=ljkui check:shape
+      - name: CSS registration
+        run: bun run --filter=ljkui check:css-index
       - name: Token snapshot
         run: bun run --filter=ljkui check:tokens
       - name: Typecheck

@@ -1,0 +1,82 @@
+.fui-TreeRoot {
+  --tree-indent: var(--space-4);
+  --tree-row-height: 28px;
+  --tree-font-size: var(--font-size-2);
+
+  width: 100%;
+  color: var(--gray-12);
+}
+.fui-TreeRoot:where(.fui-r-size-1) {
+  --tree-row-height: 24px;
+  --tree-font-size: var(--font-size-1);
+  --tree-indent: var(--space-3);
+}
+.fui-TreeRoot:where(.fui-r-size-3) {
+  --tree-row-height: 34px;
+  --tree-font-size: var(--font-size-3);
+  --tree-indent: var(--space-5);
+}
+
+.fui-TreeGroup {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fui-TreeItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: var(--tree-row-height);
+  padding-inline-end: var(--space-2);
+  border-radius: var(--radius-2);
+  font-size: var(--tree-font-size);
+  cursor: default;
+  user-select: none;
+  outline: none;
+}
+.fui-TreeItem:where(:hover) {
+  background-color: var(--gray-a3);
+}
+.fui-TreeItem:where(:focus-visible) {
+  outline: 2px solid var(--accent-700);
+  outline-offset: -1px;
+}
+.fui-TreeItem:where(.fui-selected) {
+  background-color: var(--accent-400);
+  color: var(--accent-12, var(--gray-12));
+}
+.fui-TreeRoot:where(.fui-high-contrast) .fui-TreeItem:where(.fui-selected) {
+  background-color: var(--accent-950);
+  color: var(--accent-contrast);
+}
+
+.fui-TreeToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1.1em;
+  height: 1.1em;
+  color: var(--gray-a10);
+  transition: transform 120ms ease;
+}
+.fui-TreeToggle:where(.fui-open) {
+  transform: rotate(90deg);
+}
+.fui-TreeToggle:where(.fui-invisible) {
+  visibility: hidden;
+}
+
+.fui-TreeIcon {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  color: var(--gray-a11);
+}
+
+.fui-TreeLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

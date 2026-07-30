@@ -15,6 +15,24 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    open: {
+      description: 'Whether the panel is open (controlled). To render an uncontrolled collapsible, use `defaultOpen`.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+    defaultOpen: {
+      description:
+        'Whether the panel is initially open (uncontrolled). To render a controlled collapsible, use `open`.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    disabled: {
+      description: 'Whether the collapsible should ignore user interaction.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;

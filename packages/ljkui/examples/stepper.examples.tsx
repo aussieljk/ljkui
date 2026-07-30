@@ -38,7 +38,7 @@ export const examples = {
   Color() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', width: 520 }}>
-        <Stepper color="grass" steps={steps} activeStep={2} />
+        <Stepper color="green" steps={steps} activeStep={2} />
         <Stepper color="violet" steps={steps} activeStep={2} />
       </div>
     );

@@ -14,6 +14,18 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    face: {
+      description: 'The active face in controlled mode. Pair with `onFaceChange` to keep state in sync.',
+      table: { type: { summary: '"front" | "back"' } },
+      control: false,
+    },
+    defaultFace: {
+      description: 'The initial face in uncontrolled mode.',
+      table: { type: { summary: '"front" | "back"' }, defaultValue: { summary: 'front' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;

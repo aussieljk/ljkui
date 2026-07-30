@@ -6,11 +6,13 @@
  * exactly what a prop table should show. Bun imports the TS directly, so we read the runtime
  * values with no TypeScript compiler API (the old generator died on the TS7 native compiler's
  * missing JS API — this one never touches it). Descriptions come from a light regex over the
- * source, following one level of `export { X } from './y'` re-export (button -> base-button).
+ * source, following relative `export { X } from './y'` re-exports transitively (button ->
+ * base-button, and any further hops), guarded against cycles.
  *
  * Writes src/generated/props.json, keyed by kebab component name. Re-run after prop changes:
  *
- *   bun run scripts/gen-props.ts
+ *   bun run scripts/gen-props.ts            # regenerate
+ *   bun run scripts/gen-props.ts --check    # also fail if any documented prop lacks a description
  */
 import { readdirSync, existsSync, readFileSync, writeFileSync, mkdirSync, statSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -51,7 +53,8 @@ function typeString(def: PropDef): string {
   return def.responsive ? `Responsive<${base}>` : base;
 }
 
-/** Map JSDoc-annotated prop keys to their description text, across a source file + one re-export hop. */
+/** Map JSDoc-annotated prop keys to their description text, across a source file and every relative
+ * `export … from './x'` re-export reachable from it (transitive, cycle-guarded by `seen`). */
 function descriptionsFor(propsFile: string): Record<string, string> {
   const out: Record<string, string> = {};
   const seen = new Set<string>();
@@ -100,18 +103,38 @@ async function propsForFile(full: string): Promise<Record<string, PropRow> | nul
   return Object.keys(rows).length > 0 ? rows : null;
 }
 
-// The `<Theme>` props live in theme-options.tsx as `themePropDefs` (same shape, not a *.props.ts
-// file), so pull them in explicitly under the `theme` key.
-const propsFiles = [...findPropsFiles(srcDir), join(srcDir, 'theme-options.tsx')];
+/** Extra propDef sources that aren't `*.props.ts` files (same runtime shape). Add a line here — no
+ * special-casing scattered through the loop. `name` is the kebab key the source lands under. The
+ * `<Theme>` props live in `theme-options.tsx` as `themePropDefs`, so surface them under `theme`. */
+const EXTRA_SOURCES: { file: string; name: string }[] = [{ file: join(srcDir, 'theme-options.tsx'), name: 'theme' }];
+
+/** The kebab component key a props file lands under — its basename, so the shared `typography/` dir
+ * doesn't collapse heading/text/code/… into one bucket, and it matches the demo/kebab page names. */
+function componentName(full: string): string {
+  return basename(full).replace(/\.props\.ts$/, '');
+}
+
+const sources = [
+  ...findPropsFiles(srcDir)
+    .sort()
+    .map((file) => ({ file, name: componentName(file) })),
+  ...EXTRA_SOURCES,
+];
 
 const all: Record<string, Record<string, PropRow>> = {};
-for (const full of propsFiles.sort()) {
-  const name = basename(full)
-    .replace(/\.props\.ts$|\.tsx$/, '')
-    .replace('theme-options', 'theme');
+const claimedBy: Record<string, string> = {};
+for (const { file, name } of sources) {
+  // Two same-named props files in different dirs would silently overwrite each other — make it loud.
+  if (claimedBy[name]) {
+    console.error(`✗ prop key "${name}" is claimed by both ${claimedBy[name]} and ${file}. Rename one.`);
+    process.exit(1);
+  }
   try {
-    const rows = await propsForFile(full);
-    if (rows) all[name] = rows;
+    const rows = await propsForFile(file);
+    if (rows) {
+      all[name] = rows;
+      claimedBy[name] = file;
+    }
   } catch (err) {
     console.warn(`skip ${name}: ${(err as Error).message}`);
   }
@@ -120,3 +143,18 @@ for (const full of propsFiles.sort()) {
 mkdirSync(dirname(outFile), { recursive: true });
 writeFileSync(outFile, JSON.stringify(all, null, 2) + '\n');
 console.log(`Props: ${Object.keys(all).length} components → src/generated/props.json`);
+
+// Coverage report: props whose JSDoc description didn't make it into the table are usually a broken
+// re-export hop or a missing `/** */`. Always listed; `--check` turns it into a hard failure (CI).
+const undocumented = Object.entries(all).flatMap(([component, rows]) =>
+  Object.entries(rows)
+    .filter(([, row]) => !row.description)
+    .map(([prop]) => `${component}.${prop}`),
+);
+if (undocumented.length > 0) {
+  const label = process.argv.includes('--check') ? '✗' : '⚠';
+  console[process.argv.includes('--check') ? 'error' : 'warn'](
+    `${label} ${undocumented.length} prop(s) have no description:\n    ${undocumented.join('\n    ')}`,
+  );
+  if (process.argv.includes('--check')) process.exit(1);
+}

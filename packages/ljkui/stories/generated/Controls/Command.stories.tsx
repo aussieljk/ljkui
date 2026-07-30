@@ -15,6 +15,23 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    heading: {
+      description: 'The label shown above the group.',
+      table: { type: { summary: 'ReactNode' } },
+      control: false,
+    },
+    value: {
+      description: 'The search text, when controlling the filter yourself. Pair with `onValueChange`.',
+      table: { type: { summary: 'string' } },
+      control: false,
+    },
+    disabled: {
+      description: 'Whether the item can be selected.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;

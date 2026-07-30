@@ -1108,6 +1108,10 @@
     "color": {
       "type": "\"danger\" | \"warning\" | \"success\" | \"info\" | \"red\" | \"orange\" | \"amber\" | \"yellow\" | \"lime\" | \"green\" | \"emerald\" | \"teal\" | \"cyan\" | \"sky\" | \"blue\" | \"indigo\" | \"violet\" | \"purple\" | \"fuchsia\" | \"pink\" | \"rose\" | \"slate\" | \"gray\" | \"zinc\" | \"neutral\" | \"stone\"",
       "description": "Overrides the theme accent color for completed / current markers."
+    },
+    "highContrast": {
+      "type": "boolean",
+      "description": "Renders higher-contrast completed / current markers."
     }
   },
   "switch": {
@@ -1196,6 +1200,13 @@
       "description": "Overrides the accent color used for the text area's background tint and focus ring."
     }
   },
+  "timeline": {
+    "size": {
+      "type": "\"1\" | \"2\" | \"3\"",
+      "default": "2",
+      "description": "The size of the markers and text."
+    }
+  },
   "toggle-group-radio-group": {
     "value": {
       "type": "string",
@@ -1247,6 +1258,21 @@
       "type": "ReactNode",
       "required": true,
       "description": "The content displayed inside the tooltip popup."
+    }
+  },
+  "tree-view": {
+    "size": {
+      "type": "\"1\" | \"2\" | \"3\"",
+      "default": "2",
+      "description": "The size of the rows and text."
+    },
+    "color": {
+      "type": "\"danger\" | \"warning\" | \"success\" | \"info\" | \"red\" | \"orange\" | \"amber\" | \"yellow\" | \"lime\" | \"green\" | \"emerald\" | \"teal\" | \"cyan\" | \"sky\" | \"blue\" | \"indigo\" | \"violet\" | \"purple\" | \"fuchsia\" | \"pink\" | \"rose\" | \"slate\" | \"gray\" | \"zinc\" | \"neutral\" | \"stone\"",
+      "description": "Overrides the theme accent color for the selected row."
+    },
+    "highContrast": {
+      "type": "boolean",
+      "description": "Renders a higher-contrast selected row."
     }
   },
   "blockquote": {

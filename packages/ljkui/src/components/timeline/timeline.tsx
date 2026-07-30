@@ -49,6 +49,8 @@ interface TimelineItemProps extends Omit<PropsWithoutColor<'li'>, 'title'> {
   time?: React.ReactNode;
   /** Accent color of the dot marker. Inherits the theme accent when not set. */
   color?: ItemColor;
+  /** Renders a higher-contrast dot marker. */
+  highContrast?: boolean;
 }
 
 /**
@@ -56,13 +58,13 @@ interface TimelineItemProps extends Omit<PropsWithoutColor<'li'>, 'title'> {
  * free-form body content as children.
  */
 const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>((props, forwardedRef) => {
-  const { className, title, time, color, children, ...itemProps } = props;
+  const { className, title, time, color, highContrast, children, ...itemProps } = props;
   return (
     <li
       ref={forwardedRef}
       data-accent-color={color}
       {...itemProps}
-      className={classNames('fui-TimelineItem', className)}
+      className={classNames('fui-TimelineItem', className, { 'fui-high-contrast': highContrast })}
     >
       <div className="fui-TimelineMarkerColumn">
         <span className="fui-TimelineDot" aria-hidden />

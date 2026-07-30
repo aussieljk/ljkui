@@ -42,6 +42,9 @@
   background-color: var(--accent-700);
   box-shadow: 0 0 0 2px var(--color-background);
 }
+.fui-TimelineItem:where(.fui-high-contrast) .fui-TimelineDot {
+  background-color: var(--accent-950);
+}
 
 .fui-TimelineConnector {
   flex: 1;

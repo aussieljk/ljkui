@@ -14,6 +14,51 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    open: {
+      description: 'Controlled open state. Pair with `onOpenChange`.',
+      table: { type: { summary: 'boolean' } },
+      control: false,
+    },
+    defaultOpen: {
+      description: 'Uncontrolled initial open state.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    value: {
+      description: 'Controlled active item index. Pair with `onValueChange`.',
+      table: { type: { summary: 'string | number' } },
+      control: false,
+    },
+    defaultValue: {
+      description: 'Uncontrolled initial active item index.',
+      table: { type: { summary: 'string | number' }, defaultValue: { summary: '0' } },
+      control: false,
+    },
+    loop: {
+      description: 'Wrap navigation at the first and last items.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    viewTransition: {
+      description:
+        'Enable the View Transitions morph animation between trigger and lightbox item. Falls back to a fade when unsupported or when `prefers-reduced-motion` is set.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      control: false,
+    },
+    morphTo: {
+      description:
+        "Which trigger receives the morph on close: `'active'` (the current item), `'origin'` (the trigger that opened the lightbox), or `'closest'` (the nearest registered trigger).",
+      table: { type: { summary: '"active" | "origin" | "closest"' }, defaultValue: { summary: 'active' } },
+      control: false,
+    },
+    awaitImageDecode: {
+      description:
+        'Whether the open morph waits for the destination image to decode before starting. Only relevant when `viewTransition` is enabled.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'true' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;

@@ -15,6 +15,14 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    variant: {
+      description:
+        "The visual variant of the legend. `'legend'` is a larger section heading (size 3, bold); `'label'` matches a field label (size 2, medium).",
+      table: { type: { summary: '"legend" | "label"' }, defaultValue: { summary: 'legend' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;

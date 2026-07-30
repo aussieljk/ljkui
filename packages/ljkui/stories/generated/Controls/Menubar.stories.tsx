@@ -15,6 +15,23 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    orientation: {
+      description: 'The orientation of the menubar.',
+      table: { type: { summary: '"horizontal" | "vertical"' }, defaultValue: { summary: 'horizontal' } },
+      control: false,
+    },
+    modal: {
+      description: 'Whether the open menu traps focus and blocks interaction with the rest of the page.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'true' } },
+      control: false,
+    },
+    loopFocus: {
+      description: 'Whether arrow-key focus loops back to the first item when it reaches the end.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'true' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;

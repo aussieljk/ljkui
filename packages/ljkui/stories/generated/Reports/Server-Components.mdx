@@ -9,7 +9,7 @@ Which components are safe to render in a React Server Component, and which must 
 `'use client'` boundary. Heuristic (source scan for hooks / browser globals), so verify at the
 edges — but it's the fast answer to "can I use this in an RSC?".
 
-**22 of 87** scanned components are server-safe; the rest need a
+**22 of 91** scanned components are server-safe; the rest need a
 client boundary in their subtree.
 
 > A client-only component still works in an RSC app — just import it into a file that has
@@ -76,6 +76,7 @@ client boundary in their subtree.
 | [Item](?path=/docs/components-item--docs)                                 | Client          | 'use client'         |
 | [Lightbox](?path=/docs/components-lightbox--docs)                         | Client          | 'use client'         |
 | [Menubar](?path=/docs/controls-menubar--docs)                             | Client          | 'use client'         |
+| [Meter](?path=/docs/components-meter--docs)                               | Client          | 'use client'         |
 | [NavigationMenu](?path=/docs/controls-navigationmenu--docs)               | Client          | 'use client'         |
 | [NumberField](?path=/docs/controls-numberfield--docs)                     | Client          | 'use client'         |
 | [Pagination](?path=/docs/controls-pagination--docs)                       | Client          | 'use client'         |
@@ -95,13 +96,16 @@ client boundary in their subtree.
 | [Skeleton](?path=/docs/components-skeleton--docs)                         | Client          | 'use client'         |
 | [Slider](?path=/docs/controls-slider--docs)                               | Client          | 'use client'         |
 | [Sonner](?path=/docs/components-sonner--docs)                             | Client          | 'use client'         |
+| [Stepper](?path=/docs/components-stepper--docs)                           | Client          | 'use client'         |
 | [Switch](?path=/docs/controls-switch--docs)                               | Client          | 'use client'         |
 | [Tabs](?path=/docs/components-tabs--docs)                                 | Client          | 'use client'         |
 | [TabsNav](?path=/docs/components-tabsnav--docs)                           | Client          | 'use client'         |
+| [Timeline](?path=/docs/components-timeline--docs)                         | Client          | 'use client'         |
 | [Toggle](?path=/docs/controls-toggle--docs)                               | Client          | 'use client'         |
 | [ToggleGroup](?path=/docs/controls-togglegroup--docs)                     | Client          | 'use client'         |
 | [ToggleGroupNav](?path=/docs/controls-togglegroupnav--docs)               | Client          | 'use client'         |
 | [ToggleGroupRadioGroup](?path=/docs/controls-togglegroupradiogroup--docs) | Client          | 'use client'         |
 | [Tooltip](?path=/docs/components-tooltip--docs)                           | Client          | 'use client'         |
+| [TreeView](?path=/docs/components-treeview--docs)                         | Client          | 'use client'         |
 | [VisuallyHidden](?path=/docs/components-visuallyhidden--docs)             | Client          | 'use client'         |
 | [WidgetStack](?path=/docs/components-widgetstack--docs)                   | Client          | 'use client'         |

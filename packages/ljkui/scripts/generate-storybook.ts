@@ -103,7 +103,12 @@ const CATEGORIES: Record<string, string> = {
   'country-flag': 'Utilities',
   pictograms: 'Utilities',
   'emoji-colors': 'Utilities',
-  // Components (everything else falls through to this default)
+  // Components — explicit so intent is clear (these also happen to be the default bucket, alongside
+  // progress / circular-progress / badge / etc. which fall through implicitly).
+  meter: 'Components',
+  stepper: 'Components',
+  timeline: 'Components',
+  'tree-view': 'Components',
 };
 const DEFAULT_CATEGORY = 'Components';
 

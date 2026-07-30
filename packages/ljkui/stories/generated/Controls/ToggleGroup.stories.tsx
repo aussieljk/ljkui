@@ -15,6 +15,18 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    value: {
+      description: 'The value of the selected segment (controlled). Pair with `onValueChange`.',
+      table: { type: { summary: 'string' } },
+      control: false,
+    },
+    defaultValue: {
+      description: 'The value of the initially selected segment (uncontrolled).',
+      table: { type: { summary: 'string' } },
+      control: false,
+    },
+  },
 } satisfies Meta;
 
 export default meta;
