@@ -3,6 +3,8 @@ import * as React from 'react';
 
 import { gridPropDefs } from './grid.props';
 
+import { rootClassName } from '../../helpers';
+
 import type { GetPropDefTypes, Responsive } from '../../helpers';
 
 /**
@@ -31,8 +33,8 @@ interface GridRowProps extends React.ComponentProps<'div'> {}
 
 /** One row of a `Grid`; each child becomes a cell. Used by the SwiftUI-style (row-based) `Grid`. */
 const GridRow = (props: GridRowProps) => {
-  const { className, ...rowProps } = props;
-  return <div {...rowProps} className={classNames('fui-GridRow', className)} />;
+  const { className, ref, ...rowProps } = props;
+  return <div ref={ref} {...rowProps} className={classNames('fui-GridRow', className)} />;
 };
 GridRow.displayName = 'Grid.Row';
 
@@ -61,9 +63,10 @@ interface GridItemProps extends React.ComponentProps<'div'> {
  * ```
  */
 const GridItem = (props: GridItemProps) => {
-  const { className, style, colSpan, rowSpan, colStart, rowStart, ...itemProps } = props;
+  const { className, style, colSpan, rowSpan, colStart, rowStart, ref, ...itemProps } = props;
   return (
     <div
+      ref={ref}
       {...itemProps}
       className={classNames('fui-GridItem', className)}
       style={{
@@ -124,6 +127,7 @@ const GridComponent = (props: GridProps) => {
     className,
     style,
     children,
+    ref,
     alignment = gridPropDefs.alignment.default,
     horizontalSpacing,
     verticalSpacing,
@@ -147,11 +151,12 @@ const GridComponent = (props: GridProps) => {
 
   return (
     <div
+      ref={ref}
       {...gridProps}
-      className={classNames(
+      className={rootClassName(
         'fui-Grid',
         className,
-        `fui-r-alignment-${alignment}`,
+        { alignment },
         uniform && 'fui-Grid--columns',
         gap !== undefined && 'fui-Grid--gap',
       )}

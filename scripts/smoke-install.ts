@@ -35,6 +35,7 @@ writeFileSync(join(app, 'package.json'), JSON.stringify({ name: 'smoke', private
 const peers = [
   'react',
   'react-dom',
+  'tailwindcss',
   'lucide-react',
   '@heroicons/react',
   '@hugeicons/react',
@@ -47,6 +48,7 @@ run(['bun', 'add', tarball!, ...peers], { cwd: app });
 // Every public entry point, exactly as a consumer would import it.
 const entries = [
   'ljkui',
+  'ljkui/tailwind',
   'ljkui/icons',
   'ljkui/icons/lucide',
   'ljkui/icons/heroicons',

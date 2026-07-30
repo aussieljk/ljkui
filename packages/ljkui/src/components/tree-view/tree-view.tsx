@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
-import { useControllableState } from '../../helpers';
+import { mergeRefs, rootClassName, useAccessibleNameWarning, useControllableState } from '../../helpers';
 import { treeViewPropDefs } from './tree-view.props';
 
 interface TreeNode {
@@ -78,7 +78,7 @@ function flatten(data: TreeNode[], expanded: Set<string>, level = 1, parentId: s
  * />
  * ```
  */
-const TreeView = (props: TreeViewProps) => {
+const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>((props, ref) => {
   const {
     className,
     size = treeViewPropDefs.size.default,
@@ -105,6 +105,8 @@ const TreeView = (props: TreeViewProps) => {
     prop: selectedId,
     defaultProp: defaultSelectedId ?? null,
   });
+
+  useAccessibleNameWarning('TreeView', rootProps);
 
   const flat = React.useMemo(() => flatten(data, expanded), [data, expanded]);
 
@@ -224,18 +226,16 @@ const TreeView = (props: TreeViewProps) => {
 
   return (
     <ul
-      ref={rootRef}
+      ref={mergeRefs(ref, rootRef)}
       role="tree"
       data-accent-color={color}
       {...rootProps}
-      className={classNames('fui-TreeRoot', 'fui-TreeGroup', className, `fui-r-size-${size}`, {
-        'fui-high-contrast': highContrast,
-      })}
+      className={rootClassName('fui-TreeRoot', className, { size, highContrast }, 'fui-TreeGroup')}
     >
       {renderItems(data, 1, null)}
     </ul>
   );
-};
+});
 TreeView.displayName = 'TreeView';
 
 export { TreeView };

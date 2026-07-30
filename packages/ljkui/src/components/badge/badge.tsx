@@ -1,9 +1,9 @@
-import classNames from 'classnames';
 import * as React from 'react';
 
 import { badgePropDefs } from './badge.props';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
+import { rootClassName } from '../../helpers';
 
 type BadgeOwnProps = GetPropDefTypes<typeof badgePropDefs>;
 interface BadgeProps extends PropsWithoutColor<'span'>, BadgeOwnProps {}
@@ -16,7 +16,7 @@ interface BadgeProps extends PropsWithoutColor<'span'>, BadgeOwnProps {}
  * <Badge color="success">Active</Badge>
  * ```
  */
-const Badge = (props: BadgeProps) => {
+const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
   const {
     className,
     size = badgePropDefs.size.default,
@@ -27,14 +27,13 @@ const Badge = (props: BadgeProps) => {
   } = props;
   return (
     <span
-      data-accent-color={color}
+      ref={ref}
       {...badgeProps}
-      className={classNames('fui-Badge', className, `fui-r-size-${size}`, `fui-variant-${variant}`, {
-        'fui-high-contrast': highContrast,
-      })}
+      data-accent-color={color}
+      className={rootClassName('fui-Badge', className, { size, variant, highContrast })}
     />
   );
-};
+});
 Badge.displayName = 'Badge';
 
 export { Badge };

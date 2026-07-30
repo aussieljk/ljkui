@@ -1,7 +1,8 @@
-import classNames from 'classnames';
 import * as React from 'react';
 
 import { zStackPropDefs } from './z-stack.props';
+
+import { rootClassName } from '../../helpers';
 
 import type { GetPropDefTypes } from '../../helpers';
 
@@ -20,8 +21,8 @@ interface ZStackProps extends React.ComponentProps<'div'>, ZStackOwnProps {}
  * </ZStack>
  */
 const ZStack = (props: ZStackProps) => {
-  const { className, alignment = zStackPropDefs.alignment.default, ...stackProps } = props;
-  return <div {...stackProps} className={classNames('fui-ZStack', className, `fui-r-alignment-${alignment}`)} />;
+  const { className, ref, alignment = zStackPropDefs.alignment.default, ...stackProps } = props;
+  return <div ref={ref} {...stackProps} className={rootClassName('fui-ZStack', className, { alignment })} />;
 };
 ZStack.displayName = 'ZStack';
 

@@ -1,9 +1,8 @@
-import classNames from 'classnames';
 import * as React from 'react';
 
 import { vStackPropDefs } from './v-stack.props';
 
-import { interleaveSeparator } from '../../helpers';
+import { interleaveSeparator, rootClassName } from '../../helpers';
 
 import type { GetPropDefTypes } from '../../helpers';
 
@@ -36,14 +35,16 @@ const VStack = (props: VStackProps) => {
     wrap,
     separator,
     children,
+    ref,
     alignment = vStackPropDefs.alignment.default,
     ...stackProps
   } = props;
   const content = separator !== undefined ? interleaveSeparator(children, separator) : children;
   return (
     <div
+      ref={ref}
       {...stackProps}
-      className={classNames('fui-VStack', className, `fui-r-alignment-${alignment}`, wrap && 'fui-wrap')}
+      className={rootClassName('fui-VStack', className, { alignment }, wrap && 'fui-wrap')}
       style={spacing !== undefined ? { gap: spacing, ...style } : style}
     >
       {content}

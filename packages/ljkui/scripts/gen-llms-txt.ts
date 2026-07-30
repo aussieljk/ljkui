@@ -28,9 +28,18 @@ interface PropRow {
 }
 type Props = Record<string, Record<string, PropRow>>;
 
-const props: Props = existsSync(join(pkgRoot, 'src/generated/props.json'))
-  ? JSON.parse(readFileSync(join(pkgRoot, 'src/generated/props.json'), 'utf8'))
-  : {};
+const propsPath = join(pkgRoot, 'src/generated/props.json');
+if (!existsSync(propsPath)) {
+  // Silently emitting an empty prop reference ships broken docs. Fail loudly — `generate:props`
+  // must run first (build:meta and generate:storybook both do).
+  console.error(`✗ ${propsPath} is missing. Run \`bun run generate:props\` before gen-llms-txt.`);
+  process.exit(1);
+}
+const props: Props = JSON.parse(readFileSync(propsPath, 'utf8'));
+if (Object.keys(props).length === 0) {
+  console.error(`✗ ${propsPath} is empty — the prop reference would be blank. Regenerate it.`);
+  process.exit(1);
+}
 
 /** Strip MDX frontmatter and downgrade a few MDX-only tags to plain markdown. */
 function readGuide(file: string): { title: string; body: string } {

@@ -1,9 +1,8 @@
 'use client';
 
 import { Meter } from '@base-ui/react/meter';
-import classNames from 'classnames';
 import * as React from 'react';
-import { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
+import { GetPropDefTypes, PropsWithoutColor, rootClassName, useAccessibleNameWarning } from '../../helpers';
 import { circularProgressPropDefs } from './circular-progress.props';
 
 type CircularProgressOwnProps = GetPropDefTypes<typeof circularProgressPropDefs>;
@@ -43,6 +42,8 @@ const CircularProgress = (props: CircularProgressProps) => {
     ...progressProps
   } = props;
 
+  useAccessibleNameWarning('CircularProgress', props);
+
   const { diameter, strokeWidth } = sizeConfig[size] || sizeConfig['3'];
   const radius = (diameter - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -73,14 +74,7 @@ const CircularProgress = (props: CircularProgressProps) => {
   return (
     <Meter.Root
       data-accent-color={color}
-      className={classNames(
-        'fui-CircularProgressRoot',
-        className,
-        {
-          'fui-high-contrast': highContrast,
-        },
-        `fui-r-size-${size}`,
-      )}
+      className={rootClassName('fui-CircularProgressRoot', className, { size, highContrast })}
       value={value}
       max={max}
       {...progressProps}

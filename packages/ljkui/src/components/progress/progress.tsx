@@ -1,9 +1,8 @@
 'use client';
 
 import { Meter } from '@base-ui/react/meter';
-import classNames from 'classnames';
 import * as React from 'react';
-import { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
+import { GetPropDefTypes, PropsWithoutColor, rootClassName, useAccessibleNameWarning } from '../../helpers';
 import { progressPropDefs } from './progress.props';
 
 type ProgressOwnProps = GetPropDefTypes<typeof progressPropDefs>;
@@ -32,17 +31,12 @@ const Progress = (props: ProgressProps) => {
 
   const progress = Math.max(0, Math.min((value || 0) / max, 1));
 
+  useAccessibleNameWarning('Progress', props);
+
   return (
     <Meter.Root
       data-accent-color={color}
-      className={classNames(
-        'fui-ProgressRoot',
-        className,
-        {
-          'fui-high-contrast': highContrast,
-        },
-        `fui-r-size-${size}`,
-      )}
+      className={rootClassName('fui-ProgressRoot', className, { size, highContrast })}
       value={value}
       max={max}
       {...progressProps}

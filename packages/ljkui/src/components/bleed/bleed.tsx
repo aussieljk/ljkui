@@ -22,15 +22,16 @@ interface BleedProps extends React.ComponentProps<'div'>, BleedOwnProps {}
  * </Card>
  * ```
  */
-const Bleed = (props: BleedProps) => {
+const Bleed = React.forwardRef<HTMLDivElement, BleedProps>((props, ref) => {
   const { className, side = bleedPropDefs.side.default, size = bleedPropDefs.size.default, ...bleedProps } = props;
   return (
     <div
+      ref={ref}
       {...bleedProps}
       className={classNames('fui-Bleed', className, `fui-r-side-${side}`, withBreakpoints(size, 'fui-r-size'))}
     />
   );
-};
+});
 Bleed.displayName = 'Bleed';
 
 export { Bleed };

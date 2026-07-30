@@ -1,9 +1,9 @@
 'use client';
 
-import classNames from 'classnames';
 import * as React from 'react';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
+import { rootClassName, useAccessibleNameWarning } from '../../helpers';
 import { meterPropDefs } from './meter.props';
 
 type MeterOwnProps = GetPropDefTypes<typeof meterPropDefs>;
@@ -28,12 +28,16 @@ interface MeterProps extends Omit<PropsWithoutColor<'div'>, 'children'>, MeterOw
  * When `low`, `high`, and `optimum` are supplied, the bar auto-colors green / amber / red
  * following the HTML `<meter>` candidate algorithm, unless `color` is set explicitly.
  *
+ * The gauge has no visible label of its own — pass an `aria-label` (or `aria-labelledby`) so it is
+ * named to assistive tech. `aria-valuetext` defaults to the filled percentage; override it for a
+ * unit-bearing readout (e.g. `"5.5 of 8 GB"`).
+ *
  * @example
  * ```tsx
- * <Meter value={72} min={0} max={100} low={20} high={80} optimum={90} />
+ * <Meter aria-label="Disk usage" value={72} min={0} max={100} low={20} high={80} optimum={90} />
  * ```
  */
-const Meter = (props: MeterProps) => {
+const Meter = React.forwardRef<HTMLDivElement, MeterProps>((props, ref) => {
   const {
     className,
     size = meterPropDefs.size.default,
@@ -47,6 +51,8 @@ const Meter = (props: MeterProps) => {
     optimum,
     ...rootProps
   } = props;
+
+  useAccessibleNameWarning('Meter', rootProps);
 
   const span = max - min || 1;
   const fraction = Math.max(0, Math.min((value - min) / span, 1));
@@ -74,25 +80,20 @@ const Meter = (props: MeterProps) => {
 
   return (
     <div
+      ref={ref}
       role="meter"
       aria-valuenow={value}
       aria-valuemin={min}
       aria-valuemax={max}
+      aria-valuetext={`${Math.round(fraction * 100)}%`}
       data-accent-color={color ?? autoColor}
       {...rootProps}
-      className={classNames(
-        'fui-MeterRoot',
-        className,
-        {
-          'fui-high-contrast': highContrast,
-        },
-        `fui-r-size-${size}`,
-      )}
+      className={rootClassName('fui-MeterRoot', className, { size, highContrast })}
     >
       <div className="fui-MeterIndicator" style={{ width: `${fraction * 100}%` }} />
     </div>
   );
-};
+});
 Meter.displayName = 'Meter';
 
 export { Meter };

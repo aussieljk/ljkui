@@ -30,6 +30,7 @@ import {
 import classNames from 'classnames';
 import React, { useRef } from 'react';
 
+import { baseUIButtonProps, pressToClick } from '../../helpers';
 import { Select } from '../';
 import { IconButton } from '../icon-button';
 
@@ -84,10 +85,9 @@ function Calendar({ className, ...props }: CalendarProps) {
     <div {...calendarProps} className={classNames('fui-CalendarRoot', className)}>
       <div className={'fui-CalendarHeader'}>
         <IconButton
-          {...otherPrevButtonProps}
+          {...baseUIButtonProps(otherPrevButtonProps)}
           disabled={prevIsDisabled}
-          // @ts-expect-error fix mismatching onPress and onClick types
-          onClick={prevOnPress}
+          onClick={pressToClick(prevOnPress)}
           size="1"
           // Default button type is "submit" so we need to explicitly set it to "button"
           // to prevent form submission
@@ -100,10 +100,9 @@ function Calendar({ className, ...props }: CalendarProps) {
           <YearDropdown state={state} />
         </div>
         <IconButton
-          {...otherNextVuttonProps}
+          {...baseUIButtonProps(otherNextVuttonProps)}
           disabled={nextIsDisabled}
-          // @ts-expect-error fix mismatching onPress and onClick types
-          onClick={nextOnPress}
+          onClick={pressToClick(nextOnPress)}
           size="1"
           // Default button type is "submit" so we need to explicitly set it to "button"
           // to prevent form submission
@@ -169,10 +168,9 @@ function RangeCalendar({ className, ...props }: RangeCalendarProps) {
     >
       <div className={'fui-CalendarHeader'}>
         <IconButton
-          {...otherPrevButtonProps}
+          {...baseUIButtonProps(otherPrevButtonProps)}
           disabled={prevIsDisabled}
-          // @ts-expect-error fix mismatching onPress and onClick types
-          onClick={prevOnPress}
+          onClick={pressToClick(prevOnPress)}
           size="1"
           type="button"
         >
@@ -183,10 +181,9 @@ function RangeCalendar({ className, ...props }: RangeCalendarProps) {
           <YearDropdown state={state} />
         </div>
         <IconButton
-          {...otherNextVuttonProps}
+          {...baseUIButtonProps(otherNextVuttonProps)}
           disabled={nextIsDisabled}
-          // @ts-expect-error fix mismatching onPress and onClick types
-          onClick={nextOnPress}
+          onClick={pressToClick(nextOnPress)}
           size="1"
           type="button"
         >

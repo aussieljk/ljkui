@@ -6,6 +6,7 @@ import * as React from 'react';
 
 import { scrollAreaPropDefs } from './scroll-area.props';
 
+import { mergeRefs } from '../../helpers';
 import type { GetPropDefTypes } from '../../helpers';
 
 type ScrollAreaOwnProps = GetPropDefTypes<typeof scrollAreaPropDefs>;
@@ -63,14 +64,7 @@ function ScrollArea(props: ScrollAreaProps) {
   const viewportRef = React.useRef<HTMLDivElement>(null);
 
   // Merge our internal viewport ref with the forwarded one.
-  const mergedViewportRef = React.useCallback(
-    (node: HTMLDivElement | null) => {
-      viewportRef.current = node;
-      if (typeof ref === 'function') ref(node);
-      else if (ref) (ref as React.RefObject<HTMLDivElement | null>).current = node;
-    },
-    [ref],
-  );
+  const mergedViewportRef = React.useMemo(() => mergeRefs(viewportRef, ref), [ref]);
 
   React.useEffect(() => {
     if (!fadeAxis) return;

@@ -11,7 +11,7 @@ import * as ReactDOM from 'react-dom';
 import creditCardType from 'credit-card-type';
 import type { CreditCardType as CreditCardTypeInfo, CreditCardTypeCardBrandId } from 'credit-card-type/dist/types';
 
-import { useIsomorphicLayoutEffect } from '../../helpers/use-isomorphic-layout-effect';
+import { useIsomorphicLayoutEffect } from '../../helpers';
 import { Text, type TextProps } from '../typography/text';
 import { useCreditCardContext } from './credit-card-context';
 

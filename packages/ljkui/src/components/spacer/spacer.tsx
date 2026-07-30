@@ -21,16 +21,17 @@ interface SpacerProps extends React.ComponentProps<'div'> {
  *   <Button>Sign in</Button>
  * </HStack>
  */
-const Spacer = (props: SpacerProps) => {
+const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>((props, ref) => {
   const { className, style, minLength, ...spacerProps } = props;
   return (
     <div
+      ref={ref}
       {...spacerProps}
       className={classNames('fui-Spacer', className)}
       style={minLength !== undefined ? { flexBasis: minLength, ...style } : style}
     />
   );
-};
+});
 Spacer.displayName = 'Spacer';
 
 export { Spacer };

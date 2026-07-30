@@ -1,9 +1,8 @@
-import classNames from 'classnames';
 import * as React from 'react';
 
 import { hStackPropDefs } from './h-stack.props';
 
-import { interleaveSeparator } from '../../helpers';
+import { interleaveSeparator, rootClassName } from '../../helpers';
 
 import type { GetPropDefTypes } from '../../helpers';
 
@@ -36,14 +35,16 @@ const HStack = (props: HStackProps) => {
     wrap,
     separator,
     children,
+    ref,
     alignment = hStackPropDefs.alignment.default,
     ...stackProps
   } = props;
   const content = separator !== undefined ? interleaveSeparator(children, separator) : children;
   return (
     <div
+      ref={ref}
       {...stackProps}
-      className={classNames('fui-HStack', className, `fui-r-alignment-${alignment}`, wrap && 'fui-wrap')}
+      className={rootClassName('fui-HStack', className, { alignment }, wrap && 'fui-wrap')}
       style={spacing !== undefined ? { gap: spacing, ...style } : style}
     >
       {content}

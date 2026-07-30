@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
-import { useIsomorphicLayoutEffect } from '../../helpers/use-isomorphic-layout-effect';
+import { useIsomorphicLayoutEffect } from '../../helpers';
 import { widgetStackRootPropDefs } from './widget-stack.props';
 
 type WidgetControls = {

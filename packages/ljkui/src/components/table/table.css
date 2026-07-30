@@ -17,6 +17,18 @@
   vertical-align: inherit;
 }
 
+/* Opt-in sticky header: the Root scrolls (needs a bounded height) and the header cells
+   pin to the top with an opaque backdrop so scrolled rows don't bleed through. */
+.fui-TableRoot--sticky-header {
+  overflow: auto;
+}
+.fui-TableRoot--sticky-header :where(.fui-TableHeader) :where(.fui-TableCell) {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--color-panel-solid);
+}
+
 .fui-TableBody {
   vertical-align: inherit;
 }

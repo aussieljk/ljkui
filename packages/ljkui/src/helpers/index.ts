@@ -1,3 +1,4 @@
+export * from './aria-base-ui';
 export * from './breakpoints';
 export * from './compose-event-handlers';
 export * from './emoji-colors';
@@ -6,9 +7,11 @@ export * from './get-initials';
 export * from './get-subtree';
 export * from './has-own-property';
 export * from './interleave-separator';
+export * from './merge-refs';
 export * from './props';
 export * from './tailwind-colors';
 export * from './tailwind-palette';
+export * from './use-accessible-name-warning';
 export * from './use-callback-ref';
 export * from './use-controllable-state';
 export * from './use-layout-effect';

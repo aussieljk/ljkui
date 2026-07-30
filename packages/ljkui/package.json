@@ -15,6 +15,10 @@
     "./styles.css": "./styles.css",
     "./styles.lite.css": "./styles.lite.css",
     "./theme.css": "./theme.css",
+    "./tailwind": {
+      "types": "./dist/tailwind-plugin.d.ts",
+      "import": "./dist/tailwind-plugin.js"
+    },
     "./icons": {
       "types": "./dist/icons/index.d.ts",
       "import": "./dist/icons/index.js"
@@ -75,6 +79,7 @@
     "generate:tokens-snapshot": "bun scripts/gen-token-snapshot.ts",
     "check:props": "bun scripts/check-props.ts",
     "check:shape": "bun scripts/check-component-shape.ts",
+    "check:root-class": "bun scripts/check-root-class.ts",
     "check:css-index": "bun scripts/gen-css-index.ts --check",
     "generate:css-index": "bun scripts/gen-css-index.ts",
     "check:tokens": "bun scripts/gen-token-snapshot.ts --check",

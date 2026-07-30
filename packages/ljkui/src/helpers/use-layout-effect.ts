@@ -1,12 +1,15 @@
 import * as React from 'react';
 
 /**
- * On the server, React emits a warning when calling `useLayoutEffect`.
- * This is because neither `useLayoutEffect` nor `useEffect` run on the server.
- * We use this safe version which suppresses the warning by replacing it with a noop on the server.
+ * SSR-safe `useLayoutEffect`. On the server React warns when `useLayoutEffect` is called (neither it
+ * nor `useEffect` run there), so we fall back to a noop when there is no DOM. On the client this is
+ * exactly `React.useLayoutEffect`.
  *
  * See: https://reactjs.org/docs/hooks-reference.html#uselayouteffect
  */
 const useLayoutEffect = globalThis?.document ? React.useLayoutEffect : () => {};
 
-export { useLayoutEffect };
+/** Alias kept for call sites that prefer the "isomorphic" name. Identical behaviour. */
+const useIsomorphicLayoutEffect = useLayoutEffect;
+
+export { useLayoutEffect, useIsomorphicLayoutEffect };

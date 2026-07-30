@@ -6,7 +6,7 @@ import { useDatePickerState } from '@react-stately/datepicker';
 import classNames from 'classnames';
 import React, { useRef } from 'react';
 import { Popover } from '../';
-import { GetPropDefTypes } from '../../helpers';
+import { GetPropDefTypes, baseUIButtonProps, pressToClick } from '../../helpers';
 import { CalendarIcon } from '../../icons';
 import { Calendar } from '../calendar';
 import { DateField } from '../date-field';
@@ -52,10 +52,9 @@ export function DatePicker<T extends DateValue>(props: DatePickerProps<T>) {
       <DateField {...otherFieldProps} color={color} size={size} onChange={onChange} />
       <Popover.Root open={state.isOpen} onOpenChange={(open) => state.setOpen(open)}>
         <Popover.Trigger
-          {...buttonProps}
+          {...baseUIButtonProps(buttonProps)}
           disabled={isButtonDisabled}
-          // @ts-expect-error fix mismatching onPress and onClick types
-          onClick={onButtonClick}
+          onClick={pressToClick(onButtonClick)}
           onKeyDown={(e) => {
             // Radix and Aria keyboard event handlers are clashing
             // when pressing space or enter on the button.

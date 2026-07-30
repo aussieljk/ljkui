@@ -1,10 +1,9 @@
 'use client';
 
-import classNames from 'classnames';
 import * as React from 'react';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
-import { colorProp } from '../../helpers';
+import { colorProp, rootClassName } from '../../helpers';
 import { timelinePropDefs } from './timeline.props';
 
 // ============================================================================
@@ -30,9 +29,7 @@ interface TimelineRootProps extends React.ComponentProps<'ol'>, TimelineOwnProps
  */
 const TimelineRoot = React.forwardRef<HTMLOListElement, TimelineRootProps>((props, forwardedRef) => {
   const { className, size = timelinePropDefs.size.default, ...rootProps } = props;
-  return (
-    <ol ref={forwardedRef} {...rootProps} className={classNames('fui-TimelineRoot', className, `fui-r-size-${size}`)} />
-  );
+  return <ol ref={forwardedRef} {...rootProps} className={rootClassName('fui-TimelineRoot', className, { size })} />;
 });
 TimelineRoot.displayName = 'TimelineRoot';
 
@@ -64,7 +61,7 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>((props, 
       ref={forwardedRef}
       data-accent-color={color}
       {...itemProps}
-      className={classNames('fui-TimelineItem', className, { 'fui-high-contrast': highContrast })}
+      className={rootClassName('fui-TimelineItem', className, { highContrast })}
     >
       <div className="fui-TimelineMarkerColumn">
         <span className="fui-TimelineDot" aria-hidden />

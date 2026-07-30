@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import type { GetPropDefTypes } from '../../helpers';
+import { useControllableState } from '../../helpers';
 import { IconButton } from '../icon-button';
 import { Input } from '../input';
 import { Separator as SeparatorComponent } from '../separator';
@@ -74,18 +75,14 @@ interface SidebarProviderProps extends React.ComponentPropsWithoutRef<'div'> {
 const SidebarProvider = (props: SidebarProviderProps) => {
   const { className, defaultOpen = true, open: openProp, onOpenChange, children, ...providerProps } = props;
 
-  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
-  const open = openProp ?? uncontrolledOpen;
+  const [openState, setOpen] = useControllableState({
+    prop: openProp,
+    defaultProp: defaultOpen,
+    onChange: onOpenChange,
+  });
+  const open = openState ?? defaultOpen;
   const isMobile = useIsMobile();
   const [openMobile, setOpenMobile] = React.useState(false);
-
-  const setOpen = React.useCallback(
-    (next: boolean) => {
-      if (openProp === undefined) setUncontrolledOpen(next);
-      onOpenChange?.(next);
-    },
-    [openProp, onOpenChange],
-  );
 
   const toggle = React.useCallback(() => {
     if (isMobile) setOpenMobile(!openMobile);

@@ -1,28 +1,20 @@
 'use client';
 
+import { Button, Kbd, ScrollArea, Tooltip, Typography } from './components';
+import { Theme, updateThemeAppearanceClass, useThemeContext } from './theme';
 import {
-  Button,
-  Kbd,
-  ScrollArea,
-  Typography,
-  Theme,
-  Tooltip,
   dangerColors,
   getMatchingGrayColor,
   infoColors,
   successColors,
-  tailwindGrayScales,
   themeAccentColorsOrdered,
-  // helpers
   themePropDefs,
-  updateThemeAppearanceClass,
-  useCallbackRef,
-  useThemeContext,
   warningColors,
-} from './index';
+} from './theme-options';
+import { tailwindGrayScales, useCallbackRef } from './helpers';
 
 import React from 'react';
-import type { ThemeOptions } from './index';
+import type { ThemeOptions } from './theme-options';
 
 interface ThemePanelProps extends Omit<ThemePanelImplProps, keyof ThemePanelImplPrivateProps> {
   defaultOpen?: boolean;

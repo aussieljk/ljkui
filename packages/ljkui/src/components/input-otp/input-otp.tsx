@@ -143,7 +143,7 @@ type InputOTPGroupProps = PropsWithoutColor<'div'> & Partial<InputOTPContextValu
 const InputOTPGroup = ({ className, color, ...props }: InputOTPGroupProps) => {
   const context = React.useContext(InputOTPContext);
   const resolvedColor = color ?? context?.color ?? inputOTPPropDefs.color.default;
-  return <div data-accent-color={resolvedColor} className={classNames('fui-InputOTPGroup', className)} {...props} />;
+  return <div {...props} data-accent-color={resolvedColor} className={classNames('fui-InputOTPGroup', className)} />;
 };
 InputOTPGroup.displayName = 'InputOTPGroup';
 

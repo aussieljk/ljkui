@@ -8,7 +8,7 @@ import * as React from 'react';
 import { radioButtonGroupPropDefs } from './radio-button-group.props';
 
 import { type GetPropDefTypes } from '../../helpers';
-import { useIsomorphicLayoutEffect } from '../../helpers/use-isomorphic-layout-effect';
+import { useIsomorphicLayoutEffect } from '../../helpers';
 
 type RadioButtonGroupOwnProps = GetPropDefTypes<typeof radioButtonGroupPropDefs>;
 

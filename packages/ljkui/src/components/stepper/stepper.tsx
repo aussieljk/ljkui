@@ -1,14 +1,17 @@
 'use client';
 
-import classNames from 'classnames';
 import * as React from 'react';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
+import { rootClassName } from '../../helpers';
 import { stepperPropDefs } from './stepper.props';
 
 type StepStatus = 'complete' | 'current' | 'upcoming';
 
 interface StepItem {
+  /** A stable identity for the step, used as its React key. Falls back to the array index — pass
+   * one if the steps can be reordered or inserted, so state stays attached to the right step. */
+  id?: string;
   /** The step's title. */
   label: React.ReactNode;
   /** Optional secondary line beneath the label. */
@@ -48,7 +51,7 @@ const CheckIcon = () => (
  * />
  * ```
  */
-const Stepper = (props: StepperProps) => {
+const Stepper = React.forwardRef<HTMLOListElement, StepperProps>((props, ref) => {
   const {
     className,
     size = stepperPropDefs.size.default,
@@ -62,11 +65,10 @@ const Stepper = (props: StepperProps) => {
 
   return (
     <ol
+      ref={ref}
       data-accent-color={color}
       {...rootProps}
-      className={classNames('fui-StepperRoot', className, `fui-r-size-${size}`, `fui-orientation-${orientation}`, {
-        'fui-high-contrast': highContrast,
-      })}
+      className={rootClassName('fui-StepperRoot', className, { size, orientation, highContrast })}
     >
       {steps.map((step, index) => {
         const status: StepStatus =
@@ -74,7 +76,7 @@ const Stepper = (props: StepperProps) => {
         const isLast = index === steps.length - 1;
         return (
           <li
-            key={index}
+            key={step.id ?? index}
             className="fui-StepperItem"
             data-status={status}
             aria-current={status === 'current' ? 'step' : undefined}
@@ -94,7 +96,7 @@ const Stepper = (props: StepperProps) => {
       })}
     </ol>
   );
-};
+});
 Stepper.displayName = 'Stepper';
 
 export { Stepper };

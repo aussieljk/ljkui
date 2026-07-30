@@ -21,7 +21,7 @@ interface InsetProps extends React.ComponentProps<'div'>, InsetOwnProps {}
  * </Card>
  * ```
  */
-const Inset = (props: InsetProps) => {
+const Inset = React.forwardRef<HTMLDivElement, InsetProps>((props, ref) => {
   const {
     className,
     side = insetPropDefs.side.default,
@@ -37,6 +37,7 @@ const Inset = (props: InsetProps) => {
   } = props;
   return (
     <div
+      ref={ref}
       {...insetProps}
       className={classNames(
         'fui-Inset',
@@ -53,7 +54,7 @@ const Inset = (props: InsetProps) => {
       )}
     />
   );
-};
+});
 Inset.displayName = 'Inset';
 
 export { Inset };

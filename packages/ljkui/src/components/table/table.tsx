@@ -5,7 +5,15 @@ import { Button } from '../button';
 import { tableCellPropDefs, tableRootPropDefs, tableRowPropDefs } from './table.props';
 
 type TableRootOwnProps = GetPropDefTypes<typeof tableRootPropDefs>;
-interface TableRootProps extends React.ComponentProps<'div'>, TableRootOwnProps {}
+interface TableRootProps extends React.ComponentProps<'div'>, TableRootOwnProps {
+  /**
+   * Keep the header row pinned to the top while the body scrolls. The `Table.Root` becomes the
+   * scroll container, so give it a bounded height (e.g. `style={{ maxHeight: 400 }}`) for the
+   * header to stick against.
+   * @default false
+   */
+  stickyHeader?: boolean;
+}
 /**
  * The styled container for a data table; wrap it around a `Table.Table` element.
  *
@@ -36,6 +44,7 @@ const TableRoot = (props: TableRootProps) => {
   const {
     className,
     children,
+    stickyHeader,
     size = tableRootPropDefs.size.default,
     variant = tableRootPropDefs.variant.default,
     ...rootProps
@@ -52,6 +61,7 @@ const TableRoot = (props: TableRootProps) => {
         className,
         `fui-variant-${variant}`,
         `fui-r-size-${size}`,
+        stickyHeader && 'fui-TableRoot--sticky-header',
       )}
     >
       {children}

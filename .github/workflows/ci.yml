@@ -51,6 +51,8 @@ jobs:
         run: bun run --filter=ljkui check:props
       - name: Component shape
         run: bun run --filter=ljkui check:shape
+      - name: Root className
+        run: bun run --filter=ljkui check:root-class
       - name: CSS registration
         run: bun run --filter=ljkui check:css-index
       - name: Token snapshot

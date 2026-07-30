@@ -83,6 +83,8 @@ const ci: Workflow = {
         sh('Props coverage', 'bun run --filter=ljkui check:props'),
         // Every component must have a barrel index.ts and an examples module — no half-landed components.
         sh('Component shape', 'bun run --filter=ljkui check:shape'),
+        // Root fui-* modifiers must go through rootClassName — no drifting per-component copies.
+        sh('Root className', 'bun run --filter=ljkui check:root-class'),
         // Every component stylesheet must be imported by index.css — no silently-unstyled components.
         sh('CSS registration', 'bun run --filter=ljkui check:css-index'),
         // The committed token snapshot must match the color CSS — a palette edit can't sneak in.
