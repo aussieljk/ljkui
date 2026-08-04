@@ -15,6 +15,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { basename, join, relative } from 'node:path';
 import { A11Y } from './a11y-data.ts';
+import { DEFAULT_CATEGORY, GUIDES, type Layout, LAYOUTS, SECTIONS, TOOLS, sectionDir } from './gen-fixtures-meta.ts';
 
 const packageRoot = join(import.meta.dirname, '..');
 const examplesDir = join(packageRoot, 'examples');
@@ -22,97 +23,6 @@ const guidesDir = join(packageRoot, 'guides');
 const componentsDir = join(packageRoot, 'src', 'components');
 /** Everything under here is generated; the sources it wraps live in `examples/` and `guides/`. */
 const fixturesDir = join(packageRoot, 'fixtures');
-
-/**
- * Category per component, mirroring storybook.whop.dev's sidebar. A `/` nests
- * (whop groups the date pickers under `Controls/Dates`). uaight builds its tree from
- * directories, so a category is literally the directory the fixture module is written to.
- */
-const CATEGORIES: Record<string, string> = {
-  // Typography
-  blockquote: 'Typography',
-  code: 'Typography',
-  em: 'Typography',
-  heading: 'Typography',
-  kbd: 'Typography',
-  link: 'Typography',
-  quote: 'Typography',
-  strong: 'Typography',
-  text: 'Typography',
-  // Layout
-  accordion: 'Layout',
-  'aspect-ratio': 'Layout',
-  bleed: 'Layout',
-  collapsible: 'Layout',
-  container: 'Layout',
-  grid: 'Layout',
-  'h-stack': 'Layout',
-  inset: 'Layout',
-  resizable: 'Layout',
-  section: 'Layout',
-  separator: 'Layout',
-  sidebar: 'Layout',
-  spacer: 'Layout',
-  'v-stack': 'Layout',
-  'z-stack': 'Layout',
-  // Controls
-  autocomplete: 'Controls',
-  button: 'Controls',
-  'button-group': 'Controls',
-  checkbox: 'Controls',
-  combobox: 'Controls',
-  command: 'Controls',
-  'context-menu': 'Controls',
-  'dropdown-menu': 'Controls',
-  'filter-chip': 'Controls',
-  'icon-button': 'Controls',
-  input: 'Controls',
-  'input-group': 'Controls',
-  'input-otp': 'Controls',
-  menubar: 'Controls',
-  'navigation-menu': 'Controls',
-  'number-field': 'Controls',
-  pagination: 'Controls',
-  'radio-button-group': 'Controls',
-  'radio-group': 'Controls',
-  select: 'Controls',
-  slider: 'Controls',
-  switch: 'Controls',
-  textarea: 'Controls',
-  toggle: 'Controls',
-  'toggle-group': 'Controls',
-  'toggle-group-nav': 'Controls',
-  'toggle-group-radio-group': 'Controls',
-  // Controls / Dates — whop nests these
-  calendar: 'Controls/Dates',
-  'date-field': 'Controls/Dates',
-  'date-picker': 'Controls/Dates',
-  'date-range-picker': 'Controls/Dates',
-  'range-calendar': 'Controls/Dates',
-  // Data presentation
-  chart: 'Data presentation',
-  'data-table': 'Data presentation',
-  table: 'Data presentation',
-  // Forms
-  field: 'Forms',
-  fieldset: 'Forms',
-  form: 'Forms',
-  // Utilities
-  shine: 'Utilities',
-  theme: 'Utilities',
-  icons: 'Utilities',
-  scrollbars: 'Utilities',
-  'country-flag': 'Utilities',
-  pictograms: 'Utilities',
-  'emoji-colors': 'Utilities',
-  // Components — explicit so intent is clear (these also happen to be the default bucket, alongside
-  // progress / circular-progress / badge / etc. which fall through implicitly).
-  meter: 'Components',
-  stepper: 'Components',
-  timeline: 'Components',
-  'tree-view': 'Components',
-};
-const DEFAULT_CATEGORY = 'Components';
 
 /** Slug → the PascalCase display name whop uses (`alert-dialog` → `AlertDialog`). */
 const SPECIAL_CASE_WORDS: Record<string, string> = { otp: 'OTP' };
@@ -124,49 +34,60 @@ function displayName(slug: string): string {
     .join('');
 }
 
+export interface ExampleFileMeta {
+  /** Tree section, `Controls` or the nested `Controls/Dates`. */
+  group: string;
+  /**
+   * How the fixtures are framed. `centered` suits a leaf control; anything that wants the
+   * full width (tables, charts, navigation) wants `fullscreen`, and a large composition
+   * reads better `padded` than dead-centred.
+   */
+  layout: Layout;
+}
+
+interface ExamplesModule {
+  examples?: Record<string, unknown>;
+  fileMeta?: Partial<ExampleFileMeta>;
+}
+
 /**
- * The named examples in a module, in declaration order.
+ * The named examples in a module and its `fileMeta`, in declaration order.
  *
- * The module is **imported** and its `examples` object read directly, rather than parsed.
- * Two earlier attempts to read the source text both produced wrong lists: a line regex for
- * a 2-space-indented `name(` matched module-scope `return (` and any nested object literal,
- * and a brace-depth scanner tripped over apostrophes in JSX prose — `don't` reads as an
+ * The module is **imported** and its exports read directly, rather than parsed. Two earlier
+ * attempts to read the source text both produced wrong lists: a line regex for a 2-space
+ * indented `name(` matched module-scope `return (` and any nested object literal, and a
+ * brace-depth scanner tripped over apostrophes in JSX prose — `don't` reads as an
  * unterminated string and swallows the rest of the object.
  *
  * Bun runs the TSX natively and resolves `ljkui` through the package tsconfig paths, so
  * importing costs nothing extra and cannot disagree with what the explorer will render.
  */
-async function exampleNames(file: string): Promise<string[]> {
-  const mod = (await import(join(examplesDir, file))) as { examples?: Record<string, unknown> };
+async function readExamples(file: string): Promise<{ names: string[]; meta: ExampleFileMeta }> {
+  const mod = (await import(join(examplesDir, file))) as ExamplesModule;
   if (!mod.examples || typeof mod.examples !== 'object') {
     throw new Error(`${file} has no \`export const examples\` object.`);
   }
   const names = Object.keys(mod.examples);
   if (names.length === 0) throw new Error(`No examples found in ${file}`);
-  return names;
+
+  /*
+   * `fileMeta` lives in the examples module rather than in a map here, so a component's
+   * section and framing sit next to the examples they describe and cannot drift out of sync
+   * with them. `check:explorer` fails when one is missing.
+   */
+  return {
+    names,
+    meta: {
+      group: mod.fileMeta?.group ?? DEFAULT_CATEGORY,
+      layout: mod.fileMeta?.layout ?? 'centered',
+    },
+  };
 }
 
 const quote = (value: string) => `'${value.replaceAll('\\', '\\\\').replaceAll("'", "\\'")}'`;
 
 /** An object-literal key: bare when it is a valid identifier, quoted otherwise. */
 const key = (name: string) => (/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(name) ? name : quote(name));
-
-/**
- * Canvas layout per component. Everything defaults to `centered`, which is wrong for
- * anything that wants the full width (tables, charts, navigation) or that is a large
- * composition better shown with breathing room than dead-centred.
- */
-const FULLSCREEN = new Set([
-  'carousel', 'chart', 'command', 'data-table', 'drawer', 'lightbox', 'menubar', 'navigation-menu',
-  'oscar', 'overlay', 'resizable', 'sheet', 'sidebar', 'sonner', 'table',
-]); // prettier-ignore
-const PADDED = new Set([
-  'accordion', 'aspect-ratio', 'breadcrumb', 'collapsible', 'empty', 'field', 'fieldset', 'form',
-  'grid', 'h-stack', 'inset', 'item', 'pagination', 'scroll-area', 'tabs', 'tabs-nav', 'v-stack',
-  'widget-stack', 'z-stack',
-]); // prettier-ignore
-
-const layoutFor = (slug: string) => (FULLSCREEN.has(slug) ? 'fullscreen' : PADDED.has(slug) ? 'padded' : 'centered');
 
 interface PropEntry {
   type?: string;
@@ -200,23 +121,41 @@ function importPath(fromDir: string, toFile: string): string {
 /*          Component modules          */
 /* * * * * * * * * * * * * * * * * * * */
 
-async function componentModule(slug: string, dir: string): Promise<string> {
-  const names = await exampleNames(`${slug}.examples.tsx`);
-  const layout = layoutFor(slug);
+async function componentModule(
+  slug: string,
+  dir: string,
+  names: string[],
+  meta_: ExampleFileMeta,
+  playground: boolean,
+): Promise<string> {
+  const layout = meta_.layout;
   const reference = hasReference(slug);
+  const jsx = reference || playground;
 
   const imports = [`import { examples } from ${quote(importPath(dir, `examples/${slug}.examples`))};`];
-  if (reference) {
+  if (jsx) {
     // `jsx: "react"` (classic runtime) in the package tsconfig — JSX needs React in scope.
     imports.unshift(`import * as React from 'react';`);
+  }
+  if (playground) {
+    imports.push(`import { ${displayName(slug)} } from 'ljkui';`);
+    imports.push(`import { Playground } from ${quote(importPath(dir, 'fixture-support/playground'))};`);
+  }
+  if (reference) {
     imports.push(`import { ComponentReference } from ${quote(importPath(dir, 'fixture-support/reference'))};`);
   }
 
   const meta = names.map((name) => `  ${key(name)}: { layout: ${quote(layout)} },`);
+  if (playground) meta.push(`  Playground: { layout: ${quote(layout)} },`);
   // The reference is a document, not a component state — it always wants the full width.
   if (reference) meta.push(`  Reference: { layout: 'fullscreen' },`);
 
   const entries = names.map((name) => `  ${key(name)}: examples[${quote(name)}],`);
+  if (playground) {
+    entries.push(
+      `  Playground: () => <Playground slug=${quote(slug)} component={${displayName(slug)}} name=${quote(displayName(slug))} />,`,
+    );
+  }
   if (reference) entries.push(`  Reference: () => <ComponentReference slug=${quote(slug)} />,`);
 
   return `${GENERATED_BY}
@@ -237,25 +176,6 @@ const GENERATED_BY = '// GENERATED by scripts/gen-fixtures.ts — do not edit.';
 /* * * * * * * * * * * * * * * * * * * */
 /*            Guide modules            */
 /* * * * * * * * * * * * * * * * * * * */
-
-/**
- * The guides, in reading order. The MDX in `guides/` is the single source of truth for
- * the prose and is rendered as-authored — `<Callout>`, `<Demo>` and `<PropsTable>` all
- * work now that MDX is compiled for real (see fixture-support/mdx-components.tsx).
- */
-const GUIDES: Array<{ file: string; title: string }> = [
-  { file: 'getting-started.mdx', title: '1. Getting started' },
-  { file: 'installation.mdx', title: '2. Installation & Layers' },
-  { file: 'typography.mdx', title: '3. Typography' },
-  { file: 'color.mdx', title: '4. Color' },
-  { file: 'breakpoints.mdx', title: '5. Breakpoints' },
-  { file: 'tailwind.mdx', title: '6. Tailwind plugin' },
-  { file: 'icons.mdx', title: '7. Icons' },
-  { file: 'render-prop.mdx', title: '8. Render Prop (Composition)' },
-  { file: 'theming.mdx', title: '9. Theming' },
-  { file: 'layout.mdx', title: '10. Layout' },
-  { file: 'adopting-tokens.mdx', title: '11. Adopting Tokens' },
-];
 
 /** A fixture module that renders one MDX document through the guide shell. */
 function documentModule(dir: string, mdxSpecifier: string, title: string, order: number): string {
@@ -278,18 +198,6 @@ export default () => <Guide content={Content} frontmatter={frontmatter} />;
 /* * * * * * * * * * * * * * * * * * * */
 /*                Tools                */
 /* * * * * * * * * * * * * * * * * * * */
-
-/**
- * The hand-authored explorer tools. These were the three hand-written `*.stories.tsx`
- * modules that lived alongside the generated ones; their components now sit in
- * `fixture-support/tools/`, each exporting a `fixtures` object, and this wraps them the
- * same way a component's examples are wrapped.
- */
-const TOOLS: Array<{ module: string; name: string; layout: 'fullscreen' | 'padded' | 'centered' }> = [
-  { module: 'ColorScale', name: 'ColorScale', layout: 'fullscreen' },
-  { module: 'IconBrowser', name: 'IconBrowser', layout: 'fullscreen' },
-  { module: 'ThemePlayground', name: 'ThemePlayground', layout: 'fullscreen' },
-];
 
 async function toolModule(tool: (typeof TOOLS)[number], dir: string): Promise<string> {
   const source = join(packageRoot, 'fixture-support', 'tools', `${tool.module}.tsx`);
@@ -454,7 +362,7 @@ function introductionPage(entries: CatalogEntry[]): string {
     byCategory.get(top)!.push(entry);
   }
   const sections = [...byCategory.entries()]
-    .sort(([a], [b]) => CATEGORY_ORDER.indexOf(a) - CATEGORY_ORDER.indexOf(b))
+    .sort(([a], [b]) => SECTIONS.indexOf(a) - SECTIONS.indexOf(b))
     .map(([category, items]) => {
       const list = items
         .sort((a, b) => a.component.localeCompare(b.component))
@@ -507,9 +415,6 @@ ${sections}
 `;
 }
 
-/** Section order on the Introduction page. uaight's own tree sorts directories alphabetically. */
-const CATEGORY_ORDER = ['Components', 'Controls', 'Typography', 'Layout', 'Data presentation', 'Forms', 'Utilities'];
-
 /* * * * * * * * * * * * * * * * * * * */
 /*                 Run                 */
 /* * * * * * * * * * * * * * * * * * * */
@@ -533,7 +438,7 @@ export { ThemeDecorator as default } from ${quote(importPath(fixturesDir, 'fixtu
 );
 
 // Guides — the MDX is imported straight from `guides/`, not copied.
-const guidesOut = join(fixturesDir, 'Guides');
+const guidesOut = join(fixturesDir, sectionDir('Guides'));
 mkdirSync(guidesOut, { recursive: true });
 let guideCount = 0;
 for (const [index, guide] of GUIDES.entries()) {
@@ -549,21 +454,38 @@ for (const [index, guide] of GUIDES.entries()) {
   guideCount++;
 }
 
+/*
+ * A component gets a Playground only when the barrel exports something renderable under its
+ * PascalCase name and there is at least one controllable prop. That rules out the namespace
+ * components (`Table`, `Alert`, …), whose root needs specific children to mean anything —
+ * detected rather than allowlisted, so it cannot drift.
+ */
+const barrel = (await import('ljkui')) as Record<string, unknown>;
+const canPlayground = (slug: string) =>
+  typeof barrel[displayName(slug)] === 'function' && Object.keys(propsBySlug[slug] ?? {}).length > 0;
+
 // Components.
 const counts: Record<string, number> = {};
 const catalogEntries: CatalogEntry[] = [];
+let playgroundCount = 0;
 for (const file of files) {
   const slug = basename(file, '.examples.tsx');
-  const category = CATEGORIES[slug] ?? DEFAULT_CATEGORY;
-  const dir = join(fixturesDir, category);
+  const { names, meta } = await readExamples(file);
+  const category = meta.group;
+  const dir = join(fixturesDir, sectionDir(category));
+  const playground = canPlayground(slug);
   mkdirSync(dir, { recursive: true });
-  writeFileSync(join(dir, `${displayName(slug)}.examples.tsx`), await componentModule(slug, dir));
+  writeFileSync(
+    join(dir, `${displayName(slug)}.examples.tsx`),
+    await componentModule(slug, dir, names, meta, playground),
+  );
+  if (playground) playgroundCount++;
   counts[category] = (counts[category] ?? 0) + 1;
-  catalogEntries.push({ slug, category, component: displayName(slug), count: (await exampleNames(file)).length });
+  catalogEntries.push({ slug, category, component: displayName(slug), count: names.length });
 }
 
 // Tools.
-const toolsOut = join(fixturesDir, 'Tools');
+const toolsOut = join(fixturesDir, sectionDir('Tools'));
 mkdirSync(toolsOut, { recursive: true });
 for (const tool of TOOLS) {
   writeFileSync(join(toolsOut, `${tool.name}.examples.tsx`), await toolModule(tool, toolsOut));
@@ -573,7 +495,7 @@ for (const tool of TOOLS) {
  * Generated documents. Unlike the guides these have no hand-authored source, so the MDX is
  * written next to its wrapper and re-read by Vite's MDX plugin like any other document.
  */
-const reportsOut = join(fixturesDir, 'Reports');
+const reportsOut = join(fixturesDir, sectionDir('Reports'));
 mkdirSync(reportsOut, { recursive: true });
 const REPORTS: Array<{ name: string; title: string; body: string }> = [
   { name: 'coverage', title: 'Coverage', body: coveragePage(catalogEntries) },
@@ -588,11 +510,20 @@ for (const [index, report] of REPORTS.entries()) {
   );
 }
 
-// Written last: the catalog is built from the modules that were actually generated.
-writeFileSync(join(fixturesDir, 'Introduction.mdx'), introductionPage(catalogEntries));
+/*
+ * Written last: the catalog is built from the modules that were actually generated.
+ *
+ * It sits in its own directory, named the same as the file inside it, for two reasons: a
+ * file at the fixtures root would sort *after* every directory (uaight lists directories
+ * first), and a lone child whose label matches its directory collapses into a single row —
+ * so this reads as one "1. Introduction" entry rather than a folder holding one item.
+ */
+const introOut = join(fixturesDir, sectionDir('Introduction'));
+mkdirSync(introOut, { recursive: true });
+writeFileSync(join(introOut, 'Introduction.mdx'), introductionPage(catalogEntries));
 writeFileSync(
-  join(fixturesDir, 'Introduction.examples.tsx'),
-  documentModule(fixturesDir, './Introduction.mdx', 'Introduction', -1),
+  join(introOut, `${sectionDir('Introduction')}.examples.tsx`),
+  documentModule(introOut, './Introduction.mdx', 'Introduction', -1),
 );
 
 /*
@@ -608,9 +539,10 @@ try {
 }
 
 const summary = Object.entries(counts)
-  .sort(([a], [b]) => CATEGORY_ORDER.indexOf(a.split('/')[0]) - CATEGORY_ORDER.indexOf(b.split('/')[0]))
+  .sort(([a], [b]) => SECTIONS.indexOf(a.split('/')[0]) - SECTIONS.indexOf(b.split('/')[0]))
   .map(([category, count]) => `${category} ${count}`)
   .join(', ');
 console.log(
-  `uaight: ${files.length} component modules + ${guideCount} guides + ${REPORTS.length} reports — ${summary}`,
+  `uaight: ${files.length} components (${playgroundCount} with playgrounds) + ${guideCount} guides + ` +
+    `${REPORTS.length} reports + ${TOOLS.length} tools — ${summary}`,
 );

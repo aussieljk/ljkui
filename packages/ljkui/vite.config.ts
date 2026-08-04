@@ -5,69 +5,24 @@ import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
 import { uaight } from 'uaight/vite';
+import { PREBUNDLE } from './fixture-support/prebundle';
 import { defineConfig } from 'vite';
 
 const packageRoot = import.meta.dirname;
 
-/*
- * The heavy leaf dependencies the components reach for. Without pre-bundling, Vite's dep
- * optimizer discovers each Base UI subpath lazily the first time you open the component that
- * uses it — and every discovery triggers a re-optimize plus a full page reload mid-browse.
- * Every `@base-ui/react/*` entry point the library imports is listed so a first visit to any
- * component is instant. Regenerate with:
- *   grep -rhoE "@base-ui/react[a-z/-]*" src/components | sort -u
+/**
+ * uaight's own `DEFAULT_INVENTORY_EXCLUDE`, restated because the option replaces the list
+ * instead of extending it. Keep in sync if the canary changes it — the load-bearing entry
+ * is `node_modules`, without which the scan walks the whole store.
  */
-const PREBUNDLE = [
-  'react',
-  'react-dom',
-  'react-dom/client',
-  'react/jsx-runtime',
-  'classnames',
-  'lucide-react',
-  'credit-card-type',
-  'react-aria-components',
-  '@internationalized/date',
-  '@react-aria/calendar',
-  '@react-aria/datepicker',
-  '@react-aria/focus',
-  '@react-aria/utils',
-  '@react-stately/calendar',
-  '@react-stately/datepicker',
-  '@base-ui/react',
-  '@base-ui/react/accordion',
-  '@base-ui/react/alert-dialog',
-  '@base-ui/react/autocomplete',
-  '@base-ui/react/avatar',
-  '@base-ui/react/button',
-  '@base-ui/react/checkbox',
-  '@base-ui/react/collapsible',
-  '@base-ui/react/combobox',
-  '@base-ui/react/context-menu',
-  '@base-ui/react/dialog',
-  '@base-ui/react/drawer',
-  '@base-ui/react/field',
-  '@base-ui/react/fieldset',
-  '@base-ui/react/form',
-  '@base-ui/react/input',
-  '@base-ui/react/menu',
-  '@base-ui/react/menubar',
-  '@base-ui/react/meter',
-  '@base-ui/react/navigation-menu',
-  '@base-ui/react/number-field',
-  '@base-ui/react/otp-field',
-  '@base-ui/react/popover',
-  '@base-ui/react/preview-card',
-  '@base-ui/react/radio',
-  '@base-ui/react/radio-group',
-  '@base-ui/react/scroll-area',
-  '@base-ui/react/select',
-  '@base-ui/react/separator',
-  '@base-ui/react/slider',
-  '@base-ui/react/switch',
-  '@base-ui/react/tabs',
-  '@base-ui/react/toast',
-  '@base-ui/react/toggle',
-  '@base-ui/react/tooltip',
+const INVENTORY_EXCLUDE_DEFAULTS = [
+  '**/node_modules/**',
+  '**/*.d.ts',
+  '**/*.test.*',
+  '**/*.spec.*',
+  '**/*.bench.*',
+  '**/__tests__/**',
+  '**/__mocks__/**',
 ];
 
 /*
@@ -102,15 +57,39 @@ export default defineConfig({
        * already wrapped under `fixtures/`. Without this each component appears twice, once
        * as an unreadable duplicate.
        */
-      exclude: ['examples/**', 'storybook-static/**', 'dist/**'],
+      exclude: ['examples/**', 'dist/**', 'dist-uaight/**'],
       /*
        * Storybook is gone, so there is no CSF to read and no `.storybook/preview` to
        * discover. Left explicit: with it on, uaight would go looking for both.
        */
       storybook: false,
-      // The inventory and the call-site harvest are left on their defaults. Passing an
-      // `exclude` here would *replace* uaight's default list rather than extend it —
-      // including the node_modules entry, which is what keeps the scan bounded.
+      /*
+       * Narrowed to the public components. Scanning everything found ~470 "components",
+       * most of which nobody wants to render in isolation — the `base-*` internals
+       * (base-button, base-menu, base-tabs-list, …), helpers, and the icon adapters.
+       *
+       * FOOTGUN: `exclude` here *replaces* uaight's default list rather than extending it,
+       * and that default is what carries the `node_modules` entry. Spread DEFAULTS into any
+       * exclude you add — dropping it makes the scan walk node_modules and return nothing
+       * useful, which is exactly how this returned 0 the first time.
+       */
+      inventory: {
+        /*
+         * `demos/` is in here even though it is not a component directory: the call-site
+         * harvest rides on this very glob, and the demos are the canonical usages — the
+         * most useful thing in the ⌘K palette. Narrowing this to `src/components` alone
+         * halves the harvest (615 groups → 327), which is not a trade worth making.
+         */
+        include: ['src/components/**/*.tsx', 'demos/**/*.tsx'],
+        exclude: [...INVENTORY_EXCLUDE_DEFAULTS, 'src/components/base-*/**'],
+      },
+      callSites: { max: 8 },
+      /*
+       * Codecs for the `@internationalized/date` value types the date components pass around.
+       * Without them those props serialize as `opaque` — visible but not editable, and not
+       * encodable into a share link.
+       */
+      codecs: 'fixture-support/codecs.tsx',
     }),
   ],
   resolve: {

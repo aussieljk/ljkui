@@ -11,6 +11,12 @@ const VARYING_DESCRIPTIONS = [
   'We encountered an unexpected error while processing your request. Our team has been notified and is looking into the issue. Please try again in a few minutes.',
 ];
 
+/**
+ * Where this component sits in the explorer, and how its fixtures are framed.
+ * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
+ */
+export const fileMeta = { group: 'Components', layout: 'fullscreen' } as const;
+
 export const examples = {
   Success() {
     return <Button onClick={() => toast.success('Changes saved successfully')}>Show success toast</Button>;

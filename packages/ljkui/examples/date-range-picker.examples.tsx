@@ -15,6 +15,12 @@ import {
 const onChange = (date: { start: DateValue; end: DateValue } | null) =>
   console.log(date ? date.start.toString() + ' - ' + date.end.toString() : date);
 
+/**
+ * Where this component sits in the explorer, and how its fixtures are framed.
+ * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
+ */
+export const fileMeta = { group: 'Controls/Dates', layout: 'centered' } as const;
+
 export const examples = {
   Sizes() {
     const args = {

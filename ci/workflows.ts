@@ -89,6 +89,11 @@ const ci: Workflow = {
         sh('CSS registration', 'bun run --filter=ljkui check:css-index'),
         // The committed token snapshot must match the color CSS — a palette edit can't sneak in.
         sh('Token snapshot', 'bun run --filter=ljkui check:tokens'),
+        // Hand-authored explorer pieces (tools, guides, examples fileMeta) must stay wired —
+        // fixtures/ is generated, so an orphan is otherwise invisible.
+        sh('Explorer wiring', 'bun run --filter=ljkui check:explorer'),
+        // The Vite prebundle list is generated from the sources; a new dep must not drift it.
+        sh('Prebundle list', 'bun run --filter=ljkui check:prebundle'),
         sh('Typecheck', 'bun run typecheck'),
         sh('Build', 'bun run build'),
         // Packs the real tarball and imports every entry point in a clean project — catches a

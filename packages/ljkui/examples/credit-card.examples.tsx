@@ -900,6 +900,12 @@ const WhopCard = () => (
  * names out of the source with a regex that only matches `name:` or `name(`, so a
  * shorthand entry is invisible to it and never gets a story.
  */
+/**
+ * Where this component sits in the explorer, and how its fixtures are framed.
+ * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
+ */
+export const fileMeta = { group: 'Components', layout: 'centered' } as const;
+
 export const examples = {
   Default: Default,
   Controlled: Controlled,

@@ -33,6 +33,12 @@ const builtIns = [
   { name: 'XIcon', Icon: XIcon },
 ];
 
+/**
+ * Where this component sits in the explorer, and how its fixtures are framed.
+ * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
+ */
+export const fileMeta = { group: 'Utilities', layout: 'centered' } as const;
+
 export const examples = {
   'Built-in icons'() {
     // Shipped inline as SVG and used by the components themselves — no adapter needed.

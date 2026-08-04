@@ -22,6 +22,12 @@ const products: Product[] = [
   { id: 'enterprise', name: 'Enterprise', price: 99, features: ['Everything in Pro', 'SSO', 'Dedicated support'] },
 ];
 
+/**
+ * Where this component sits in the explorer, and how its fixtures are framed.
+ * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
+ */
+export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
+
 export const examples = {
   Composed() {
     const args = {

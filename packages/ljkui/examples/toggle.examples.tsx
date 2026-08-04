@@ -1,6 +1,12 @@
 import React from 'react';
 import { HStack, Toggle, Typography } from 'ljkui';
 
+/**
+ * Where this component sits in the explorer, and how its fixtures are framed.
+ * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
+ */
+export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
+
 export const examples = {
   Variants: (
     <HStack spacing={12} alignment="center">

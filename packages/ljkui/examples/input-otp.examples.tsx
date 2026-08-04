@@ -4,6 +4,12 @@ import { InputOTP, Typography } from 'ljkui';
 // Previously imported from 'input-otp'
 const REGEXP_ONLY_DIGITS_AND_CHARS = '^[a-zA-Z0-9]+$';
 
+/**
+ * Where this component sits in the explorer, and how its fixtures are framed.
+ * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
+ */
+export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
+
 export const examples = {
   Default() {
     const otherArgs = {};

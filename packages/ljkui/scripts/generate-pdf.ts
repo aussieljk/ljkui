@@ -1,19 +1,19 @@
 /**
- * Renders every Storybook story into a single PDF.
- *
- * ⚠️ BROKEN since the 2026-08-04 move from Storybook to uaight, and NOT ported.
- * Discovery here is entirely Storybook-shaped: it reads `index.json` and opens each story at
- * `iframe.html?id=<id>`. uaight exposes neither — it has its own fixture ids, a shareable URL
- * scheme and a read-only dev-server API. Everything below the discovery layer (the CDP capture,
- * the trim, the flow pagination) is reusable, so porting means replacing the two Storybook
- * contracts, not rewriting the script. Until then `generate:pdf` fails at the index fetch.
+ * Renders every fixture in the explorer into a single PDF.
  *
  * Approach: drive a headless Google Chrome over the DevTools Protocol. No new dependency is
  * needed — neither playwright nor puppeteer is installed, but Chrome ships on this machine and
- * `@napi-rs/canvas` (already a devDependency) can crop the captures. Each story is opened
- * standalone at `iframe.html?id=<id>`, screenshotted, trimmed to its painted pixels, and the
- * shots are laid out in one generated HTML document which the same Chrome prints to PDF.
- * Assembling through HTML avoids needing a PDF library at all.
+ * `@napi-rs/canvas` (already a devDependency) can crop the captures. Each fixture is opened
+ * standalone at `capture.html?fixture=<path>:<name>`, screenshotted, trimmed to its painted
+ * pixels, and the shots are laid out in one generated HTML document which the same Chrome
+ * prints to PDF. Assembling through HTML avoids needing a PDF library at all.
+ *
+ * Ported from Storybook on 2026-08-04. The two contracts it used to lean on were Storybook's:
+ * `index.json` for discovery, and `iframe.html?id=` for an isolated render. uaight replaces the
+ * first with `/@uaight/index.json` (its read-only dev API) and has no equivalent of the second,
+ * because the explorer selects fixtures over its message channel rather than through the URL —
+ * so `capture.html` in this package is the isolated-render page, built on uaight's `<Fixture>`.
+ * Everything below that layer — the CDP capture, the trim, the flow pagination — is unchanged.
  *
  * Layout: stories *flow*, several to a page, instead of each component owning a whole sheet. The
  * generated document paginates itself (`__paginate`, run once the shots have decoded): blocks are
@@ -27,11 +27,10 @@
  *
  * Usage:
  *   bun scripts/generate-pdf.ts [--all] [--filter=<substring>] [--out=<path>] [--concurrency=6]
- *                               [--static[=<dir>]] [--storybook=http://localhost:6006]
- *                               [--delay=500] [--keep-shots]
+ *                               [--url=http://localhost:5173] [--delay=500] [--keep-shots]
  *
- *   --static  serve `storybook-static/` (or the given build dir) instead of hitting the dev
- *             server — faster and immune to the dev server's index/importer drift.
+ * Needs the dev server running (`bun run dev`): `capture.html` and `/@uaight/index.json` are
+ * both development-only, so there is no static-build mode any more.
  */
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
@@ -46,18 +45,12 @@ const CHROME_CANDIDATES = [
   '/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary',
 ];
 
-/** Top-level sidebar order — mirrors `storySort.order` in `.storybook/preview.tsx`. */
-const CATEGORY_ORDER = [
-  'Introduction',
-  'Guides',
-  'Components',
-  'Controls',
-  'Typography',
-  'Layout',
-  'Data presentation',
-  'Forms',
-  'Utilities',
-];
+/*
+ * Section order comes from the one list that defines it, rather than a copy that can drift.
+ * The explorer encodes the same order in its directory names (`5. Controls`), so a fixture
+ * path already sorts correctly — but the PDF wants the clean section name for its headings.
+ */
+import { SECTIONS } from './gen-fixtures-meta.ts';
 
 const VIEWPORT = { width: 1000, height: 700 };
 /** Retina capture so text stays crisp when the PDF is zoomed. */
@@ -67,10 +60,18 @@ const MAX_CAPTURE_HEIGHT = 2200;
 /** Whitespace kept around the trimmed content, in CSS px. */
 const CROP_PADDING = 12;
 const CMD_TIMEOUT_MS = 30_000;
-/** The Storybook dev server gets restarted while this runs, so a story is worth several tries. */
+/** The dev server gets restarted while this runs, so a fixture is worth several tries. */
 const ATTEMPTS = 3;
 
-type StoryEntry = { id: string; title: string; name: string; type: string };
+/**
+ * One capturable fixture.
+ *
+ * `id` is uaight's `path:name` convenience form, which `parseFixtureId` accepts. `title` is the
+ * fixture module's display path with the section's ordering prefix stripped (`5. Controls/Button`
+ * → `Controls/Button`), and `name` is the fixture within it — `null` for a single-fixture module,
+ * which the capture page addresses with a bare path.
+ */
+type StoryEntry = { id: string; title: string; name: string };
 type Shot = { title: string; name: string; file: string; width: number; blank: boolean };
 
 // ---------------------------------------------------------------------------- args
@@ -86,33 +87,17 @@ const here = dirname(fileURLToPath(import.meta.url));
 const pkgRoot = resolve(here, '..');
 
 const filter = flag('filter');
-const outPath = resolve(process.cwd(), flag('out') ?? join(pkgRoot, 'storybook-components.pdf'));
+const outPath = resolve(process.cwd(), flag('out') ?? join(pkgRoot, 'ljkui-components.pdf'));
 const concurrency = Math.max(1, Number(flag('concurrency') ?? 6));
 const settleDelay = Number(flag('delay') ?? 500);
 const keepShots = flag('keep-shots') !== undefined;
 const captureAll = flag('all') !== undefined;
-const staticDir = flag('static') === '' ? join(pkgRoot, 'storybook-static') : flag('static');
-/** Filled in by `serveStatic` when --static is used; otherwise the running dev server. */
-let storybookUrl = (flag('storybook') ?? 'http://localhost:6006').replace(/\/$/, '');
-
-/**
- * Serves a `storybook build` output directory. Capturing from a static build is both faster and
- * far more reliable than the dev server, which transforms each story on demand and can serve an
- * importer map that has drifted from its own index.json.
+/*
+ * The running dev server. There is no static mode: `capture.html` and `/@uaight/index.json`
+ * are both development-only — the API is registered in `serve` mode alone, and the capture
+ * page is deliberately not an input to `uaight build`.
  */
-function serveStatic(dir: string) {
-  if (!existsSync(join(dir, 'index.json'))) throw new Error(`${dir} is not a Storybook build (no index.json)`);
-  const server = Bun.serve({
-    port: 0,
-    idleTimeout: 60,
-    async fetch(req) {
-      const path = decodeURIComponent(new URL(req.url).pathname).replace(/\.\./g, '');
-      const file = Bun.file(join(dir, path.endsWith('/') ? `${path}index.html` : path));
-      return (await file.exists()) ? new Response(file) : new Response('not found', { status: 404 });
-    },
-  });
-  return server;
-}
+const explorerUrl = (flag('url') ?? 'http://localhost:5173').replace(/\/$/, '');
 
 // ---------------------------------------------------------------------------- CDP
 
@@ -264,7 +249,7 @@ async function launchChrome(profileDir: string) {
 
 type Tab = { cdp: Cdp; targetId: string };
 
-/** Open a fresh tab, already parked on the Storybook origin so the first story navigation is
+/** Open a fresh tab, already parked on the explorer origin so the first fixture navigation is
  *  same-process (an about:blank -> http hop swaps renderers and invalidates the JS context). */
 async function openTab(base: string): Promise<Tab> {
   const target = await (await fetch(`${base}/json/new?about:blank`, { method: 'PUT' })).json();
@@ -278,11 +263,11 @@ async function openTab(base: string): Promise<Tab> {
     mobile: false,
   });
   const tab = { cdp, targetId: target.id as string };
-  await navigate(tab, `${storybookUrl}/iframe.html`);
+  await navigate(tab, `${explorerUrl}/capture.html`);
   return tab;
 }
 
-/** `openTab` parks on the Storybook origin, so it fails outright while the dev server is down. */
+/** `openTab` parks on the explorer origin, so it fails outright while the dev server is down. */
 async function openTabWithRetry(base: string, tries = 12): Promise<Tab> {
   for (let i = 1; ; i++) {
     try {
@@ -315,8 +300,8 @@ async function navigate(tab: Tab, url: string) {
 
 /**
  * Waits for the story to settle: document ready, webfonts resolved, images decoded, then two
- * animation frames so Base UI's ResizeObserver/portal work has flushed. Reports Storybook's own
- * error overlay so a broken story is retried rather than screenshotted as a red stack trace.
+ * animation frames so Base UI's ResizeObserver/portal work has flushed. Reports the capture
+ * page's own error marker so a broken fixture is retried rather than screenshotted as a stack trace.
  */
 const WAIT_SETTLED = `(async () => {
   const idle = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
@@ -330,14 +315,14 @@ const WAIT_SETTLED = `(async () => {
   })));
   await idle();
   await idle();
-  // Storybook's error / "no preview" overlays live in the preview document at all times and are
-  // shown by a class on <body>. Their own class names are hashed-ish (sb-nopreview_main,
-  // sb-errordisplay_main), so match on a substring and treat "has layout" as "is showing".
-  const overlay = [...document.querySelectorAll('[class*="nopreview"], [class*="errordisplay"]')]
+  // capture.html renders a [data-capture-error] node for a bad id, and uaight paints its own
+  // error panel inside the fixture when a module throws. Either means "do not screenshot this".
+  const bad = document.querySelector('[data-capture-error]');
+  const panel = [...document.querySelectorAll('[data-uaight-error], [class*="uaight-error"]')]
     .find((el) => el.getBoundingClientRect().height > 0);
-  const heading = overlay?.querySelector('[class*="heading"]') || document.querySelector('#error-message');
+  const overlay = bad || panel;
   return {
-    error: overlay ? (heading?.textContent || 'storybook error overlay').trim().slice(0, 120) : null,
+    error: overlay ? (overlay.textContent || 'fixture failed to render').trim().slice(0, 120) : null,
     height: Math.max(document.documentElement.scrollHeight, document.body.scrollHeight),
   };
 })()`;
@@ -368,7 +353,7 @@ async function trim(png: Buffer) {
   const px = sctx.getImageData(0, 0, w, h).data;
 
   /*
-   * The Storybook backdrop is a soft gradient, so a single reference colour will not do. Model it
+   * The page backdrop is a soft gradient, so a single reference colour will not do. Model it
    * from the outermost row/column on each side: for a linear gradient in any direction the value
    * at (x, y) is bracketed by its own row's two ends and its own column's two ends, so a pixel
    * counts as background when it is close to any of those four. Content touching an edge only
@@ -440,7 +425,7 @@ async function trim(png: Buffer) {
 }
 
 async function captureStory(tab: Tab, story: StoryEntry, shotsDir: string): Promise<Shot> {
-  await navigate(tab, `${storybookUrl}/iframe.html?id=${encodeURIComponent(story.id)}&viewMode=story`);
+  await navigate(tab, `${explorerUrl}/capture.html?fixture=${encodeURIComponent(story.id)}`);
   // Generous: the colour-scale stories lay out thousands of swatches and blow past 30s.
   const settled = await tab.cdp.eval<{ error: string | null; height: number }>(WAIT_SETTLED, 90_000);
   if (settled.error) throw new Error(settled.error);
@@ -687,7 +672,7 @@ function buildHtml(shots: Shot[], failures: { story: StoryEntry; error: string }
 <body>
   <div id="cover"><div class="sheet"><div class="cover">
     <h1>ljkui</h1>
-    <p>Every Storybook story, rendered.</p>
+    <p>Every fixture in the explorer, rendered.</p>
     <p>${shots.length} stories across ${sections.length} components${failures.length ? ` · ${failures.length} failed` : ''}</p>
     <p>${new Date().toISOString().slice(0, 10)}</p>
   </div></div></div>
@@ -705,18 +690,13 @@ ${blocks.join('\n')}
 async function main() {
   const started = Date.now();
 
-  const staticServer = staticDir ? serveStatic(staticDir) : undefined;
-  if (staticServer) {
-    storybookUrl = `http://127.0.0.1:${staticServer.port}`;
-    console.log(`Serving ${staticDir} at ${storybookUrl}`);
-  }
-
-  // The dev server can be mid-restart (connection refused) or mid-reindex (500 EMFILE), so poll.
-  let index: { entries: Record<string, StoryEntry> } | undefined;
+  // The dev server can be mid-restart (connection refused) or mid-reindex, so poll.
+  type IndexFile = { path: string; names: Array<string | null> | null };
+  let index: { files: IndexFile[] } | undefined;
   let indexError = 'unknown';
   for (let i = 1; i <= 10 && !index; i++) {
     try {
-      const res = await fetch(`${storybookUrl}/index.json`);
+      const res = await fetch(`${explorerUrl}/@uaight/index.json`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       index = await res.json();
     } catch (err) {
@@ -725,13 +705,26 @@ async function main() {
     }
   }
   if (!index) {
-    console.error(`Cannot read the Storybook index at ${storybookUrl}/index.json (${indexError}).`);
-    console.error('Start it with: bun run --filter=ljkui storybook');
+    console.error(`Cannot read the uaight index at ${explorerUrl}/@uaight/index.json (${indexError}).`);
+    console.error('Start it with: bun run dev');
     process.exit(1);
   }
 
-  // `docs` entries are long MDX pages, not component renders.
-  const all = Object.values(index.entries).filter((e) => e.type === 'story');
+  /*
+   * Flatten the index into one entry per fixture.
+   *
+   * `names: null` means uaight could not enumerate the module statically; the warm pass
+   * resolves those in the browser, but this script never runs one, so they are skipped rather
+   * than captured blind. `names: [null]` is the ordinary single-fixture module.
+   */
+  const stripPrefix = (path: string) => path.replace(/^fixtures\//, '').replace(/^\d+\.\s+/, '');
+  const all: StoryEntry[] = index.files.flatMap((file) =>
+    (file.names ?? []).map((name) => ({
+      id: name === null ? file.path : `${file.path}:${name}`,
+      title: stripPrefix(file.path),
+      name: name ?? 'Default',
+    })),
+  );
   const needle = filter?.toLowerCase();
   let selected = needle
     ? all.filter((e) => `${e.title}/${e.name}`.toLowerCase().includes(needle) || e.id.toLowerCase().includes(needle))
@@ -743,16 +736,16 @@ async function main() {
     const byTitle = new Map<string, StoryEntry>();
     for (const entry of selected) {
       const current = byTitle.get(entry.title);
-      if (!current || (current.name !== 'Default' && entry.name === 'Default')) byTitle.set(entry.title, entry);
+      if (!current) byTitle.set(entry.title, entry);
     }
     selected = [...byTitle.values()];
   }
 
-  // Sidebar order: category first, then the order Storybook itself indexed them in.
+  // Tree order: section first, then the order uaight indexed them in.
   const position = new Map(all.map((e, i) => [e.id, i]));
   const rank = (title: string) => {
-    const i = CATEGORY_ORDER.indexOf(title.split('/')[0]!);
-    return i === -1 ? CATEGORY_ORDER.length : i;
+    const i = SECTIONS.indexOf(title.split('/')[0]!);
+    return i === -1 ? SECTIONS.length : i;
   };
   const stories = [...selected].sort(
     (a, b) => rank(a.title) - rank(b.title) || position.get(a.id)! - position.get(b.id)!,
@@ -762,7 +755,7 @@ async function main() {
     console.error(`No stories matched --filter=${filter}`);
     process.exit(1);
   }
-  console.log(`Capturing ${stories.length} stories from ${storybookUrl} with ${concurrency} tabs...`);
+  console.log(`Capturing ${stories.length} fixtures from ${explorerUrl} with ${concurrency} tabs...`);
 
   const workDir = join(tmpdir(), `ljkui-pdf-${process.pid}`);
   const shotsDir = join(workDir, 'shots');
@@ -789,7 +782,7 @@ async function main() {
         } catch (err) {
           const message = (err as Error).message;
           // A wedged renderer poisons every later story on this tab, so always start over.
-          // The backoff also rides out a Storybook dev-server restart mid-run.
+          // The backoff also rides out a dev-server restart mid-run.
           await closeTab(base, tab).catch(() => {});
           await Bun.sleep(1500 * attempt);
           tab = await openTabWithRetry(base);
@@ -844,7 +837,6 @@ async function main() {
   await mkdir(dirname(outPath), { recursive: true });
   await writeFile(outPath, Buffer.concat(chunks));
   if (!keepShots) await rm(workDir, { recursive: true, force: true });
-  await staticServer?.stop(true);
 
   const bytes = Bun.file(outPath).size;
   console.log(`\nWrote ${outPath} — ${(bytes / 1e6).toFixed(1)} MB in ${((Date.now() - started) / 1000).toFixed(1)}s`);

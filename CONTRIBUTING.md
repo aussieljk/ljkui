@@ -20,7 +20,7 @@ bun run check
 ```
 
 That covers: workflows-in-sync, format, lint, **props coverage**, typecheck, build,
-**size-limit**, explorer build, and package health.
+**size-limit**, explorer wiring, prebundle drift, explorer build, and package health.
 
 ## Adding a component
 
@@ -38,9 +38,10 @@ Then make sure the component has all of the following — the CI gates enforce m
 - [ ] **`demos/<name>.demo.tsx`** — a canonical usage demo (skip with `--no-docs`).
 - [ ] An entry in **`scripts/a11y-data.ts`** if the component has meaningful keyboard / ARIA
       behaviour — it renders a Keyboard + Accessibility section on the component's `Reference` fixture.
-- [ ] A category in **`scripts/gen-fixtures.ts`** (`CATEGORIES`) if it shouldn't fall
-      into the default `Components` section — the category is the directory, and the
-      directory is the explorer's tree section.
+- [ ] **`export const fileMeta = { group, layout }`** in that same examples module — the tree
+      section (`Controls`, or the nested `Controls/Dates`) and how the canvas frames it
+      (`centered` / `padded` / `fullscreen`). `check:explorer` fails without it. A section
+      that does not exist yet needs adding to `SECTIONS` in `scripts/gen-fixtures-meta.ts`.
 - [ ] Its CSS wired into the aggregate and the component exported from the barrel (the
       scaffold does both).
 

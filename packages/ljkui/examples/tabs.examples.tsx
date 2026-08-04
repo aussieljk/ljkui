@@ -1,6 +1,12 @@
 import React from 'react';
 import { Input, Tabs, Textarea, Typography, tabsListPropDefs } from 'ljkui';
 
+/**
+ * Where this component sits in the explorer, and how its fixtures are framed.
+ * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
+ */
+export const fileMeta = { group: 'Components', layout: 'padded' } as const;
+
 export const examples = {
   // TODO: Tabs content jumping in size due to font-weight change
   // This doesn't happen in ljkui (might be due to a font in use?)

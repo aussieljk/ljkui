@@ -2,6 +2,12 @@ import { DateValue, parseDate } from '@internationalized/date';
 import React from 'react';
 import { Button, Calendar, DatePicker, Popover, datePickerPropDefs } from 'ljkui';
 
+/**
+ * Where this component sits in the explorer, and how its fixtures are framed.
+ * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
+ */
+export const fileMeta = { group: 'Controls/Dates', layout: 'centered' } as const;
+
 export const examples = {
   Sizes() {
     const args = {

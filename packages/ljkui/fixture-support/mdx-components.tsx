@@ -42,6 +42,57 @@ export function Demo({ name }: { name: string }) {
   );
 }
 
+/** Every examples module, so `<Examples name="oscar" />` resolves without a static import. */
+const exampleModules = import.meta.glob<{ examples: Record<string, () => React.ReactNode> }>(
+  '../examples/*.examples.tsx',
+);
+
+/**
+ * Renders every example from one component's examples module.
+ *
+ * Another Fumadocs-only tag the old pipeline stripped. It is worth having: a guide that wants
+ * to show a whole component's range shouldn't restate the examples that already exist.
+ */
+export function Examples({ name }: { name: string }) {
+  const [entries, setEntries] = React.useState<Array<[string, () => React.ReactNode]> | null>(null);
+  const load = exampleModules[`../examples/${name}.examples.tsx`];
+
+  React.useEffect(() => {
+    if (!load) return;
+    let cancelled = false;
+    load().then((mod) => {
+      if (!cancelled) setEntries(Object.entries(mod.examples));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [load]);
+
+  if (!load) {
+    return (
+      <Typography.Text size="2" color="red">
+        No examples module named <Typography.Code size="2">{name}</Typography.Code>.
+      </Typography.Text>
+    );
+  }
+  if (!entries) return null;
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', margin: 'var(--space-4) 0' }}>
+      {entries.map(([label, Example]) => (
+        <section key={label} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+          <Typography.Text size="1" color="gray">
+            {label}
+          </Typography.Text>
+          <Card size="2">
+            <Example />
+          </Card>
+        </section>
+      ))}
+    </div>
+  );
+}
+
 /**
  * `<Callout type="warn">` came from Fumadocs — ljkui has no such component, so it is
  * rebuilt here on `Alert`. The Storybook pipeline downgraded these to blockquotes; the
@@ -150,8 +201,9 @@ export const mdxComponents: MDXComponents = {
   th: Table.ColumnHeaderCell,
   td: Table.Cell,
 
-  // The three custom tags the guides use.
+  // The custom tags the guides use.
   Demo,
+  Examples,
   PropsTable,
   Callout,
 

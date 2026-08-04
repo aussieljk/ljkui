@@ -28,6 +28,12 @@ const nominees = [
   { name: 'Oscar (the cat)', category: 'Best Nap in a Sunbeam', wins: 12 },
 ];
 
+/**
+ * Where this component sits in the explorer, and how its fixtures are framed.
+ * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
+ */
+export const fileMeta = { group: 'Components', layout: 'fullscreen' } as const;
+
 export const examples = {
   'Oscar’s profile'() {
     return (

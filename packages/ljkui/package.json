@@ -90,7 +90,10 @@
     "typecheck": "tsc --noEmit",
     "generate:fixtures": "bun run generate:props && bun scripts/gen-fixtures.ts",
     "dev": "bun run generate:fixtures && vite",
-    "build:explorer": "bun run generate:fixtures && uaight build"
+    "build:explorer": "bun run generate:fixtures && uaight build",
+    "generate:prebundle": "bun scripts/gen-prebundle.ts",
+    "check:prebundle": "bun scripts/gen-prebundle.ts --check",
+    "check:explorer": "bun scripts/check-explorer.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

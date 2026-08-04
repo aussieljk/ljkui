@@ -1,6 +1,12 @@
 import React from 'react';
 import { Section, Card, Typography } from 'ljkui';
 
+/**
+ * Where this component sits in the explorer, and how its fixtures are framed.
+ * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
+ */
+export const fileMeta = { group: 'Layout', layout: 'centered' } as const;
+
 export const examples = {
   Size() {
     return (

@@ -27,6 +27,12 @@ import { X } from 'lucide-react';
 
 const detachedHandle = Drawer.createHandle();
 
+/**
+ * Where this component sits in the explorer, and how its fixtures are framed.
+ * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
+ */
+export const fileMeta = { group: 'Components', layout: 'fullscreen' } as const;
+
 export const examples = {
   Default() {
     const args = {};
