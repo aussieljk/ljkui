@@ -1,3 +1,4 @@
+import ChartOverview from './demos/chart.demo';
 import React from 'react';
 import { Card, Chart, Separator, ToggleGroup, Typography } from 'ljkui';
 import type { ChartProps } from 'ljkui';
@@ -9,6 +10,9 @@ import type { ChartProps } from 'ljkui';
 export const fileMeta = { group: 'Data presentation', layout: 'fullscreen' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/chart.demo.tsx` before demos folded into examples. */
+  Overview: ChartOverview,
+
   Default() {
     const args: ChartProps = {
       data: [

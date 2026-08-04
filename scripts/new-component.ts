@@ -7,7 +7,7 @@
 //   bun run new:component <kebab-name> [--namespace] [--no-docs]
 //
 //   --namespace  namespace-style component (<Name>.Root / <Name>.Item, `export * as`)
-//   --no-docs    skip the usage demo in packages/ljkui/demos
+//   --no-docs    skip the usage demo in packages/ljkui/examples/demos
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -193,11 +193,11 @@ edit(
 );
 
 // ---------------------------------------------------------------------------
-// usage demo (copy-pasteable source in packages/ljkui/demos, rendered by the docs page)
+// usage demo (copy-pasteable source in packages/ljkui/examples/demos, surfaced as the Overview fixture)
 
 if (withDocs) {
   create(
-    join(UI, 'demos', `${name}.demo.tsx`),
+    join(UI, 'examples', 'demos', `${name}.demo.tsx`),
     namespace
       ? `import React from 'react';
 import { ${pascal} } from 'ljkui';

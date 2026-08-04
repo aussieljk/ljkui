@@ -1,3 +1,4 @@
+import TextareaOverview from './demos/textarea.demo';
 import React from 'react';
 import { Textarea, textareaPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Textarea, textareaPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/textarea.demo.tsx` before demos folded into examples. */
+  Overview: TextareaOverview,
+
   Size() {
     const args = {
       size: textareaPropDefs.size.default,

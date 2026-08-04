@@ -1,3 +1,4 @@
+import LinkOverview from './demos/link.demo';
 import React from 'react';
 import { Link, linkPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Link, linkPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Typography', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/link.demo.tsx` before demos folded into examples. */
+  Overview: LinkOverview,
+
   Size() {
     const args = {
       children: 'ljkui',

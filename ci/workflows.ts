@@ -45,6 +45,13 @@ const NODE_VERSION = '24';
 /** Same bun the lockfile and this laptop use, straight off `packageManager`. */
 const BUN_VERSION = root.packageManager.replace('bun@', '');
 
+/*
+ * Depth for the checkouts that build the explorer. The Recently Changed report reads
+ * `git log -n 60 -- src/components`; a shallow clone makes it come out empty, which is what
+ * shipped on every deploy until now. 100 covers the window the report looks at.
+ */
+const EXPLORER_HISTORY = 100;
+
 const MASTER = 'master';
 const ON_MASTER = `github.ref == 'refs/heads/${MASTER}'`;
 
@@ -70,7 +77,7 @@ const ci: Workflow = {
       // 25 rather than 20: the explorer build adds a second full vite pass over ~90 component modules.
       'timeout-minutes': 25,
       steps: [
-        checkout(),
+        checkout(EXPLORER_HISTORY),
         setupBun(BUN_VERSION),
         cacheBunStore(),
         install(),
@@ -81,16 +88,15 @@ const ci: Workflow = {
         sh('Lint', 'bun run lint'),
         // Every component must ship a *.props.ts (or be exempt) — no silent prop-table gaps.
         sh('Props coverage', 'bun run --filter=ljkui check:props'),
-        // Every component must have a barrel index.ts and an examples module — no half-landed components.
-        sh('Component shape', 'bun run --filter=ljkui check:shape'),
         // Root fui-* modifiers must go through rootClassName — no drifting per-component copies.
         sh('Root className', 'bun run --filter=ljkui check:root-class'),
         // Every component stylesheet must be imported by index.css — no silently-unstyled components.
         sh('CSS registration', 'bun run --filter=ljkui check:css-index'),
         // The committed token snapshot must match the color CSS — a palette edit can't sneak in.
         sh('Token snapshot', 'bun run --filter=ljkui check:tokens'),
-        // Hand-authored explorer pieces (tools, guides, examples fileMeta) must stay wired —
-        // fixtures/ is generated, so an orphan is otherwise invisible.
+        // Component shape (barrel + examples module) and the hand-authored explorer pieces
+        // (tools, guides, fileMeta, breakpoints) must stay wired — fixtures/ is generated, so
+        // an orphan is otherwise invisible.
         sh('Explorer wiring', 'bun run --filter=ljkui check:explorer'),
         // The Vite prebundle list is generated from the sources; a new dep must not drift it.
         sh('Prebundle list', 'bun run --filter=ljkui check:prebundle'),
@@ -115,7 +121,7 @@ const ci: Workflow = {
       // Commenting the preview URL on the PR.
       permissions: { contents: 'read', 'pull-requests': 'write' },
       steps: [
-        checkout(),
+        checkout(EXPLORER_HISTORY),
         setupBun(BUN_VERSION),
         cacheBunStore(),
         install(),
@@ -160,7 +166,7 @@ const release: Workflow = {
       'timeout-minutes': 30,
       if: ON_MASTER,
       steps: [
-        checkout(),
+        checkout(EXPLORER_HISTORY),
         setupBun(BUN_VERSION),
         setupNode(NODE_VERSION),
         cacheBunStore(),

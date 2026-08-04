@@ -76,7 +76,18 @@ export const sh = (name: string, run: string, extra: Omit<Step, 'name' | 'run' |
   ...extra,
 });
 
-export const checkout = (): Step => ({ name: 'Checkout', uses: 'actions/checkout@v7' });
+/**
+ * `fetchDepth` maps to `actions/checkout`'s `fetch-depth`. The action defaults to `1` — a
+ * clone with no history — which silently starves anything that reads the log: the explorer's
+ * "Recently Changed" report shells out to `git log -n 60` and renders an empty list on every
+ * deployed build without this. Pass a bounded depth rather than `0`; full history is slower
+ * and nothing here needs it.
+ */
+export const checkout = (fetchDepth?: number): Step => ({
+  name: 'Checkout',
+  uses: 'actions/checkout@v7',
+  ...(fetchDepth === undefined ? {} : { with: { 'fetch-depth': fetchDepth } }),
+});
 
 export const setupBun = (version: string): Step => ({
   name: 'Setup bun',

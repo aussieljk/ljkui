@@ -1,3 +1,4 @@
+import CreditCardOverview from './demos/credit-card.demo';
 import creditCardType from 'credit-card-type';
 
 import React, { useState } from 'react';
@@ -907,6 +908,9 @@ const WhopCard = () => (
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/credit-card.demo.tsx` before demos folded into examples. */
+  Overview: CreditCardOverview,
+
   Default: Default,
   Controlled: Controlled,
   'ljkui Card': LJKUICard,

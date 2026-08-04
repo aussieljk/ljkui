@@ -1,3 +1,4 @@
+import ToggleGroupRadioGroupOverview from './demos/toggle-group-radio-group.demo';
 import { Monitor, Moon, Sun } from 'lucide-react';
 import React from 'react';
 import { Button, ToggleGroupRadioGroup, Typography } from 'ljkui';
@@ -9,6 +10,9 @@ import { Button, ToggleGroupRadioGroup, Typography } from 'ljkui';
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/toggle-group-radio-group.demo.tsx` before demos folded into examples. */
+  Overview: ToggleGroupRadioGroupOverview,
+
   'Input Ref'() {
     const args = {};
     const inputRef = React.useRef<HTMLInputElement>(null);

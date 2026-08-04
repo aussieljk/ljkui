@@ -1,3 +1,4 @@
+import CommandOverview from './demos/command.demo';
 import React from 'react';
 import { Button, Command, Typography, VStack } from 'ljkui';
 
@@ -77,6 +78,9 @@ const InDialog = () => {
 export const fileMeta = { group: 'Controls', layout: 'fullscreen' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/command.demo.tsx` before demos folded into examples. */
+  Overview: CommandOverview,
+
   Default: <Palette />,
   'With selection': <WithSelection />,
   'In a dialog': <InDialog />,

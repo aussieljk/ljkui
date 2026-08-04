@@ -1,3 +1,4 @@
+import DateFieldOverview from './demos/date-field.demo';
 import { getLocalTimeZone, parseDate, parseZonedDateTime, today } from '@internationalized/date';
 import React from 'react';
 import { DateField, dateFieldPropDefs } from 'ljkui';
@@ -9,6 +10,9 @@ import { DateField, dateFieldPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Controls/Dates', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/date-field.demo.tsx` before demos folded into examples. */
+  Overview: DateFieldOverview,
+
   Size() {
     const args = {
       size: dateFieldPropDefs.size.default,

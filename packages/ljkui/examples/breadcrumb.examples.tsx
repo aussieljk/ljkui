@@ -1,3 +1,4 @@
+import BreadcrumbOverview from './demos/breadcrumb.demo';
 import React from 'react';
 import { Breadcrumb, breadcrumbPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Breadcrumb, breadcrumbPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Components', layout: 'padded' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/breadcrumb.demo.tsx` before demos folded into examples. */
+  Overview: BreadcrumbOverview,
+
   'With links'() {
     const args = {
       color: breadcrumbPropDefs.color.default,

@@ -1,3 +1,4 @@
+import AccordionOverview from './demos/accordion.demo';
 import React from 'react';
 import { Accordion } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Accordion } from 'ljkui';
 export const fileMeta = { group: 'Layout', layout: 'padded' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/accordion.demo.tsx` before demos folded into examples. */
+  Overview: AccordionOverview,
+
   Single() {
     const args = {
       defaultValue: ['item-1'],

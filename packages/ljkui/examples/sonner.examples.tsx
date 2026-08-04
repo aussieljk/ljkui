@@ -1,3 +1,4 @@
+import SonnerOverview from './demos/sonner.demo';
 import { Phone } from 'lucide-react';
 import React from 'react';
 import { Avatar, Button, CircularProgress, IconButton, Theme, Typography, toast } from 'ljkui';
@@ -18,6 +19,9 @@ const VARYING_DESCRIPTIONS = [
 export const fileMeta = { group: 'Components', layout: 'fullscreen' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/sonner.demo.tsx` before demos folded into examples. */
+  Overview: SonnerOverview,
+
   Success() {
     return <Button onClick={() => toast.success('Changes saved successfully')}>Show success toast</Button>;
   },

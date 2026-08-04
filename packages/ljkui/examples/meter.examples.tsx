@@ -1,3 +1,4 @@
+import MeterOverview from './demos/meter.demo';
 import React from 'react';
 import { Meter, meterPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Meter, meterPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/meter.demo.tsx` before demos folded into examples. */
+  Overview: MeterOverview,
+
   Size() {
     const args = {
       size: meterPropDefs.size.default,

@@ -1,3 +1,4 @@
+import StrongOverview from './demos/strong.demo';
 import React from 'react';
 import { Typography } from 'ljkui';
 
@@ -18,4 +19,4 @@ function StrongFixture() {
  */
 export const fileMeta = { group: 'Typography', layout: 'centered' } as const;
 
-export const examples = { Example: StrongFixture };
+export const examples = { Overview: StrongOverview, Example: StrongFixture };

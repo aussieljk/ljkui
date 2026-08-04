@@ -1,3 +1,4 @@
+import SpinnerOverview from './demos/spinner.demo';
 import React from 'react';
 import { Spinner, Switch, Typography, spinnerPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Spinner, Switch, Typography, spinnerPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/spinner.demo.tsx` before demos folded into examples. */
+  Overview: SpinnerOverview,
+
   Size() {
     const args = {
       size: spinnerPropDefs.size.default,

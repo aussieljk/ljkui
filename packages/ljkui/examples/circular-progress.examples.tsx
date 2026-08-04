@@ -1,3 +1,4 @@
+import CircularProgressOverview from './demos/circular-progress.demo';
 import React from 'react';
 import { CircularProgress, circularProgressPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { CircularProgress, circularProgressPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/circular-progress.demo.tsx` before demos folded into examples. */
+  Overview: CircularProgressOverview,
+
   Size() {
     const args = {
       size: circularProgressPropDefs.size.default,

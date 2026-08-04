@@ -1,3 +1,4 @@
+import CardOverview from './demos/card.demo';
 import React from 'react';
 import { Avatar, Card, Typography } from 'ljkui';
 
@@ -22,6 +23,9 @@ const CardContentExample = () => (
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/card.demo.tsx` before demos folded into examples. */
+  Overview: CardOverview,
+
   Size() {
     const args = {};
     return (

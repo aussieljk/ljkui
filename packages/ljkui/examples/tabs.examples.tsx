@@ -1,3 +1,4 @@
+import TabsOverview from './demos/tabs.demo';
 import React from 'react';
 import { Input, Tabs, Textarea, Typography, tabsListPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Input, Tabs, Textarea, Typography, tabsListPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Components', layout: 'padded' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/tabs.demo.tsx` before demos folded into examples. */
+  Overview: TabsOverview,
+
   // TODO: Tabs content jumping in size due to font-weight change
   // This doesn't happen in ljkui (might be due to a font in use?)
   Default() {

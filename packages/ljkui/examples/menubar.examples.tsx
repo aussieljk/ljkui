@@ -1,3 +1,4 @@
+import MenubarOverview from './demos/menubar.demo';
 import React from 'react';
 import { Menubar } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Menubar } from 'ljkui';
 export const fileMeta = { group: 'Controls', layout: 'fullscreen' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/menubar.demo.tsx` before demos folded into examples. */
+  Overview: MenubarOverview,
+
   Default: (
     <Menubar.Root>
       <Menubar.Menu>

@@ -1,0 +1,941 @@
+---
+title: 'Usages'
+description: "Real component usages harvested from this repository's own source, with the props written at them."
+---
+
+Syntax only: nothing is executed and no import is resolved, so a prop whose value could not be
+read statically is named rather than guessed. 812 components have at least one usage;
+the 120 most-used are listed, with up to three distinct call sites each.
+
+<Callout>
+  On `bun run dev` this same data is live in the ⌘K palette. uaight excludes the harvest from production builds, so this
+  generated page is what carries it to the deployed explorer.
+</Callout>
+
+### Typography.Text <sup>1225</sup>
+
+| Usage                                                                                                                          | Where                             |
+| ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------- |
+| `<Typography.Text size={"2"} color={"gray"} weight={"medium"} style={{"minWidth":60}}>`                                        | examples/credit-card.examples:571 |
+| `<Typography.Text size={"1"} color={"gray"} weight={"medium"} style={{"display":"block","marginBottom":"var(--space-2)"}}>`    | examples/hover-card.examples:515  |
+| `<Typography.Text size={"1"} weight={"medium"} color={"gray"} style={{"textTransform":"uppercase","letterSpacing":"0.08em"}}>` | examples/lightbox.examples:2294   |
+
+### Button <sup>665</sup>
+
+| Usage                                                                                          | Where                       |
+| ---------------------------------------------------------------------------------------------- | --------------------------- |
+| `<Button variant={"classic"} color={"lime"} size={"4"} style={{"width":"100%"}}>`              | examples/drawer.examples:98 |
+| `<Button variant={"ghost"} size={"2"} color={"green"} style={{"textDecoration":"underline"}}>` | examples/empty.examples:525 |
+| `<Button size={"2"} variant={"ghost"} color={"gray"} style={{"textDecoration":"underline"}}>`  | examples/empty.examples:551 |
+
+### Typography.Code <sup>575</sup>
+
+| Usage                                                      | Where                           |
+| ---------------------------------------------------------- | ------------------------------- |
+| `<Typography.Code variant={"soft"} color={"orange"}>`      | examples/demos/code.demo:11     |
+| `<Typography.Code variant={"soft"} size={"4"}>`            | examples/demos/code.demo:14     |
+| `<Typography.Code size={"1"} color={"gray"}>` (+ children) | examples/carousel.examples:1338 |
+
+### Input.Control <sup>201</sup>
+
+| Usage                                                                                                                              | Where                        |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| `<Input.Control type={"password"} placeholder={"Aa1..."} required minLength={8} pattern={"(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"}>` | examples/field.examples:1275 |
+| `<Input.Control required minLength={3} pattern={"[a-z0-9-]+"} placeholder={"my-team"} style={{"paddingLeft":0}}>`                  | examples/field.examples:1651 |
+| `<Input.Control type={"password"} placeholder={"min. 8 characters"} required minLength={8}>`                                       | examples/field.examples:463  |
+
+### IconButton <sup>153</sup>
+
+| Usage                                                                                                                                       | Where                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| `<IconButton size={"2"} variant={"ghost"} color={"gray"} highContrast className={"text-white"}>`                                            | examples/demos/lightbox.demo:11 |
+| `<IconButton size={"2"} variant={"ghost"} color={"gray"} highContrast style={{"color":"white"}}>`                                           | examples/lightbox.examples:62   |
+| `<IconButton aria-label={"Decline call"} size={"3"} style={{"borderRadius":999}} variant={"solid"} color={"danger"}>` (+ onClick, children) | examples/sonner.examples:487    |
+
+### Input.Root <sup>144</sup>
+
+| Usage                                                                                             | Where                               |
+| ------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `<Input.Root variant={"soft"} color={"gray"} style={{"flex":1}} size={"3"}>` (+ children)         | examples/scroll-area.examples:423   |
+| `<Input.Root style={{"width":400}} size={"3"} variant={"soft"} color={"gray"}>` (+ ref, children) | examples/autocomplete.examples:1499 |
+| `<Input.Root size={"3"} variant={"soft"} color={"gray"}>` (+ children)                            | examples/autocomplete.examples:1247 |
+
+### DropdownMenu.Item <sup>125</sup>
+
+| Usage                                                                  | Where                                |
+| ---------------------------------------------------------------------- | ------------------------------------ |
+| `<DropdownMenu.Item tabIndex={-1} color={"red"} closeOnClick={false}>` | examples/sheet.examples:969          |
+| `<DropdownMenu.Item shortcut={"⌘ ⌫"} color={"danger"}>`                | examples/demos/dropdown-menu.demo:28 |
+| `<DropdownMenu.Item shortcut={"⌘ E"} color={"info"}>`                  | examples/dropdown-menu.examples:183  |
+
+### Select.Item <sup>125</sup>
+
+| Usage                                    | Where                         |
+| ---------------------------------------- | ----------------------------- |
+| `<Select.Item value={"grape"} disabled>` | examples/demos/select.demo:13 |
+| `<Select.Item value={"Grape"} disabled>` | examples/select.examples:216  |
+| `<Select.Item value={"apple"}>`          | examples/demos/select.demo:11 |
+
+### Field.Label <sup>116</sup>
+
+| Usage                                                                                               | Where                       |
+| --------------------------------------------------------------------------------------------------- | --------------------------- |
+| `<Field.Label weight={"regular"} style={{"margin":0,"cursor":"pointer"}}>`                          | examples/field.examples:356 |
+| `<Field.Label weight={"regular"} style={{"cursor":"pointer"}}>`                                     | examples/form.examples:298  |
+| `<Field.Label size={"3"} style={{"display":"flex","justifyContent":"space-between"}}>` (+ children) | examples/field.examples:800 |
+
+### Field.Root <sup>114</sup>
+
+| Usage                                                                                                            | Where                        |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| `<Field.Root name={"username"} validationMode={"onChange"} validationDebounceTime={300}>` (+ validate, children) | examples/field.examples:1229 |
+| `<Field.Root name={"password"} validationMode={"onChange"}>` (+ children)                                        | examples/field.examples:1272 |
+| `<Field.Root name={"apiKey"} disabled>` (+ children)                                                             | examples/field.examples:1667 |
+
+### Text <sup>91</sup>
+
+| Usage                                                                  | Where                                |
+| ---------------------------------------------------------------------- | ------------------------------------ |
+| `<Text size={"2"} color={"gray"} style={{"marginTop":8}}>` (+ render)  | examples/portal.examples:68          |
+| `<Text color={"gray"} size={"2"} style={{"marginTop":12}}>` (+ render) | examples/visually-hidden.examples:61 |
+| `<Text size={"2"} color={"gray"}>`                                     | examples/oscar.examples:89           |
+
+### Field.Error <sup>89</sup>
+
+| Usage                                  | Where                          |
+| -------------------------------------- | ------------------------------ |
+| `<Field.Error match={"valueMissing"}>` | examples/combobox.examples:679 |
+| `<Field.Error match={"valueMissing"}>` | examples/demos/field.demo:13   |
+| `<Field.Error match={"tooShort"}>`     | examples/demos/field.demo:14   |
+
+### Badge <sup>86</sup>
+
+| Usage                                                                                                                    | Where                           |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------- |
+| `<Badge size={"1"} variant={"soft"} color={"gray"} style={{"flexShrink":0,"marginLeft":"var(--space-2)"}}>` (+ children) | examples/lightbox.examples:1201 |
+| `<Badge color={"green"} variant={"solid"} size={"1"}>`                                                                   | examples/demos/layout.demo:19   |
+| `<Badge color={"red"} variant={"solid"} className={"m-2"}>`                                                              | examples/demos/overlay.demo:9   |
+
+### Typography.Heading <sup>86</sup>
+
+| Usage                                                                                       | Where                           |
+| ------------------------------------------------------------------------------------------- | ------------------------------- |
+| `<Typography.Heading size={"3"} weight={"bold"} style={{"marginBottom":"var(--space-1)"}}>` | examples/carousel.examples:1067 |
+| `<Typography.Heading size={"3"} weight={"bold"} style={{"marginBottom":"var(--space-1)"}}>` | examples/carousel.examples:1129 |
+| `<Typography.Heading size={"3"} style={{"marginBottom":"var(--space-2)"}}>`                 | examples/carousel.examples:301  |
+
+### Avatar <sup>85</sup>
+
+| Usage                                                                                                                                                              | Where                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------- |
+| `<Avatar size={"4"} shape={"square"} fallback={"SQ"} color={"teal"}>`                                                                                              | examples/demos/avatar.demo:13 |
+| `<Avatar size={"6"} fallback={"L"} color={"rose"} highContrast>`                                                                                                   | examples/demos/avatar.demo:15 |
+| `<Avatar size={"5"} fallback={"Luna Rose"} color={"pink"} src={"https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=256&h=256&q=70&crop=faces&fit=crop"}>` | examples/empty.examples:284   |
+
+### Table.Cell <sup>85</sup>
+
+| Usage          | Where                              |
+| -------------- | ---------------------------------- |
+| `<Table.Cell>` | examples/alert-dialog.examples:200 |
+| `<Table.Cell>` | examples/alert-dialog.examples:201 |
+| `<Table.Cell>` | examples/alert-dialog.examples:206 |
+
+### Checkbox <sup>84</sup>
+
+| Usage                                                                                                        | Where                           |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------- |
+| `<Checkbox name={"newsletter"} defaultChecked value={"subscribed"} uncheckedValue={"unsubscribed"}>` (+ ...) | examples/checkbox.examples:177  |
+| `<Checkbox color={"green"} defaultChecked>`                                                                  | examples/demos/checkbox.demo:12 |
+| `<Checkbox size={"2"} value={"terms"}>`                                                                      | examples/field.examples:867     |
+
+### ScrollArea <sup>84</sup>
+
+| Usage                                                                                                                                                                                 | Where                             |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `<ScrollArea fadeEdges type={"hover"} scrollbars={"vertical"} style={{"height":200,"width":320,"background":"var(--gray-alpha-100)","borderRadius":"var(--radius-3)"}}>` (+ children) | examples/scroll-area.examples:135 |
+| `<ScrollArea type={"hover"} scrollbars={"vertical"} className={"h-40 max-w-120"}>` (+ children)                                                                                       | examples/demos/scroll-area.demo:6 |
+| `<ScrollArea style={{"height":"100%"}} scrollbars={"vertical"} type={"auto"}>` (+ ref, onScroll, children)                                                                            | examples/scroll-area.examples:351 |
+
+### Link <sup>82</sup>
+
+| Usage                                                                                                                                                        | Where                       |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------- |
+| `<Link underline={"always"} href={"#"} size={"2"}>`                                                                                                          | examples/empty.examples:68  |
+| `<Link href={"#"} size={"2"} underline={"always"}>`                                                                                                          | examples/empty.examples:437 |
+| `<Link href={"https://react.dev/reference/react-dom/components/form#handle-form-submission-with-a-server-function"} target={"_blank"} underline={"always"}>` | examples/form.examples:1373 |
+
+### Card <sup>73</sup>
+
+| Usage                                                                                                                                                                              | Where                                    |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| `<Card size={"3"} variant={"surface"} style={{"backgroundImage":"linear-gradient(var(--color-panel-elevation-alpha-100), var(--color-panel-elevation-alpha-100))"}}>` (+ children) | examples/chart.examples:95               |
+| `<Card size={"2"} variant={"surface"} className={"max-w-80"}>` (+ children)                                                                                                        | examples/demos/card.demo:6               |
+| `<Card size={"3"} variant={"surface"} style={{"width":100,"height":100,"--card-border-radius":"20px"}}>` (+ children)                                                              | examples/radio-button-group.examples:143 |
+
+### ContextMenu.Item <sup>68</sup>
+
+| Usage                                                  | Where                             |
+| ------------------------------------------------------ | --------------------------------- |
+| `<ContextMenu.Item shortcut={"⌘ ⌫"} color={"danger"}>` | examples/context-menu.examples:57 |
+| `<ContextMenu.Item shortcut={"⌘ E"}>`                  | examples/context-menu.examples:38 |
+| `<ContextMenu.Item shortcut={"⌘ D"}>`                  | examples/context-menu.examples:39 |
+
+### RadioGroup.Item <sup>60</sup>
+
+| Usage                                    | Where                             |
+| ---------------------------------------- | --------------------------------- |
+| `<RadioGroup.Item value={"2"} disabled>` | examples/radio-group.examples:221 |
+| `<RadioGroup.Item value={"1"}>`          | examples/demos/radio-group.demo:8 |
+| `<RadioGroup.Item value={"2"}>`          | examples/demos/radio-group.demo:9 |
+
+### Tooltip <sup>57</sup>
+
+| Usage                                                                                           | Where                         |
+| ----------------------------------------------------------------------------------------------- | ----------------------------- |
+| `<Tooltip content={"Following Y"} trackCursorAxis={"y"} delay={0} side={"right"}>` (+ children) | examples/tooltip.examples:305 |
+| `<Tooltip content={"Top Start"} side={"top"} align={"start"}>` (+ children)                     | examples/tooltip.examples:97  |
+| `<Tooltip content={"Top Center"} side={"top"} align={"center"}>` (+ children)                   | examples/tooltip.examples:102 |
+
+### Select.Content <sup>56</sup>
+
+| Usage                                                                                         | Where                        |
+| --------------------------------------------------------------------------------------------- | ---------------------------- |
+| `<Select.Content alignItemWithTrigger={false} side={"bottom"} align={"start"}>` (+ children)  | examples/select.examples:464 |
+| `<Select.Content alignItemWithTrigger={false} side={"bottom"} align={"center"}>` (+ children) | examples/select.examples:473 |
+| `<Select.Content alignItemWithTrigger={false} side={"bottom"} align={"end"}>` (+ children)    | examples/select.examples:482 |
+
+### Select.Root <sup>56</sup>
+
+| Usage                                                                               | Where                        |
+| ----------------------------------------------------------------------------------- | ---------------------------- |
+| `<Select.Root defaultValue={"enterprise"} disabled size={"3"}>` (+ items, children) | examples/field.examples:1335 |
+| `<Select.Root defaultValue={"apple"} size={"2"}>` (+ children)                      | examples/demos/select.demo:6 |
+| `<Select.Root size={"1"} defaultValue={"Apple"}>` (+ children)                      | examples/select.examples:62  |
+
+### Select.Trigger <sup>56</sup>
+
+| Usage                                                                        | Where                        |
+| ---------------------------------------------------------------------------- | ---------------------------- |
+| `<Select.Trigger style={{"width":"100%"}} variant={"soft"} color={"gray"}>`  | examples/field.examples:1336 |
+| `<Select.Trigger placeholder={"Select a country"} style={{"width":"100%"}}>` | examples/field.examples:479  |
+| `<Select.Trigger color={"gray"} variant={"soft"}>`                           | examples/table.examples:354  |
+
+### Table.Row <sup>55</sup>
+
+| Usage                      | Where                              |
+| -------------------------- | ---------------------------------- |
+| `<Table.Row>` (+ children) | examples/alert-dialog.examples:190 |
+
+### NumberField.Input <sup>54</sup>
+
+| Usage                                          | Where                              |
+| ---------------------------------------------- | ---------------------------------- |
+| `<NumberField.Input placeholder={"50"}>`       | examples/field.examples:1499       |
+| `<NumberField.Input placeholder={"0.00"}>`     | examples/field.examples:1520       |
+| `<NumberField.Input placeholder={"step={5}"}>` | examples/number-field.examples:354 |
+
+### NumberField.Root <sup>54</sup>
+
+| Usage                                                                                                                                              | Where                              |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| `<NumberField.Root defaultValue={1} min={1} max={100} name={"teamSize"} size={"3"}>` (+ children)                                                  | examples/field.examples:1144       |
+| `<NumberField.Root id={"quantity"} name={"quantity"} defaultValue={1} min={1} max={99}>` (+ ..., children)                                         | examples/number-field.examples:912 |
+| `<NumberField.Root id={"price"} name={"price"} defaultValue={19.99} step={0.01} format={{"style":"currency","currency":"USD"}}>` (+ ..., children) | examples/number-field.examples:921 |
+
+### Separator <sup>52</sup>
+
+| Usage                                                                                          | Where                           |
+| ---------------------------------------------------------------------------------------------- | ------------------------------- |
+| `<Separator orientation={"horizontal"} size={"4"} style={{"marginBottom":16,"marginTop":16}}>` | examples/data-table.examples:95 |
+| `<Separator orientation={"horizontal"} size={"4"} style={{"marginTop":12,"marginBottom":12}}>` | examples/popover.examples:208   |
+| `<Separator orientation={"horizontal"} size={"4"} style={{"marginTop":16,"marginBottom":16}}>` | examples/popover.examples:242   |
+
+### Dialog.Close <sup>49</sup>
+
+| Usage                         | Where                           |
+| ----------------------------- | ------------------------------- |
+| `<Dialog.Close>` (+ children) | examples/combobox.examples:1177 |
+
+### Skeleton.Text <sup>46</sup>
+
+| Usage                                                                  | Where                              |
+| ---------------------------------------------------------------------- | ---------------------------------- |
+| `<Skeleton.Text size={"2"} className={"w-[60%]"}>`                     | examples/demos/skeleton.demo:10    |
+| `<Skeleton.Text size={"2"} className={"w-[90%]"}>`                     | examples/demos/skeleton.demo:11    |
+| `<Skeleton.Text className={"fui-SidebarMenuSkeletonText"} size={"2"}>` | src/components/sidebar/sidebar:394 |
+
+### Switch <sup>45</sup>
+
+| Usage                                | Where                        |
+| ------------------------------------ | ---------------------------- |
+| `<Switch size={"1"} defaultChecked>` | examples/demos/switch.demo:7 |
+| `<Switch size={"2"} defaultChecked>` | examples/demos/switch.demo:8 |
+| `<Switch size={"3"} defaultChecked>` | examples/demos/switch.demo:9 |
+
+### Drawer.Close <sup>44</sup>
+
+| Usage                         | Where                         |
+| ----------------------------- | ----------------------------- |
+| `<Drawer.Close>` (+ children) | examples/demos/drawer.demo:28 |
+
+### Popover.Trigger <sup>44</sup>
+
+| Usage                                                                              | Where                         |
+| ---------------------------------------------------------------------------------- | ----------------------------- |
+| `<Popover.Trigger openOnHover delay={0}>` (+ children)                             | examples/popover.examples:323 |
+| `<Popover.Trigger openOnHover>` (+ children)                                       | examples/popover.examples:309 |
+| `<Popover.Trigger payload={{"user":"Alice","role":"admin"}}>` (+ handle, children) | examples/popover.examples:393 |
+
+### Autocomplete.Content <sup>42</sup>
+
+| Usage                                                                                                                             | Where                               |
+| --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `<Autocomplete.Content align={"end"} sideOffset={4} style={{"maxHeight":328,"width":208,"padding":0}}>` (+ children)              | examples/autocomplete.examples:1237 |
+| `<Autocomplete.Content sideOffset={4} size={"3"} style={{"maxHeight":360,"padding":0,"overflow":"hidden"}}>` (+ anchor, children) | examples/autocomplete.examples:1522 |
+| `<Autocomplete.Content style={{"maxHeight":300}}>` (+ children)                                                                   | examples/autocomplete.examples:1159 |
+
+### Autocomplete.Input <sup>42</sup>
+
+| Usage                                                  | Where                               |
+| ------------------------------------------------------ | ----------------------------------- |
+| `<Autocomplete.Input name={"search"}>` (+ render)      | examples/autocomplete.examples:2598 |
+| `<Autocomplete.Input name={"country"}>` (+ render)     | examples/autocomplete.examples:2777 |
+| `<Autocomplete.Input id={"country-input"}>` (+ render) | examples/autocomplete.examples:3025 |
+
+### Autocomplete.Item <sup>42</sup>
+
+| Usage                                                                                                                                                                                                                      | Where                               |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `<Autocomplete.Item style={{"height":"auto","padding":"8px 12px"}}>` (+ key, value, children)                                                                                                                              | examples/field.examples:764         |
+| `<Autocomplete.Item style={{"display":"flex","alignItems":"center","justifyContent":"space-between","padding":"6px 12px 6px 6px","borderRadius":"var(--radius-3)","cursor":"pointer"}}>` (+ key, value, onClick, children) | examples/autocomplete.examples:1566 |
+| `<Autocomplete.Item style={{"display":"flex","alignItems":"center","justifyContent":"center","height":40,"width":40,"fontSize":24,"borderRadius":6,"cursor":"pointer"}}>` (+ key, value, color, onClick, children)         | examples/autocomplete.examples:1309 |
+
+### Autocomplete.List <sup>42</sup>
+
+| Usage                                                    | Where                               |
+| -------------------------------------------------------- | ----------------------------------- |
+| `<Autocomplete.List style={{"padding":8}}>` (+ children) | examples/autocomplete.examples:1548 |
+| `<Autocomplete.List>` (+ children)                       | examples/autocomplete.examples:818  |
+
+### Autocomplete.Root <sup>42</sup>
+
+| Usage                                                     | Where                               |
+| --------------------------------------------------------- | ----------------------------------- |
+| `<Autocomplete.Root mode={"list"}>` (+ items, children)   | examples/autocomplete.examples:1769 |
+| `<Autocomplete.Root mode={"inline"}>` (+ items, children) | examples/autocomplete.examples:1793 |
+| `<Autocomplete.Root mode={"both"}>` (+ items, children)   | examples/autocomplete.examples:1816 |
+
+### Table.ColumnHeaderCell <sup>42</sup>
+
+| Usage                      | Where                              |
+| -------------------------- | ---------------------------------- |
+| `<Table.ColumnHeaderCell>` | examples/alert-dialog.examples:191 |
+| `<Table.ColumnHeaderCell>` | examples/alert-dialog.examples:192 |
+| `<Table.ColumnHeaderCell>` | examples/alert-dialog.examples:193 |
+
+### DropdownMenu.Trigger <sup>41</sup>
+
+| Usage                                                                                           | Where                               |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `<DropdownMenu.Trigger openOnHover delay={100}>` (+ children)                                   | examples/dropdown-menu.examples:203 |
+| `<DropdownMenu.Trigger id={"menu-trigger-library"} payload={"library"}>` (+ handle, children)   | examples/dropdown-menu.examples:374 |
+| `<DropdownMenu.Trigger id={"menu-trigger-playback"} payload={"playback"}>` (+ handle, children) | examples/dropdown-menu.examples:378 |
+
+### DataTable.Item <sup>40</sup>
+
+| Usage                                            | Where                            |
+| ------------------------------------------------ | -------------------------------- |
+| `<DataTable.Item align={"center"}>` (+ children) | examples/demos/data-table.demo:7 |
+| `<DataTable.Item>` (+ children)                  | examples/data-table.examples:23  |
+
+### DataTable.Label <sup>40</sup>
+
+| Usage                                                        | Where                            |
+| ------------------------------------------------------------ | -------------------------------- |
+| `<DataTable.Label color={"indigo"} style={{"minWidth":40}}>` | examples/data-table.examples:158 |
+| `<DataTable.Label color={"cyan"} style={{"minWidth":40}}>`   | examples/data-table.examples:164 |
+| `<DataTable.Label color={"lime"} style={{"minWidth":40}}>`   | examples/data-table.examples:170 |
+
+### DataTable.Value <sup>40</sup>
+
+| Usage               | Where                            |
+| ------------------- | -------------------------------- |
+| `<DataTable.Value>` | examples/data-table.examples:25  |
+| `<DataTable.Value>` | examples/data-table.examples:161 |
+| `<DataTable.Value>` | examples/data-table.examples:167 |
+
+### Popover.Content <sup>40</sup>
+
+| Usage                                                                                                  | Where                                     |
+| ------------------------------------------------------------------------------------------------------ | ----------------------------------------- |
+| `<Popover.Content variant={"translucent"} align={"center"} style={{"width":"unset"}}>` (+ children)    | examples/date-picker.examples:49          |
+| `<Popover.Content variant={"translucent"} align={"center"} style={{"minWidth":"unset"}}>` (+ children) | examples/date-range-picker.examples:92    |
+| `<Popover.Content variant={"translucent"} align={"center"}>` (+ children)                              | src/components/date-picker/date-picker:71 |
+
+### Popover.Root <sup>40</sup>
+
+| Usage                                       | Where                         |
+| ------------------------------------------- | ----------------------------- |
+| `<Popover.Root open>` (+ children)          | examples/popover.examples:600 |
+| `<Popover.Root modal={false}>` (+ children) | examples/popover.examples:912 |
+| `<Popover.Root modal>` (+ children)         | examples/popover.examples:929 |
+
+### Field.Description <sup>39</sup>
+
+| Usage                 | Where                           |
+| --------------------- | ------------------------------- |
+| `<Field.Description>` | examples/demos/field.demo:9     |
+| `<Field.Description>` | examples/demos/fieldset.demo:21 |
+| `<Field.Description>` | examples/field.examples:461     |
+
+### Autocomplete.Empty <sup>38</sup>
+
+| Usage                                                            | Where                               |
+| ---------------------------------------------------------------- | ----------------------------------- |
+| `<Autocomplete.Empty style={{"color":"var(--gray-alpha-800)"}}>` | examples/autocomplete.examples:1262 |
+| `<Autocomplete.Empty>`                                           | examples/autocomplete.examples:817  |
+| `<Autocomplete.Empty>`                                           | examples/autocomplete.examples:880  |
+
+### Table.RowHeaderCell <sup>38</sup>
+
+| Usage                               | Where                              |
+| ----------------------------------- | ---------------------------------- |
+| `<Table.RowHeaderCell colSpan={3}>` | examples/table.examples:684        |
+| `<Table.RowHeaderCell>`             | examples/alert-dialog.examples:199 |
+| `<Table.RowHeaderCell>`             | examples/alert-dialog.examples:205 |
+
+### Tabs.Content <sup>38</sup>
+
+| Usage                                                                     | Where                       |
+| ------------------------------------------------------------------------- | --------------------------- |
+| `<Tabs.Content value={"account"} className={"px-1 py-3"}>` (+ children)   | examples/demos/tabs.demo:13 |
+| `<Tabs.Content value={"documents"} className={"px-1 py-3"}>` (+ children) | examples/demos/tabs.demo:16 |
+| `<Tabs.Content value={"settings"} className={"px-1 py-3"}>` (+ children)  | examples/demos/tabs.demo:19 |
+
+### Tabs.Trigger <sup>38</sup>
+
+| Usage                                | Where                       |
+| ------------------------------------ | --------------------------- |
+| `<Tabs.Trigger value={"account"}>`   | examples/demos/tabs.demo:8  |
+| `<Tabs.Trigger value={"documents"}>` | examples/demos/tabs.demo:9  |
+| `<Tabs.Trigger value={"settings"}>`  | examples/demos/tabs.demo:10 |
+
+### CreditCard.Field <sup>37</sup>
+
+| Usage                                                 | Where                             |
+| ----------------------------------------------------- | --------------------------------- |
+| `<CreditCard.Field name={"cardNumber"}>` (+ children) | examples/credit-card.examples:451 |
+| `<CreditCard.Field name={"expiry"}>` (+ children)     | examples/credit-card.examples:458 |
+| `<CreditCard.Field name={"cvv"}>` (+ children)        | examples/credit-card.examples:466 |
+
+### CreditCard.FieldLabel <sup>37</sup>
+
+| Usage                     | Where                             |
+| ------------------------- | --------------------------------- |
+| `<CreditCard.FieldLabel>` | examples/credit-card.examples:155 |
+| `<CreditCard.FieldLabel>` | examples/credit-card.examples:160 |
+| `<CreditCard.FieldLabel>` | examples/credit-card.examples:164 |
+
+### DropdownMenu.Content <sup>35</sup>
+
+| Usage                                                                       | Where                               |
+| --------------------------------------------------------------------------- | ----------------------------------- |
+| `<DropdownMenu.Content align={"end"}>` (+ children)                         | examples/table.examples:205         |
+| `<DropdownMenu.Content side={"bottom"} align={"start"}>` (+ ..., children)  | examples/dropdown-menu.examples:427 |
+| `<DropdownMenu.Content side={"bottom"} align={"center"}>` (+ ..., children) | examples/dropdown-menu.examples:438 |
+
+### DropdownMenu.Root <sup>35</sup>
+
+| Usage                              | Where                               |
+| ---------------------------------- | ----------------------------------- |
+| `<DropdownMenu.Root>` (+ children) | examples/demos/dropdown-menu.demo:8 |
+
+### Theme <sup>35</sup>
+
+| Usage                                                                                                                                  | Where                       |
+| -------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `<Theme appearance={"dark"} hasBackground={false} style={{"padding":"var(--space-5)","borderRadius":"var(--radius-4)"}}>` (+ children) | examples/theme.examples:228 |
+| `<Theme appearance={"light"} style={{"padding":"var(--space-5)","borderRadius":"var(--radius-4)"}}>` (+ children)                      | examples/theme.examples:74  |
+| `<Theme appearance={"dark"} style={{"padding":"var(--space-5)","borderRadius":"var(--radius-4)"}}>` (+ children)                       | examples/theme.examples:78  |
+
+### HoverCard.Trigger <sup>33</sup>
+
+| Usage                                                           | Where                            |
+| --------------------------------------------------------------- | -------------------------------- |
+| `<HoverCard.Trigger delay={0} closeDelay={0}>` (+ children)     | examples/hover-card.examples:190 |
+| `<HoverCard.Trigger delay={200} closeDelay={150}>` (+ children) | examples/hover-card.examples:199 |
+| `<HoverCard.Trigger delay={600} closeDelay={300}>` (+ children) | examples/hover-card.examples:208 |
+
+### RadioGroup.Root <sup>32</sup>
+
+| Usage                                                                                  | Where                              |
+| -------------------------------------------------------------------------------------- | ---------------------------------- |
+| `<RadioGroup.Root defaultValue={"1"} color={"green"} size={"3"}>` (+ children)         | examples/demos/radio-group.demo:13 |
+| `<RadioGroup.Root color={"indigo"} defaultValue={"1"} highContrast>` (+ ..., children) | examples/radio-group.examples:121  |
+| `<RadioGroup.Root color={"cyan"} defaultValue={"1"} highContrast>` (+ ..., children)   | examples/radio-group.examples:129  |
+
+### Skeleton.Avatar <sup>32</sup>
+
+| Usage                                                           | Where                          |
+| --------------------------------------------------------------- | ------------------------------ |
+| `<Skeleton.Avatar size={"3"}>`                                  | examples/demos/skeleton.demo:8 |
+| `<Skeleton.Avatar size={"1"} shape={"square"}>` (+ ...)         | examples/skeleton.examples:41  |
+| `<Skeleton.Avatar color={"gray"} highContrast={false}>` (+ ...) | examples/skeleton.examples:210 |
+
+### DropdownMenu.Separator <sup>31</sup>
+
+| Usage                      | Where                                |
+| -------------------------- | ------------------------------------ |
+| `<DropdownMenu.Separator>` | examples/demos/dropdown-menu.demo:15 |
+
+### Heading <sup>31</sup>
+
+| Usage                                              | Where                        |
+| -------------------------------------------------- | ---------------------------- |
+| `<Heading size={"3"} style={{"marginBottom":12}}>` | examples/portal.examples:56  |
+| `<Heading size={"3"} style={{"marginBottom":12}}>` | examples/portal.examples:86  |
+| `<Heading size={"4"} style={{"marginBottom":8}}>`  | examples/portal.examples:166 |
+
+### HoverCard.Content <sup>31</sup>
+
+| Usage                                                                   | Where                            |
+| ----------------------------------------------------------------------- | -------------------------------- |
+| `<HoverCard.Content side={"top"} align={"center"}>` (+ ..., children)   | examples/hover-card.examples:310 |
+| `<HoverCard.Content side={"left"} align={"center"}>` (+ ..., children)  | examples/hover-card.examples:323 |
+| `<HoverCard.Content side={"right"} align={"center"}>` (+ ..., children) | examples/hover-card.examples:334 |
+
+### HoverCard.Root <sup>31</sup>
+
+| Usage                                | Where                            |
+| ------------------------------------ | -------------------------------- |
+| `<HoverCard.Root open>` (+ children) | examples/hover-card.examples:881 |
+| `<HoverCard.Root>` (+ children)      | examples/demos/hover-card.demo:8 |
+
+### Input.Slot <sup>31</sup>
+
+| Usage                                                  | Where                               |
+| ------------------------------------------------------ | ----------------------------------- |
+| `<Input.Slot color={"green"}>`                         | examples/input.examples:260         |
+| `<Input.Slot style={{"padding":4}}>` (+ children)      | examples/autocomplete.examples:1253 |
+| `<Input.Slot style={{"paddingRight":4}}>` (+ children) | examples/autocomplete.examples:1513 |
+
+### Textarea <sup>31</sup>
+
+| Usage                                                                                                    | Where                          |
+| -------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `<Textarea variant={"soft"} color={"blue"} size={"3"} placeholder={"Blue, size 3"}>`                     | examples/demos/textarea.demo:9 |
+| `<Textarea required placeholder={"What's on your mind?"} style={{"minHeight":150}}>` (+ value, onChange) | examples/dialog.examples:820   |
+| `<Textarea size={"3"} placeholder={"Tell us about yourself"} rows={3}>` (+ value, onChange)              | examples/tabs.examples:346     |
+
+### Dialog.Content <sup>30</sup>
+
+| Usage                                                                        | Where                              |
+| ---------------------------------------------------------------------------- | ---------------------------------- |
+| `<Dialog.Content size={"2"} style={{"width":360}}>` (+ finalFocus, children) | examples/combobox.examples:1158    |
+| `<Dialog.Content style={{"maxWidth":450}}>` (+ children)                     | examples/context-menu.examples:239 |
+| `<Dialog.Content style={{"maxWidth":400}}>` (+ children)                     | examples/context-menu.examples:287 |
+
+### Dialog.Root <sup>30</sup>
+
+| Usage                                            | Where                           |
+| ------------------------------------------------ | ------------------------------- |
+| `<Dialog.Root>` (+ open, onOpenChange, children) | examples/combobox.examples:1157 |
+
+### RadioButtonGroup.Item <sup>30</sup>
+
+| Usage                                                       | Where                                    |
+| ----------------------------------------------------------- | ---------------------------------------- |
+| `<RadioButtonGroup.Item value={"2"} disabled>` (+ children) | examples/radio-button-group.examples:218 |
+| `<RadioButtonGroup.Item value={"1"}>` (+ children)          | examples/radio-button-group.examples:30  |
+| `<RadioButtonGroup.Item value={"2"}>` (+ children)          | examples/radio-button-group.examples:44  |
+
+### Alert.Action <sup>29</sup>
+
+| Usage                                           | Where                       |
+| ----------------------------------------------- | --------------------------- |
+| `<Alert.Action variant={"secondary"} disabled>` | examples/alert.examples:267 |
+| `<Alert.Action variant={"secondary"}>`          | examples/alert.examples:47  |
+| `<Alert.Action variant={"secondary"}>`          | examples/alert.examples:89  |
+
+### Alert.Title <sup>29</sup>
+
+| Usage           | Where                      |
+| --------------- | -------------------------- |
+| `<Alert.Title>` | examples/alert.examples:23 |
+| `<Alert.Title>` | examples/alert.examples:56 |
+| `<Alert.Title>` | examples/alert.examples:85 |
+
+### Dialog.Title <sup>29</sup>
+
+| Usage            | Where                              |
+| ---------------- | ---------------------------------- |
+| `<Dialog.Title>` | examples/combobox.examples:1159    |
+| `<Dialog.Title>` | examples/context-menu.examples:240 |
+| `<Dialog.Title>` | examples/context-menu.examples:288 |
+
+### Skeleton.Rect <sup>29</sup>
+
+| Usage                                                                                              | Where                          |
+| -------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `<Skeleton.Rect style={{"width":140,"height":140}} color={"gray"} highContrast={false}>` (+ ...)   | examples/skeleton.examples:310 |
+| `<Skeleton.Rect style={{"width":140,"height":140}} color={"indigo"} highContrast={false}>` (+ ...) | examples/skeleton.examples:311 |
+| `<Skeleton.Rect style={{"width":140,"height":140}} color={"cyan"} highContrast={false}>` (+ ...)   | examples/skeleton.examples:312 |
+
+### Alert.Root <sup>28</sup>
+
+| Usage                                                                  | Where                             |
+| ---------------------------------------------------------------------- | --------------------------------- |
+| `<Alert.Root color={"success"} style={{"marginTop":12}}>` (+ children) | examples/credit-card.examples:487 |
+| `<Alert.Root color={"warning"} className={"max-w-105"}>` (+ children)  | examples/demos/alert.demo:8       |
+| `<Alert.Root color={"success"} style={{"marginTop":16}}>` (+ children) | examples/field.examples:434       |
+
+### Dialog.Description <sup>28</sup>
+
+| Usage                  | Where                              |
+| ---------------------- | ---------------------------------- |
+| `<Dialog.Description>` | examples/combobox.examples:1160    |
+| `<Dialog.Description>` | examples/context-menu.examples:241 |
+| `<Dialog.Description>` | examples/context-menu.examples:289 |
+
+### Spinner <sup>28</sup>
+
+| Usage                                            | Where                               |
+| ------------------------------------------------ | ----------------------------------- |
+| `<Spinner size={"2"} style={{"marginRight":6}}>` | examples/combobox.examples:927      |
+| `<Spinner size={"2"}>`                           | examples/autocomplete.examples:1710 |
+| `<Spinner size={"1"}>`                           | examples/demos/spinner.demo:7       |
+
+### Code <sup>27</sup>
+
+| Usage                                           | Where                       |
+| ----------------------------------------------- | --------------------------- |
+| `<Code variant={"soft"}>`                       | examples/oscar.examples:235 |
+| `<Code variant={"solid"} highContrast>` (+ ...) | examples/code.examples:112  |
+| `<Code variant={"soft"} highContrast>` (+ ...)  | examples/code.examples:115  |
+
+### Lightbox.Trigger <sup>27</sup>
+
+| Usage                                                                                                                                                                                                                                                                                                                                                           | Where                           |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| `<Lightbox.Trigger index={0} crossfade>` (+ style, children)                                                                                                                                                                                                                                                                                                    | examples/lightbox.examples:3378 |
+| `<Lightbox.Trigger crossfade className={"cursor-pointer border-none bg-transparent p-0"}>` (+ key, index, children)                                                                                                                                                                                                                                             | examples/demos/lightbox.demo:19 |
+| `<Lightbox.Trigger crossfade style={{"border":"1px solid var(--gray-alpha-200)","background":"var(--color-surface)","borderRadius":16,"padding":14,"cursor":"pointer","display":"flex","alignItems":"center","gap":12,"textAlign":"left","transition":"background 150ms ease, border-color 150ms ease"}}>` (+ key, index, onMouseEnter, onMouseLeave, children) | examples/lightbox.examples:2643 |
+
+### Sheet.Close <sup>27</sup>
+
+| Usage                        | Where                        |
+| ---------------------------- | ---------------------------- |
+| `<Sheet.Close>` (+ children) | examples/demos/sheet.demo:25 |
+
+### Dialog.Trigger <sup>26</sup>
+
+| Usage                                                                      | Where                         |
+| -------------------------------------------------------------------------- | ----------------------------- |
+| `<Dialog.Trigger tabIndex={-1} nativeButton={false}>` (+ handle, children) | examples/dialog.examples:1441 |
+| `<Dialog.Trigger nativeButton>` (+ children)                               | examples/demos/dialog.demo:7  |
+| `<Dialog.Trigger tabIndex={-1}>` (+ children)                              | examples/dialog.examples:1316 |
+
+### TabsNav.Link <sup>26</sup>
+
+| Usage                              | Where                          |
+| ---------------------------------- | ------------------------------ |
+| `<TabsNav.Link active href={"#"}>` | examples/demos/tabs-nav.demo:7 |
+| `<TabsNav.Link active href={"#"}>` | examples/tabs-nav.examples:32  |
+| `<TabsNav.Link active href={"#"}>` | examples/tabs-nav.examples:65  |
+
+### X <sup>26</sup>
+
+| Usage           | Where                       |
+| --------------- | --------------------------- |
+| `<X size={16}>` | examples/drawer.examples:54 |
+| `<X size={12}>` | examples/field.examples:968 |
+
+### Combobox.Root <sup>25</sup>
+
+| Usage                                                                                                    | Where                          |
+| -------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `<Combobox.Root defaultValue={["Apple","Mango"]} multiple disabled size={"2"}>` (+ items, children)      | examples/combobox.examples:570 |
+| `<Combobox.Root defaultValue={["Grape","Strawberry"]} multiple readOnly size={"2"}>` (+ items, children) | examples/combobox.examples:603 |
+| `<Combobox.Root defaultValue={"Apple"} disabled size={"2"}>` (+ items, children)                         | examples/combobox.examples:558 |
+
+### ToggleGroup.Trigger <sup>25</sup>
+
+| Usage                                     | Where                       |
+| ----------------------------------------- | --------------------------- |
+| `<ToggleGroup.Trigger value={"LJKUI"}>`   | examples/chart.examples:105 |
+| `<ToggleGroup.Trigger value={"BaseUI"}>`  | examples/chart.examples:106 |
+| `<ToggleGroup.Trigger value={"React95"}>` | examples/chart.examples:107 |
+
+### Empty.Description <sup>24</sup>
+
+| Usage                                                    | Where                               |
+| -------------------------------------------------------- | ----------------------------------- |
+| `<Empty.Description size={"1"} style={{"marginTop":4}}>` | examples/autocomplete.examples:1542 |
+| `<Empty.Description size={"3"}>`                         | examples/empty.examples:540         |
+| `<Empty.Description>`                                    | examples/demos/empty.demo:14        |
+
+### Empty.Header <sup>24</sup>
+
+| Usage                         | Where                               |
+| ----------------------------- | ----------------------------------- |
+| `<Empty.Header>` (+ children) | examples/autocomplete.examples:1535 |
+
+### Empty.Root <sup>24</sup>
+
+| Usage                                                                           | Where                       |
+| ------------------------------------------------------------------------------- | --------------------------- |
+| `<Empty.Root style={{"border":"2px dashed var(--color-stroke)"}}>` (+ children) | examples/empty.examples:389 |
+| `<Empty.Root style={{"maxWidth":480}}>` (+ children)                            | examples/empty.examples:535 |
+| `<Empty.Root style={{"maxWidth":420}}>` (+ children)                            | examples/empty.examples:561 |
+
+### Empty.Title <sup>24</sup>
+
+| Usage                                                          | Where                               |
+| -------------------------------------------------------------- | ----------------------------------- |
+| `<Empty.Title size={"2"} style={{"color":"var(--gray-950)"}}>` | examples/autocomplete.examples:1539 |
+| `<Empty.Title size={"5"} weight={"bold"}>`                     | examples/empty.examples:537         |
+| `<Empty.Title>`                                                | examples/demos/empty.demo:13        |
+
+### Fieldset.Legend <sup>24</sup>
+
+| Usage                                                                   | Where                       |
+| ----------------------------------------------------------------------- | --------------------------- |
+| `<Fieldset.Legend variant={"label"} style={{"margin":0}}>` (+ children) | examples/form.examples:746  |
+| `<Fieldset.Legend variant={"label"}>`                                   | examples/field.examples:831 |
+| `<Fieldset.Legend variant={"label"}>`                                   | examples/field.examples:864 |
+
+### Fieldset.Root <sup>24</sup>
+
+| Usage                                                     | Where                          |
+| --------------------------------------------------------- | ------------------------------ |
+| `<Fieldset.Root className={"w-80"}>` (+ children)         | examples/demos/fieldset.demo:6 |
+| `<Fieldset.Root style={{"width":320}}>` (+ children)      | examples/fieldset.examples:7   |
+| `<Fieldset.Root style={{"borderRadius":8}}>` (+ children) | examples/form.examples:740     |
+
+### Form <sup>24</sup>
+
+| Usage                                                                                                      | Where                          |
+| ---------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `<Form className={"w-75"}>` (+ onSubmit, children)                                                         | examples/demos/form.demo:8     |
+| `<Form style={{"display":"flex","flexDirection":"column","gap":"var(--space-5)"}}>` (+ onSubmit, children) | examples/field.examples:635    |
+| `<Form>` (+ onSubmit, children)                                                                            | examples/combobox.examples:659 |
+
+### Kbd <sup>24</sup>
+
+| Usage                                         | Where                               |
+| --------------------------------------------- | ----------------------------------- |
+| `<Kbd size={"1"} style={{"marginInline":2}}>` | examples/empty.examples:591         |
+| `<Kbd size={"1"}>`                            | examples/autocomplete.examples:1625 |
+| `<Kbd size={"1"}>`                            | examples/autocomplete.examples:1626 |
+
+### Slider <sup>24</sup>
+
+| Usage                                                                                                                           | Where                        |
+| ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| `<Slider min={0} max={1000} step={50} minStepsBetweenValues={2} thumbCollisionBehavior={"push"}>` (+ ..., value, onValueChange) | examples/slider.examples:210 |
+| `<Slider min={6} max={22} step={1} minStepsBetweenValues={2} thumbCollisionBehavior={"push"}>` (+ ..., value, onValueChange)    | examples/slider.examples:231 |
+| `<Slider defaultValue={[30]} size={"1"} color={"orange"}>`                                                                      | examples/demos/slider.demo:8 |
+
+### AvatarGroup.Avatar <sup>23</sup>
+
+| Usage                                                                                                                                                                                     | Where                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `<AvatarGroup.Avatar src={"https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"} fallback={"Ada Lovelace"}>` | examples/demos/avatar-group.demo:7  |
+| `<AvatarGroup.Avatar fallback={"GH"} color={"indigo"}>`                                                                                                                                   | examples/demos/avatar-group.demo:11 |
+| `<AvatarGroup.Avatar fallback={"AT"} color={"teal"}>`                                                                                                                                     | examples/demos/avatar-group.demo:12 |
+
+### Combobox.Item <sup>23</sup>
+
+| Usage                                                                                                 | Where                          |
+| ----------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `<Combobox.Item style={{"height":"auto","paddingTop":8,"paddingBottom":8}}>` (+ key, value, children) | examples/combobox.examples:839 |
+| `<Combobox.Item>` (+ key, value, children)                                                            | examples/combobox.examples:225 |
+
+### Carousel.ScrollMarkerGroup <sup>22</sup>
+
+| Usage                                                                                                                                                                                   | Where                          |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `<Carousel.ScrollMarkerGroup aria-hidden={"true"} tabIndex={-1} style={{"display":"flex","justifyContent":"center","gap":"var(--space-2)","marginTop":"var(--space-3)"}}>` (+ children) | examples/carousel.examples:521 |
+| `<Carousel.ScrollMarkerGroup aria-label={"Choose item"} style={{"display":"flex","gap":"var(--space-1)"}}>` (+ children)                                                                | examples/carousel.examples:176 |
+| `<Carousel.ScrollMarkerGroup aria-label={"Choose team member"} style={{"display":"flex","gap":"var(--space-1)"}}>` (+ children)                                                         | examples/carousel.examples:252 |
+
+### Combobox.Content <sup>22</sup>
+
+| Usage                             | Where                          |
+| --------------------------------- | ------------------------------ |
+| `<Combobox.Content>` (+ children) | examples/combobox.examples:220 |
+
+### Combobox.Empty <sup>22</sup>
+
+| Usage              | Where                          |
+| ------------------ | ------------------------------ |
+| `<Combobox.Empty>` | examples/combobox.examples:222 |
+| `<Combobox.Empty>` | examples/combobox.examples:431 |
+| `<Combobox.Empty>` | examples/combobox.examples:472 |
+
+### Combobox.List <sup>22</sup>
+
+| Usage                          | Where                          |
+| ------------------------------ | ------------------------------ |
+| `<Combobox.List>` (+ children) | examples/combobox.examples:223 |
+
+### ExampleIcon <sup>22</sup>
+
+| Usage                     | Where                            |
+| ------------------------- | -------------------------------- |
+| `<ExampleIcon size={16}>` | examples/filter-chip.examples:39 |
+| `<ExampleIcon size={20}>` | examples/filter-chip.examples:62 |
+| `<ExampleIcon size={24}>` | examples/filter-chip.examples:65 |
+
+### Alert.Icon <sup>21</sup>
+
+| Usage                       | Where                       |
+| --------------------------- | --------------------------- |
+| `<Alert.Icon>`              | examples/alert.examples:296 |
+| `<Alert.Icon>` (+ children) | examples/alert.examples:20  |
+
+### Carousel.Item <sup>21</sup>
+
+| Usage                                                                                                  | Where                          |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------ |
+| `<Carousel.Item style={{"scrollSnapAlign":"start","flexShrink":0}}>` (+ key, children)                 | examples/carousel.examples:131 |
+| `<Carousel.Item style={{"scrollSnapAlign":"center","flexShrink":0,"width":"100%"}}>` (+ key, children) | examples/carousel.examples:461 |
+| `<Carousel.Item style={{"flexShrink":0}}>` (+ key, children)                                           | examples/carousel.examples:819 |
+
+### Carousel.Root <sup>21</sup>
+
+| Usage                                                                    | Where                          |
+| ------------------------------------------------------------------------ | ------------------------------ |
+| `<Carousel.Root defaultValue={0} orientation={"vertical"}>` (+ children) | examples/carousel.examples:861 |
+| `<Carousel.Root defaultValue={0}>` (+ children)                          | examples/carousel.examples:118 |
+| `<Carousel.Root loop>` (+ children)                                      | examples/carousel.examples:445 |
+
+### Carousel.Viewport <sup>21</sup>
+
+| Usage                                                                                                                                                                                                                                                                 | Where                          |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `<Carousel.Viewport aria-label={"Dynamic items"} style={{"display":"flex","gap":"var(--space-3)","overflowX":"auto","overscrollBehaviorX":"contain","scrollSnapType":"x mandatory","scrollbarWidth":"none"}}>` (+ children)                                           | examples/carousel.examples:119 |
+| `<Carousel.Viewport aria-label={"Team members"} style={{"display":"flex","gap":"var(--space-3)","overflowX":"auto","overscrollBehaviorX":"contain","scrollSnapType":"x mandatory","scrollbarWidth":"none"}}>` (+ children)                                            | examples/carousel.examples:217 |
+| `<Carousel.Viewport aria-label={"Product images"} style={{"display":"flex","overflowX":"auto","overscrollBehaviorX":"contain","scrollSnapType":"x mandatory","scrollbarWidth":"none","borderRadius":"var(--radius-3)","background":"var(--gray-100)"}}>` (+ children) | examples/carousel.examples:448 |
+
+### Drawer.Trigger <sup>21</sup>
+
+| Usage                                                                                             | Where                        |
+| ------------------------------------------------------------------------------------------------- | ---------------------------- |
+| `<Drawer.Trigger payload={{"userId":"1","userName":"Alice","mode":"view"}}>` (+ handle, children) | examples/drawer.examples:268 |
+| `<Drawer.Trigger payload={{"userId":"2","userName":"Bob","mode":"edit"}}>` (+ handle, children)   | examples/drawer.examples:271 |
+| `<Drawer.Trigger payload={{"userId":"3","userName":"Carol","mode":"edit"}}>` (+ handle, children) | examples/drawer.examples:274 |
+
+### Empty.Actions <sup>21</sup>
+
+| Usage                                                                                                  | Where                        |
+| ------------------------------------------------------------------------------------------------------ | ---------------------------- |
+| `<Empty.Actions style={{"display":"flex","flexDirection":"row"}}>` (+ children)                        | examples/empty.examples:59   |
+| `<Empty.Actions style={{"display":"flex","gap":8,"flexDirection":"row","width":"100%"}}>` (+ children) | examples/empty.examples:639  |
+| `<Empty.Actions>` (+ children)                                                                         | examples/demos/empty.demo:16 |
+
+### Empty.Media <sup>21</sup>
+
+| Usage                                        | Where                       |
+| -------------------------------------------- | --------------------------- |
+| `<Empty.Media color={"blue"}>` (+ children)  | examples/empty.examples:107 |
+| `<Empty.Media color={"green"}>` (+ children) | examples/empty.examples:123 |
+| `<Empty.Media color={"lime"}>` (+ children)  | examples/empty.examples:138 |
+
+### FilterChip <sup>21</sup>
+
+| Usage                                                                                                  | Where                             |
+| ------------------------------------------------------------------------------------------------------ | --------------------------------- |
+| `<FilterChip name={"availability"} defaultChecked value={"in-stock"} uncheckedValue={"all"}>` (+ ...)  | examples/filter-chip.examples:205 |
+| `<FilterChip name={"discount"} defaultChecked value={"on-sale"} uncheckedValue={"no-filter"}>` (+ ...) | examples/filter-chip.examples:211 |
+| `<FilterChip defaultChecked color={"orange"}>`                                                         | examples/demos/filter-chip.demo:9 |
+
+### Label <sup>21</sup>
+
+| Usage     | Where                              |
+| --------- | ---------------------------------- |
+| `<Label>` | examples/emoji-colors.examples:103 |
+| `<Label>` | examples/emoji-colors.examples:139 |
+| `<Label>` | examples/emoji-colors.examples:205 |
+
+### Lightbox.Content <sup>21</sup>
+
+| Usage                                                                          | Where                           |
+| ------------------------------------------------------------------------------ | ------------------------------- |
+| `<Lightbox.Content aria-label={"Photo gallery"}>` (+ children)                 | examples/demos/lightbox.demo:34 |
+| `<Lightbox.Content aria-label={"Photo gallery with thumbnails"}>` (+ children) | examples/lightbox.examples:181  |
+| `<Lightbox.Content aria-label={"Controlled photo gallery"}>` (+ children)      | examples/lightbox.examples:270  |
+
+### Lightbox.Item <sup>21</sup>
+
+| Usage                                                                                                                                                                                                                                                                                                                                 | Where                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| `<Lightbox.Item style={{"position":"relative","inset":"auto","visibility":"visible","animation":"none","scrollSnapAlign":"center","flexShrink":0,"width":"100vw","display":"flex","alignItems":"center","justifyContent":"center","padding":"0 var(--space-5)","boxSizing":"border-box"}}>` (+ key, index, caption, render, children) | examples/lightbox.examples:395  |
+| `<Lightbox.Item style={{"position":"relative","inset":"auto","visibility":"visible","animation":"none","scrollSnapAlign":"center","flexShrink":0,"width":"85vw","maxWidth":900}}>` (+ key, index, caption, render, children)                                                                                                          | examples/lightbox.examples:1619 |
+| `<Lightbox.Item style={{"position":"relative","inset":"auto","visibility":"visible","animation":"none","scrollSnapAlign":"center","flexShrink":0,"height":"100%","display":"flex","alignItems":"center","justifyContent":"center","padding":"var(--space-4)","boxSizing":"border-box"}}>` (+ key, index, caption, render, children)   | examples/lightbox.examples:2029 |
+
+### Lightbox.ItemGroup <sup>21</sup>
+
+| Usage                                                            | Where                           |
+| ---------------------------------------------------------------- | ------------------------------- |
+| `<Lightbox.ItemGroup preload={2}>` (+ children)                  | examples/lightbox.examples:184  |
+| `<Lightbox.ItemGroup preload={0}>` (+ children)                  | examples/lightbox.examples:340  |
+| `<Lightbox.ItemGroup style={{"padding":"0 64px"}}>` (+ children) | examples/lightbox.examples:2376 |
+
+### Lightbox.Root <sup>21</sup>
+
+| Usage                                                                                                                                    | Where                           |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| `<Lightbox.Root viewTransition loop scrollTriggerIntoView={{"type":"onClose","behavior":"instant"}}>` (+ value, onValueChange, children) | examples/lightbox.examples:1439 |
+| `<Lightbox.Root loop viewTransition>` (+ children)                                                                                       | examples/lightbox.examples:172  |
+| `<Lightbox.Root viewTransition scrollTriggerIntoView={{"type":"onChange","behavior":"smooth"}}>` (+ children)                            | examples/lightbox.examples:547  |
+
+### AvatarStack.Avatar <sup>20</sup>
+
+| Usage                                                                                                                                                                                                   | Where                               |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `<AvatarStack.Avatar fallback={"Cameron Zoub"} color={"blue"} src={"https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"}>` | examples/empty.examples:312         |
+| `<AvatarStack.Avatar src={"https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"} fallback={"Ada Lovelace"}>`               | examples/demos/avatar-stack.demo:7  |
+| `<AvatarStack.Avatar fallback={"GH"} color={"indigo"}>`                                                                                                                                                 | examples/demos/avatar-stack.demo:11 |
+
+### ChevronLeft <sup>20</sup>
+
+| Usage                     | Where                          |
+| ------------------------- | ------------------------------ |
+| `<ChevronLeft size={16}>` | examples/carousel.examples:169 |
+
+### ChevronRight <sup>20</sup>
+
+| Usage                      | Where                          |
+| -------------------------- | ------------------------------ |
+| `<ChevronRight size={16}>` | examples/carousel.examples:172 |
+
+### CreditCard.Content <sup>20</sup>
+
+| Usage                               | Where                             |
+| ----------------------------------- | --------------------------------- |
+| `<CreditCard.Content>` (+ children) | examples/credit-card.examples:180 |
+
+### CreditCard.Root <sup>20</sup>
+
+| Usage                                                 | Where                             |
+| ----------------------------------------------------- | --------------------------------- |
+| `<CreditCard.Root face={"back"}>` (+ children)        | examples/credit-card.examples:322 |
+| `<CreditCard.Root defaultFace={"back"}>` (+ children) | examples/credit-card.examples:399 |
+| `<CreditCard.Root>` (+ face, onFaceChange, children)  | examples/credit-card.examples:196 |
+
+### AlertDialog.Content <sup>19</sup>
+
+| Usage                                                                    | Where                              |
+| ------------------------------------------------------------------------ | ---------------------------------- |
+| `<AlertDialog.Content style={{"maxWidth":350}} size={"2"}>` (+ children) | examples/alert-dialog.examples:88  |
+| `<AlertDialog.Content style={{"maxWidth":350}} size={"3"}>` (+ children) | examples/alert-dialog.examples:115 |
+| `<AlertDialog.Content style={{"maxWidth":350}} size={"4"}>` (+ children) | examples/alert-dialog.examples:142 |
+
+### AlertDialog.Description <sup>19</sup>
+
+| Usage                       | Where                              |
+| --------------------------- | ---------------------------------- |
+| `<AlertDialog.Description>` | examples/alert-dialog.examples:28  |
+| `<AlertDialog.Description>` | examples/alert-dialog.examples:183 |
+| `<AlertDialog.Description>` | examples/alert-dialog.examples:249 |

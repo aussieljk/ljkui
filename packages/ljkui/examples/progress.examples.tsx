@@ -1,3 +1,4 @@
+import ProgressOverview from './demos/progress.demo';
 import React from 'react';
 import { Progress, progressPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Progress, progressPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/progress.demo.tsx` before demos folded into examples. */
+  Overview: ProgressOverview,
+
   Size() {
     const args = {
       size: progressPropDefs.size.default,

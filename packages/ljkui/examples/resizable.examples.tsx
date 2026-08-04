@@ -1,3 +1,4 @@
+import ResizableOverview from './demos/resizable.demo';
 import React from 'react';
 import { HStack, Resizable, Typography } from 'ljkui';
 
@@ -22,6 +23,9 @@ const frame = {
 export const fileMeta = { group: 'Layout', layout: 'fullscreen' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/resizable.demo.tsx` before demos folded into examples. */
+  Overview: ResizableOverview,
+
   Horizontal: (
     <div style={{ ...frame, width: 520 }}>
       <Resizable.Root direction="horizontal">

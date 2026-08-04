@@ -1,3 +1,4 @@
+import EmptyOverview from './demos/empty.demo';
 import {
   Bell,
   CircleCheck,
@@ -40,6 +41,9 @@ import {
 export const fileMeta = { group: 'Components', layout: 'padded' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/empty.demo.tsx` before demos folded into examples. */
+  Overview: EmptyOverview,
+
   Default() {
     return (
       <Empty.Root>

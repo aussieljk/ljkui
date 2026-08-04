@@ -1,3 +1,4 @@
+import SidebarOverview from './demos/sidebar.demo';
 import React from 'react';
 import { HStack, Sidebar, Typography } from 'ljkui';
 
@@ -178,6 +179,9 @@ const RichShell = () => {
 export const fileMeta = { group: 'Layout', layout: 'fullscreen' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/sidebar.demo.tsx` before demos folded into examples. */
+  Overview: SidebarOverview,
+
   Default: <Shell />,
   'Collapse to icon rail': <Shell collapsible="icon" />,
   'Not collapsible': <Shell collapsible="none" />,

@@ -1,3 +1,4 @@
+import IconsOverview from './demos/icons.demo';
 import React from 'react';
 import { Badge, Button, Card, IconButton, IconProvider, Icons, Typography, type CanonicalIconName } from 'ljkui';
 import {
@@ -40,6 +41,9 @@ const builtIns = [
 export const fileMeta = { group: 'Utilities', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/icons.demo.tsx` before demos folded into examples. */
+  Overview: IconsOverview,
+
   'Built-in icons'() {
     // Shipped inline as SVG and used by the components themselves — no adapter needed.
     return (

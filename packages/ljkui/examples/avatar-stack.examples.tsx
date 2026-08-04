@@ -1,3 +1,4 @@
+import AvatarStackOverview from './demos/avatar-stack.demo';
 import React from 'react';
 import { AvatarStack, colorProp } from 'ljkui';
 
@@ -50,6 +51,9 @@ const availableUsers: Array<{
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/avatar-stack.demo.tsx` before demos folded into examples. */
+  Overview: AvatarStackOverview,
+
   Default() {
     const args = {};
     return (

@@ -1,3 +1,4 @@
+import EmOverview from './demos/em.demo';
 import React from 'react';
 import { Typography } from 'ljkui';
 
@@ -20,4 +21,4 @@ function EmFixture() {
  */
 export const fileMeta = { group: 'Typography', layout: 'centered' } as const;
 
-export const examples = { Example: EmFixture };
+export const examples = { Overview: EmOverview, Example: EmFixture };

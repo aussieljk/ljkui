@@ -1,3 +1,4 @@
+import AspectRatioOverview from './demos/aspect-ratio.demo';
 import React from 'react';
 import { AspectRatio, Card, HStack, Typography } from 'ljkui';
 
@@ -19,6 +20,9 @@ const Placeholder = ({ label }: { label: string }) => (
 export const fileMeta = { group: 'Layout', layout: 'padded' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/aspect-ratio.demo.tsx` before demos folded into examples. */
+  Overview: AspectRatioOverview,
+
   Default: (
     <Card style={{ width: 320 }}>
       <AspectRatio ratio={16 / 9}>

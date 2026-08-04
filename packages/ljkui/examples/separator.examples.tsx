@@ -1,3 +1,4 @@
+import SeparatorOverview from './demos/separator.demo';
 import React from 'react';
 import { Separator, separatorPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Separator, separatorPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Layout', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/separator.demo.tsx` before demos folded into examples. */
+  Overview: SeparatorOverview,
+
   Size() {
     const args = {
       size: separatorPropDefs.size.default,

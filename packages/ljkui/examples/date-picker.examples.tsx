@@ -1,3 +1,4 @@
+import DatePickerOverview from './demos/date-picker.demo';
 import { DateValue, parseDate } from '@internationalized/date';
 import React from 'react';
 import { Button, Calendar, DatePicker, Popover, datePickerPropDefs } from 'ljkui';
@@ -9,6 +10,9 @@ import { Button, Calendar, DatePicker, Popover, datePickerPropDefs } from 'ljkui
 export const fileMeta = { group: 'Controls/Dates', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/date-picker.demo.tsx` before demos folded into examples. */
+  Overview: DatePickerOverview,
+
   Sizes() {
     const args = {
       size: datePickerPropDefs.size.default,

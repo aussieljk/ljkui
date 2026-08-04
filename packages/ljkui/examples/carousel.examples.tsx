@@ -1,3 +1,4 @@
+import CarouselOverview from './demos/carousel.demo';
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 import { Avatar, Badge, Button, Card, Carousel, IconButton, Typography } from 'ljkui';
@@ -742,6 +743,9 @@ const testimonials = [
 export const fileMeta = { group: 'Components', layout: 'fullscreen' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/carousel.demo.tsx` before demos folded into examples. */
+  Overview: CarouselOverview,
+
   Default() {
     return (
       <div style={{ maxWidth: 720 }}>

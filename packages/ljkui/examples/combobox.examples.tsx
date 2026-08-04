@@ -1,3 +1,4 @@
+import ComboboxOverview from './demos/combobox.demo';
 import { Alert, Avatar, Button, Combobox, Dialog, Field, Form, Input, ScrollArea, Spinner, Typography } from 'ljkui';
 import { ChevronDown, Search as SearchIcon } from 'lucide-react';
 import * as React from 'react';
@@ -361,6 +362,9 @@ const noItems: string[] = [];
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/combobox.demo.tsx` before demos folded into examples. */
+  Overview: ComboboxOverview,
+
   Default() {
     return (
       <div style={{ display: 'flex', gap: 64 }}>

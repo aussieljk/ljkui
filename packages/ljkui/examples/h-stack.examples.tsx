@@ -1,3 +1,4 @@
+import HStackOverview from './demos/h-stack.demo';
 import React from 'react';
 import { HStack } from 'ljkui';
 
@@ -44,4 +45,4 @@ function SeparatorFixture() {
  */
 export const fileMeta = { group: 'Layout', layout: 'padded' } as const;
 
-export const examples = { Example: HStackFixture, Separator: SeparatorFixture };
+export const examples = { Overview: HStackOverview, Example: HStackFixture, Separator: SeparatorFixture };

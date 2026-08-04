@@ -1,3 +1,4 @@
+import HoverCardOverview from './demos/hover-card.demo';
 import React from 'react';
 import { Avatar, Button, DataTable, HoverCard, Inset, Link, Typography, hoverCardContentPropDefs } from 'ljkui';
 
@@ -44,6 +45,9 @@ const users: Record<string, UserPayload> = {
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/hover-card.demo.tsx` before demos folded into examples. */
+  Overview: HoverCardOverview,
+
   Default() {
     const args = {
       size: hoverCardContentPropDefs.size.default,

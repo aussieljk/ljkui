@@ -1,3 +1,4 @@
+import CalendarOverview from './demos/calendar.demo';
 import { DateValue, getLocalTimeZone, isWeekend, parseDate, today } from '@internationalized/date';
 import { useLocale } from '@react-aria/i18n';
 import React from 'react';
@@ -10,6 +11,9 @@ import { Calendar } from 'ljkui';
 export const fileMeta = { group: 'Controls/Dates', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/calendar.demo.tsx` before demos folded into examples. */
+  Overview: CalendarOverview,
+
   Default() {
     const args = {
       isDisabled: false,

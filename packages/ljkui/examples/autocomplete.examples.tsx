@@ -1,3 +1,4 @@
+import AutocompleteOverview from './demos/autocomplete.demo';
 import {
   Autocomplete,
   Button,
@@ -800,6 +801,9 @@ const fruits = [
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/autocomplete.demo.tsx` before demos folded into examples. */
+  Overview: AutocompleteOverview,
+
   Default() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', maxWidth: 500 }}>

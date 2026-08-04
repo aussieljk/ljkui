@@ -1,3 +1,4 @@
+import ToggleGroupOverview from './demos/toggle-group.demo';
 import React from 'react';
 import { Button, Drawer, Input, Textarea, ToggleGroup, Typography } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Button, Drawer, Input, Textarea, ToggleGroup, Typography } from 'ljkui'
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/toggle-group.demo.tsx` before demos folded into examples. */
+  Overview: ToggleGroupOverview,
+
   Default() {
     const args = {};
     return (

@@ -1,3 +1,4 @@
+import AlertDialogOverview from './demos/alert-dialog.demo';
 import React from 'react';
 import { AlertDialog, Button, Input, Inset, Table, Typography, alertDialogContentPropDefs } from 'ljkui';
 
@@ -10,6 +11,9 @@ const detachedHandle = AlertDialog.createHandle();
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/alert-dialog.demo.tsx` before demos folded into examples. */
+  Overview: AlertDialogOverview,
+
   Default() {
     const args = { size: alertDialogContentPropDefs.size.default };
     return (

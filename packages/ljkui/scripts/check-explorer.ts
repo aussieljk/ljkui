@@ -9,20 +9,27 @@
  *
  *   bun run scripts/check-explorer.ts    # fail on any drift (CI)
  *
- * Four checks, each covering a thing the generator reads but does not verify:
+ * Six checks, each covering a thing the generator reads but does not verify:
  *   1. every `fixture-support/tools/*.tsx` has a TOOLS entry, and vice versa
  *   2. every tool module actually exports a non-empty `fixtures` object
  *   3. every `guides/*.mdx` has a GUIDES entry, and vice versa
  *   4. every `examples/*.examples.tsx` exports `fileMeta` naming a real section
+ *   5. every `src/components/*` has a barrel and an examples module (was `check:shape`)
+ *   6. `fixture-support/breakpoints.ts` matches `src/styles/breakpoints.css`
+ *
+ * 5 was its own script until the two grew into the same question — "does this component have
+ * all of its parts" — asked twice, in two places, with two different failure messages.
  */
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { basename, join } from 'node:path';
+import { BREAKPOINTS } from '../fixture-support/breakpoints.ts';
 import { GUIDES, LAYOUTS, SECTIONS, TOOLS } from './gen-fixtures-meta.ts';
 
 const packageRoot = join(import.meta.dirname, '..');
 const toolsDir = join(packageRoot, 'fixture-support', 'tools');
 const guidesDir = join(packageRoot, 'guides');
 const examplesDir = join(packageRoot, 'examples');
+const componentsDir = join(packageRoot, 'src', 'components');
 
 const problems: string[] = [];
 
@@ -91,6 +98,43 @@ for (const file of readdirSync(examplesDir).filter((f) => f.endsWith('.examples.
   }
 }
 
+/* 5 — component shape. Previously scripts/check-component-shape.ts. */
+
+/** Internal `base-*` primitives composed by other components — never exported or demoed alone. */
+const INTERNAL = new Set(['base-button', 'base-menu', 'base-tabs-list', 'base-toggle-group-list']);
+/** Dirs that fan out to several per-export examples instead (typography → heading/text/code/…). */
+const NO_EXAMPLE = new Set([...INTERNAL, 'typography']);
+/** Dirs with no barrel `index.ts` (purely internal, imported by path). */
+const NO_INDEX = new Set(['base-toggle-group-list']);
+
+const componentDirs = readdirSync(componentsDir, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name);
+
+for (const dir of componentDirs) {
+  if (!NO_INDEX.has(dir) && !existsSync(join(componentsDir, dir, 'index.ts'))) {
+    problems.push(`src/components/${dir} has no barrel index.ts — add one, or add the slug to NO_INDEX.`);
+  }
+  if (!NO_EXAMPLE.has(dir) && !existsSync(join(examplesDir, `${dir}.examples.tsx`))) {
+    problems.push(
+      `src/components/${dir} has no examples/${dir}.examples.tsx — add one, or add the slug to NO_EXAMPLE.`,
+    );
+  }
+}
+
+/* 6 — the breakpoint scale the explorer reports must match the one the CSS actually uses. */
+const breakpointCss = readFileSync(join(packageRoot, 'src', 'styles', 'breakpoints.css'), 'utf8');
+for (const { name, min } of BREAKPOINTS) {
+  const declared = breakpointCss.match(new RegExp(`--${name}\\s*\\(min-width:\\s*(\\d+)px\\)`))?.[1];
+  if (declared === undefined) {
+    problems.push(`breakpoints.css declares no \`--${name}\`, but fixture-support/breakpoints.ts lists it.`);
+  } else if (Number(declared) !== min) {
+    problems.push(
+      `breakpoint \`${name}\`: breakpoints.css says ${declared}px, fixture-support/breakpoints.ts says ${min}px.`,
+    );
+  }
+}
+
 if (problems.length > 0) {
   console.error(`explorer: ${problems.length} problem${problems.length === 1 ? '' : 's'}\n`);
   for (const problem of problems) console.error(`  • ${problem}`);
@@ -98,6 +142,6 @@ if (problems.length > 0) {
 }
 
 console.log(
-  `explorer: ${toolModules.length} tools, ${guideFiles.length} guides, ` +
+  `explorer: ${componentDirs.length} components, ${toolModules.length} tools, ${guideFiles.length} guides, ` +
     `${readdirSync(examplesDir).filter((f) => f.endsWith('.examples.tsx')).length} example modules — all wired`,
 );

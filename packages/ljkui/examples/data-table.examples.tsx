@@ -1,3 +1,4 @@
+import DataTableOverview from './demos/data-table.demo';
 import React from 'react';
 import { DataTable, Link, Separator, Typography, dataTableRootPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { DataTable, Link, Separator, Typography, dataTableRootPropDefs } from 'l
 export const fileMeta = { group: 'Data presentation', layout: 'fullscreen' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/data-table.demo.tsx` before demos folded into examples. */
+  Overview: DataTableOverview,
+
   Size() {
     const args = {
       size: dataTableRootPropDefs.size.default,

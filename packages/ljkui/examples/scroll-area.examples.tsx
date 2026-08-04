@@ -1,3 +1,4 @@
+import ScrollAreaOverview from './demos/scroll-area.demo';
 import React from 'react';
 import { Button, IconButton, Input, ScrollArea, Typography, scrollAreaPropDefs } from 'ljkui';
 
@@ -21,6 +22,9 @@ const ArrowDownIcon = () => (
 export const fileMeta = { group: 'Components', layout: 'padded' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/scroll-area.demo.tsx` before demos folded into examples. */
+  Overview: ScrollAreaOverview,
+
   'Type (Visibility Behavior)'() {
     const args = { size: scrollAreaPropDefs.size.default };
     return (

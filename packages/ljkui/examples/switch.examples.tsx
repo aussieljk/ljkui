@@ -1,3 +1,4 @@
+import SwitchOverview from './demos/switch.demo';
 import React from 'react';
 import { Button, Switch, Typography } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Button, Switch, Typography } from 'ljkui';
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/switch.demo.tsx` before demos folded into examples. */
+  Overview: SwitchOverview,
+
   Size() {
     const args = { disabled: false };
     return (

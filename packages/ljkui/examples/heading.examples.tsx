@@ -1,3 +1,4 @@
+import HeadingOverview from './demos/heading.demo';
 import React from 'react';
 import { Typography } from 'ljkui';
 
@@ -10,6 +11,9 @@ const { Heading } = Typography;
 export const fileMeta = { group: 'Typography', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/heading.demo.tsx` before demos folded into examples. */
+  Overview: HeadingOverview,
+
   Size() {
     const args = {};
     return (

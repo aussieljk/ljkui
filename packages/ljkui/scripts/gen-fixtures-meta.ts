@@ -8,6 +8,35 @@
 
 export type Layout = 'centered' | 'padded' | 'fullscreen';
 
+/**
+ * Opt a namespace component into a Playground.
+ *
+ * A Playground is detected automatically when the barrel exports something renderable under
+ * the component's PascalCase name — which is true of the leaf components and false of the
+ * namespaces (`Table`, `Alert`, `Accordion`), whose `Root` needs specific children before it
+ * means anything. This says which export to drive and what to put inside it.
+ *
+ *   export const fileMeta = {
+ *     group: 'Data presentation',
+ *     layout: 'fullscreen',
+ *     playground: { export: 'Table.Root' },
+ *   };
+ *
+ *   export const playgroundChildren = (
+ *     <Table.Body>…</Table.Body>
+ *   );
+ *
+ * `export` is resolved off the barrel by dotted path. The children come from a sibling
+ * `playgroundChildren` export rather than from one of the examples: every example is a
+ * *complete* component, so rendering one inside the driven root would nest a whole table
+ * inside another table. A separate export also keeps the fragment out of the fixture list,
+ * where it would show up as a headless row of cells.
+ */
+export interface PlaygroundHint {
+  /** Dotted path into the barrel, e.g. `Table.Root`. */
+  export: string;
+}
+
 export const LAYOUTS: readonly Layout[] = ['centered', 'padded', 'fullscreen'];
 
 /**

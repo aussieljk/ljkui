@@ -1,3 +1,4 @@
+import SheetOverview from './demos/sheet.demo';
 import React from 'react';
 import {
   AlertDialog,
@@ -21,6 +22,9 @@ import {
 export const fileMeta = { group: 'Components', layout: 'fullscreen' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/sheet.demo.tsx` before demos folded into examples. */
+  Overview: SheetOverview,
+
   Default() {
     const args = {};
     return (

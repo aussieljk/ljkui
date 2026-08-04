@@ -1,3 +1,4 @@
+import TextOverview from './demos/text.demo';
 import React from 'react';
 import { Checkbox, Input, Kbd, Link, Typography } from 'ljkui';
 
@@ -10,6 +11,9 @@ const { Code, Em, Text } = Typography;
 export const fileMeta = { group: 'Typography', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/text.demo.tsx` before demos folded into examples. */
+  Overview: TextOverview,
+
   Size() {
     const args = {};
     return (

@@ -1,3 +1,4 @@
+import FilterChipOverview from './demos/filter-chip.demo';
 import React from 'react';
 import { Button, FilterChip, Typography, filterChipPropDefs } from 'ljkui';
 
@@ -27,6 +28,9 @@ const ExampleIcon = ({ size }: { size: number }) => (
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/filter-chip.demo.tsx` before demos folded into examples. */
+  Overview: FilterChipOverview,
+
   Default() {
     const args = { children: null, size: filterChipPropDefs.size.default };
     return (

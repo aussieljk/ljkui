@@ -1,3 +1,4 @@
+import ContextMenuOverview from './demos/context-menu.demo';
 import React from 'react';
 import { Button, ContextMenu, Dialog, Input, Textarea, Typography, contextMenuContentPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Button, ContextMenu, Dialog, Input, Textarea, Typography, contextMenuCo
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/context-menu.demo.tsx` before demos folded into examples. */
+  Overview: ContextMenuOverview,
+
   Default() {
     const args = {
       size: contextMenuContentPropDefs.size.default,

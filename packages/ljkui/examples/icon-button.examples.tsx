@@ -1,3 +1,4 @@
+import IconButtonOverview from './demos/icon-button.demo';
 import React from 'react';
 import { IconButton, buttonPropDefs } from 'ljkui';
 
@@ -19,6 +20,9 @@ const ExampleIcon = ({ size }: { size: number }) => (
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/icon-button.demo.tsx` before demos folded into examples. */
+  Overview: IconButtonOverview,
+
   Size() {
     const args = {
       variant: buttonPropDefs.variant.default,

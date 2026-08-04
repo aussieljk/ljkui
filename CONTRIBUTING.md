@@ -35,7 +35,8 @@ Then make sure the component has all of the following — the CI gates enforce m
       if it genuinely has no design-system props). This drives the `Reference` fixture's prop table.
 - [ ] **`examples/<name>.examples.tsx`** — `export const examples = { Default() {…}, … }`.
       `gen-fixtures.ts` generates one fixture module per component from this; no wiring needed.
-- [ ] **`demos/<name>.demo.tsx`** — a canonical usage demo (skip with `--no-docs`).
+- [ ] **`examples/demos/<name>.demo.tsx`** — a canonical usage demo (skip with `--no-docs`),
+      imported into the examples module as its `Overview` example.
 - [ ] An entry in **`scripts/a11y-data.ts`** if the component has meaningful keyboard / ARIA
       behaviour — it renders a Keyboard + Accessibility section on the component's `Reference` fixture.
 - [ ] **`export const fileMeta = { group, layout }`** in that same examples module — the tree

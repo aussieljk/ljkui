@@ -1,3 +1,4 @@
+import PaginationOverview from './demos/pagination.demo';
 import React from 'react';
 import { Pagination, VStack } from 'ljkui';
 
@@ -51,6 +52,9 @@ const Interactive = () => {
 export const fileMeta = { group: 'Controls', layout: 'padded' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/pagination.demo.tsx` before demos folded into examples. */
+  Overview: PaginationOverview,
+
   Default: <Interactive />,
 
   'With ellipsis': (

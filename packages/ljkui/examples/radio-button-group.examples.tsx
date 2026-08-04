@@ -1,3 +1,4 @@
+import RadioButtonGroupOverview from './demos/radio-button-group.demo';
 import React from 'react';
 import { Avatar, Button, Card, RadioButtonGroup, Tooltip, Typography, radioGroupPropDefs } from 'ljkui';
 
@@ -16,6 +17,9 @@ const planPrices: Record<PlanType, number> = {
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/radio-button-group.demo.tsx` before demos folded into examples. */
+  Overview: RadioButtonGroupOverview,
+
   HighContrast() {
     const args = { color: radioGroupPropDefs.color.default, highContrast: true, disabled: false };
     return (

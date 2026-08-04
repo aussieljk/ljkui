@@ -1,3 +1,4 @@
+import InsetOverview from './demos/inset.demo';
 import React from 'react';
 import { Card, Inset, Typography } from 'ljkui';
 
@@ -21,4 +22,4 @@ function InsetFixture() {
  */
 export const fileMeta = { group: 'Layout', layout: 'padded' } as const;
 
-export const examples = { Example: InsetFixture };
+export const examples = { Overview: InsetOverview, Example: InsetFixture };

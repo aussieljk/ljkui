@@ -1,3 +1,4 @@
+import DropdownMenuOverview from './demos/dropdown-menu.demo';
 import React from 'react';
 import { Button, DropdownMenu, Typography, dropdownMenuContentPropDefs } from 'ljkui';
 
@@ -25,6 +26,9 @@ type MenuKey = keyof typeof itemGroups;
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/dropdown-menu.demo.tsx` before demos folded into examples. */
+  Overview: DropdownMenuOverview,
+
   Default() {
     const args = {
       size: dropdownMenuContentPropDefs.size.default,

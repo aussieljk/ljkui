@@ -1,3 +1,4 @@
+import NumberFieldOverview from './demos/number-field.demo';
 import { DollarSign, Percent } from 'lucide-react';
 import React from 'react';
 import { Button, Field, Form, Input, NumberField, Typography, numberFieldPropDefs } from 'ljkui';
@@ -9,6 +10,9 @@ import { Button, Field, Form, Input, NumberField, Typography, numberFieldPropDef
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/number-field.demo.tsx` before demos folded into examples. */
+  Overview: NumberFieldOverview,
+
   Size() {
     const args = {
       variant: numberFieldPropDefs.variant.default,

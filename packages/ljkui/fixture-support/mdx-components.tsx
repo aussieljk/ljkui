@@ -14,14 +14,20 @@ import { PropsTable } from './reference';
  * whole library is in scope and those three tags do what they say.
  */
 
-/** Every demo module, so `<Demo name="layout" />` resolves without a static import each. */
-const demos = import.meta.glob<{ default: React.ComponentType }>('../demos/*.demo.tsx');
+/**
+ * Every demo module, so `<Demo name="layout" />` resolves without a static import each.
+ *
+ * These moved under `examples/demos/` when the top-level `demos/` directory folded into
+ * `examples/`: each is now also surfaced as that component's `Overview` fixture, so the
+ * canonical usage is visible in the explorer instead of only inside a guide.
+ */
+const demos = import.meta.glob<{ default: React.ComponentType }>('../examples/demos/*.demo.tsx');
 
 export function Demo({ name }: { name: string }) {
   // Memoized before the missing-demo branch: a hook after an early return is a hook that
   // does not run on every render path.
   const Lazy = React.useMemo(() => {
-    const load = demos[`../demos/${name}.demo.tsx`];
+    const load = demos[`../examples/demos/${name}.demo.tsx`];
     return load ? React.lazy(load) : null;
   }, [name]);
 

@@ -1,3 +1,4 @@
+import DateRangePickerOverview from './demos/date-range-picker.demo';
 import { DateValue, getLocalTimeZone, parseDate } from '@internationalized/date';
 import { useDateFormatter } from '@react-aria/i18n';
 import React from 'react';
@@ -22,6 +23,9 @@ const onChange = (date: { start: DateValue; end: DateValue } | null) =>
 export const fileMeta = { group: 'Controls/Dates', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/date-range-picker.demo.tsx` before demos folded into examples. */
+  Overview: DateRangePickerOverview,
+
   Sizes() {
     const args = {
       size: dateRangePickerPropDefs.size.default,

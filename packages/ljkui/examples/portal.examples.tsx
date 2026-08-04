@@ -1,3 +1,4 @@
+import PortalOverview from './demos/portal.demo';
 import { Button, Card, Portal, Theme, Typography } from 'ljkui';
 
 const { Heading, Text } = Typography;
@@ -10,6 +11,9 @@ import * as React from 'react';
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/portal.demo.tsx` before demos folded into examples. */
+  Overview: PortalOverview,
+
   Default() {
     const [show, setShow] = React.useState(false);
 

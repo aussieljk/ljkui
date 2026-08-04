@@ -1,3 +1,4 @@
+import InputOtpOverview from './demos/input-otp.demo';
 import React from 'react';
 import { InputOTP, Typography } from 'ljkui';
 
@@ -11,6 +12,9 @@ const REGEXP_ONLY_DIGITS_AND_CHARS = '^[a-zA-Z0-9]+$';
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/input-otp.demo.tsx` before demos folded into examples. */
+  Overview: InputOtpOverview,
+
   Default() {
     const otherArgs = {};
     return (

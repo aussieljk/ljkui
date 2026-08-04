@@ -1,3 +1,4 @@
+import SelectOverview from './demos/select.demo';
 import React from 'react';
 import { Select, Typography, selectTriggerPropDefs } from 'ljkui';
 import { InfoCircledIcon } from 'ljkui/icons';
@@ -47,6 +48,9 @@ interface ShippingMethod {
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/select.demo.tsx` before demos folded into examples. */
+  Overview: SelectOverview,
+
   Size() {
     const args = {
       variant: selectTriggerPropDefs.variant.default,

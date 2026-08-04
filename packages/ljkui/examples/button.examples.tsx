@@ -1,3 +1,4 @@
+import ButtonOverview from './demos/button.demo';
 import { Download as DownloadIcon } from 'lucide-react';
 import React from 'react';
 import { Button, Spinner, Typography, buttonPropDefs } from 'ljkui';
@@ -20,6 +21,9 @@ const ExampleIcon = () => (
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/button.demo.tsx` before demos folded into examples. */
+  Overview: ButtonOverview,
+
   Size() {
     const args = {
       children: 'Button',

@@ -1,3 +1,4 @@
+import GridOverview from './demos/grid.demo';
 import React from 'react';
 import { Grid, Typography } from 'ljkui';
 
@@ -56,4 +57,4 @@ function UniformColumnsFixture() {
  */
 export const fileMeta = { group: 'Layout', layout: 'padded' } as const;
 
-export const examples = { Example: GridFixture, UniformColumns: UniformColumnsFixture };
+export const examples = { Overview: GridOverview, Example: GridFixture, UniformColumns: UniformColumnsFixture };

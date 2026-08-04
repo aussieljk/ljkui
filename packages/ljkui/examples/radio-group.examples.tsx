@@ -1,3 +1,4 @@
+import RadioGroupOverview from './demos/radio-group.demo';
 import React from 'react';
 import { Button, RadioGroup, Typography, radioGroupPropDefs } from 'ljkui';
 
@@ -29,6 +30,9 @@ const products: Product[] = [
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/radio-group.demo.tsx` before demos folded into examples. */
+  Overview: RadioGroupOverview,
+
   Composed() {
     const args = {
       size: radioGroupPropDefs.size.default,

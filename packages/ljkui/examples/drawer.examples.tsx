@@ -1,3 +1,4 @@
+import DrawerOverview from './demos/drawer.demo';
 import React from 'react';
 import {
   AlertDialog,
@@ -34,6 +35,9 @@ const detachedHandle = Drawer.createHandle();
 export const fileMeta = { group: 'Components', layout: 'fullscreen' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/drawer.demo.tsx` before demos folded into examples. */
+  Overview: DrawerOverview,
+
   Default() {
     const args = {};
     return (

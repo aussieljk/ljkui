@@ -1,3 +1,4 @@
+import QuoteOverview from './demos/quote.demo';
 import React from 'react';
 import { Typography } from 'ljkui';
 
@@ -19,4 +20,4 @@ function QuoteFixture() {
  */
 export const fileMeta = { group: 'Typography', layout: 'centered' } as const;
 
-export const examples = { Example: QuoteFixture };
+export const examples = { Overview: QuoteOverview, Example: QuoteFixture };

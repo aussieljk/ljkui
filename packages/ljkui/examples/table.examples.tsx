@@ -1,3 +1,4 @@
+import TableOverview from './demos/table.demo';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -371,9 +372,42 @@ const TanstackTableExample = (props: React.ComponentProps<typeof Table.Root>) =>
  * Where this component sits in the explorer, and how its fixtures are framed.
  * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
  */
-export const fileMeta = { group: 'Data presentation', layout: 'fullscreen' } as const;
+export const fileMeta = {
+  group: 'Data presentation',
+  layout: 'fullscreen',
+  // `Table` is a namespace, so nothing is auto-detected; drive the root directly.
+  playground: { export: 'Table.Root' },
+} as const;
+
+/** Inner content for the Playground. Not an example — see `PlaygroundHint`. */
+export const playgroundChildren = (
+  <Table.Table>
+    <Table.Header>
+      <Table.Row>
+        <Table.ColumnHeaderCell>Full name</Table.ColumnHeaderCell>
+        <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
+        <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
+      </Table.Row>
+    </Table.Header>
+    <Table.Body>
+      <Table.Row>
+        <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
+        <Table.Cell>danilo@example.com</Table.Cell>
+        <Table.Cell>Developer</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
+        <Table.Cell>zahra@example.com</Table.Cell>
+        <Table.Cell>Admin</Table.Cell>
+      </Table.Row>
+    </Table.Body>
+  </Table.Table>
+);
 
 export const examples = {
+  /** The canonical usage — was `demos/table.demo.tsx` before demos folded into examples. */
+  Overview: TableOverview,
+
   Variant() {
     const args = { size: tableRootPropDefs.size.default, variant: tableRootPropDefs.variant.default };
     return (

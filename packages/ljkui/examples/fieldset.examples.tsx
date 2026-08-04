@@ -1,3 +1,4 @@
+import FieldsetOverview from './demos/fieldset.demo';
 import { Field, Fieldset, Input } from 'ljkui';
 import * as React from 'react';
 
@@ -30,4 +31,4 @@ function FieldsetFixture() {
  */
 export const fileMeta = { group: 'Forms', layout: 'padded' } as const;
 
-export const examples = { Example: FieldsetFixture };
+export const examples = { Overview: FieldsetOverview, Example: FieldsetFixture };

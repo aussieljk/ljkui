@@ -1,3 +1,4 @@
+import PopoverOverview from './demos/popover.demo';
 import { Bell } from 'lucide-react';
 import React from 'react';
 import {
@@ -126,6 +127,9 @@ function QuickActionsDemo({ args }: { args: Record<string, unknown> }) {
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/popover.demo.tsx` before demos folded into examples. */
+  Overview: PopoverOverview,
+
   Default() {
     const args = {
       size: popoverContentPropDefs.size.default,

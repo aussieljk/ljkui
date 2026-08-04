@@ -1,3 +1,4 @@
+import SkeletonOverview from './demos/skeleton.demo';
 import React from 'react';
 import {
   Avatar,
@@ -116,6 +117,9 @@ const SYNC_DEMO_VARIANTS: Array<{
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/skeleton.demo.tsx` before demos folded into examples. */
+  Overview: SkeletonOverview,
+
   Avatar() {
     return <Skeleton.Avatar />;
   },

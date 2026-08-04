@@ -1,6 +1,10 @@
 /**
  * Generates the uaight fixture modules from `examples/*.examples.tsx`.
  *
+ * Emits `*.fixture.tsx`, deliberately a different suffix from the `*.examples.tsx` sources:
+ * one glob must match only the generated wrappers, the other only the hand-authored modules,
+ * or `exclude` has to separate them — and `exclude` also silences the call-site harvest.
+ *
  * `fixtures/` is entirely generated (wiped and rewritten each run, git-tracked) and is
  * what `uaight()` scans — see `fixturesDir` in vite.config.ts. The hand-authored sources
  * it wraps are `examples/` (the component states), `guides/` (the prose, still MDX) and
@@ -14,6 +18,8 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { basename, join, relative } from 'node:path';
+import { buildFixtureIndex, resolveUaightConfig } from 'uaight/vite';
+import { uaightOptions } from '../fixture-support/uaight-options.ts';
 import { A11Y } from './a11y-data.ts';
 import { DEFAULT_CATEGORY, GUIDES, type Layout, LAYOUTS, SECTIONS, TOOLS, sectionDir } from './gen-fixtures-meta.ts';
 
@@ -43,11 +49,15 @@ export interface ExampleFileMeta {
    * reads better `padded` than dead-centred.
    */
   layout: Layout;
+  /** Opts a namespace component into a Playground — see `PlaygroundHint`. */
+  playground?: PlaygroundHint;
 }
 
 interface ExamplesModule {
   examples?: Record<string, unknown>;
   fileMeta?: Partial<ExampleFileMeta>;
+  /** Inner content for a hinted namespace Playground — see `PlaygroundHint`. */
+  playgroundChildren?: unknown;
 }
 
 /**
@@ -62,7 +72,9 @@ interface ExamplesModule {
  * Bun runs the TSX natively and resolves `ljkui` through the package tsconfig paths, so
  * importing costs nothing extra and cannot disagree with what the explorer will render.
  */
-async function readExamples(file: string): Promise<{ names: string[]; meta: ExampleFileMeta }> {
+async function readExamples(
+  file: string,
+): Promise<{ names: string[]; meta: ExampleFileMeta; hasPlaygroundChildren: boolean }> {
   const mod = (await import(join(examplesDir, file))) as ExamplesModule;
   if (!mod.examples || typeof mod.examples !== 'object') {
     throw new Error(`${file} has no \`export const examples\` object.`);
@@ -80,7 +92,9 @@ async function readExamples(file: string): Promise<{ names: string[]; meta: Exam
     meta: {
       group: mod.fileMeta?.group ?? DEFAULT_CATEGORY,
       layout: mod.fileMeta?.layout ?? 'centered',
+      playground: mod.fileMeta?.playground,
     },
+    hasPlaygroundChildren: mod.playgroundChildren !== undefined,
   };
 }
 
@@ -127,18 +141,34 @@ async function componentModule(
   names: string[],
   meta_: ExampleFileMeta,
   playground: boolean,
+  hasPlaygroundChildren: boolean,
 ): Promise<string> {
   const layout = meta_.layout;
   const reference = hasReference(slug);
   const jsx = reference || playground;
 
-  const imports = [`import { examples } from ${quote(importPath(dir, `examples/${slug}.examples`))};`];
+  const childrenImport = playground && hasPlaygroundChildren;
+  const imports = [
+    childrenImport
+      ? `import { examples, playgroundChildren } from ${quote(importPath(dir, `examples/${slug}.examples`))};`
+      : `import { examples } from ${quote(importPath(dir, `examples/${slug}.examples`))};`,
+  ];
   if (jsx) {
     // `jsx: "react"` (classic runtime) in the package tsconfig — JSX needs React in scope.
     imports.unshift(`import * as React from 'react';`);
   }
+
+  /*
+   * A hinted playground drives a namespace member (`Table.Root`) and renders one of this
+   * module's own examples inside it; the auto-detected case drives the barrel export named
+   * after the component. Either way the driven component is imported by its root binding.
+   */
+  const hint = meta_.playground;
+  const driven = hint ? hint.export : displayName(slug);
+  const rootBinding = driven.split('.')[0];
+
   if (playground) {
-    imports.push(`import { ${displayName(slug)} } from 'ljkui';`);
+    imports.push(`import { ${rootBinding} } from 'ljkui';`);
     imports.push(`import { Playground } from ${quote(importPath(dir, 'fixture-support/playground'))};`);
   }
   if (reference) {
@@ -152,8 +182,9 @@ async function componentModule(
 
   const entries = names.map((name) => `  ${key(name)}: examples[${quote(name)}],`);
   if (playground) {
+    const childrenProp = childrenImport ? ` renderChildren={() => playgroundChildren}` : '';
     entries.push(
-      `  Playground: () => <Playground slug=${quote(slug)} component={${displayName(slug)}} name=${quote(displayName(slug))} />,`,
+      `  Playground: () => <Playground slug=${quote(slug)} component={${driven}} name=${quote(driven)}${childrenProp} />,`,
     );
   }
   if (reference) entries.push(`  Reference: () => <ComponentReference slug=${quote(slug)} />,`);
@@ -313,6 +344,57 @@ ${body}
 `;
 }
 
+/**
+ * Real usages of each component, harvested from `src/` and `demos/`.
+ *
+ * uaight already does this at dev time and puts it in the ⌘K palette, but §12 excludes the
+ * inventory and the call sites from production builds unconditionally — not merely when
+ * `production: 'exclude'` — so the deployed explorer has neither. Running the same Node API
+ * here bakes the result into a fixture, which does survive the build.
+ *
+ * Same harvester, same config (`fixture-support/uaight-options.ts`), so this cannot disagree
+ * with what the palette shows on localhost.
+ */
+async function usagesPage(): Promise<string> {
+  const cfg = resolveUaightConfig({ root: packageRoot, options: uaightOptions, command: 'serve' });
+  const index = await buildFixtureIndex(cfg);
+  const groups = [...index.callSites].sort((a, b) => b.total - a.total || a.component.localeCompare(b.component));
+
+  const body = groups
+    .slice(0, 120)
+    .map((group) => {
+      const sites = group.sites
+        .slice(0, 3)
+        .map((site) => {
+          const props = Object.entries(site.props)
+            .map(([k, v]) => (v === true ? k : `${k}={${JSON.stringify(v)}}`))
+            .join(' ');
+          const dynamic = site.dynamic.length ? ` (+ ${site.dynamic.join(', ')})` : '';
+          return `| \`<${group.component}${props ? ` ${props}` : ''}>\`${dynamic} | ${site.path}:${site.line} |`;
+        })
+        .join('\n');
+      return `### ${group.component} <sup>${group.total}</sup>\n\n| Usage | Where |\n| --- | --- |\n${sites}`;
+    })
+    .join('\n\n');
+
+  return `---
+title: "Usages"
+description: "Real component usages harvested from this repository's own source, with the props written at them."
+---
+
+Syntax only: nothing is executed and no import is resolved, so a prop whose value could not be
+read statically is named rather than guessed. ${groups.length} components have at least one usage;
+the ${Math.min(120, groups.length)} most-used are listed, with up to three distinct call sites each.
+
+<Callout>
+  On \`bun run dev\` this same data is live in the ⌘K palette. uaight excludes the harvest from
+  production builds, so this generated page is what carries it to the deployed explorer.
+</Callout>
+
+${body}
+`;
+}
+
 /** Recently-changed components, from git, so a PR preview lands on what moved. */
 function recentlyChangedPage(entries: CatalogEntry[]): string {
   const bySlug = new Map(entries.map((e) => [e.slug, e]));
@@ -448,7 +530,7 @@ for (const [index, guide] of GUIDES.entries()) {
   }
   const slug = guide.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); // prettier-ignore
   writeFileSync(
-    join(guidesOut, `${slug}.examples.tsx`),
+    join(guidesOut, `${slug}.fixture.tsx`),
     documentModule(guidesOut, importPath(guidesOut, `guides/${guide.file}`), guide.title, index),
   );
   guideCount++;
@@ -461,8 +543,27 @@ for (const [index, guide] of GUIDES.entries()) {
  * detected rather than allowlisted, so it cannot drift.
  */
 const barrel = (await import('ljkui')) as Record<string, unknown>;
-const canPlayground = (slug: string) =>
-  typeof barrel[displayName(slug)] === 'function' && Object.keys(propsBySlug[slug] ?? {}).length > 0;
+
+/** Resolve a dotted path (`Table.Root`) off the barrel. */
+function resolveExport(path: string): unknown {
+  return path.split('.').reduce<unknown>((value, part) => (value as Record<string, unknown>)?.[part], barrel);
+}
+
+/**
+ * A component qualifies when there is something renderable to drive and at least one
+ * controllable prop. `fileMeta.playground` names the export for the namespace components,
+ * whose bare name is an object of parts rather than a component.
+ */
+function canPlayground(slug: string, meta: ExampleFileMeta): boolean {
+  if (Object.keys(propsBySlug[slug] ?? {}).length === 0) return false;
+  const target = meta.playground?.export ?? displayName(slug);
+  const resolved = resolveExport(target);
+  if (typeof resolved === 'function') return true;
+  if (meta.playground) {
+    throw new Error(`${slug}: fileMeta.playground.export '${target}' does not resolve to a component on the barrel.`);
+  }
+  return false;
+}
 
 // Components.
 const counts: Record<string, number> = {};
@@ -470,14 +571,14 @@ const catalogEntries: CatalogEntry[] = [];
 let playgroundCount = 0;
 for (const file of files) {
   const slug = basename(file, '.examples.tsx');
-  const { names, meta } = await readExamples(file);
+  const { names, meta, hasPlaygroundChildren } = await readExamples(file);
   const category = meta.group;
   const dir = join(fixturesDir, sectionDir(category));
-  const playground = canPlayground(slug);
+  const playground = canPlayground(slug, meta);
   mkdirSync(dir, { recursive: true });
   writeFileSync(
-    join(dir, `${displayName(slug)}.examples.tsx`),
-    await componentModule(slug, dir, names, meta, playground),
+    join(dir, `${displayName(slug)}.fixture.tsx`),
+    await componentModule(slug, dir, names, meta, playground, hasPlaygroundChildren),
   );
   if (playground) playgroundCount++;
   counts[category] = (counts[category] ?? 0) + 1;
@@ -488,7 +589,7 @@ for (const file of files) {
 const toolsOut = join(fixturesDir, sectionDir('Tools'));
 mkdirSync(toolsOut, { recursive: true });
 for (const tool of TOOLS) {
-  writeFileSync(join(toolsOut, `${tool.name}.examples.tsx`), await toolModule(tool, toolsOut));
+  writeFileSync(join(toolsOut, `${tool.name}.fixture.tsx`), await toolModule(tool, toolsOut));
 }
 
 /*
@@ -501,11 +602,12 @@ const REPORTS: Array<{ name: string; title: string; body: string }> = [
   { name: 'coverage', title: 'Coverage', body: coveragePage(catalogEntries) },
   { name: 'server-components', title: 'Server Components', body: rscPage(catalogEntries) },
   { name: 'recently-changed', title: 'Recently Changed', body: recentlyChangedPage(catalogEntries) },
+  { name: 'usages', title: 'Usages', body: await usagesPage() },
 ];
 for (const [index, report] of REPORTS.entries()) {
   writeFileSync(join(reportsOut, `${report.name}.mdx`), report.body);
   writeFileSync(
-    join(reportsOut, `${report.name}.examples.tsx`),
+    join(reportsOut, `${report.name}.fixture.tsx`),
     documentModule(reportsOut, `./${report.name}.mdx`, report.title, index),
   );
 }
@@ -522,7 +624,7 @@ const introOut = join(fixturesDir, sectionDir('Introduction'));
 mkdirSync(introOut, { recursive: true });
 writeFileSync(join(introOut, 'Introduction.mdx'), introductionPage(catalogEntries));
 writeFileSync(
-  join(introOut, `${sectionDir('Introduction')}.examples.tsx`),
+  join(introOut, `${sectionDir('Introduction')}.fixture.tsx`),
   documentModule(introOut, './Introduction.mdx', 'Introduction', -1),
 );
 

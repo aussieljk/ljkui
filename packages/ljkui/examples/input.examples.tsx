@@ -1,3 +1,4 @@
+import InputOverview from './demos/input.demo';
 import { Copy as CopyIcon, Ellipsis, Eye, EyeOff, Link, Lock, Mail, Search as SearchIcon, X } from 'lucide-react';
 import React from 'react';
 import { Button, IconButton, Input, Typography, inputPropDefs } from 'ljkui';
@@ -9,6 +10,9 @@ import { Button, IconButton, Input, Typography, inputPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/input.demo.tsx` before demos folded into examples. */
+  Overview: InputOverview,
+
   Size() {
     const args = {
       size: inputPropDefs.size.default,

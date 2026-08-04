@@ -1,3 +1,4 @@
+import LightboxOverview from './demos/lightbox.demo';
 import { ChevronLeft, ChevronRight, Globe, Heart, Mail, MessageSquare, Play, Upload, X } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 import { Avatar, Badge, Button, Carousel, IconButton, Lightbox, Link, Separator, Tooltip, Typography } from 'ljkui';
@@ -3556,6 +3557,9 @@ function PerfectMorphStory() {
 export const fileMeta = { group: 'Components', layout: 'fullscreen' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/lightbox.demo.tsx` before demos folded into examples. */
+  Overview: LightboxOverview,
+
   Default: DefaultStory,
   WithThumbnails: WithThumbnailsStory,
   Controlled: ControlledStory,

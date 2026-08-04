@@ -1,3 +1,4 @@
+import FieldOverview from './demos/field.demo';
 import {
   Alert,
   Autocomplete,
@@ -145,6 +146,9 @@ const disabledPlanItems = [
 export const fileMeta = { group: 'Forms', layout: 'padded' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/field.demo.tsx` before demos folded into examples. */
+  Overview: FieldOverview,
+
   Default() {
     return (
       <div style={{ width: 320 }}>

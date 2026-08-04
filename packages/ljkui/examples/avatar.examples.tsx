@@ -1,3 +1,4 @@
+import AvatarOverview from './demos/avatar.demo';
 import React from 'react';
 import { Avatar } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Avatar } from 'ljkui';
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/avatar.demo.tsx` before demos folded into examples. */
+  Overview: AvatarOverview,
+
   Shape() {
     const args = {
       fallback: 'Cameron Zoub',

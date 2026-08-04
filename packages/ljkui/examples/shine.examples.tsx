@@ -1,3 +1,4 @@
+import ShineOverview from './demos/shine.demo';
 import React from 'react';
 import { Shine, Typography } from 'ljkui';
 
@@ -18,4 +19,4 @@ function ShineFixture() {
  */
 export const fileMeta = { group: 'Utilities', layout: 'centered' } as const;
 
-export const examples = { Example: ShineFixture };
+export const examples = { Overview: ShineOverview, Example: ShineFixture };

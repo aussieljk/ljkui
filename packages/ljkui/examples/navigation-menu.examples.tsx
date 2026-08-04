@@ -1,3 +1,4 @@
+import NavigationMenuOverview from './demos/navigation-menu.demo';
 import React from 'react';
 import { NavigationMenu } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { NavigationMenu } from 'ljkui';
 export const fileMeta = { group: 'Controls', layout: 'fullscreen' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/navigation-menu.demo.tsx` before demos folded into examples. */
+  Overview: NavigationMenuOverview,
+
   Default: (
     <NavigationMenu.Root>
       <NavigationMenu.List>

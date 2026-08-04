@@ -1,3 +1,4 @@
+import SliderOverview from './demos/slider.demo';
 import React from 'react';
 import { Button, DataTable, Slider, Typography, sliderPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Button, DataTable, Slider, Typography, sliderPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/slider.demo.tsx` before demos folded into examples. */
+  Overview: SliderOverview,
+
   Size() {
     const args = {
       color: sliderPropDefs.color.default,

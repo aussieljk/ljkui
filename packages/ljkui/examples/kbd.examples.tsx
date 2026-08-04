@@ -1,3 +1,4 @@
+import KbdOverview from './demos/kbd.demo';
 import React from 'react';
 import { Kbd } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Kbd } from 'ljkui';
 export const fileMeta = { group: 'Typography', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/kbd.demo.tsx` before demos folded into examples. */
+  Overview: KbdOverview,
+
   Size() {
     const args = {};
     return (

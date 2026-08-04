@@ -1,3 +1,4 @@
+import BlockquoteOverview from './demos/blockquote.demo';
 import React from 'react';
 import { Typography } from 'ljkui';
 
@@ -15,4 +16,4 @@ function BlockquoteFixture() {
  */
 export const fileMeta = { group: 'Typography', layout: 'centered' } as const;
 
-export const examples = { Example: BlockquoteFixture };
+export const examples = { Overview: BlockquoteOverview, Example: BlockquoteFixture };

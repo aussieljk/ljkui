@@ -1,3 +1,4 @@
+import CodeOverview from './demos/code.demo';
 import React from 'react';
 import { Typography, codePropDefs } from 'ljkui';
 
@@ -10,6 +11,9 @@ const { Code } = Typography;
 export const fileMeta = { group: 'Typography', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/code.demo.tsx` before demos folded into examples. */
+  Overview: CodeOverview,
+
   Variant() {
     const args = { children: 'Code', size: codePropDefs.size.default };
     return (

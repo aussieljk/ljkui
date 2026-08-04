@@ -1,3 +1,4 @@
+import TabsNavOverview from './demos/tabs-nav.demo';
 import React from 'react';
 import { TabsNav, Typography, tabsNavPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { TabsNav, Typography, tabsNavPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Components', layout: 'padded' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/tabs-nav.demo.tsx` before demos folded into examples. */
+  Overview: TabsNavOverview,
+
   Size() {
     const args = {
       color: tabsNavPropDefs.color.default,

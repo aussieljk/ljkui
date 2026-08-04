@@ -35,6 +35,18 @@ function stringUnion(type: string | undefined): string[] | null {
   return parts.map((part) => part.slice(1, -1));
 }
 
+/**
+ * `Responsive<T>` → `T`.
+ *
+ * A prop typed `Responsive<"1" | "2">` accepts either a bare value or a per-breakpoint object.
+ * The control drives the bare form — the base value — which is what a playground wants; the
+ * per-breakpoint object is a composition concern better shown by a written example.
+ */
+function unwrapResponsive(type: string | undefined): string | undefined {
+  const match = type?.match(/^Responsive<([\s\S]+)>$/);
+  return match ? match[1].trim() : type;
+}
+
 type Control =
   | { kind: 'select'; options: string[] }
   | { kind: 'checkbox' }
@@ -49,7 +61,7 @@ type Control =
  * rather than guessed at. A text box that stringifies an element is worse than no control.
  */
 function controlFor(prop: PropEntry): Control {
-  const type = prop.type?.trim();
+  const type = unwrapResponsive(prop.type?.trim());
   if (!type) return null;
 
   const options = stringUnion(type);
@@ -57,6 +69,8 @@ function controlFor(prop: PropEntry): Control {
   if (type === 'boolean') return { kind: 'checkbox' };
   if (type === 'number') return { kind: 'number' };
   if (type === 'string') return { kind: 'text' };
+  // `string | number` (widths, spacing) — a text box, since the component accepts either.
+  if (/^(string \| number|number \| string)$/.test(type)) return { kind: 'text' };
   return null;
 }
 
@@ -118,6 +132,12 @@ interface PlaygroundProps {
   slug: string;
   name: string;
   /*
+   * Children for a namespace component, supplied by `fileMeta.playground.children` as one of
+   * the module's own examples. `Table.Root` with a text child renders nothing meaningful; with
+   * a real `Table.Body` inside it, every prop on the root becomes observable.
+   */
+  renderChildren?: () => React.ReactNode;
+  /*
    * Deliberately loose. The props are assembled at runtime from `props.json`, so there is no
    * static relationship between this component's real prop type and what gets spread into it;
    * a narrower type here only forces every generated call site to cast.
@@ -126,17 +146,25 @@ interface PlaygroundProps {
   component: React.ComponentType<any>;
 }
 
-export function Playground({ slug, name, component: Component }: PlaygroundProps) {
+export function Playground({ slug, name, component: Component, renderChildren }: PlaygroundProps) {
   const values = usePropValues(slug);
-  const [children] = useFixtureInput('children', name, {
-    description: 'Text content. Clear it to render the component with no children.',
+  /*
+   * Only leaf components get a text-children control. When the children are supplied as a real
+   * example there is nothing sensible to type, and offering the box would just be a way to
+   * replace a working table with the word "Table".
+   */
+  const [children] = useFixtureInput('children', renderChildren ? '' : name, {
+    description: renderChildren
+      ? 'Fixed for this component — its children come from a real example.'
+      : 'Text content. Clear it to render the component with no children.',
   });
 
   const props = { ...values };
+  const content = renderChildren ? renderChildren() : children || undefined;
 
   return (
     <div style={shellStyle}>
-      <Component {...props}>{children || undefined}</Component>
+      <Component {...props}>{content}</Component>
       <Typography.Code size="1" color="gray">
         {`<${name}${Object.entries(props)
           .map(([k, v]) => (v === true ? ` ${k}` : ` ${k}={${JSON.stringify(v)}}`))

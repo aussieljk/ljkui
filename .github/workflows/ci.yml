@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 100
       - name: Setup bun
         uses: oven-sh/setup-bun@v2
         with:
@@ -49,8 +51,6 @@ jobs:
         run: bun run lint
       - name: Props coverage
         run: bun run --filter=ljkui check:props
-      - name: Component shape
-        run: bun run --filter=ljkui check:shape
       - name: Root className
         run: bun run --filter=ljkui check:root-class
       - name: CSS registration
@@ -84,6 +84,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 100
       - name: Setup bun
         uses: oven-sh/setup-bun@v2
         with:

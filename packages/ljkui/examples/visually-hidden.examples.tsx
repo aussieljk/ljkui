@@ -1,3 +1,4 @@
+import VisuallyHiddenOverview from './demos/visually-hidden.demo';
 import { Button, IconButton, Typography, VisuallyHidden } from 'ljkui';
 
 const { Text } = Typography;
@@ -10,6 +11,9 @@ import * as React from 'react';
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/visually-hidden.demo.tsx` before demos folded into examples. */
+  Overview: VisuallyHiddenOverview,
+
   Default() {
     return (
       <div>

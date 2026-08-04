@@ -1,3 +1,4 @@
+import VStackOverview from './demos/v-stack.demo';
 import React from 'react';
 import { VStack } from 'ljkui';
 
@@ -33,4 +34,4 @@ function VStackFixture() {
  */
 export const fileMeta = { group: 'Layout', layout: 'padded' } as const;
 
-export const examples = { Example: VStackFixture };
+export const examples = { Overview: VStackOverview, Example: VStackFixture };

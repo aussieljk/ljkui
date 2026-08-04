@@ -1,3 +1,4 @@
+import BadgeOverview from './demos/badge.demo';
 import React from 'react';
 import { Badge, badgePropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Badge, badgePropDefs } from 'ljkui';
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/badge.demo.tsx` before demos folded into examples. */
+  Overview: BadgeOverview,
+
   Size() {
     const args = {
       children: 'Badge',

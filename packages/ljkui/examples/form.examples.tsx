@@ -1,3 +1,4 @@
+import FormOverview from './demos/form.demo';
 import {
   Alert,
   AlertDialog,
@@ -140,6 +141,9 @@ type TanStackFormData = {
 export const fileMeta = { group: 'Forms', layout: 'padded' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/form.demo.tsx` before demos folded into examples. */
+  Overview: FormOverview,
+
   'Getting Started'() {
     const [loading, setLoading] = React.useState(false);
     const [submitted, setSubmitted] = React.useState(false);

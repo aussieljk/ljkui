@@ -1,3 +1,4 @@
+import ButtonGroupOverview from './demos/button-group.demo';
 import React from 'react';
 import { Button, ButtonGroup, VStack } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Button, ButtonGroup, VStack } from 'ljkui';
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/button-group.demo.tsx` before demos folded into examples. */
+  Overview: ButtonGroupOverview,
+
   Default: (
     <ButtonGroup.Root>
       <Button>Save</Button>

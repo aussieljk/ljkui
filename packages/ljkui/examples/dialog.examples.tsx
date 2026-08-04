@@ -1,3 +1,4 @@
+import DialogOverview from './demos/dialog.demo';
 import React from 'react';
 import {
   AlertDialog,
@@ -30,6 +31,9 @@ const detachedHandle = Dialog.createHandle();
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/dialog.demo.tsx` before demos folded into examples. */
+  Overview: DialogOverview,
+
   Default() {
     const args = { size: dialogContentPropDefs.size.default };
     return (

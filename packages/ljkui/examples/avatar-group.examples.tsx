@@ -1,3 +1,4 @@
+import AvatarGroupOverview from './demos/avatar-group.demo';
 import React from 'react';
 import { AvatarGroup, colorProp } from 'ljkui';
 import { Button } from 'react-aria-components';
@@ -51,6 +52,9 @@ const availableUsers: Array<{
 export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/avatar-group.demo.tsx` before demos folded into examples. */
+  Overview: AvatarGroupOverview,
+
   Default() {
     const args = {};
     const [users, setUsers] = React.useState(availableUsers);

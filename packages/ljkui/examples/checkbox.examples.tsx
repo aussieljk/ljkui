@@ -1,3 +1,4 @@
+import CheckboxOverview from './demos/checkbox.demo';
 import React from 'react';
 import { Button, Checkbox, Typography, checkboxPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { Button, Checkbox, Typography, checkboxPropDefs } from 'ljkui';
 export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/checkbox.demo.tsx` before demos folded into examples. */
+  Overview: CheckboxOverview,
+
   Default() {
     const args = {
       size: checkboxPropDefs.size.default,

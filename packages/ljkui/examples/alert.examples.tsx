@@ -1,3 +1,4 @@
+import AlertOverview from './demos/alert.demo';
 import { Info } from 'lucide-react';
 import React from 'react';
 import { Alert, Link, Typography } from 'ljkui';
@@ -6,9 +7,28 @@ import { Alert, Link, Typography } from 'ljkui';
  * Where this component sits in the explorer, and how its fixtures are framed.
  * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
  */
-export const fileMeta = { group: 'Components', layout: 'centered' } as const;
+export const fileMeta = {
+  group: 'Components',
+  layout: 'centered',
+  // `Alert` is a namespace, so nothing is auto-detected; drive the root directly.
+  playground: { export: 'Alert.Root' },
+} as const;
+
+/** Inner content for the Playground. Not an example — see `PlaygroundHint`. */
+export const playgroundChildren = (
+  <>
+    <Alert.Icon>
+      <Info size={16} />
+    </Alert.Icon>
+    <Alert.Title>Your trial ends in 3 days</Alert.Title>
+    <Alert.Description>Upgrade to Pro to keep analytics, webhooks and priority support.</Alert.Description>
+  </>
+);
 
 export const examples = {
+  /** The canonical usage — was `demos/alert.demo.tsx` before demos folded into examples. */
+  Overview: AlertOverview,
+
   Default() {
     const args = {};
     return (

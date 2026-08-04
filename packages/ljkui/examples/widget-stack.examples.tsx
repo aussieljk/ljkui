@@ -1,3 +1,4 @@
+import WidgetStackOverview from './demos/widget-stack.demo';
 import React from 'react';
 import { IconButton, Typography, WidgetStack, widgetStackRootPropDefs } from 'ljkui';
 
@@ -8,6 +9,9 @@ import { IconButton, Typography, WidgetStack, widgetStackRootPropDefs } from 'lj
 export const fileMeta = { group: 'Components', layout: 'padded' } as const;
 
 export const examples = {
+  /** The canonical usage — was `demos/widget-stack.demo.tsx` before demos folded into examples. */
+  Overview: WidgetStackOverview,
+
   Orientation() {
     const args = { orientation: widgetStackRootPropDefs.orientation.default };
     return (
