@@ -31,7 +31,7 @@ type Props = Record<string, Record<string, PropRow>>;
 const propsPath = join(pkgRoot, 'src/generated/props.json');
 if (!existsSync(propsPath)) {
   // Silently emitting an empty prop reference ships broken docs. Fail loudly — `generate:props`
-  // must run first (build:meta and generate:storybook both do).
+  // must run first (build:meta and generate:fixtures both do).
   console.error(`✗ ${propsPath} is missing. Run \`bun run generate:props\` before gen-llms-txt.`);
   process.exit(1);
 }

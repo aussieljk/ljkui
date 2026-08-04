@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2018",
-    "lib": ["DOM", "ESNext", "DOM.Iterable"],
+    "lib": [
+      "DOM",
+      "ESNext",
+      "DOM.Iterable"
+    ],
     "jsx": "react",
     "module": "ESNext",
     "moduleResolution": "Bundler",
@@ -16,11 +20,29 @@
     "alwaysStrict": true,
     "skipLibCheck": true,
     "paths": {
-      "ljkui": ["./src"],
-      "ljkui/icons": ["./src/icons"],
-      "ljkui/icons/*": ["./src/icons/adapters/*"]
+      "ljkui": [
+        "./src"
+      ],
+      "ljkui/icons": [
+        "./src/icons"
+      ],
+      "ljkui/icons/*": [
+        "./src/icons/adapters/*"
+      ]
     }
   },
-  "include": ["src/**/*", "demos/**/*", "examples/**/*"],
-  "exclude": ["node_modules", "dist", "scripts"]
+  "include": [
+    "src/**/*",
+    "demos/**/*",
+    "examples/**/*",
+    "fixtures/**/*",
+    "fixture-support/**/*",
+    "vite.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "dist-uaight",
+    "scripts"
+  ]
 }

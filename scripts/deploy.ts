@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Deploy the Storybook static build to Vercel.
+ * Deploy the uaight static explorer to Vercel.
  *
  *   bun scripts/deploy.ts            preview deploy
  *   bun scripts/deploy.ts --prod     production deploy
@@ -8,10 +8,10 @@
  * In CI the target is inferred instead: a push to master is production, a pull
  * request is a preview whose URL gets commented on the PR.
  *
- * Storybook is a pure static site (`packages/ljkui/storybook-static`), so we wrap
+ * `uaight build` emits a pure static site (`packages/ljkui/dist-uaight`), so we wrap
  * it in a Build Output API bundle (`.vercel/output/static` + a `config.json`) and
  * upload it with `vercel deploy --prebuilt`. `--prebuilt` skips Vercel's build step
- * entirely — the runner does the Storybook build, and Vercel just serves the files,
+ * entirely — the runner does the explorer build, and Vercel just serves the files,
  * regardless of whatever framework preset the project was left on.
  *
  * Needs VERCEL_TOKEN / VERCEL_ORG_ID / VERCEL_PROJECT_ID in CI; locally it uses
@@ -22,7 +22,7 @@ import { existsSync, mkdirSync, copyFileSync, cpSync, rmSync, writeFileSync } fr
 import { join } from 'node:path';
 import { ROOT, PKG, fail, run, capture, step, summary } from './lib.ts';
 
-const STATIC = join(PKG, 'storybook-static');
+const STATIC = join(PKG, 'dist-uaight');
 const OUTPUT = join(PKG, '.vercel', 'output');
 const flags = process.argv.slice(2);
 const token = process.env.VERCEL_TOKEN;
@@ -41,8 +41,8 @@ const vercel = (...args: string[]) => ['bun', 'x', 'vercel', ...args, ...(token 
 
 step(`${production ? 'Production' : 'Preview'} deploy`);
 
-// Build the Storybook static export (packages/ljkui/storybook-static).
-run(['bun', 'run', 'build:storybook']);
+// Build the static explorer (packages/ljkui/dist-uaight).
+run(['bun', 'run', 'build:explorer']);
 
 // Wrap it in a Build Output API bundle so `--prebuilt` serves it verbatim, no Vercel-side build.
 rmSync(OUTPUT, { recursive: true, force: true });
@@ -67,12 +67,12 @@ const out = capture(vercel('deploy', '--prebuilt', ...(production ? ['--prod'] :
 const url = out.split('\n').filter(Boolean).at(-1) ?? fail('vercel printed no deployment URL');
 
 console.log(`\n✓ deployed to ${url}`);
-summary(`### ▲ ${production ? 'Production' : 'Preview'} Storybook deploy\n\n${url}`);
+summary(`### ▲ ${production ? 'Production' : 'Preview'} explorer deploy\n\n${url}`);
 
 // One rolling comment per PR rather than one per push.
 const pr = process.env.GITHUB_REF?.match(/^refs\/pull\/(\d+)\//)?.[1];
 if (pr && !production) {
-  const body = `▲ **Storybook preview** for \`${process.env.GITHUB_SHA?.slice(0, 7)}\`: ${url}`;
+  const body = `▲ **Explorer preview** for \`${process.env.GITHUB_SHA?.slice(0, 7)}\`: ${url}`;
   const comment = (...args: string[]) =>
     Bun.spawnSync(['gh', 'pr', 'comment', pr, '--body', body, ...args], { cwd: ROOT, env: process.env }).exitCode === 0;
   if (!comment('--edit-last', '--create-if-none') && !comment()) {

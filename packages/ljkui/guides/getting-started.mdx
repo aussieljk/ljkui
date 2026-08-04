@@ -1,0 +1,38 @@
+---
+title: "Getting started"
+description: "Install ljkui, wrap your app in a Theme, and wire it up alongside Tailwind."
+---
+
+## Install
+
+```sh
+bun add ljkui
+```
+
+## Wrap your app in a Theme
+
+`ljkui/styles.css` carries the tokens and a global reset; `<Theme>` scopes the
+accent, gray, radius and appearance to a subtree.
+
+```tsx
+import { Theme } from 'ljkui';
+import 'ljkui/styles.css';
+
+<Theme accentColor="blue" grayColor="auto" radius="medium" appearance="inherit">
+  {children}
+</Theme>;
+```
+
+## With Tailwind
+
+Import the theme bridge after Tailwind to get utilities for every design token —
+`bg-accent-700`, `text-gray-900`, `border-gray-alpha-300`. The layer order matters;
+see the **Tailwind plugin** guide.
+
+```css
+@layer theme, base, ljkui, components, utilities;
+
+@import 'tailwindcss';
+@import 'ljkui/styles.css' layer(ljkui);
+@import 'ljkui/theme.css';
+```

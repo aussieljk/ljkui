@@ -67,7 +67,7 @@ const ci: Workflow = {
     check: {
       name: 'Check',
       'runs-on': RUNNER,
-      // 25 rather than 20: the Storybook build adds a second full vite pass over ~90 component modules.
+      // 25 rather than 20: the explorer build adds a second full vite pass over ~90 component modules.
       'timeout-minutes': 25,
       steps: [
         checkout(),
@@ -97,8 +97,8 @@ const ci: Workflow = {
         // Bundle-size budgets per entry point — fails if a change (e.g. flipping `sideEffects`)
         // breaks tree-shaking or bloats the public surface. Runs on the just-built dist/.
         sh('Size limit', 'bun run --filter=ljkui size'),
-        // Compiles every generated story module, so a story that stops building fails CI.
-        sh('Build Storybook', 'bun run --filter=ljkui build-storybook'),
+        // Compiles every generated fixture module, so a fixture that stops building fails CI.
+        sh('Build explorer', 'bun run --filter=ljkui build:explorer'),
         sh('Package health', 'bun run --filter=ljkui health'),
       ],
     },
@@ -121,31 +121,12 @@ const ci: Workflow = {
         }),
       ],
     },
-    // Visual review (not a test): uploads the Storybook build to Chromatic, which posts an
-    // image diff of every story on the PR for a human to approve. Self-skips when the
-    // CHROMATIC_PROJECT_TOKEN secret is absent (fork PRs, or before it is configured), so it
-    // never blocks the merge. Set it up at chromatic.com → project settings.
-    chromatic: {
-      name: 'Chromatic',
-      needs: 'check',
-      'runs-on': RUNNER,
-      'timeout-minutes': 20,
-      steps: [
-        // Chromatic needs full git history to find each story's baseline.
-        { ...checkout(), with: { 'fetch-depth': 0 } },
-        setupBun(BUN_VERSION),
-        cacheBunStore(),
-        install(),
-        cacheTurbo(),
-        sh('Build library', 'bun run build'),
-        sh('Build Storybook', 'bun run build:storybook'),
-        sh(
-          'Chromatic',
-          'if [ -z "$CHROMATIC_PROJECT_TOKEN" ]; then echo "no CHROMATIC_PROJECT_TOKEN — skipping visual review"; else bun x chromatic --project-token "$CHROMATIC_PROJECT_TOKEN" --storybook-build-dir packages/ljkui/storybook-static --exit-zero-on-changes; fi',
-          { env: { CHROMATIC_PROJECT_TOKEN: '${{ secrets.CHROMATIC_PROJECT_TOKEN }}' } },
-        ),
-      ],
-    },
+    /*
+     * There was a `chromatic` job here. It uploaded the Storybook build for an image diff
+     * of every story; Chromatic takes a `--storybook-build-dir` and nothing else, so it
+     * has no input now that Storybook is gone. Removed rather than left broken — the
+     * CHROMATIC_PROJECT_TOKEN secret can stay, unused, in case it comes back.
+     */
   },
 };
 
@@ -155,7 +136,7 @@ const release: Workflow = {
     workflow_dispatch: {
       inputs: {
         deploy: {
-          description: 'Also deploy Storybook to production',
+          description: 'Also deploy the explorer to production',
           type: 'boolean',
           default: true,
         },

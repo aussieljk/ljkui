@@ -1,0 +1,66 @@
+---
+title: 'ljkui'
+description: 'A React component library built on Base UI, themed with the Tailwind CSS v4 palettes.'
+---
+
+## Install
+
+```sh
+bun add ljkui
+```
+
+```tsx
+import { Theme, Button } from 'ljkui';
+import 'ljkui/styles.css';
+
+export default function App() {
+  return (
+    <Theme accentColor="blue" grayColor="auto">
+      <Button>Click me</Button>
+    </Theme>
+  );
+}
+```
+
+## Using this explorer
+
+Every component has a fixture module under one of the tree sections, with one fixture per
+example and a **Reference** fixture carrying its prop table, keyboard map and ARIA notes.
+The control panel switches **appearance** (light/dark), **accent** and **gray** — every
+fixture renders through `<Theme>`, which is the fastest way to check a component against
+the full palette. Press `⌘K` to jump to anything, including the component usages uaight
+harvested from `src/`.
+
+The examples themselves live in `packages/ljkui/examples/*.examples.tsx`.
+
+## All components
+
+### Sections <sup>104 components</sup>
+
+### Components <sup>37</sup>
+
+Alert <sup>7</sup> · AlertDialog <sup>11</sup> · Avatar <sup>5</sup> · AvatarGroup <sup>3</sup> · AvatarStack <sup>2</sup> · Badge <sup>5</sup> · Breadcrumb <sup>3</sup> · Card <sup>5</sup> · Carousel <sup>16</sup> · CircularProgress <sup>3</sup> · CreditCard <sup>13</sup> · Dialog <sup>16</sup> · Drawer <sup>14</sup> · Empty <sup>18</sup> · HoverCard <sup>16</sup> · Item <sup>4</sup> · Lightbox <sup>19</sup> · Meter <sup>3</sup> · Oscar <sup>12</sup> · Overlay <sup>1</sup> · Popover <sup>17</sup> · Portal <sup>5</sup> · Progress <sup>3</sup> · Result <sup>4</sup> · ScrollArea <sup>6</sup> · Sheet <sup>13</sup> · Skeleton <sup>16</sup> · Sonner <sup>21</sup> · Spinner <sup>2</sup> · Stepper <sup>4</sup> · Tabs <sup>6</sup> · TabsNav <sup>4</sup> · Timeline <sup>2</sup> · Tooltip <sup>12</sup> · TreeView <sup>3</sup> · VisuallyHidden <sup>5</sup> · WidgetStack <sup>4</sup>
+
+### Controls <sup>32</sup>
+
+Autocomplete <sup>26</sup> · Button <sup>8</sup> · ButtonGroup <sup>5</sup> · Calendar <sup>3</sup> · Checkbox <sup>9</sup> · Combobox <sup>17</sup> · Command <sup>3</sup> · ContextMenu <sup>7</sup> · DateField <sup>3</sup> · DatePicker <sup>2</sup> · DateRangePicker <sup>2</sup> · DropdownMenu <sup>11</sup> · FilterChip <sup>6</sup> · IconButton <sup>5</sup> · Input <sup>4</sup> · InputGroup <sup>3</sup> · InputOTP <sup>4</sup> · Menubar <sup>1</sup> · NavigationMenu <sup>1</sup> · NumberField <sup>16</sup> · Pagination <sup>3</sup> · RadioButtonGroup <sup>10</sup> · RadioGroup <sup>14</sup> · RangeCalendar <sup>3</sup> · Select <sup>14</sup> · Slider <sup>8</sup> · Switch <sup>7</sup> · Textarea <sup>3</sup> · Toggle <sup>4</sup> · ToggleGroup <sup>4</sup> · ToggleGroupNav <sup>2</sup> · ToggleGroupRadioGroup <sup>3</sup>
+
+### Typography <sup>9</sup>
+
+Blockquote <sup>1</sup> · Code <sup>4</sup> · Em <sup>1</sup> · Heading <sup>5</sup> · Kbd <sup>1</sup> · Link <sup>5</sup> · Quote <sup>1</sup> · Strong <sup>1</sup> · Text <sup>9</sup>
+
+### Layout <sup>15</sup>
+
+Accordion <sup>3</sup> · AspectRatio <sup>4</sup> · Bleed <sup>2</sup> · Collapsible <sup>3</sup> · Container <sup>3</sup> · Grid <sup>2</sup> · HStack <sup>2</sup> · Inset <sup>1</sup> · Resizable <sup>3</sup> · Section <sup>2</sup> · Separator <sup>3</sup> · Sidebar <sup>4</sup> · Spacer <sup>1</sup> · VStack <sup>1</sup> · ZStack <sup>1</sup>
+
+### Data presentation <sup>3</sup>
+
+Chart <sup>3</sup> · DataTable <sup>4</sup> · Table <sup>4</sup>
+
+### Forms <sup>3</sup>
+
+Field <sup>21</sup> · Fieldset <sup>1</sup> · Form <sup>16</sup>
+
+### Utilities <sup>5</sup>
+
+EmojiColors <sup>7</sup> · Icons <sup>6</sup> · Scrollbars <sup>5</sup> · Shine <sup>1</sup> · Theme <sup>10</sup>

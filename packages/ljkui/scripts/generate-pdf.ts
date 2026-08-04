@@ -1,6 +1,13 @@
 /**
  * Renders every Storybook story into a single PDF.
  *
+ * ⚠️ BROKEN since the 2026-08-04 move from Storybook to uaight, and NOT ported.
+ * Discovery here is entirely Storybook-shaped: it reads `index.json` and opens each story at
+ * `iframe.html?id=<id>`. uaight exposes neither — it has its own fixture ids, a shareable URL
+ * scheme and a read-only dev-server API. Everything below the discovery layer (the CDP capture,
+ * the trim, the flow pagination) is reusable, so porting means replacing the two Storybook
+ * contracts, not rewriting the script. Until then `generate:pdf` fails at the index fetch.
+ *
  * Approach: drive a headless Google Chrome over the DevTools Protocol. No new dependency is
  * needed — neither playwright nor puppeteer is installed, but Chrome ships on this machine and
  * `@napi-rs/canvas` (already a devDependency) can crop the captures. Each story is opened

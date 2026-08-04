@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 // Scaffold a new ljkui component and wire it into every place the repo
 // expects: component files, the components barrel, the CSS aggregate, and a usage demo.
-// Its Storybook page is generated from examples/*.examples.tsx, so none is authored here.
+// Its explorer fixture is generated from examples/*.examples.tsx, so none is authored here.
 //
 // Usage:
 //   bun run new:component <kebab-name> [--namespace] [--no-docs]
@@ -162,7 +162,7 @@ create(
 `,
 );
 
-// Storybook pages are generated from `examples/*.examples.tsx` by generate-storybook.ts, and
+// Explorer fixtures are generated from `examples/*.examples.tsx` by gen-fixtures.ts, and
 // the prop table from `*.props.ts` via gen-props.ts — a new component needs no page authored here.
 
 create(

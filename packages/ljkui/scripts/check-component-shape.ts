@@ -5,7 +5,7 @@
  * `gen-css-index.ts --check` (css registration). For every directory under `src/components`:
  *
  *   - it exports a barrel `index.ts` (the component `export *`d from `src/components/index.ts`), and
- *   - it has a matching `examples/<name>.examples.tsx` demo (the source of its Storybook stories).
+ *   - it has a matching `examples/<name>.examples.tsx` demo (the source of its explorer fixtures).
  *
  * A handful of internal primitives and the split `typography/` dir are exempt below.
  *

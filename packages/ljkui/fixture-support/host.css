@@ -1,0 +1,48 @@
+/*
+ * The explorer's *host page* stylesheet — this is not the library.
+ *
+ * ljkui deliberately ships no `font-family` (see the Sharp Edges note in CLAUDE.md):
+ * its typography tokens carry only size/line-height/weight, and text inherits its
+ * typeface from whatever page embeds it. So the font belongs here, exactly as it would
+ * in a consumer's app — never in src/styles.
+ *
+ * SF Pro is named explicitly for machines that have Apple's developer fonts installed;
+ * `-apple-system` then resolves to the system SF on every other Mac, and picks the
+ * right optical size (Text vs Display) per size automatically.
+ */
+:root {
+  --host-font-sans:
+    'SF Pro Text', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
+  --host-font-mono: 'SF Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+body {
+  margin: 0;
+  font-family: var(--host-font-sans);
+  /* SF is designed with optical sizing; let the browser use it where supported. */
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * The library's <Code>, <Kbd> and <DateField> use the generic `monospace` keyword, which
+ * resolves to the browser default rather than SF Mono. Point the generic at SF Mono for
+ * the preview so code samples match the rest of the type.
+ */
+code,
+kbd,
+pre,
+samp,
+.ljkui :where([data-accent-color]) code {
+  font-family: var(--host-font-mono);
+}
+
+/*
+ * `--color-background` is defined on `.ljkui` elements, never on :root, so it cannot be
+ * read from `body`. Instead let the themed root — which paints its own background via
+ * `hasBackground` — cover the preview area, so a dark fixture does not sit on white.
+ */
+[data-uaight-inline] > .ljkui,
+body > .ljkui {
+  min-height: 100vh;
+}
