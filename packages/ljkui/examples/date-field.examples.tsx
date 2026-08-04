@@ -13,22 +13,6 @@ export const examples = {
   /** The canonical usage — was `demos/date-field.demo.tsx` before demos folded into examples. */
   Overview: DateFieldOverview,
 
-  Size() {
-    const args = {
-      size: dateFieldPropDefs.size.default,
-      color: dateFieldPropDefs.color.default,
-      'aria-label': 'Birth date',
-    };
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 300 }}>
-        <DateField {...args} defaultValue={parseDate('2020-02-03')} size="1" />
-        <DateField {...args} defaultValue={parseDate('2020-02-03')} size="2" />
-        <DateField {...args} defaultValue={parseDate('2020-02-03')} size="3" />
-        <DateField {...args} defaultValue={parseDate('2020-02-03')} size="4" />
-      </div>
-    );
-  },
-
   MinValue() {
     const args = {
       size: dateFieldPropDefs.size.default,

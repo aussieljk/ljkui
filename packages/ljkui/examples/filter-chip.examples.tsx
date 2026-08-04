@@ -51,47 +51,6 @@ export const examples = {
     );
   },
 
-  Size() {
-    const args = { children: null };
-    return (
-      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-        <FilterChip defaultChecked {...args} size="1">
-          <ExampleIcon size={16} /> Size 1
-        </FilterChip>
-        <FilterChip defaultChecked {...args} size="2">
-          <ExampleIcon size={20} /> Size 2
-        </FilterChip>
-        <FilterChip defaultChecked {...args} size="3">
-          <ExampleIcon size={24} /> Size 3
-        </FilterChip>
-      </div>
-    );
-  },
-
-  Color() {
-    const args = { children: null };
-    return (
-      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-        <FilterChip {...args} color="indigo" defaultChecked>
-          <ExampleIcon size={20} />
-          Indigo
-        </FilterChip>
-        <FilterChip {...args} color="cyan" defaultChecked>
-          <ExampleIcon size={20} />
-          Cyan
-        </FilterChip>
-        <FilterChip {...args} color="orange" defaultChecked>
-          <ExampleIcon size={20} />
-          Orange
-        </FilterChip>
-        <FilterChip {...args} color="rose" defaultChecked>
-          <ExampleIcon size={20} />
-          Crimson
-        </FilterChip>
-      </div>
-    );
-  },
-
   'Read Only'() {
     const args = { children: null };
     const activeFilters = {

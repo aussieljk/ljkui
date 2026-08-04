@@ -43,6 +43,8 @@ jobs:
           path: .turbo/cache
           key: "turbo-${{ runner.os }}-${{ github.sha }}"
           restore-keys: "turbo-${{ runner.os }}-"
+      - name: Generate fixtures
+        run: bun run --filter=ljkui generate:fixtures
       - name: Workflows in sync
         run: bun run workflows:check
       - name: Format

@@ -152,25 +152,6 @@ export const examples = {
     );
   },
 
-  Size() {
-    const args = {};
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-        <ScrollArea {...args} size="1" type="always" scrollbars="horizontal" style={{ width: 300, height: 12 }}>
-          <div style={{ width: 800, height: 1 }} />
-        </ScrollArea>
-
-        <ScrollArea {...args} size="2" type="always" scrollbars="horizontal" style={{ width: 350, height: 16 }}>
-          <div style={{ width: 900, height: 1 }} />
-        </ScrollArea>
-
-        <ScrollArea {...args} size="3" type="always" scrollbars="horizontal" style={{ width: 400, height: 20 }}>
-          <div style={{ width: 1000, height: 1 }} />
-        </ScrollArea>
-      </div>
-    );
-  },
-
   Scrollbars() {
     const args = { size: scrollAreaPropDefs.size.default };
     return (

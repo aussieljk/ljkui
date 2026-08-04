@@ -12,37 +12,6 @@ export const examples = {
   /** The canonical usage — was `demos/slider.demo.tsx` before demos folded into examples. */
   Overview: SliderOverview,
 
-  Size() {
-    const args = {
-      color: sliderPropDefs.color.default,
-      highContrast: sliderPropDefs.highContrast.default,
-      disabled: false,
-    };
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 300 }}>
-        <Slider {...args} defaultValue={[25]} size="1" />
-        <Slider {...args} defaultValue={[50]} size="2" />
-        <Slider {...args} defaultValue={[75]} size="3" />
-      </div>
-    );
-  },
-
-  Color() {
-    const args = {
-      size: sliderPropDefs.size.default,
-      highContrast: sliderPropDefs.highContrast.default,
-      disabled: false,
-    };
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 300 }}>
-        <Slider {...args} defaultValue={[20]} color="indigo" />
-        <Slider {...args} defaultValue={[40]} color="cyan" />
-        <Slider {...args} defaultValue={[60]} color="orange" />
-        <Slider {...args} defaultValue={[80]} color="rose" />
-      </div>
-    );
-  },
-
   'High Contrast'() {
     const args = {
       size: sliderPropDefs.size.default,

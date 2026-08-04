@@ -23,64 +23,6 @@ export const examples = {
   /** The canonical usage — was `demos/icon-button.demo.tsx` before demos folded into examples. */
   Overview: IconButtonOverview,
 
-  Size() {
-    const args = {
-      variant: buttonPropDefs.variant.default,
-      color: buttonPropDefs.color.default,
-      disabled: false,
-    };
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-        <IconButton {...args} size="4">
-          <ExampleIcon size={22} />
-        </IconButton>
-        <IconButton {...args} size="3">
-          <ExampleIcon size={20} />
-        </IconButton>
-        <IconButton {...args} size="2">
-          <ExampleIcon size={18} />
-        </IconButton>
-        <IconButton {...args} size="1">
-          <ExampleIcon size={16} />
-        </IconButton>
-      </div>
-    );
-  },
-
-  Variant() {
-    const args = {
-      children: <ExampleIcon size={16} />,
-      size: buttonPropDefs.size.default,
-      color: buttonPropDefs.color.default,
-      disabled: false,
-    };
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
-        <IconButton {...args} variant="classic" />
-        <IconButton {...args} variant="solid" />
-        <IconButton {...args} variant="soft" />
-        <IconButton {...args} variant="surface" />
-        <IconButton {...args} variant="ghost" />
-      </div>
-    );
-  },
-
-  Color() {
-    const args = {
-      children: <ExampleIcon size={16} />,
-      size: buttonPropDefs.size.default,
-      disabled: false,
-    };
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-        <IconButton {...args} color="indigo" />
-        <IconButton {...args} color="cyan" />
-        <IconButton {...args} color="orange" />
-        <IconButton {...args} color="rose" />
-      </div>
-    );
-  },
-
   'High Contrast'() {
     const args = { children: <ExampleIcon size={16} />, disabled: false };
     return (

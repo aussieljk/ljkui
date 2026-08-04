@@ -40,40 +40,6 @@ export const examples = {
     );
   },
 
-  Size() {
-    const args = {
-      fallback: 'Cameron Zoub',
-      src: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop',
-      color: 'blue',
-      onLoadingStatusChange: () => {},
-    } as const;
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
-        <Avatar {...args} size="0" />
-        <Avatar {...args} size="1" />
-        <Avatar {...args} size="2" />
-        <Avatar {...args} size="3" />
-        <Avatar {...args} size="4" />
-        <Avatar {...args} size="5" />
-        <Avatar {...args} size="6" />
-        <Avatar {...args} size="7" />
-        <Avatar {...args} size="8" />
-      </div>
-    );
-  },
-
-  Color() {
-    const args = { fallback: 'Cameron Zoub', onLoadingStatusChange: () => {} };
-    return (
-      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-        <Avatar {...args} color="indigo" />
-        <Avatar {...args} color="cyan" />
-        <Avatar {...args} color="orange" />
-        <Avatar {...args} color="rose" />
-      </div>
-    );
-  },
-
   HighContrast() {
     const args = { fallback: 'Cameron Zoub', onLoadingStatusChange: () => {} };
     return (

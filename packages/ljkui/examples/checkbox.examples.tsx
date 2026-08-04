@@ -72,29 +72,6 @@ export const examples = {
     );
   },
 
-  Size() {
-    const args = {};
-    return (
-      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-        <Checkbox defaultChecked {...args} size="1" />
-        <Checkbox defaultChecked {...args} size="2" />
-        <Checkbox defaultChecked {...args} size="3" />
-      </div>
-    );
-  },
-
-  Color() {
-    const args = {};
-    return (
-      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-        <Checkbox {...args} color="indigo" defaultChecked />
-        <Checkbox {...args} color="cyan" defaultChecked />
-        <Checkbox {...args} color="orange" defaultChecked />
-        <Checkbox {...args} color="rose" defaultChecked />
-      </div>
-    );
-  },
-
   'High Contrast'() {
     const args = {};
     return (

@@ -8,20 +8,6 @@ import { Container, Card, Typography } from 'ljkui';
 export const fileMeta = { group: 'Layout', layout: 'centered' } as const;
 
 export const examples = {
-  Size() {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-        {(['1', '2', '3', '4'] as const).map((size) => (
-          <Container key={size} size={size}>
-            <Card variant="soft">
-              <Typography.Text size="2">Container size {size}</Typography.Text>
-            </Card>
-          </Container>
-        ))}
-      </div>
-    );
-  },
-
   Align() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>

@@ -14,7 +14,7 @@
   "scripts": {
     "build": "turbo run build",
     "changelog": "bun x git-cliff -o CHANGELOG.md",
-    "check": "bun run workflows:check && bun run format:check && bun run --filter=ljkui check:props && bun run --filter=ljkui check:root-class && bun run --filter=ljkui check:css-index && bun run --filter=ljkui check:tokens && bun run --filter=ljkui check:explorer && bun run --filter=ljkui check:prebundle && turbo run lint typecheck build && bun scripts/smoke-install.ts && bun run --filter=ljkui size && bun run --filter=ljkui build:explorer && bun run --filter=ljkui health",
+    "check": "bun run --filter=ljkui generate:fixtures && bun run workflows:check && bun run format:check && bun run --filter=ljkui check:props && bun run --filter=ljkui check:root-class && bun run --filter=ljkui check:css-index && bun run --filter=ljkui check:tokens && bun run --filter=ljkui check:explorer && bun run --filter=ljkui check:prebundle && turbo run lint typecheck build && bun scripts/smoke-install.ts && bun run --filter=ljkui size && bun run --filter=ljkui build:explorer && bun run --filter=ljkui health",
     "deploy": "bun scripts/deploy.ts",
     "dev": "bun run --filter=ljkui dev",
     "doctor": "bun scripts/doctor.ts",

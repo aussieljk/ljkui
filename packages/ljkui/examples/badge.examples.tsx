@@ -12,52 +12,6 @@ export const examples = {
   /** The canonical usage — was `demos/badge.demo.tsx` before demos folded into examples. */
   Overview: BadgeOverview,
 
-  Size() {
-    const args = {
-      children: 'Badge',
-      size: badgePropDefs.size.default,
-      variant: badgePropDefs.variant.default,
-      color: badgePropDefs.color.default,
-    };
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-        <Badge {...args} size="2" />
-        <Badge {...args} size="1" />
-      </div>
-    );
-  },
-
-  Variant() {
-    const args = {
-      children: 'Badge',
-      size: badgePropDefs.size.default,
-      color: badgePropDefs.color.default,
-    };
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-        <Badge {...args} variant="solid" />
-        <Badge {...args} variant="soft" />
-        <Badge {...args} variant="outline" />
-        <Badge {...args} variant="surface" />
-      </div>
-    );
-  },
-
-  Color() {
-    const args = {
-      children: 'Badge',
-      size: badgePropDefs.size.default,
-    };
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-        <Badge {...args} color="indigo" />
-        <Badge {...args} color="cyan" />
-        <Badge {...args} color="orange" />
-        <Badge {...args} color="rose" />
-      </div>
-    );
-  },
-
   'Semantic color'() {
     const args = {
       size: badgePropDefs.size.default,

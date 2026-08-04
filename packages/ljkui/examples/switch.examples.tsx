@@ -12,29 +12,6 @@ export const examples = {
   /** The canonical usage — was `demos/switch.demo.tsx` before demos folded into examples. */
   Overview: SwitchOverview,
 
-  Size() {
-    const args = { disabled: false };
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-        <Switch {...args} size="1" defaultChecked />
-        <Switch {...args} size="2" defaultChecked />
-        <Switch {...args} size="3" defaultChecked />
-      </div>
-    );
-  },
-
-  Color() {
-    const args = { disabled: false };
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-        <Switch {...args} color="indigo" defaultChecked />
-        <Switch {...args} color="cyan" defaultChecked />
-        <Switch {...args} color="orange" defaultChecked />
-        <Switch {...args} color="rose" defaultChecked />
-      </div>
-    );
-  },
-
   'High Contrast'() {
     const args = { disabled: false };
     return (

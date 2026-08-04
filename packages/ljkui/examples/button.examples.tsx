@@ -24,53 +24,6 @@ export const examples = {
   /** The canonical usage — was `demos/button.demo.tsx` before demos folded into examples. */
   Overview: ButtonOverview,
 
-  Size() {
-    const args = {
-      children: 'Button',
-      variant: buttonPropDefs.variant.default,
-      color: buttonPropDefs.color.default,
-      disabled: false,
-    };
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-        <Button {...args} size="4" />
-        <Button {...args} size="3" />
-        <Button {...args} size="2" />
-        <Button {...args} size="1" />
-      </div>
-    );
-  },
-
-  Variant() {
-    const args = {
-      children: 'Button',
-      size: buttonPropDefs.size.default,
-      color: buttonPropDefs.color.default,
-      disabled: false,
-    };
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
-        <Button {...args} variant="classic" />
-        <Button {...args} variant="solid" />
-        <Button {...args} variant="soft" />
-        <Button {...args} variant="surface" />
-        <Button {...args} variant="ghost" />
-      </div>
-    );
-  },
-
-  Color() {
-    const args = { children: 'Button', size: buttonPropDefs.size.default, disabled: false };
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-        <Button {...args} color="indigo" />
-        <Button {...args} color="cyan" />
-        <Button {...args} color="orange" />
-        <Button {...args} color="rose" />
-      </div>
-    );
-  },
-
   'Semantic color'() {
     const args = { size: buttonPropDefs.size.default, disabled: false };
     return (

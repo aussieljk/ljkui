@@ -82,6 +82,9 @@ const ci: Workflow = {
         cacheBunStore(),
         install(),
         cacheTurbo(),
+        // `fixtures/` is generated and no longer tracked, so it has to exist before the
+        // steps that read it (format, typecheck) run.
+        sh('Generate fixtures', 'bun run --filter=ljkui generate:fixtures'),
         // Cheap and pure-text first, so a formatting nit fails in seconds.
         sh('Workflows in sync', 'bun run workflows:check'),
         sh('Format', 'bun run format:check'),

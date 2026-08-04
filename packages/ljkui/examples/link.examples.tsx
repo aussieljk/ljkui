@@ -12,48 +12,6 @@ export const examples = {
   /** The canonical usage — was `demos/link.demo.tsx` before demos folded into examples. */
   Overview: LinkOverview,
 
-  Size() {
-    const args = {
-      children: 'ljkui',
-      href: 'https://ljkui.localhost/',
-      target: '_blank',
-      color: linkPropDefs.color.default,
-      size: linkPropDefs.size.default,
-    };
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-        <Link {...args} size="0" />
-        <Link {...args} size="1" />
-        <Link {...args} size="2" />
-        <Link {...args} size="3" />
-        <Link {...args} size="4" />
-        <Link {...args} size="5" />
-        <Link {...args} size="6" />
-        <Link {...args} size="7" />
-        <Link {...args} size="8" />
-        <Link {...args} size="9" />
-      </div>
-    );
-  },
-
-  Color() {
-    const args = {
-      children: 'ljkui',
-      href: 'https://ljkui.localhost/',
-      target: '_blank',
-      color: linkPropDefs.color.default,
-      size: linkPropDefs.size.default,
-    };
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>
-        <Link {...args} color="indigo" />
-        <Link {...args} color="cyan" />
-        <Link {...args} color="orange" />
-        <Link {...args} color="rose" />
-      </div>
-    );
-  },
-
   Underline() {
     const args = {
       children: 'ljkui',

@@ -19,6 +19,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { basename, join, relative } from 'node:path';
 import { buildFixtureIndex, resolveUaightConfig } from 'uaight/vite';
+import { ENUMERABLE, fixtureNameFor, optionsFor } from '../fixture-support/enumerate.tsx';
 import { uaightOptions } from '../fixture-support/uaight-options.ts';
 import { A11Y } from './a11y-data.ts';
 import { DEFAULT_CATEGORY, GUIDES, type Layout, LAYOUTS, SECTIONS, TOOLS, sectionDir } from './gen-fixtures-meta.ts';
@@ -167,20 +168,46 @@ async function componentModule(
   const driven = hint ? hint.export : displayName(slug);
   const rootBinding = driven.split('.')[0];
 
-  if (playground) {
+  /*
+   * Synthesised prop enumerations — the `Size` / `Variant` / `Color` grids that used to be
+   * written out by hand in every examples module. A module that still exports a fixture of
+   * that name keeps it: hand-authored always wins, so a component with something specific to
+   * say about one axis says it, and the rest come from `props.json`.
+   */
+  const enumerated = playground
+    ? ENUMERABLE.filter((prop) => optionsFor(slug, prop))
+        .map((prop) => ({ prop, name: fixtureNameFor(prop) }))
+        .filter((entry) => !names.includes(entry.name))
+    : [];
+
+  if (playground || enumerated.length > 0) {
     imports.push(`import { ${rootBinding} } from 'ljkui';`);
+  }
+  if (playground) {
     imports.push(`import { Playground } from ${quote(importPath(dir, 'fixture-support/playground'))};`);
+  }
+  if (enumerated.length > 0) {
+    imports.push(`import { Enumerate } from ${quote(importPath(dir, 'fixture-support/enumerate'))};`);
   }
   if (reference) {
     imports.push(`import { ComponentReference } from ${quote(importPath(dir, 'fixture-support/reference'))};`);
   }
 
   const meta = names.map((name) => `  ${key(name)}: { layout: ${quote(layout)} },`);
+  for (const entry of enumerated) meta.push(`  ${key(entry.name)}: { layout: ${quote(layout)} },`);
   if (playground) meta.push(`  Playground: { layout: ${quote(layout)} },`);
   // The reference is a document, not a component state — it always wants the full width.
   if (reference) meta.push(`  Reference: { layout: 'fullscreen' },`);
 
   const entries = names.map((name) => `  ${key(name)}: examples[${quote(name)}],`);
+  {
+    const childrenProp = childrenImport ? ` renderChildren={() => playgroundChildren}` : '';
+    for (const entry of enumerated) {
+      entries.push(
+        `  ${key(entry.name)}: () => <Enumerate slug=${quote(slug)} prop=${quote(entry.prop)} component={${driven}} name=${quote(driven)}${childrenProp} />,`,
+      );
+    }
+  }
   if (playground) {
     const childrenProp = childrenImport ? ` renderChildren={() => playgroundChildren}` : '';
     entries.push(

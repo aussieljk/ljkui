@@ -12,23 +12,6 @@ export const examples = {
   /** The canonical usage — was `demos/spinner.demo.tsx` before demos folded into examples. */
   Overview: SpinnerOverview,
 
-  Size() {
-    const args = {
-      size: spinnerPropDefs.size.default,
-      loading: spinnerPropDefs.loading.default,
-    };
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
-        <Spinner {...args} size="1" />
-        <Spinner {...args} size="2" />
-        <Spinner {...args} size="3" />
-        <Spinner {...args} size="4" />
-        <Spinner {...args} size="5" />
-        <Spinner {...args} size="6" />
-      </div>
-    );
-  },
-
   'With children'() {
     const args = {
       size: spinnerPropDefs.size.default,

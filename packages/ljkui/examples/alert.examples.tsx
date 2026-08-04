@@ -74,54 +74,6 @@ export const examples = {
     );
   },
 
-  Color() {
-    const args = {};
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-        <Alert.Root {...args} color="blue">
-          <Alert.Icon>
-            <Info size={16} />
-          </Alert.Icon>
-          <Alert.Title>New feature available</Alert.Title>
-          <Alert.Description>You can now accept crypto payments directly from your checkout page.</Alert.Description>
-          <Alert.Actions>
-            <Alert.Action>Enable crypto payments</Alert.Action>
-            <Alert.Action variant="secondary">Learn more</Alert.Action>
-          </Alert.Actions>
-        </Alert.Root>
-
-        <Alert.Root {...args} color="green">
-          <Alert.Icon>
-            <Info size={16} />
-          </Alert.Icon>
-          <Alert.Title>Payout sent</Alert.Title>
-          <Alert.Description>
-            Your $1,250.00 payout was deposited to your bank account ending in 4821.
-          </Alert.Description>
-          <Alert.Actions>
-            <Alert.Action>View payout details</Alert.Action>
-            <Alert.Action variant="secondary">Dismiss</Alert.Action>
-          </Alert.Actions>
-        </Alert.Root>
-
-        <Alert.Root {...args} color="red">
-          <Alert.Icon>
-            <Info size={16} />
-          </Alert.Icon>
-          <Alert.Title>Payment failed</Alert.Title>
-          <Alert.Description>
-            The card on file was declined. Update your <Link href="#">billing details</Link> to avoid service
-            interruption.
-          </Alert.Description>
-          <Alert.Actions>
-            <Alert.Action>Update billing</Alert.Action>
-            <Alert.Action variant="secondary">Try again</Alert.Action>
-          </Alert.Actions>
-        </Alert.Root>
-      </div>
-    );
-  },
-
   'Semantic color'() {
     const args = {};
     return (
