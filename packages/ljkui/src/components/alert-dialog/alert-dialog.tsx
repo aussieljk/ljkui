@@ -229,13 +229,13 @@ AlertDialogClose.displayName = 'AlertDialogClose';
 
 // Action (backwards compatibility alias for Close)
 interface AlertDialogActionProps extends AlertDialogCloseProps {}
-/** The confirming action button. Alias of `Close`, kept for radix-ui API compatibility. */
+/** The confirming action button. Alias of `Close`, kept for Base UI API compatibility. */
 const AlertDialogAction = AlertDialogClose;
 AlertDialogAction.displayName = 'AlertDialogAction';
 
 // Cancel (backwards compatibility alias for Close)
 interface AlertDialogCancelProps extends AlertDialogCloseProps {}
-/** The cancelling action button. Alias of `Close`, kept for radix-ui API compatibility. */
+/** The cancelling action button. Alias of `Close`, kept for Base UI API compatibility. */
 const AlertDialogCancel = AlertDialogClose;
 AlertDialogCancel.displayName = 'AlertDialogCancel';
 

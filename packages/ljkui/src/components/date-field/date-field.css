@@ -44,7 +44,7 @@
   text-align: right;
 
   font-variant-numeric: tabular-nums;
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
   outline: none;
 }
 

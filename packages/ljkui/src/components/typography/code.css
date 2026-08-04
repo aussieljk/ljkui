@@ -1,7 +1,7 @@
 .fui-Code {
   --code-variant-font-size-adjust: calc(var(--code-font-size-adjust) * 0.95);
   box-sizing: border-box;
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
   font-size: calc(var(--code-variant-font-size-adjust) * 1em);
   font-style: var(--code-font-style);
   font-weight: var(--code-font-weight);

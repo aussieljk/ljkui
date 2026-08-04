@@ -69,7 +69,7 @@ standalone demos that go with each.
 
 ### Judgment calls inside the renames
 
-**`Input.Control`, not `Input.Input`.** ljkui's TextField is Radix-Themes-2.x-shaped: `Root` is a
+**`Input.Control`, not `Input.Input`.** ljkui's TextField is composite: `Root` is a
 wrapper, with a separate input element and `Slot`s for icons. The literal rename produced
 `Input.Input`. `Control` is Base UI's own vocabulary for the interactive element (`Field.Control`),
 so it is borrowed rather than invented.

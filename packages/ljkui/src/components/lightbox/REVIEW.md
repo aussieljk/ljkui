@@ -245,7 +245,7 @@ Keep `'instant'` in the VT path since scroll must complete synchronously before 
 
 ### 4.1 Naming: `value` / `onValueChange`
 
-The active index API uses `value` / `defaultValue` / `onValueChange`. This is generic and composable-friendly (matches patterns in Radix, Base UI), but not immediately obvious that `value` refers to the active item index.
+The active index API uses `value` / `defaultValue` / `onValueChange`. This is generic and composable-friendly (matches Base UI's patterns), but not immediately obvious that `value` refers to the active item index.
 
 An alternative: `activeIndex` / `defaultActiveIndex` / `onActiveIndexChange`.
 

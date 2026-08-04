@@ -94,7 +94,7 @@ The emoji-to-color mappings are generated using a Node.js script located in `scr
 1. Loads all emojis from the `emoji-datasource` package
 2. Renders each emoji on a canvas using `@napi-rs/canvas`
 3. Extracts the dominant color using a weighted color analysis
-4. Matches the dominant color to the closest Radix color-9 value using Delta E (LAB color space)
+4. Matches the dominant color to the closest solid-step (color-700) value using Delta E (LAB color space)
 5. Generates a TypeScript file with all mappings at `src/helpers/emoji-colors.ts`
 
 ### When to Regenerate

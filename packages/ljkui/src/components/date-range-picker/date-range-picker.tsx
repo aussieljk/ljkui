@@ -71,7 +71,7 @@ export function DateRangePicker<T extends DateValue>(props: DateRangePickerProps
             disabled={isButtonDisabled}
             onClick={pressToClick(onButtonClick)}
             onKeyDown={(e) => {
-              // Radix and Aria keyboard event handlers are clashing
+              // Base UI and Aria keyboard event handlers are clashing
               // when pressing space or enter on the button.
               // Stop propagation to avoid that.
               if (e.code === 'Space' || e.code === 'Enter') {

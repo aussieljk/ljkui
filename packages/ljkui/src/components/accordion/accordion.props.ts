@@ -12,7 +12,7 @@ const accordionRootPropDefs = {
    */
   multiple: { type: 'boolean', default: false },
   /**
-   * Deprecated radix-ui-style API for `multiple`. Kept for backwards compatibility — use `multiple`
+   * Deprecated Base UI-style API for `multiple`. Kept for backwards compatibility — use `multiple`
    * instead.
    */
   type: { type: 'enum', values: types },

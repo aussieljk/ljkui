@@ -6,7 +6,7 @@
  * extra light shade — so the scale reads 10, 50, 100 … 900, 950 (see `scaleStops`).
  *
  * **The step names do not equal the Tailwind stops they read from**, in either mode.
- * The 12 steps are Radix-style *roles*, not a lightness ramp:
+ * The 12 steps are semantic *roles*, not a lightness ramp:
  *
  *   10   app background        400  subtle border      700  solid (buttons)
  *   50   subtle background     500  UI border          800  hovered solid
@@ -17,7 +17,7 @@
  * Roles 100–600 are all backgrounds and borders, so they live in the light half of
  * the palette; feeding Tailwind's 100–600 into them straight (which is what this
  * file used to do) put near-black borders on white cards. The tables below are
- * fitted against the frosted-ui/Radix scales this library forked from — `a·b` means
+ * fitted against the frosted-ui scales this library forked from — `a·b` means
  * the OKLab midpoint of two stops, `+W`/`+K` a mix toward white/black:
  *
  * - light: [50+W70, 50+W35, 100+W45, 200+W35, 200, 200·300, 300, 300·400,
@@ -28,15 +28,14 @@
  *   neutral toward black just yields more black, and they have no vivid solid.
  *
  * Light background/border steps are additionally damped to `UI_STEP_CHROMA`, because
- * Radix's UI steps are consistently less saturated than the Tailwind stops they map from.
+ * the UI roles read as consistently less saturated than the Tailwind stops they map from.
  *
  * Two steps are solved rather than tabulated, so they hold for custom accent colors
  * too (see `<Theme accentColor="#8b5cf6">`):
  *
  * - the solid step is `500·600`, or — for "bright" palettes whose vivid form is too
  *   light to carry white text (amber, yellow, lime, sky) — the most chromatic color
- *   that still takes dark text. Radix's step 9 is the *same color* in light and dark,
- *   and so is this one. Bright scales are deliberately non-monotone here: their solid
+ *   that still takes dark text. The solid step is the *same color* in light and dark. Bright scales are deliberately non-monotone here: their solid
  *   is *lighter* than the border step before it, exactly as frosted-ui's are.
  * - the text step is whichever candidate lands closest to a contrast target against
  *   the app background, bracketed so it can never collide with its neighbours.
@@ -169,9 +168,9 @@ function oklabHueDeg(c: Oklab): number {
 /**
  * Push a color's chroma out to the sRGB gamut boundary, keeping its lightness and hue.
  * This is what makes a "bright" solid the *vivid* form of its hue rather than just a
- * pale ramp step: Radix's sky 9 sits at the same lightness as its step 6 but carries
- * nearly double the chroma, and picking a ramp candidate alone reproduces the
- * lightness while leaving the two steps identical.
+ * pale ramp step: a bright hue's solid sits at the same lightness as its border role
+ * but carries nearly double the chroma, and picking a ramp candidate alone reproduces
+ * the lightness while leaving the two steps identical.
  */
 function saturateToGamut(color: Oklab): Oklab {
   const hue = oklabHueDeg(color);
@@ -248,9 +247,8 @@ function contrastRatio(a: Rgb, b: Rgb): number {
 }
 
 /*
- * No hue drift is applied to the pale steps, deliberately. Radix's ramps do drift
- * toward the warm side as they lighten (its red runs 28°→39°, its sky 242°→211°) and
- * Tailwind's are flatter, but mixing toward white in OKLab already reproduces the
+ * No hue drift is applied to the pale steps, deliberately. Hand-tuned ramps tend to
+ * drift toward the warm side as they lighten and Tailwind's are flatter, but mixing toward white in OKLab already reproduces the
  * effect: by step 200 the chroma is under 0.06, so hue contributes almost nothing.
  * Rotating steps 10–200 toward a warm anchor was measured across 14 palettes and
  * moved light ΔE by 0.001 while making dark ΔE worse (3.82 → 3.89). Don't add it back.
@@ -322,8 +320,8 @@ const BRIGHT_SOLID_MAX_CONTRAST = 1.6;
 /** Minimum OKLab lightness gap between adjacent steps, so no two roles render alike. */
 const RAMP_MIN_LIGHTNESS_STEP = 0.008;
 /**
- * Chroma multiplier for the light background/border steps (10…600). Radix's UI steps
- * are consistently less saturated than the Tailwind stops they map from; damping them
+ * Chroma multiplier for the light background/border steps (10…600). Background and
+ * border roles read best less saturated than the Tailwind stops they map from; damping them
  * measurably improves the fit for both regular and bright palettes, and it is what
  * keeps a bright scale's borders from colliding with its (undamped) solid chip.
  */
@@ -343,8 +341,8 @@ interface ComputeScaleOptions {
   /** Neutral palette — grays use their own step tables and text-contrast targets. */
   gray?: boolean;
   /**
-   * A "bright" palette, whose vivid form is too light to carry white text (Radix's
-   * `sky`/`mint`/`yellow`/`amber`/`lime` group). Detected from the palette when omitted,
+   * A "bright" palette, whose vivid form is too light to carry white text (`sky`,
+   * `yellow`, `amber`, `lime`). Detected from the palette when omitted,
    * which is what custom `<Theme accentColor>` colors rely on.
    */
   bright?: boolean;
@@ -377,7 +375,7 @@ function computeScale(palette: TailwindPalette, options: ComputeScaleOptions = {
 
   const bright = options.bright ?? contrastWithWhite(oklabToRgb(mostChromatic(candidates))) < SOLID_DARK_TEXT_THRESHOLD;
 
-  // The solid step. Radix's step 9 is the same color in light and dark — verified
+  // The solid step is the same color in light and dark — verified
   // across every frosted-ui scale — so chromatic palettes compute it once and share it.
   // A bright solid is the vivid form of the hue at the lightest level that still takes
   // dark text; without the gamut push it would come out identical to a border step.

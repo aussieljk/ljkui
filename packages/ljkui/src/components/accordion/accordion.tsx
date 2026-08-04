@@ -7,7 +7,7 @@ import type { PropsWithoutColor } from '../../helpers';
 
 type BaseAccordionRootProps = React.ComponentProps<typeof AccordionPrimitive.Root>;
 interface AccordionRootProps extends Omit<BaseAccordionRootProps, 'multiple'> {
-  /** @deprecated Use `multiple` instead. Kept for backwards compatibility with radix-ui API. */
+  /** @deprecated Use `multiple` instead. Kept for backwards compatibility with the Base UI API. */
   type?: 'single' | 'multiple';
   /**
    * Whether multiple items can be open at the same time. When omitted, falls back to the deprecated
@@ -33,7 +33,7 @@ interface AccordionRootProps extends Omit<BaseAccordionRootProps, 'multiple'> {
  */
 const AccordionRoot = (props: AccordionRootProps) => {
   const { className, type, multiple, ...accordionRootProps } = props;
-  // Support radix-ui's `type` prop for backwards compatibility
+  // Support Base UI's `type` prop for backwards compatibility
   const isMultiple = multiple ?? type === 'multiple';
 
   return (

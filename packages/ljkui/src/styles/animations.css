@@ -92,7 +92,6 @@
   .fui-PopperContent {
     animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 
-    /* Radix UI (legacy) */
     &:where([data-state='open']) {
       animation-duration: 300ms;
 

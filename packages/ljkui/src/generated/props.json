@@ -7,7 +7,7 @@
     },
     "type": {
       "type": "\"single\" | \"multiple\"",
-      "description": "Deprecated radix-ui-style API for `multiple`. Kept for backwards compatibility — use `multiple` instead."
+      "description": "Deprecated Base UI-style API for `multiple`. Kept for backwards compatibility — use `multiple` instead."
     },
     "disabled": {
       "type": "boolean",

@@ -229,7 +229,7 @@
 .fui-CreditCardNumberField,
 .fui-CreditCardExpiryField,
 .fui-CreditCardCVVField {
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
 }
 
 .fui-CreditCardExpiryField {

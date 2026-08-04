@@ -9,7 +9,7 @@
  *   - the published bin:   `bunx ljkui-lint-raw-colors [path]`
  *   - local development:   `bun src/bin/lint-raw-colors.ts [path]`
  *
- * ljkui ships a 12-step, Radix-style scale per palette (steps are ROLES, not
+ * ljkui ships a 12-step semantic scale per palette (steps are ROLES, not
  * Tailwind stops — see CLAUDE.md "Sharp Edges"). The concrete light-mode hex
  * seeds live in src/styles/tokens/palettes.css; at build they're extracted into
  * `dist/token-seeds.json` (via scripts/gen-token-seeds.ts) so the published bin

@@ -2,7 +2,7 @@
 /**
  * Token contract snapshot — guards the fragile palette/token CSS.
  *
- * The palette generator is easy to get subtly wrong (the 12 Radix-style role steps, the
+ * The palette generator is easy to get subtly wrong (the 12 semantic role steps, the
  * deliberately non-monotone bright scales — see CLAUDE.md → Sharp Edges). This captures every
  * `--token: value` declaration across the color token CSS into a committed, sorted JSON file,
  * so a palette edit surfaces as an explicit, reviewable `git diff` of exactly which values

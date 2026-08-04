@@ -166,9 +166,9 @@ async function generateEmojiColors() {
 // Generated on: ${new Date().toISOString()}
 // Total emojis: ${processed}
 
-import type { radixColorScales } from './radix-colors';
+import type { tailwindColorScales } from './tailwind-colors';
 
-export type ColorScale = (typeof radixColorScales)[number] | 'gray';
+export type ColorScale = (typeof tailwindColorScales)[number];
 
 /**
  * Maps emojis to their corresponding color scale in the ljkui color system.

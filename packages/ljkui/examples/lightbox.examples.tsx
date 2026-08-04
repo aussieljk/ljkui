@@ -2453,7 +2453,7 @@ const teamMembers = [
     email: 'alex@acme.dev',
     avatar: 'https://i.pravatar.cc/400?img=8',
     cover: 'https://picsum.photos/seed/team-alex/1200/500',
-    bio: 'React nerd and accessibility advocate. Contributor to Radix UI and MDN. Believes the web should work for everyone.',
+    bio: 'React nerd and accessibility advocate. Contributor to Base UI and MDN. Believes the web should work for everyone.',
     stats: { commits: '3,102', reviews: '1,456', projects: '9' },
     tags: ['React', 'A11y', 'TypeScript'],
   },

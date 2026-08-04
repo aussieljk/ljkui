@@ -6,7 +6,7 @@ import { tailwindColorScales } from '../../src/helpers/tailwind-colors';
  * and `--{name}-alpha-{step}` (translucent), plus `--{name}-700-contrast` (the text color
  * for the solid step) and a translucent surface.
  *
- * The step names are Radix-style *roles*, not a lightness ramp and not the Tailwind stop
+ * The step names are semantic *roles*, not a lightness ramp and not the Tailwind stop
  * they are derived from — see src/helpers/tailwind-palette.ts.
  */
 
