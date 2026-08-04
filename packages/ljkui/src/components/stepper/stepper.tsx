@@ -51,7 +51,7 @@ const CheckIcon = () => (
  * />
  * ```
  */
-const Stepper = React.forwardRef<HTMLOListElement, StepperProps>((props, ref) => {
+const Stepper = (props: StepperProps) => {
   const {
     className,
     size = stepperPropDefs.size.default,
@@ -60,6 +60,7 @@ const Stepper = React.forwardRef<HTMLOListElement, StepperProps>((props, ref) =>
     highContrast = stepperPropDefs.highContrast.default,
     steps,
     activeStep = 0,
+    ref,
     ...rootProps
   } = props;
 
@@ -96,7 +97,7 @@ const Stepper = React.forwardRef<HTMLOListElement, StepperProps>((props, ref) =>
       })}
     </ol>
   );
-});
+};
 Stepper.displayName = 'Stepper';
 
 export { Stepper };

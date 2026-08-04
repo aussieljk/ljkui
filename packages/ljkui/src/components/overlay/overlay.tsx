@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { overlayPropDefs } from './overlay.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes } from '../../helpers';
 
 interface OverlayContentProps extends React.ComponentProps<'div'> {}
@@ -38,7 +39,7 @@ interface OverlayProps extends React.ComponentProps<'div'>, OverlayOwnProps {}
  */
 const OverlayComponent = (props: OverlayProps) => {
   const { className, alignment = overlayPropDefs.alignment.default, ...overlayProps } = props;
-  return <div {...overlayProps} className={classNames('fui-Overlay', className, `fui-r-alignment-${alignment}`)} />;
+  return <div {...overlayProps} className={rootClassName('fui-Overlay', className, { alignment })} />;
 };
 OverlayComponent.displayName = 'Overlay';
 

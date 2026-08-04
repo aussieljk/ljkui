@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Text } from '../typography/text';
 import { dataTableItemPropDefs, dataTableLabelPropDefs, dataTableRootPropDefs } from './data-table.props';
 
-import { PropsWithoutColor, type GetPropDefTypes } from '../../helpers';
+import { PropsWithoutColor, rootClassName, type GetPropDefTypes } from '../../helpers';
 
 type DataTableRootOwnProps = GetPropDefTypes<typeof dataTableRootPropDefs>;
 interface DataTableRootProps extends PropsWithoutColor<'dl'>, DataTableRootOwnProps {}
@@ -37,12 +37,12 @@ const DataTableRoot = (props: DataTableRootProps) => {
     <Text
       render={<dl />}
       {...dataTableProps}
-      className={classNames(
+      className={rootClassName(
         'fui-DataTableRoot',
-        `fui-r-size-${size}`,
+        className,
+        { size },
         `fui-r-lt-${trim}`,
         `fui-r-orientation-${orientation}`,
-        className,
       )}
     />
   );
@@ -81,7 +81,7 @@ const DataTableLabel = (props: DataTableLabelProps) => {
     <dt
       {...dataTableLabelProps}
       data-accent-color={color}
-      className={classNames('fui-DataTableLabel', { 'fui-high-contrast': highContrast }, className)}
+      className={rootClassName('fui-DataTableLabel', className, { highContrast })}
     />
   );
 };

@@ -8,6 +8,7 @@ import { Heading } from '../typography/heading';
 import { Text } from '../typography/text';
 import { alertDialogContentPropDefs } from './alert-dialog.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes } from '../../helpers';
 import type { TextProps } from '../typography/text';
 
@@ -131,7 +132,7 @@ const AlertDialogContent = (props: AlertDialogContentProps) => {
         <Theme
           render={<AlertDialogPrimitive.Popup />}
           {...popupProps}
-          className={classNames('fui-DialogContent', 'fui-AlertDialogContent', className, `fui-r-size-${size}`)}
+          className={rootClassName('fui-AlertDialogContent', className, { size }, 'fui-DialogContent')}
         >
           <AlertDialogContentContext.Provider value={React.useMemo(() => ({ size }), [size])}>
             {children}

@@ -24,32 +24,31 @@ interface CarouselPreviousProps extends useRender.ComponentProps<'button', Carou
  * Automatically disabled at the start of the scroll range unless the Root has
  * `loop`, in which case it wraps around to the last item.
  */
-const CarouselPrevious = React.forwardRef<HTMLButtonElement, CarouselPreviousProps>(
-  function CarouselPrevious(props, forwardedRef) {
-    const { render, step, ...elementProps } = props;
+const CarouselPrevious = (props: CarouselPreviousProps) => {
+  const forwardedRef = props.ref;
+  const { render, step, ...elementProps } = props;
 
-    const { disabled, handleClick } = useScrollButton({ direction: 'previous', step });
+  const { disabled, handleClick } = useScrollButton({ direction: 'previous', step });
 
-    const state = React.useMemo<CarouselPreviousState>(() => ({ disabled }), [disabled]);
+  const state = React.useMemo<CarouselPreviousState>(() => ({ disabled }), [disabled]);
 
-    return useRender({
-      render,
-      ref: forwardedRef,
-      state,
-      props: mergeProps<'button'>(
-        {
-          className: 'fui-CarouselPrevious',
-          type: 'button',
-          disabled,
-          onClick: handleClick,
-          ...(disabled ? { 'data-disabled': '' } : undefined),
-        } as React.ComponentPropsWithRef<'button'>,
-        elementProps as React.ComponentPropsWithRef<'button'>,
-      ),
-      defaultTagName: 'button',
-    });
-  },
-);
+  return useRender({
+    render,
+    ref: forwardedRef,
+    state,
+    props: mergeProps<'button'>(
+      {
+        className: 'fui-CarouselPrevious',
+        type: 'button',
+        disabled,
+        onClick: handleClick,
+        ...(disabled ? { 'data-disabled': '' } : undefined),
+      } as React.ComponentPropsWithRef<'button'>,
+      elementProps as React.ComponentPropsWithRef<'button'>,
+    ),
+    defaultTagName: 'button',
+  });
+};
 
 CarouselPrevious.displayName = 'CarouselPrevious';
 

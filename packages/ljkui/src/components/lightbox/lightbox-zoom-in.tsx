@@ -20,33 +20,32 @@ const stateAttributesMapping = {
  * Lightbox.Zoom (e.g. via its `overlay` slot); auto-disables at the
  * maximum zoom level or when no zoom context is present.
  */
-const LightboxZoomIn = React.forwardRef<HTMLButtonElement, LightboxZoomInProps>(
-  function LightboxZoomIn(props, forwardedRef) {
-    const { render, ...elementProps } = props;
-    const ctx = useOptionalZoomContext();
-    const disabled = ctx ? !ctx.canZoomIn : true;
+const LightboxZoomIn = (props: LightboxZoomInProps) => {
+  const forwardedRef = props.ref;
+  const { render, ...elementProps } = props;
+  const ctx = useOptionalZoomContext();
+  const disabled = ctx ? !ctx.canZoomIn : true;
 
-    const state = React.useMemo<LightboxZoomInState>(() => ({ disabled }), [disabled]);
+  const state = React.useMemo<LightboxZoomInState>(() => ({ disabled }), [disabled]);
 
-    return useRender({
-      render,
-      ref: forwardedRef,
-      state,
-      stateAttributesMapping,
-      props: mergeProps<'button'>(
-        {
-          type: 'button',
-          className: 'fui-LightboxZoomIn',
-          'aria-label': 'Zoom in',
-          disabled,
-          onClick: ctx?.zoomIn,
-        } as React.ComponentPropsWithRef<'button'>,
-        elementProps as React.ComponentPropsWithRef<'button'>,
-      ),
-      defaultTagName: 'button',
-    });
-  },
-);
+  return useRender({
+    render,
+    ref: forwardedRef,
+    state,
+    stateAttributesMapping,
+    props: mergeProps<'button'>(
+      {
+        type: 'button',
+        className: 'fui-LightboxZoomIn',
+        'aria-label': 'Zoom in',
+        disabled,
+        onClick: ctx?.zoomIn,
+      } as React.ComponentPropsWithRef<'button'>,
+      elementProps as React.ComponentPropsWithRef<'button'>,
+    ),
+    defaultTagName: 'button',
+  });
+};
 
 LightboxZoomIn.displayName = 'LightboxZoomIn';
 

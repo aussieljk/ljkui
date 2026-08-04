@@ -37,7 +37,7 @@ interface MeterProps extends Omit<PropsWithoutColor<'div'>, 'children'>, MeterOw
  * <Meter aria-label="Disk usage" value={72} min={0} max={100} low={20} high={80} optimum={90} />
  * ```
  */
-const Meter = React.forwardRef<HTMLDivElement, MeterProps>((props, ref) => {
+const Meter = (props: MeterProps) => {
   const {
     className,
     size = meterPropDefs.size.default,
@@ -49,6 +49,7 @@ const Meter = React.forwardRef<HTMLDivElement, MeterProps>((props, ref) => {
     low,
     high,
     optimum,
+    ref,
     ...rootProps
   } = props;
 
@@ -93,7 +94,7 @@ const Meter = React.forwardRef<HTMLDivElement, MeterProps>((props, ref) => {
       <div className="fui-MeterIndicator" style={{ width: `${fraction * 100}%` }} />
     </div>
   );
-});
+};
 Meter.displayName = 'Meter';
 
 export { Meter };

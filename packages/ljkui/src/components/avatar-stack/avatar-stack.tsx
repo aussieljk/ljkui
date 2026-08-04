@@ -2,6 +2,7 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 import { Avatar } from '../avatar';
 import { avatarStackPropDefs } from './avatar-stack.props';
@@ -41,7 +42,7 @@ const AvatarStackRoot = (props: AvatarStackRootProps) => {
   const reversedChildren = React.useMemo(() => React.Children.toArray(children).reverse(), [children]);
 
   return (
-    <div {...rootProps} className={classNames('fui-AvatarStackRoot', className, `fui-r-size-${size}`)}>
+    <div {...rootProps} className={rootClassName('fui-AvatarStackRoot', className, { size })}>
       <AvatarStackContext.Provider value={{ size }}>{reversedChildren}</AvatarStackContext.Provider>
     </div>
   );

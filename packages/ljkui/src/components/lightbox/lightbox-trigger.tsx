@@ -39,82 +39,78 @@ const triggerStateAttributesMapping = {
  * When `viewTransition` is enabled on Root, the trigger element is
  * used as the morph source for the view transition animation.
  */
-const LightboxTrigger = React.forwardRef<HTMLButtonElement, LightboxTriggerProps>(
-  function LightboxTrigger(props, forwardedRef) {
-    const { render, index, crossfade, ...elementProps } = props;
-    const { open, activeIndex, setOpen, setActiveIndex, triggerElementsRef, openingTriggerIndexRef, morphTo } =
-      useLightboxContext();
+const LightboxTrigger = (props: LightboxTriggerProps) => {
+  const forwardedRef = props.ref;
+  const { render, index, crossfade, ...elementProps } = props;
+  const { open, activeIndex, setOpen, setActiveIndex, triggerElementsRef, openingTriggerIndexRef, morphTo } =
+    useLightboxContext();
 
-    const internalRef = React.useRef<HTMLButtonElement | null>(null);
+  const internalRef = React.useRef<HTMLButtonElement | null>(null);
 
-    const mergedRefCallback = React.useCallback(
-      (node: HTMLButtonElement | null) => {
-        internalRef.current = node;
-        // Register in the trigger elements map for view transitions
-        if (node) {
-          triggerElementsRef.current.set(index, node);
-        } else {
-          triggerElementsRef.current.delete(index);
-        }
-        if (typeof forwardedRef === 'function') {
-          forwardedRef(node);
-        } else if (forwardedRef) {
-          forwardedRef.current = node;
-        }
-      },
-      [forwardedRef, index, triggerElementsRef],
-    );
-
-    const handleClick = React.useCallback(() => {
-      openingTriggerIndexRef.current = index;
-      setActiveIndex(index, 'trigger');
-      setOpen(true);
-    }, [index, setActiveIndex, setOpen, openingTriggerIndexRef]);
-
-    const active = open && activeIndex === index;
-
-    const morphTarget = React.useMemo(() => {
-      if (!open) return false;
-      if (morphTo === 'origin') return index === openingTriggerIndexRef.current;
-      if (morphTo === 'closest') {
-        if (triggerElementsRef.current.has(activeIndex)) return activeIndex === index;
-        let best = -1;
-        let bestDist = Infinity;
-        for (const idx of triggerElementsRef.current.keys()) {
-          const dist = Math.abs(idx - activeIndex);
-          if (dist < bestDist) {
-            bestDist = dist;
-            best = idx;
-          }
-        }
-        return index === best;
+  const mergedRefCallback = React.useCallback(
+    (node: HTMLButtonElement | null) => {
+      internalRef.current = node;
+      // Register in the trigger elements map for view transitions
+      if (node) {
+        triggerElementsRef.current.set(index, node);
+      } else {
+        triggerElementsRef.current.delete(index);
       }
-      return active;
-    }, [open, morphTo, activeIndex, index, active, openingTriggerIndexRef, triggerElementsRef]);
+      if (typeof forwardedRef === 'function') {
+        forwardedRef(node);
+      } else if (forwardedRef) {
+        forwardedRef.current = node;
+      }
+    },
+    [forwardedRef, index, triggerElementsRef],
+  );
 
-    const state = React.useMemo<LightboxTriggerState>(
-      () => ({ open, active, morphTarget }),
-      [open, active, morphTarget],
-    );
+  const handleClick = React.useCallback(() => {
+    openingTriggerIndexRef.current = index;
+    setActiveIndex(index, 'trigger');
+    setOpen(true);
+  }, [index, setActiveIndex, setOpen, openingTriggerIndexRef]);
 
-    return useRender({
-      render,
-      ref: mergedRefCallback,
-      state,
-      stateAttributesMapping: triggerStateAttributesMapping,
-      props: mergeProps<'button'>(
-        {
-          className: 'fui-LightboxTrigger',
-          type: 'button',
-          onClick: handleClick,
-          ...(crossfade === true ? { 'data-crossfade': 'true' } : undefined),
-        } as React.ComponentPropsWithRef<'button'>,
-        elementProps as React.ComponentPropsWithRef<'button'>,
-      ),
-      defaultTagName: 'button',
-    });
-  },
-);
+  const active = open && activeIndex === index;
+
+  const morphTarget = React.useMemo(() => {
+    if (!open) return false;
+    if (morphTo === 'origin') return index === openingTriggerIndexRef.current;
+    if (morphTo === 'closest') {
+      if (triggerElementsRef.current.has(activeIndex)) return activeIndex === index;
+      let best = -1;
+      let bestDist = Infinity;
+      for (const idx of triggerElementsRef.current.keys()) {
+        const dist = Math.abs(idx - activeIndex);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = idx;
+        }
+      }
+      return index === best;
+    }
+    return active;
+  }, [open, morphTo, activeIndex, index, active, openingTriggerIndexRef, triggerElementsRef]);
+
+  const state = React.useMemo<LightboxTriggerState>(() => ({ open, active, morphTarget }), [open, active, morphTarget]);
+
+  return useRender({
+    render,
+    ref: mergedRefCallback,
+    state,
+    stateAttributesMapping: triggerStateAttributesMapping,
+    props: mergeProps<'button'>(
+      {
+        className: 'fui-LightboxTrigger',
+        type: 'button',
+        onClick: handleClick,
+        ...(crossfade === true ? { 'data-crossfade': 'true' } : undefined),
+      } as React.ComponentPropsWithRef<'button'>,
+      elementProps as React.ComponentPropsWithRef<'button'>,
+    ),
+    defaultTagName: 'button',
+  });
+};
 
 LightboxTrigger.displayName = 'LightboxTrigger';
 

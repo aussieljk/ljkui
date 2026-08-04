@@ -82,7 +82,8 @@ interface ResultRootProps extends EmptyRootProps {
  * </Result.Root>
  * ```
  */
-const ResultRoot = React.forwardRef<HTMLDivElement, ResultRootProps>((props, forwardedRef) => {
+const ResultRoot = (props: ResultRootProps) => {
+  const forwardedRef = props.ref;
   const { className, status = resultRootPropDefs.status.default, ...rootProps } = props;
   return (
     <ResultContext.Provider value={status}>
@@ -94,7 +95,7 @@ const ResultRoot = React.forwardRef<HTMLDivElement, ResultRootProps>((props, for
       />
     </ResultContext.Provider>
   );
-});
+};
 ResultRoot.displayName = 'ResultRoot';
 
 // ============================================================================
@@ -116,7 +117,8 @@ interface ResultIconProps extends Omit<EmptyMediaProps, 'color'> {
  * <Result.Icon><MyIcon /></Result.Icon> // custom glyph
  * ```
  */
-const ResultIcon = React.forwardRef<HTMLDivElement, ResultIconProps>((props, forwardedRef) => {
+const ResultIcon = (props: ResultIconProps) => {
+  const forwardedRef = props.ref;
   const { children, color, className, ...iconProps } = props;
   const status = React.useContext(ResultContext);
   const { color: statusColor, Icon } = STATUS_META[status];
@@ -130,7 +132,7 @@ const ResultIcon = React.forwardRef<HTMLDivElement, ResultIconProps>((props, for
       {children ?? <Icon />}
     </EmptyMedia>
   );
-});
+};
 ResultIcon.displayName = 'ResultIcon';
 
 // ============================================================================

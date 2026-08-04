@@ -2,6 +2,7 @@
 
 import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';
 import classNames from 'classnames';
+import { rootClassName } from '../../helpers';
 import * as React from 'react';
 
 import { tabsListPropDefs } from './tabs.props';
@@ -57,9 +58,7 @@ const TabsList = (props: TabsListProps) => {
     <TabsPrimitive.List
       {...listProps}
       data-accent-color={color}
-      className={classNames('fui-BaseTabsList', 'fui-TabsList', className, `fui-r-size-${size}`, {
-        'fui-high-contrast': highContrast,
-      })}
+      className={rootClassName('fui-TabsList', className, { size, highContrast }, 'fui-BaseTabsList')}
     />
   );
 };

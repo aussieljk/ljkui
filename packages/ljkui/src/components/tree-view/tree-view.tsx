@@ -78,7 +78,8 @@ function flatten(data: TreeNode[], expanded: Set<string>, level = 1, parentId: s
  * />
  * ```
  */
-const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>((props, ref) => {
+const TreeView = (props: TreeViewProps) => {
+  const ref = props.ref;
   const {
     className,
     size = treeViewPropDefs.size.default,
@@ -235,7 +236,7 @@ const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>((props, ref) 
       {renderItems(data, 1, null)}
     </ul>
   );
-});
+};
 TreeView.displayName = 'TreeView';
 
 export { TreeView };

@@ -1,7 +1,8 @@
-import classNames from 'classnames';
 import * as React from 'react';
 
 import { spinnerPropDefs } from './spinner.props';
+
+import { rootClassName } from '../../helpers/index';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers/index';
 
@@ -32,7 +33,7 @@ const Spinner = (props: SpinnerProps) => {
   if (!loading) return children;
 
   const spinner = (
-    <span {...spinnerProps} className={classNames('fui-Spinner', `fui-r-size-${size}`, className)}>
+    <span {...spinnerProps} className={rootClassName('fui-Spinner', className, { size })}>
       <span className="fui-SpinnerLeaf" />
       <span className="fui-SpinnerLeaf" />
       <span className="fui-SpinnerLeaf" />

@@ -3,7 +3,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { colorProp, type GetPropDefTypes } from '../../helpers';
+import { colorProp, rootClassName, type GetPropDefTypes } from '../../helpers';
 import { Text, type TextProps } from '../typography/text';
 
 // ============================================================================
@@ -40,10 +40,11 @@ interface EmptyRootProps extends React.ComponentProps<'div'> {}
  * </Empty.Root>
  * ```
  */
-const EmptyRoot = React.forwardRef<HTMLDivElement, EmptyRootProps>((props, forwardedRef) => {
+const EmptyRoot = (props: EmptyRootProps) => {
+  const forwardedRef = props.ref;
   const { className, ...rootProps } = props;
   return <div ref={forwardedRef} {...rootProps} className={classNames('fui-EmptyRoot', className)} />;
-});
+};
 EmptyRoot.displayName = 'EmptyRoot';
 
 // ============================================================================
@@ -65,10 +66,11 @@ interface EmptyHeaderProps extends React.ComponentProps<'div'> {}
  * </Empty.Header>
  * ```
  */
-const EmptyHeader = React.forwardRef<HTMLDivElement, EmptyHeaderProps>((props, forwardedRef) => {
+const EmptyHeader = (props: EmptyHeaderProps) => {
+  const forwardedRef = props.ref;
   const { className, ...headerProps } = props;
   return <div ref={forwardedRef} {...headerProps} className={classNames('fui-EmptyHeader', className)} />;
-});
+};
 EmptyHeader.displayName = 'EmptyHeader';
 
 // ============================================================================
@@ -101,17 +103,18 @@ interface EmptyMediaProps extends Omit<React.ComponentProps<'div'>, 'color'> {
  * </Empty.Media>
  * ```
  */
-const EmptyMedia = React.forwardRef<HTMLDivElement, EmptyMediaProps>((props, forwardedRef) => {
+const EmptyMedia = (props: EmptyMediaProps) => {
+  const forwardedRef = props.ref;
   const { className, variant = 'soft', color = 'gray', ...mediaProps } = props;
   return (
     <div
       ref={forwardedRef}
       data-accent-color={color}
       {...mediaProps}
-      className={classNames('fui-EmptyMedia', `fui-variant-${variant}`, className)}
+      className={rootClassName('fui-EmptyMedia', className, { variant })}
     />
   );
-});
+};
 EmptyMedia.displayName = 'EmptyMedia';
 
 // ============================================================================
@@ -193,10 +196,11 @@ interface EmptyActionsProps extends React.ComponentProps<'div'> {}
  * </Empty.Actions>
  * ```
  */
-const EmptyActions = React.forwardRef<HTMLDivElement, EmptyActionsProps>((props, forwardedRef) => {
+const EmptyActions = (props: EmptyActionsProps) => {
+  const forwardedRef = props.ref;
   const { className, ...actionsProps } = props;
   return <div ref={forwardedRef} {...actionsProps} className={classNames('fui-EmptyActions', className)} />;
-});
+};
 EmptyActions.displayName = 'EmptyActions';
 
 // ============================================================================

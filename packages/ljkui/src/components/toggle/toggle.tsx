@@ -1,9 +1,9 @@
 'use client';
 
 import { Toggle as TogglePrimitive } from '@base-ui/react/toggle';
-import classNames from 'classnames';
 import * as React from 'react';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 import { togglePropDefs } from './toggle.props';
 
@@ -37,11 +37,9 @@ const Toggle = (props: ToggleProps) => {
 
   return (
     <TogglePrimitive
-      data-accent-color={color}
       {...toggleProps}
-      className={classNames('fui-reset', 'fui-Toggle', className, `fui-r-size-${size}`, `fui-variant-${variant}`, {
-        'fui-high-contrast': highContrast,
-      })}
+      data-accent-color={color}
+      className={rootClassName('fui-Toggle', className, { size, variant, highContrast }, 'fui-reset')}
     />
   );
 };

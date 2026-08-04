@@ -1,5 +1,5 @@
 import { mergeProps, useRender } from '@base-ui/react';
-import classNames from 'classnames';
+import { rootClassName } from '../../helpers';
 import * as React from 'react';
 
 import { headingPropDefs } from './heading.props';
@@ -44,14 +44,13 @@ const Heading = (props: HeadingProps) => {
       headingProps as React.ComponentProps<'h1'>,
       {
         'data-accent-color': color,
-        className: classNames(
+        className: rootClassName(
           'fui-Heading',
           className,
-          size ? `fui-r-size-${size}` : undefined,
+          { size, highContrast },
           weight ? `fui-r-weight-${weight}` : undefined,
           align ? `fui-r-ta-${align}` : undefined,
           trim ? `fui-r-lt-${trim}` : undefined,
-          { 'fui-high-contrast': highContrast },
         ),
         children,
       } as React.ComponentProps<'h1'>,

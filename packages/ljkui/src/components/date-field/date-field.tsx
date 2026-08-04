@@ -1,6 +1,5 @@
 'use client';
 
-import classNames from 'classnames';
 import React from 'react';
 import type { DateFieldProps as AriaDateFieldProps, DateValue as AriaDateValue } from 'react-aria-components';
 import {
@@ -8,7 +7,7 @@ import {
   DateInput as AriaDateInput,
   DateSegment as AriaDateSegment,
 } from 'react-aria-components';
-import { type GetPropDefTypes } from '../../helpers';
+import { rootClassName, type GetPropDefTypes } from '../../helpers';
 import { dateFieldPropDefs } from './date-field.props';
 
 type DateFieldFUIProps = GetPropDefTypes<typeof dateFieldPropDefs>;
@@ -37,7 +36,7 @@ function DateField<T extends AriaDateValue>(props: DateFieldProps<T>) {
   return (
     <AriaDateField
       data-accent-color={color}
-      className={classNames('fui-DateFieldRoot', className, `fui-r-size-${size}`)}
+      className={rootClassName('fui-DateFieldRoot', className, { size })}
       {...dateFieldProps}
     >
       <AriaDateInput className="fui-DateFieldInput">

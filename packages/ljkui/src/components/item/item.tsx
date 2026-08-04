@@ -3,6 +3,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes } from '../../helpers';
 import { Separator } from '../separator';
 import { itemPropDefs } from './item.props';
@@ -30,12 +31,7 @@ interface ItemRootProps extends React.ComponentPropsWithoutRef<'div'>, ItemRootO
  */
 const ItemRoot = (props: ItemRootProps) => {
   const { className, size = itemPropDefs.size.default, variant = itemPropDefs.variant.default, ...rootProps } = props;
-  return (
-    <div
-      {...rootProps}
-      className={classNames('fui-ItemRoot', className, `fui-r-size-${size}`, `fui-variant-${variant}`)}
-    />
-  );
+  return <div {...rootProps} className={rootClassName('fui-ItemRoot', className, { size, variant })} />;
 };
 ItemRoot.displayName = 'ItemRoot';
 

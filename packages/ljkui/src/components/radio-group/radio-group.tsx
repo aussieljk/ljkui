@@ -7,6 +7,7 @@ import * as React from 'react';
 
 import { radioGroupPropDefs } from './radio-group.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes } from '../../helpers';
 
 type RadioGroupOwnProps = GetPropDefTypes<typeof radioGroupPropDefs>;
@@ -41,9 +42,7 @@ function RadioGroupRoot<Value = unknown>(props: RadioGroupRootProps<Value>) {
     <RadioGroupPrimitive
       data-accent-color={color}
       {...(rootProps as RadioGroupPrimitive.Props<Value>)}
-      className={classNames('fui-RadioGroupRoot', className, `fui-r-size-${size}`, {
-        'fui-high-contrast': highContrast,
-      })}
+      className={rootClassName('fui-RadioGroupRoot', className, { size, highContrast })}
     />
   );
 }

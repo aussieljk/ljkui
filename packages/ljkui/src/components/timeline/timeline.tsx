@@ -27,10 +27,10 @@ interface TimelineRootProps extends React.ComponentProps<'ol'>, TimelineOwnProps
  * </Timeline.Root>
  * ```
  */
-const TimelineRoot = React.forwardRef<HTMLOListElement, TimelineRootProps>((props, forwardedRef) => {
-  const { className, size = timelinePropDefs.size.default, ...rootProps } = props;
+const TimelineRoot = (props: TimelineRootProps) => {
+  const { className, size = timelinePropDefs.size.default, ref: forwardedRef, ...rootProps } = props;
   return <ol ref={forwardedRef} {...rootProps} className={rootClassName('fui-TimelineRoot', className, { size })} />;
-});
+};
 TimelineRoot.displayName = 'TimelineRoot';
 
 // ============================================================================
@@ -54,8 +54,8 @@ interface TimelineItemProps extends Omit<PropsWithoutColor<'li'>, 'title'> {
  * A single event in a `Timeline.Root` — a dot marker, an optional time and title, and
  * free-form body content as children.
  */
-const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>((props, forwardedRef) => {
-  const { className, title, time, color, highContrast, children, ...itemProps } = props;
+const TimelineItem = (props: TimelineItemProps) => {
+  const { className, title, time, color, highContrast, children, ref: forwardedRef, ...itemProps } = props;
   return (
     <li
       ref={forwardedRef}
@@ -74,7 +74,7 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>((props, 
       </div>
     </li>
   );
-});
+};
 TimelineItem.displayName = 'TimelineItem';
 
 export { TimelineItem as Item, TimelineRoot as Root };

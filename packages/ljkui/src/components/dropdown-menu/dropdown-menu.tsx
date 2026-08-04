@@ -2,6 +2,7 @@
 
 import { Menu as MenuPrimitive } from '@base-ui/react/menu';
 import classNames from 'classnames';
+import { rootClassName } from '../../helpers';
 import * as React from 'react';
 import { ThickCheckIcon, ThickChevronRightIcon } from '../../icons';
 import { Theme, useThemeContext } from '../../theme';
@@ -157,13 +158,7 @@ const DropdownMenuContent = (props: DropdownMenuContentProps) => {
           render={<MenuPrimitive.Popup />}
           data-accent-color={resolvedColor}
           {...popupProps}
-          className={classNames(
-            'fui-BaseMenuContent',
-            'fui-DropdownMenuContent',
-            `fui-variant-${variant}`,
-            className,
-            `fui-r-size-${size}`,
-          )}
+          className={rootClassName('fui-DropdownMenuContent', className, { size, variant }, 'fui-BaseMenuContent')}
         >
           <ScrollArea type="auto">
             <div className={classNames('fui-BaseMenuViewport', 'fui-DropdownMenuViewport')}>
@@ -401,14 +396,13 @@ const DropdownMenuSubContent = (props: DropdownMenuSubContentProps) => {
           render={<MenuPrimitive.Popup />}
           data-accent-color={color}
           {...popupProps}
-          className={classNames(
+          className={rootClassName(
+            'fui-DropdownMenuContent',
+            className,
+            { size, variant },
             'fui-BaseMenuContent',
             'fui-BaseMenuSubContent',
-            'fui-DropdownMenuContent',
             'fui-DropdownMenuSubContent',
-            `fui-variant-${variant}`,
-            className,
-            `fui-r-size-${size}`,
           )}
         >
           <ScrollArea type="auto">

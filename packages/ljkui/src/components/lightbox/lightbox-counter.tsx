@@ -30,37 +30,36 @@ const counterStateAttributesMapping = {
  * Default rendering: "1 / 12". Use the render-prop children for
  * custom formatting (e.g., "Image 1 of 12").
  */
-const LightboxCounter = React.forwardRef<HTMLDivElement, LightboxCounterProps>(
-  function LightboxCounter(props, forwardedRef) {
-    const { render, children: renderProp, ...elementProps } = props;
-    const { activeIndex, itemCount } = useLightboxContext();
+const LightboxCounter = (props: LightboxCounterProps) => {
+  const forwardedRef = props.ref;
+  const { render, children: renderProp, ...elementProps } = props;
+  const { activeIndex, itemCount } = useLightboxContext();
 
-    const current = activeIndex + 1;
-    const total = itemCount;
+  const current = activeIndex + 1;
+  const total = itemCount;
 
-    const state = React.useMemo<LightboxCounterState>(() => ({ current, total }), [current, total]);
+  const state = React.useMemo<LightboxCounterState>(() => ({ current, total }), [current, total]);
 
-    const defaultContent = `${current} / ${total}`;
-    const resolvedChildren = renderProp ? renderProp({ current, total }) : defaultContent;
+  const defaultContent = `${current} / ${total}`;
+  const resolvedChildren = renderProp ? renderProp({ current, total }) : defaultContent;
 
-    return useRender({
-      render,
-      ref: forwardedRef,
-      state,
-      stateAttributesMapping: counterStateAttributesMapping,
-      props: mergeProps<'div'>(
-        {
-          className: 'fui-LightboxCounter',
-          'aria-live': 'polite',
-          'aria-atomic': true,
-        } as React.ComponentPropsWithRef<'div'>,
-        elementProps as React.ComponentPropsWithRef<'div'>,
-        { children: resolvedChildren } as React.ComponentPropsWithRef<'div'>,
-      ),
-      defaultTagName: 'div',
-    });
-  },
-);
+  return useRender({
+    render,
+    ref: forwardedRef,
+    state,
+    stateAttributesMapping: counterStateAttributesMapping,
+    props: mergeProps<'div'>(
+      {
+        className: 'fui-LightboxCounter',
+        'aria-live': 'polite',
+        'aria-atomic': true,
+      } as React.ComponentPropsWithRef<'div'>,
+      elementProps as React.ComponentPropsWithRef<'div'>,
+      { children: resolvedChildren } as React.ComponentPropsWithRef<'div'>,
+    ),
+    defaultTagName: 'div',
+  });
+};
 
 LightboxCounter.displayName = 'LightboxCounter';
 

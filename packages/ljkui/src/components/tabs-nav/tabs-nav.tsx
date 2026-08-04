@@ -2,6 +2,7 @@
 
 import { NavigationMenu } from '@base-ui/react/navigation-menu';
 import classNames from 'classnames';
+import { rootClassName } from '../../helpers';
 import * as React from 'react';
 import { GetPropDefTypes } from '../../helpers';
 import { tabsNavPropDefs } from './tabs-nav.props';
@@ -43,14 +44,13 @@ const TabsNavRoot = (props: TabsNavRootProps) => {
   return (
     <NavigationMenu.Root
       data-accent-color={color}
-      className={classNames(
+      className={rootClassName(
         'fui-TabsNavRoot',
+        className,
+        { size, highContrast },
         'fui-reset',
         'fui-BaseTabsList',
         'fui-TabsNavList',
-        className,
-        `fui-r-size-${size}`,
-        { 'fui-high-contrast': highContrast },
       )}
       {...rootProps}
     >

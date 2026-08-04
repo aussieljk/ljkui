@@ -1,11 +1,10 @@
 'use client';
 
 import { Input as InputPrimitive } from '@base-ui/react/input';
-import classNames from 'classnames';
 import * as React from 'react';
 import { inputPropDefs, inputSlotPropDefs } from './input.props';
 
-import { composeEventHandlers, type GetPropDefTypes, type PropsWithoutColor } from '../../helpers';
+import { composeEventHandlers, rootClassName, type GetPropDefTypes, type PropsWithoutColor } from '../../helpers';
 
 type InputContextValue = GetPropDefTypes<typeof inputPropDefs>;
 const InputContext = React.createContext<InputContextValue | undefined>(undefined);
@@ -43,7 +42,7 @@ const InputRoot = (props: InputRootProps) => {
     <div
       data-accent-color={color}
       {...rootProps}
-      className={classNames('fui-InputRoot', `fui-r-size-${size}`, `fui-variant-${variant}`, className)}
+      className={rootClassName('fui-InputRoot', className, { size, variant })}
       onPointerDown={composeEventHandlers(rootProps.onPointerDown, (event) => {
         const target = event.target as HTMLElement;
         if (target.closest('input, button, a')) return;
@@ -70,14 +69,14 @@ const InputRoot = (props: InputRootProps) => {
 };
 InputRoot.displayName = 'InputRoot';
 
-type InputSlotElement = React.ElementRef<'div'>;
 type InputSlotOwnProps = GetPropDefTypes<typeof inputSlotPropDefs>;
 interface InputSlotProps extends PropsWithoutColor<'div'>, InputSlotOwnProps {}
 /**
  * Decorative or interactive content (icons, buttons) placed before or after the
  * input, inside `Input.Root`.
  */
-const InputSlot = React.forwardRef<InputSlotElement, InputSlotProps>((props, forwardedRef) => {
+const InputSlot = (props: InputSlotProps) => {
+  const forwardedRef = props.ref;
   const { className, color = inputSlotPropDefs.color.default, ...slotProps } = props;
   const context = React.useContext(InputContext);
   return (
@@ -85,13 +84,12 @@ const InputSlot = React.forwardRef<InputSlotElement, InputSlotProps>((props, for
       data-accent-color={color}
       {...slotProps}
       ref={forwardedRef}
-      className={classNames('fui-InputSlot', className, `fui-r-size-${context?.size}`)}
+      className={rootClassName('fui-InputSlot', className, { size: context?.size })}
     />
   );
-});
+};
 InputSlot.displayName = 'InputSlot';
 
-type InputControlElement = React.ElementRef<'input'>;
 type InputControlOwnProps = GetPropDefTypes<typeof inputPropDefs>;
 interface InputControlProps
   extends Omit<PropsWithoutColor<typeof InputPrimitive>, 'size' | 'className'>, InputControlOwnProps {
@@ -104,7 +102,8 @@ interface InputControlProps
  * itself in one automatically; inside a Root it inherits the Root's `size`,
  * `variant` and `color`.
  */
-const InputControl = React.forwardRef<InputControlElement, InputControlProps>((props, forwardedRef) => {
+const InputControl = (props: InputControlProps) => {
+  const forwardedRef = props.ref;
   const context = React.useContext(InputContext);
   const hasRoot = context !== undefined;
   const {
@@ -120,7 +119,7 @@ const InputControl = React.forwardRef<InputControlElement, InputControlProps>((p
       spellCheck="false"
       {...inputProps}
       ref={forwardedRef}
-      className={classNames('fui-InputControl', className, `fui-r-size-${size}`, `fui-variant-${variant}`)}
+      className={rootClassName('fui-InputControl', className, { size, variant })}
     />
   );
 
@@ -131,7 +130,7 @@ const InputControl = React.forwardRef<InputControlElement, InputControlProps>((p
       {input}
     </InputRoot>
   );
-});
+};
 InputControl.displayName = 'InputControl';
 
 export { InputControl as Control, InputRoot as Root, InputSlot as Slot };

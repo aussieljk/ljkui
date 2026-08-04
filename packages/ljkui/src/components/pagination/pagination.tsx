@@ -3,6 +3,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes } from '../../helpers';
 import { ThickChevronRightIcon } from '../../icons';
 import { paginationPropDefs } from './pagination.props';
@@ -39,7 +40,7 @@ const PaginationRoot = (props: PaginationRootProps) => {
       <nav
         aria-label="Pagination"
         {...rootProps}
-        className={classNames('fui-PaginationRoot', className, `fui-r-size-${size}`)}
+        className={rootClassName('fui-PaginationRoot', className, { size })}
       />
     </PaginationContext.Provider>
   );
@@ -78,7 +79,7 @@ const PaginationLink = (props: PaginationLinkProps) => {
       aria-current={isActive ? 'page' : undefined}
       data-active={isActive ? '' : undefined}
       {...linkProps}
-      className={classNames('fui-PaginationLink', className, `fui-r-size-${size}`)}
+      className={rootClassName('fui-PaginationLink', className, { size })}
     />
   );
 };

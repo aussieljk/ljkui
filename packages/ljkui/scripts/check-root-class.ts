@@ -23,48 +23,7 @@ const MODIFIER_RE =
   /fui-r-size-\$|fui-variant-\$|fui-orientation-\$|fui-r-alignment-\$|fui-side-\$|'fui-high-contrast'/;
 
 /** Components that still hand-spell modifiers — shrink this list, don't grow it. */
-const BACKLOG = new Set<string>([
-  'alert',
-  'alert-dialog',
-  'autocomplete',
-  'avatar',
-  'avatar-group',
-  'avatar-stack',
-  'base-button',
-  'card',
-  'checkbox',
-  'combobox',
-  'context-menu',
-  'data-table',
-  'date-field',
-  'dialog',
-  'dropdown-menu',
-  'empty',
-  'filter-chip',
-  'hover-card',
-  'input',
-  'item',
-  'kbd',
-  'number-field',
-  'overlay',
-  'pagination',
-  'popover',
-  'radio-button-group',
-  'radio-group',
-  'scroll-area',
-  'select',
-  'separator',
-  'skeleton',
-  'slider',
-  'spinner',
-  'switch',
-  'table',
-  'tabs',
-  'tabs-nav',
-  'textarea',
-  'toggle',
-  'typography',
-]);
+const BACKLOG = new Set<string>([]);
 
 const dirs = readdirSync(componentsDir, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())

@@ -2,6 +2,7 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 import { Avatar } from '../avatar';
 import { avatarGroupPropDefs } from './avatar-group.props';
@@ -36,7 +37,7 @@ const AvatarGroupRoot = (props: AvatarGroupRootProps) => {
     <div
       data-accent-color={color}
       {...rootProps}
-      className={classNames('fui-AvatarGroupRoot', className, `fui-r-size-${size}`, `fui-shape-${shape}`)}
+      className={rootClassName('fui-AvatarGroupRoot', className, { size }, `fui-shape-${shape}`)}
     >
       <div className="fui-AvatarGroupRootInner">{children}</div>
     </div>

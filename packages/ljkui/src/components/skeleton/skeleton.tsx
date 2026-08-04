@@ -1,7 +1,7 @@
 'use client';
 
-import classNames from 'classnames';
 import * as React from 'react';
+import { mergeRefs, rootClassName } from '../../helpers';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 import {
   skeletonAvatarPropDefs,
@@ -45,24 +45,14 @@ const SkeletonAvatar = (props: SkeletonAvatarProps) => {
 
   const ref = React.useRef<HTMLDivElement>(null);
   useSkeletonAnimationSync(ref);
-
-  const setRef = React.useCallback(
-    (node: HTMLDivElement | null) => {
-      (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
-      if (typeof refProp === 'function') refProp(node);
-      else if (refProp) (refProp as React.MutableRefObject<HTMLDivElement | null>).current = node;
-    },
-    [refProp],
-  );
+  const setRef = React.useMemo(() => mergeRefs(ref, refProp), [refProp]);
 
   return (
     <div
+      {...skeletonAvatarProps}
       ref={setRef}
       data-accent-color={color}
-      className={classNames('fui-SkeletonAvatar', className, `fui-r-size-${size}`, `fui-shape-${shape}`, {
-        'fui-high-contrast': highContrast,
-      })}
-      {...skeletonAvatarProps}
+      className={rootClassName('fui-SkeletonAvatar', className, { size, highContrast }, `fui-shape-${shape}`)}
     />
   );
 };
@@ -87,22 +77,14 @@ const SkeletonText = (props: SkeletonTextProps) => {
 
   const ref = React.useRef<HTMLDivElement>(null);
   useSkeletonAnimationSync(ref);
-
-  const setRef = React.useCallback(
-    (node: HTMLDivElement | null) => {
-      (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
-      if (typeof refProp === 'function') refProp(node);
-      else if (refProp) (refProp as React.MutableRefObject<HTMLDivElement | null>).current = node;
-    },
-    [refProp],
-  );
+  const setRef = React.useMemo(() => mergeRefs(ref, refProp), [refProp]);
 
   return (
     <div
+      {...skeletonTextProps}
       ref={setRef}
       data-accent-color={color}
-      className={classNames('fui-SkeletonText', className, `fui-r-size-${size}`, { 'fui-high-contrast': highContrast })}
-      {...skeletonTextProps}
+      className={rootClassName('fui-SkeletonText', className, { size, highContrast })}
     />
   );
 };
@@ -126,22 +108,14 @@ const SkeletonRect = (props: SkeletonRectProps) => {
 
   const ref = React.useRef<HTMLDivElement>(null);
   useSkeletonAnimationSync(ref);
-
-  const setRef = React.useCallback(
-    (node: HTMLDivElement | null) => {
-      (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
-      if (typeof refProp === 'function') refProp(node);
-      else if (refProp) (refProp as React.MutableRefObject<HTMLDivElement | null>).current = node;
-    },
-    [refProp],
-  );
+  const setRef = React.useMemo(() => mergeRefs(ref, refProp), [refProp]);
 
   return (
     <div
+      {...skeletonRectProps}
       ref={setRef}
       data-accent-color={color}
-      className={classNames('fui-SkeletonRect', className, { 'fui-high-contrast': highContrast })}
-      {...skeletonRectProps}
+      className={rootClassName('fui-SkeletonRect', className, { highContrast })}
     />
   );
 };
@@ -184,29 +158,18 @@ const SkeletonBox = (props: SkeletonBoxProps) => {
 
   const ref = React.useRef<HTMLSpanElement>(null);
   useSkeletonAnimationSync(ref as React.RefObject<HTMLDivElement | null>);
-
-  const setRef = React.useCallback(
-    (node: HTMLSpanElement | null) => {
-      (ref as React.MutableRefObject<HTMLSpanElement | null>).current = node;
-      if (typeof refProp === 'function') refProp(node);
-      else if (refProp) (refProp as React.MutableRefObject<HTMLSpanElement | null>).current = node;
-    },
-    [refProp],
-  );
+  const setRef = React.useMemo(() => mergeRefs(ref, refProp), [refProp]);
 
   if (!loading) return <>{children}</>;
 
   return (
     <span
+      {...skeletonBoxProps}
       ref={setRef}
       data-accent-color={color}
       data-loading=""
       aria-hidden
-      className={classNames('fui-SkeletonBox', className, {
-        'fui-high-contrast': highContrast,
-        'fui-display-block': block,
-      })}
-      {...skeletonBoxProps}
+      className={rootClassName('fui-SkeletonBox', className, { highContrast }, { 'fui-display-block': block })}
     >
       {children}
     </span>

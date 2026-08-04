@@ -12,6 +12,7 @@ import {
 } from './carousel-context';
 
 interface CarouselRootProps {
+  ref?: React.Ref<CarouselRootRef>;
   children?: React.ReactNode;
   /**
    * The initial active item index (uncontrolled mode).
@@ -90,7 +91,8 @@ interface CarouselRootRef {
  *   </Carousel.ScrollMarkerGroup>
  * </Carousel.Root>
  */
-const CarouselRoot = React.forwardRef<CarouselRootRef, CarouselRootProps>(function CarouselRoot(props, forwardedRef) {
+const CarouselRoot = (props: CarouselRootProps) => {
+  const forwardedRef = props.ref;
   const {
     children,
     defaultValue = 0,
@@ -294,7 +296,7 @@ const CarouselRoot = React.forwardRef<CarouselRootRef, CarouselRootProps>(functi
   );
 
   return <CarouselContext.Provider value={contextValue}>{children}</CarouselContext.Provider>;
-});
+};
 
 CarouselRoot.displayName = 'CarouselRoot';
 

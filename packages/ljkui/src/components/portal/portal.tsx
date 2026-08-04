@@ -9,7 +9,7 @@ import { useLayoutEffect } from '../../helpers';
  * Portal
  * -----------------------------------------------------------------------------------------------*/
 
-interface PortalProps extends React.ComponentPropsWithoutRef<'div'> {
+interface PortalProps extends React.ComponentProps<'div'> {
   /**
    * An optional container where the portaled content should be appended.
    */
@@ -34,7 +34,8 @@ interface PortalProps extends React.ComponentPropsWithoutRef<'div'> {
  * </Portal>
  * ```
  */
-const Portal = React.forwardRef<HTMLDivElement, PortalProps>((props, forwardedRef) => {
+const Portal = (props: PortalProps) => {
+  const forwardedRef = props.ref;
   const { container: containerProp, render, ...portalProps } = props;
   const [mounted, setMounted] = React.useState(false);
 
@@ -50,7 +51,7 @@ const Portal = React.forwardRef<HTMLDivElement, PortalProps>((props, forwardedRe
   });
 
   return container ? ReactDOM.createPortal(element, container) : null;
-});
+};
 
 Portal.displayName = 'Portal';
 

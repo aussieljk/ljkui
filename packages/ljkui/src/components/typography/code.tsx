@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { rootClassName } from '../../helpers';
 import * as React from 'react';
 
 import { codePropDefs } from './code.props';
@@ -28,16 +28,9 @@ const Code = (props: CodeProps) => {
   } = props;
   return (
     <code
-      data-accent-color={color}
       {...codeProps}
-      className={classNames(
-        'fui-Code',
-        className,
-        `fui-r-size-${size}`,
-        `fui-variant-${variant}`,
-        `fui-r-weight-${weight}`,
-        { 'fui-high-contrast': highContrast },
-      )}
+      data-accent-color={color}
+      className={rootClassName('fui-Code', className, { size, variant, highContrast }, `fui-r-weight-${weight}`)}
     />
   );
 };

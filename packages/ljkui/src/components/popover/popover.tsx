@@ -1,11 +1,11 @@
 'use client';
 
 import { Popover as PopoverPrimitive } from '@base-ui/react/popover';
-import classNames from 'classnames';
 import * as React from 'react';
 import { Theme } from '../../theme';
 import { popoverContentPropDefs } from './popover.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes } from '../../helpers';
 
 // Handle type - extracts the return type of createHandle with a generic
@@ -168,7 +168,7 @@ const PopoverContent = (props: PopoverContentProps & PopoverContentOwnProps) => 
         <Theme
           render={<PopoverPrimitive.Popup />}
           {...popupProps}
-          className={classNames('fui-PopoverContent', `fui-variant-${variant}`, className, `fui-r-size-${size}`)}
+          className={rootClassName('fui-PopoverContent', className, { size, variant })}
         />
       </PopoverPrimitive.Positioner>
     </PopoverPrimitive.Portal>

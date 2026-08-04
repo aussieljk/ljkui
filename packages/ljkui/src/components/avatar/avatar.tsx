@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { avatarPropDefs } from './avatar.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 import { getInitials } from '../../helpers/get-initials';
 
@@ -50,13 +51,7 @@ const Avatar = (props: AvatarProps) => {
   return (
     <AvatarPrimitive.Root
       data-accent-color={color}
-      className={classNames(
-        'fui-AvatarRoot',
-        className,
-        `fui-r-size-${size}`,
-        { 'fui-high-contrast': highContrast },
-        `fui-shape-${shape}`,
-      )}
+      className={rootClassName('fui-AvatarRoot', className, { size, highContrast }, `fui-shape-${shape}`)}
       style={style}
     >
       <AvatarPrimitive.Image

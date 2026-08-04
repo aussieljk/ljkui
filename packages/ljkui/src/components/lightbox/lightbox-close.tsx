@@ -12,34 +12,33 @@ interface LightboxCloseProps extends useRender.ComponentProps<'button', Lightbox
 /**
  * Closes the lightbox when clicked.
  */
-const LightboxClose = React.forwardRef<HTMLButtonElement, LightboxCloseProps>(
-  function LightboxClose(props, forwardedRef) {
-    const { render, ...elementProps } = props;
-    const { setOpen } = useLightboxContext();
+const LightboxClose = (props: LightboxCloseProps) => {
+  const forwardedRef = props.ref;
+  const { render, ...elementProps } = props;
+  const { setOpen } = useLightboxContext();
 
-    const handleClick = React.useCallback(() => {
-      setOpen(false);
-    }, [setOpen]);
+  const handleClick = React.useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
 
-    const state = React.useMemo<LightboxCloseState>(() => ({}), []);
+  const state = React.useMemo<LightboxCloseState>(() => ({}), []);
 
-    return useRender({
-      render,
-      ref: forwardedRef,
-      state,
-      props: mergeProps<'button'>(
-        {
-          className: 'fui-LightboxClose',
-          type: 'button',
-          'aria-label': 'Close',
-          onClick: handleClick,
-        } as React.ComponentPropsWithRef<'button'>,
-        elementProps as React.ComponentPropsWithRef<'button'>,
-      ),
-      defaultTagName: 'button',
-    });
-  },
-);
+  return useRender({
+    render,
+    ref: forwardedRef,
+    state,
+    props: mergeProps<'button'>(
+      {
+        className: 'fui-LightboxClose',
+        type: 'button',
+        'aria-label': 'Close',
+        onClick: handleClick,
+      } as React.ComponentPropsWithRef<'button'>,
+      elementProps as React.ComponentPropsWithRef<'button'>,
+    ),
+    defaultTagName: 'button',
+  });
+};
 
 LightboxClose.displayName = 'LightboxClose';
 

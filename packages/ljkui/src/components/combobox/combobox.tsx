@@ -2,6 +2,7 @@
 
 import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox';
 import classNames from 'classnames';
+import { rootClassName } from '../../helpers';
 import * as React from 'react';
 
 import { ThickCheckIcon, XIcon } from '../../icons';
@@ -119,7 +120,8 @@ interface ComboboxInputRootProps extends InputRootProps {
  * Auto-registers as the popup anchor when rendered outside `Content`.
  * Inherits `size` from `Combobox.Root` context (overridable via prop).
  */
-const ComboboxInputRoot = React.forwardRef<HTMLDivElement, ComboboxInputRootProps>((props, forwardedRef) => {
+const ComboboxInputRoot = (props: ComboboxInputRootProps) => {
+  const forwardedRef = props.ref;
   const context = React.useContext(ComboboxContext);
   const contentContext = React.useContext(ComboboxContentContext);
   const isInsideContent = contentContext !== null;
@@ -178,7 +180,7 @@ const ComboboxInputRoot = React.forwardRef<HTMLDivElement, ComboboxInputRootProp
       )}
     </InputRoot>
   );
-});
+};
 ComboboxInputRoot.displayName = 'ComboboxInputRoot';
 
 // ============================================================================
@@ -204,7 +206,8 @@ interface ComboboxInputProps extends Omit<
  * The text input for the combobox. If not already wrapped in `Combobox.InputRoot`,
  * it automatically wraps itself in one (with default `showTrigger` and `showClear` behavior).
  */
-const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputProps>((props, forwardedRef) => {
+const ComboboxInput = (props: ComboboxInputProps) => {
+  const forwardedRef = props.ref;
   const hasRoot = React.useContext(ComboboxInputRootContext);
   const { className, ...rest } = props;
 
@@ -217,7 +220,7 @@ const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputProps>((pr
   );
 
   return hasRoot ? input : <ComboboxInputRoot>{input}</ComboboxInputRoot>;
-});
+};
 ComboboxInput.displayName = 'ComboboxInput';
 
 // ============================================================================
@@ -229,7 +232,8 @@ interface ComboboxChipsInputProps extends Omit<React.ComponentProps<typeof Combo
 }
 
 /** The text input used inside `Combobox.Chips` for typing while multi-selecting. */
-const ComboboxChipsInput = React.forwardRef<HTMLInputElement, ComboboxChipsInputProps>((props, forwardedRef) => {
+const ComboboxChipsInput = (props: ComboboxChipsInputProps) => {
+  const forwardedRef = props.ref;
   const { className, ...rest } = props;
   return (
     <ComboboxPrimitive.Input
@@ -238,7 +242,7 @@ const ComboboxChipsInput = React.forwardRef<HTMLInputElement, ComboboxChipsInput
       render={<InputControl className={classNames('fui-ComboboxChipsInput', className)} />}
     />
   );
-});
+};
 ComboboxChipsInput.displayName = 'ComboboxChipsInput';
 
 // ============================================================================
@@ -288,7 +292,8 @@ interface ComboboxIconProps extends Omit<React.ComponentProps<typeof ComboboxPri
 }
 
 /** A decorative icon slot, e.g. a dropdown chevron inside a custom trigger. */
-const ComboboxIcon = React.forwardRef<HTMLDivElement, ComboboxIconProps>((props, forwardedRef) => {
+const ComboboxIcon = (props: ComboboxIconProps) => {
+  const forwardedRef = props.ref;
   const { className, ...iconProps } = props;
   return (
     <ComboboxPrimitive.Icon
@@ -297,7 +302,7 @@ const ComboboxIcon = React.forwardRef<HTMLDivElement, ComboboxIconProps>((props,
       className={classNames('fui-ComboboxIcon', className)}
     />
   );
-});
+};
 ComboboxIcon.displayName = 'ComboboxIcon';
 
 // ============================================================================
@@ -399,13 +404,11 @@ const ComboboxContent = (props: ComboboxContentProps) => {
           render={<ComboboxPrimitive.Popup />}
           data-accent-color={resolvedColor}
           {...contentProps}
-          className={classNames(
+          className={rootClassName(
             'fui-ComboboxContent',
-            'fui-BaseMenuContent',
-            `fui-variant-${variant}`,
             className,
-            `fui-r-size-${size}`,
-            { 'fui-high-contrast': highContrast },
+            { size, variant, highContrast },
+            'fui-BaseMenuContent',
           )}
         >
           <ComboboxContentContext.Provider
@@ -448,7 +451,8 @@ interface ComboboxItemProps
 }
 
 /** A selectable option identified by its `value`. Shows a check indicator when selected. */
-const ComboboxItem = React.forwardRef<HTMLDivElement, ComboboxItemProps>((props, forwardedRef) => {
+const ComboboxItem = (props: ComboboxItemProps) => {
+  const forwardedRef = props.ref;
   const { className, color, children, ...itemProps } = props;
   return (
     <ComboboxPrimitive.Item
@@ -463,7 +467,7 @@ const ComboboxItem = React.forwardRef<HTMLDivElement, ComboboxItemProps>((props,
       {children}
     </ComboboxPrimitive.Item>
   );
-});
+};
 ComboboxItem.displayName = 'ComboboxItem';
 
 // ============================================================================
@@ -605,7 +609,8 @@ interface ComboboxStatusProps extends Omit<
  * Visually hidden live region that announces list status changes to screen readers
  * (e.g., "3 results available"). Place inside `Combobox.Root` for accessibility.
  */
-const ComboboxStatus = React.forwardRef<HTMLDivElement, ComboboxStatusProps>((props, forwardedRef) => {
+const ComboboxStatus = (props: ComboboxStatusProps) => {
+  const forwardedRef = props.ref;
   const { className, ...statusProps } = props;
   return (
     <ComboboxPrimitive.Status
@@ -614,7 +619,7 @@ const ComboboxStatus = React.forwardRef<HTMLDivElement, ComboboxStatusProps>((pr
       className={classNames('fui-ComboboxStatus', className)}
     />
   );
-});
+};
 ComboboxStatus.displayName = 'ComboboxStatus';
 
 // ============================================================================
@@ -629,7 +634,8 @@ interface ComboboxChipsProps extends InputRootProps {}
  * Inherits `size` from `Combobox.Root` context (overridable via prop).
  * Accepts all `Input.Root` props (`size`, `variant`, `color`, etc.).
  */
-const ComboboxChips = React.forwardRef<HTMLDivElement, ComboboxChipsProps>((props, forwardedRef) => {
+const ComboboxChips = (props: ComboboxChipsProps) => {
+  const forwardedRef = props.ref;
   const context = React.useContext(ComboboxContext);
   const { className, size = context.size, variant, color, children, ...rest } = props;
 
@@ -650,7 +656,7 @@ const ComboboxChips = React.forwardRef<HTMLDivElement, ComboboxChipsProps>((prop
     ...rest,
   };
   return <ComboboxPrimitive.Chips ref={mergedRef} render={<InputRoot {...inputRootProps}>{children}</InputRoot>} />;
-});
+};
 ComboboxChips.displayName = 'ComboboxChips';
 
 // ============================================================================
@@ -690,9 +696,7 @@ const ComboboxChip = (props: ComboboxChipProps) => {
     <ComboboxPrimitive.Chip
       data-accent-color={color}
       {...chipProps}
-      className={classNames('fui-ComboboxChip', `fui-variant-${variant}`, className, {
-        'fui-high-contrast': highContrast,
-      })}
+      className={rootClassName('fui-ComboboxChip', className, { variant, highContrast })}
     >
       {children}
       {showRemove && (

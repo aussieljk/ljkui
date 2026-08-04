@@ -1,7 +1,7 @@
-import classNames from 'classnames';
 import * as React from 'react';
 import { textareaPropDefs } from './textarea.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type TextareaOwnProps = GetPropDefTypes<typeof textareaPropDefs>;
@@ -31,7 +31,7 @@ const Textarea = (props: TextareaProps) => {
     <div
       data-accent-color={color}
       style={style}
-      className={classNames('fui-TextareaRoot', className, `fui-r-size-${size}`, `fui-variant-${variant}`)}
+      className={rootClassName('fui-TextareaRoot', className, { size, variant })}
     >
       <textarea className="fui-TextareaInput" {...textareaProps} />
       <div className="fui-TextareaChrome" />

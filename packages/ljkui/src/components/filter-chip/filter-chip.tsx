@@ -1,11 +1,11 @@
 'use client';
 
 import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox';
-import classNames from 'classnames';
 import * as React from 'react';
 
 import { filterChipPropDefs } from './filter-chip.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type FilterChipOwnProps = GetPropDefTypes<typeof filterChipPropDefs>;
@@ -39,9 +39,9 @@ const FilterChip = (props: FilterChipProps) => {
 
   return (
     <CheckboxPrimitive.Root
-      data-accent-color={color}
       {...checkboxProps}
-      className={classNames('fui-reset', 'fui-BaseChip', className, `fui-r-size-${size}`)}
+      data-accent-color={color}
+      className={rootClassName('fui-BaseChip', className, { size }, 'fui-reset')}
       style={style}
     >
       {children}

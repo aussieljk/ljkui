@@ -20,33 +20,32 @@ const stateAttributesMapping = {
  * Lightbox.Zoom (e.g. via its `overlay` slot); auto-disables at the
  * minimum zoom level or when no zoom context is present.
  */
-const LightboxZoomOut = React.forwardRef<HTMLButtonElement, LightboxZoomOutProps>(
-  function LightboxZoomOut(props, forwardedRef) {
-    const { render, ...elementProps } = props;
-    const ctx = useOptionalZoomContext();
-    const disabled = ctx ? !ctx.canZoomOut : true;
+const LightboxZoomOut = (props: LightboxZoomOutProps) => {
+  const forwardedRef = props.ref;
+  const { render, ...elementProps } = props;
+  const ctx = useOptionalZoomContext();
+  const disabled = ctx ? !ctx.canZoomOut : true;
 
-    const state = React.useMemo<LightboxZoomOutState>(() => ({ disabled }), [disabled]);
+  const state = React.useMemo<LightboxZoomOutState>(() => ({ disabled }), [disabled]);
 
-    return useRender({
-      render,
-      ref: forwardedRef,
-      state,
-      stateAttributesMapping,
-      props: mergeProps<'button'>(
-        {
-          type: 'button',
-          className: 'fui-LightboxZoomOut',
-          'aria-label': 'Zoom out',
-          disabled,
-          onClick: ctx?.zoomOut,
-        } as React.ComponentPropsWithRef<'button'>,
-        elementProps as React.ComponentPropsWithRef<'button'>,
-      ),
-      defaultTagName: 'button',
-    });
-  },
-);
+  return useRender({
+    render,
+    ref: forwardedRef,
+    state,
+    stateAttributesMapping,
+    props: mergeProps<'button'>(
+      {
+        type: 'button',
+        className: 'fui-LightboxZoomOut',
+        'aria-label': 'Zoom out',
+        disabled,
+        onClick: ctx?.zoomOut,
+      } as React.ComponentPropsWithRef<'button'>,
+      elementProps as React.ComponentPropsWithRef<'button'>,
+    ),
+    defaultTagName: 'button',
+  });
+};
 
 LightboxZoomOut.displayName = 'LightboxZoomOut';
 

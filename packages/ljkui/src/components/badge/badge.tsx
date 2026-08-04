@@ -16,13 +16,14 @@ interface BadgeProps extends PropsWithoutColor<'span'>, BadgeOwnProps {}
  * <Badge color="success">Active</Badge>
  * ```
  */
-const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
+const Badge = (props: BadgeProps) => {
   const {
     className,
     size = badgePropDefs.size.default,
     variant = badgePropDefs.variant.default,
     color = badgePropDefs.color.default,
     highContrast = badgePropDefs.highContrast.default,
+    ref,
     ...badgeProps
   } = props;
   return (
@@ -33,7 +34,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
       className={rootClassName('fui-Badge', className, { size, variant, highContrast })}
     />
   );
-});
+};
 Badge.displayName = 'Badge';
 
 export { Badge };

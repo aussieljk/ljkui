@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { rootClassName } from '../../helpers';
 import * as React from 'react';
 import type { GetPropDefTypes } from '../../helpers';
 import { Button } from '../button';
@@ -52,15 +53,12 @@ const TableRoot = (props: TableRootProps) => {
   return (
     <div
       {...rootProps}
-      className={classNames(
+      className={rootClassName(
         'fui-TableRoot',
-        // This class name applies size related variables to a table.
-        // This class name will allow us to implement things like
-        // column cells Drag and Drop with DragOverlay. (dnd-kit)
-        'fui-TableRoot-vars',
         className,
-        `fui-variant-${variant}`,
-        `fui-r-size-${size}`,
+        { size, variant },
+        // fui-TableRoot-vars applies size-related variables (enables e.g. column drag-and-drop).
+        'fui-TableRoot-vars',
         stickyHeader && 'fui-TableRoot--sticky-header',
       )}
     >

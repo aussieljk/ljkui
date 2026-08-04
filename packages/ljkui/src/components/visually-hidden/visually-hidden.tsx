@@ -31,6 +31,7 @@ interface VisuallyHiddenProps extends React.ComponentPropsWithoutRef<'span'> {
    * Use the `render` prop to override the default rendered element.
    */
   render?: useRender.ComponentProps<'span'>['render'];
+  ref?: React.Ref<HTMLSpanElement>;
 }
 
 /**
@@ -47,8 +48,8 @@ interface VisuallyHiddenProps extends React.ComponentPropsWithoutRef<'span'> {
  * </IconButton>
  * ```
  */
-const VisuallyHidden = React.forwardRef<HTMLSpanElement, VisuallyHiddenProps>((props, forwardedRef) => {
-  const { render, style, ...rest } = props;
+const VisuallyHidden = (props: VisuallyHiddenProps) => {
+  const { render, style, ref: forwardedRef, ...rest } = props;
 
   return useRender({
     render,
@@ -59,7 +60,7 @@ const VisuallyHidden = React.forwardRef<HTMLSpanElement, VisuallyHiddenProps>((p
     },
     defaultTagName: 'span',
   });
-});
+};
 
 VisuallyHidden.displayName = 'VisuallyHidden';
 

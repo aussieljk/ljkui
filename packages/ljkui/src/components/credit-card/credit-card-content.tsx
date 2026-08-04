@@ -22,34 +22,33 @@ const stateAttributesMapping = {
  * The card container that performs the 3D flip between `Front` and `Back`, driven by a `data-face`
  * attribute (falls back to an opacity swap under reduced motion).
  */
-const CreditCardContent = React.forwardRef<HTMLDivElement, CreditCardContentProps>(
-  function CreditCardContent(props, forwardedRef) {
-    const { render, color, ...elementProps } = props;
-    const parentCtx = useCreditCardContext();
+const CreditCardContent = (props: CreditCardContentProps) => {
+  const forwardedRef = props.ref;
+  const { render, color, ...elementProps } = props;
+  const parentCtx = useCreditCardContext();
 
-    const ctxWithColor = React.useMemo(() => ({ ...parentCtx, color }), [parentCtx, color]);
+  const ctxWithColor = React.useMemo(() => ({ ...parentCtx, color }), [parentCtx, color]);
 
-    const state = React.useMemo<CreditCardContentState>(() => ({ face: parentCtx.face }), [parentCtx.face]);
+  const state = React.useMemo<CreditCardContentState>(() => ({ face: parentCtx.face }), [parentCtx.face]);
 
-    return (
-      <CreditCardContext.Provider value={ctxWithColor}>
-        {useRender({
-          render,
-          ref: forwardedRef,
-          state,
-          stateAttributesMapping,
-          props: mergeProps<'div'>(
-            {
-              className: 'fui-CreditCardContent',
-            } as React.ComponentPropsWithRef<'div'>,
-            elementProps as React.ComponentPropsWithRef<'div'>,
-          ),
-          defaultTagName: 'div',
-        })}
-      </CreditCardContext.Provider>
-    );
-  },
-);
+  return (
+    <CreditCardContext.Provider value={ctxWithColor}>
+      {useRender({
+        render,
+        ref: forwardedRef,
+        state,
+        stateAttributesMapping,
+        props: mergeProps<'div'>(
+          {
+            className: 'fui-CreditCardContent',
+          } as React.ComponentPropsWithRef<'div'>,
+          elementProps as React.ComponentPropsWithRef<'div'>,
+        ),
+        defaultTagName: 'div',
+      })}
+    </CreditCardContext.Provider>
+  );
+};
 
 CreditCardContent.displayName = 'CreditCardContent';
 

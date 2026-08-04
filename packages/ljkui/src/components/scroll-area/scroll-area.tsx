@@ -6,7 +6,7 @@ import * as React from 'react';
 
 import { scrollAreaPropDefs } from './scroll-area.props';
 
-import { mergeRefs } from '../../helpers';
+import { mergeRefs, rootClassName } from '../../helpers';
 import type { GetPropDefTypes } from '../../helpers';
 
 type ScrollAreaOwnProps = GetPropDefTypes<typeof scrollAreaPropDefs>;
@@ -137,7 +137,7 @@ function ScrollArea(props: ScrollAreaProps) {
       {scrollbars !== 'vertical' && (
         <ScrollAreaPrimitive.Scrollbar
           orientation="horizontal"
-          className={classNames('fui-ScrollAreaScrollbar', `fui-r-size-${size}`)}
+          className={rootClassName('fui-ScrollAreaScrollbar', undefined, { size })}
           data-type={type}
         >
           <ScrollAreaPrimitive.Thumb className="fui-ScrollAreaThumb" />
@@ -147,7 +147,7 @@ function ScrollArea(props: ScrollAreaProps) {
       {scrollbars !== 'horizontal' && (
         <ScrollAreaPrimitive.Scrollbar
           orientation="vertical"
-          className={classNames('fui-ScrollAreaScrollbar', `fui-r-size-${size}`)}
+          className={rootClassName('fui-ScrollAreaScrollbar', undefined, { size })}
           data-type={type}
         >
           <ScrollAreaPrimitive.Thumb className="fui-ScrollAreaThumb" />

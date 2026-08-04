@@ -28,6 +28,7 @@ interface LightboxZoomState {
 }
 
 interface LightboxZoomProps {
+  ref?: React.Ref<LightboxZoomRef>;
   /**
    * The zoomable content. Can be a ReactNode or a render function that
    * receives the current zoom state.
@@ -151,7 +152,8 @@ function elasticClamp(value: number, min: number, max: number): number {
  * pan when zoomed, with elastic overscroll and snap-back. Zoom resets
  * whenever the active item changes.
  */
-const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(function LightboxZoom(props, forwardedRef) {
+const LightboxZoom = (props: LightboxZoomProps) => {
+  const forwardedRef = props.ref;
   const {
     children,
     overlay,
@@ -571,7 +573,7 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(functi
       </div>
     </ZoomContext.Provider>
   );
-});
+};
 
 LightboxZoom.displayName = 'LightboxZoom';
 

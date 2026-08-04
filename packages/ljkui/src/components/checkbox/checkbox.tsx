@@ -1,11 +1,11 @@
 'use client';
 
 import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox';
-import classNames from 'classnames';
 import * as React from 'react';
 
 import { checkboxPropDefs } from './checkbox.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 interface IconProps extends React.ComponentProps<'svg'> {
@@ -98,15 +98,13 @@ const Checkbox = (props: CheckboxProps) => {
   const Comp = children ? 'label' : 'span';
 
   return (
-    <Comp className={classNames('fui-CheckboxRoot', className, `fui-r-size-${size}`)} style={style}>
+    <Comp className={rootClassName('fui-CheckboxRoot', className, { size })} style={style}>
       <CheckboxPrimitive.Root
         data-accent-color={color}
         data-indeterminate={indeterminate || undefined}
         indeterminate={indeterminate}
         {...checkboxProps}
-        className={classNames('fui-reset', 'fui-CheckboxButton', {
-          'fui-high-contrast': highContrast,
-        })}
+        className={rootClassName('fui-CheckboxButton', undefined, { highContrast }, 'fui-reset')}
       >
         <CheckboxPrimitive.Indicator className="fui-CheckboxIndicator">
           {indeterminate ? (

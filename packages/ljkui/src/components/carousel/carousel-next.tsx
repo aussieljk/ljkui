@@ -24,7 +24,8 @@ interface CarouselNextProps extends useRender.ComponentProps<'button', CarouselN
  * Automatically disabled at the end of the scroll range unless the Root has
  * `loop`, in which case it wraps back to the first item.
  */
-const CarouselNext = React.forwardRef<HTMLButtonElement, CarouselNextProps>(function CarouselNext(props, forwardedRef) {
+const CarouselNext = (props: CarouselNextProps) => {
+  const forwardedRef = props.ref;
   const { render, step, ...elementProps } = props;
 
   const { disabled, handleClick } = useScrollButton({ direction: 'next', step });
@@ -47,7 +48,7 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, CarouselNextProps>(func
     ),
     defaultTagName: 'button',
   });
-});
+};
 
 CarouselNext.displayName = 'CarouselNext';
 

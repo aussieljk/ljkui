@@ -8,6 +8,7 @@ import { Heading } from '../typography/heading';
 import { Text } from '../typography/text';
 import { dialogContentPropDefs } from './dialog.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes } from '../../helpers';
 import type { TextProps } from '../typography/text';
 
@@ -126,7 +127,7 @@ const DialogContent = (props: DialogContentProps) => {
         <Theme
           render={<DialogPrimitive.Popup />}
           {...popupProps}
-          className={classNames('fui-DialogContent', className, `fui-r-size-${size}`)}
+          className={rootClassName('fui-DialogContent', className, { size })}
         >
           <DialogContentContext.Provider value={React.useMemo(() => ({ size }), [size])}>
             {children}

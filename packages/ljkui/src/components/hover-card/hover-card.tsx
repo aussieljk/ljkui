@@ -1,11 +1,11 @@
 'use client';
 
 import { PreviewCard as PreviewCardPrimitive } from '@base-ui/react/preview-card';
-import classNames from 'classnames';
 import * as React from 'react';
 import { Theme } from '../../theme';
 import { hoverCardContentPropDefs } from './hover-card.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes } from '../../helpers';
 
 /** Creates a detached handle for opening a hover card imperatively, optionally with a typed payload. */
@@ -165,7 +165,7 @@ const HoverCardContent = (props: HoverCardContentProps) => {
         <Theme
           render={<PreviewCardPrimitive.Popup />}
           {...contentProps}
-          className={classNames('fui-HoverCardContent', `fui-variant-${variant}`, className, `fui-r-size-${size}`)}
+          className={rootClassName('fui-HoverCardContent', className, { size, variant })}
         >
           {children}
         </Theme>

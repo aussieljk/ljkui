@@ -7,7 +7,7 @@ import * as React from 'react';
 
 import { radioButtonGroupPropDefs } from './radio-button-group.props';
 
-import { type GetPropDefTypes } from '../../helpers';
+import { rootClassName, type GetPropDefTypes } from '../../helpers';
 import { useIsomorphicLayoutEffect } from '../../helpers';
 
 type RadioButtonGroupOwnProps = GetPropDefTypes<typeof radioButtonGroupPropDefs>;
@@ -54,7 +54,7 @@ function RadioButtonGroupRoot<Value = unknown>(props: RadioButtonGroupRootProps<
     <RadioButtonGroupPrimitive
       data-accent-color={color}
       {...(rootProps as RadioButtonGroupPrimitive.Props<Value>)}
-      className={classNames('fui-RadioButtonGroupRoot', className, { 'fui-high-contrast': highContrast })}
+      className={rootClassName('fui-RadioButtonGroupRoot', className, { highContrast })}
     >
       <RadioButtonGroupContext.Provider value={React.useMemo(() => ({ color, highContrast }), [color, highContrast])}>
         {children}
@@ -105,7 +105,7 @@ const RadioButtonGroupIcon = (props: RadioButtonGroupIconProps) => {
   return (
     <div
       data-accent-color={color}
-      className={classNames('fui-RadioButtonGroupIcon', { 'fui-high-contrast': highContrast }, className)}
+      className={rootClassName('fui-RadioButtonGroupIcon', className, { highContrast })}
       aria-hidden
       {...itemProps}
     >

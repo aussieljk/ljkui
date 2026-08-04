@@ -15,7 +15,8 @@ interface LightboxNextProps extends useRender.ComponentProps<'button', LightboxN
  * Navigates to the next item in the lightbox.
  * Auto-disables at the last item unless `loop` is enabled on Root.
  */
-const LightboxNext = React.forwardRef<HTMLButtonElement, LightboxNextProps>(function LightboxNext(props, forwardedRef) {
+const LightboxNext = (props: LightboxNextProps) => {
+  const forwardedRef = props.ref;
   const { render, ...elementProps } = props;
   const { activeIndex, setActiveIndex, itemCount, loop } = useLightboxContext();
 
@@ -46,7 +47,7 @@ const LightboxNext = React.forwardRef<HTMLButtonElement, LightboxNextProps>(func
     ),
     defaultTagName: 'button',
   });
-});
+};
 
 LightboxNext.displayName = 'LightboxNext';
 

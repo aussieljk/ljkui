@@ -58,6 +58,7 @@ function waitForImageDecode(target: HTMLElement | null): Promise<void> {
 }
 
 interface LightboxRootProps {
+  ref?: React.Ref<LightboxRootRef>;
   /** The lightbox parts: Trigger, Content and any other Lightbox sub-components. */
   children?: React.ReactNode;
   /** Uncontrolled initial open state. @default false */
@@ -199,7 +200,8 @@ function resolveTriggerIndex(
  * </Lightbox.Root>
  * ```
  */
-const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(function LightboxRoot(props, forwardedRef) {
+const LightboxRoot = (props: LightboxRootProps) => {
+  const forwardedRef = props.ref;
   const {
     children,
     defaultOpen = false,
@@ -564,7 +566,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(functi
   );
 
   return <LightboxContext.Provider value={contextValue}>{children}</LightboxContext.Provider>;
-});
+};
 
 LightboxRoot.displayName = 'LightboxRoot';
 

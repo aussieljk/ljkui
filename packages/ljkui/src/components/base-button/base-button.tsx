@@ -1,9 +1,9 @@
 import { Button } from '@base-ui/react/button';
-import classNames from 'classnames';
 import * as React from 'react';
 
 import { baseButtonPropDefs } from './base-button.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 import { mapButtonSizeToSpinnerSize } from '../../helpers/map-prop-values';
 import { Spinner } from '../spinner';
@@ -39,14 +39,7 @@ const BaseButton = (props: BaseButtonProps) => {
     ...baseButtonProps
   } = props;
 
-  const buttonClassName = classNames(
-    'fui-reset',
-    'fui-BaseButton',
-    className,
-    `fui-r-size-${size}`,
-    `fui-variant-${variant}`,
-    { 'fui-high-contrast': highContrast },
-  );
+  const buttonClassName = rootClassName('fui-BaseButton', className, { size, variant, highContrast }, 'fui-reset');
 
   const content = loading ? (
     <>
@@ -81,8 +74,8 @@ const BaseButton = (props: BaseButtonProps) => {
   return (
     <Button
       render={render}
-      data-accent-color={color || (variant === 'surface' ? 'gray' : color)}
       {...baseButtonProps}
+      data-accent-color={color || (variant === 'surface' ? 'gray' : color)}
       className={buttonClassName}
       aria-busy={loading || undefined}
       // The `data-disabled` attribute enables correct styles when doing `<Button render={<a />} disabled>`

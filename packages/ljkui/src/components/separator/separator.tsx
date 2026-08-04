@@ -1,10 +1,11 @@
 'use client';
 
 import { Separator as SeparatorPrimitive } from '@base-ui/react/separator';
-import classNames from 'classnames';
 import * as React from 'react';
 
 import { separatorPropDefs } from './separator.props';
+
+import { rootClassName } from '../../helpers';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
@@ -31,9 +32,9 @@ const Separator = (props: SeparatorProps) => {
   } = props;
   return (
     <SeparatorPrimitive
-      data-accent-color={color}
       {...separatorProps}
-      className={classNames('fui-Separator', className, `fui-r-size-${size}`)}
+      data-accent-color={color}
+      className={rootClassName('fui-Separator', className, { size })}
     />
   );
 };

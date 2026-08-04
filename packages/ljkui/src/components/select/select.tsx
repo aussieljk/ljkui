@@ -3,6 +3,7 @@
 import { ScrollArea as ScrollAreaPrimitive } from '@base-ui/react/scroll-area';
 import { Select as SelectPrimitive } from '@base-ui/react/select';
 import classNames from 'classnames';
+import { rootClassName } from '../../helpers';
 import * as React from 'react';
 
 import { ThickCheckIcon } from '../../icons';
@@ -153,13 +154,7 @@ const SelectTrigger = (props: SelectTriggerProps) => {
     <SelectPrimitive.Trigger
       data-accent-color={color || (variant === 'surface' ? 'gray' : color)}
       {...triggerProps}
-      className={classNames(
-        'fui-reset',
-        'fui-SelectTrigger',
-        className,
-        `fui-r-size-${size}`,
-        `fui-variant-${variant}`,
-      )}
+      className={rootClassName('fui-SelectTrigger', className, { size, variant }, 'fui-reset')}
     >
       <SelectPrimitive.Value className="fui-SelectTriggerValue">{valueChildren}</SelectPrimitive.Value>
 
@@ -260,12 +255,13 @@ const SelectContent = (props: SelectContentProps) => {
         <Theme
           render={<SelectPrimitive.Popup />}
           {...popupProps}
-          className={classNames(
-            { 'fui-PopperContent': !alignItemWithTrigger },
+          className={rootClassName(
             'fui-SelectContent',
             className,
-            `fui-r-size-${size}`,
-            { 'fui-high-contrast': highContrast },
+            { size, highContrast },
+            {
+              'fui-PopperContent': !alignItemWithTrigger,
+            },
           )}
         >
           <ScrollAreaPrimitive.Root className="fui-ScrollAreaRoot">

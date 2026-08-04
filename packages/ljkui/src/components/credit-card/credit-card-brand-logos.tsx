@@ -12,9 +12,10 @@ import { useCreditCardContext } from './credit-card-context';
 // Source: aaronfagan/svg-credit-card-payment-icons (MIT)
 // ---------------------------------------------------------------------------
 
-type BrandSvgProps = React.ComponentPropsWithoutRef<'svg'>;
+type BrandSvgProps = React.ComponentProps<'svg'>;
 
-const VisaLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function VisaLogo(props, ref) {
+const VisaLogo = (props: BrandSvgProps) => {
+  const ref = props.ref;
   return (
     <svg ref={ref} viewBox="0 0 780 500" fill="none" {...props}>
       <path
@@ -23,9 +24,10 @@ const VisaLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function VisaLog
       />
     </svg>
   );
-});
+};
 
-const MastercardLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function MastercardLogo(props, ref) {
+const MastercardLogo = (props: BrandSvgProps) => {
+  const ref = props.ref;
   return (
     <svg ref={ref} viewBox="0 0 780 500" fill="none" {...props}>
       <path d="M465.738 113.525H313.812V386.475H465.738V113.525Z" fill="currentColor" opacity="0.2" />
@@ -41,9 +43,10 @@ const MastercardLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function M
       />
     </svg>
   );
-});
+};
 
-const AmexLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function AmexLogo(props, ref) {
+const AmexLogo = (props: BrandSvgProps) => {
+  const ref = props.ref;
   return (
     <svg ref={ref} viewBox="0 0 780 500" fill="none" {...props}>
       <g transform="translate(39 25) scale(0.9)">
@@ -54,9 +57,10 @@ const AmexLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function AmexLog
       </g>
     </svg>
   );
-});
+};
 
-const DiscoverLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function DiscoverLogo(props, ref) {
+const DiscoverLogo = (props: BrandSvgProps) => {
+  const ref = props.ref;
   return (
     <svg ref={ref} viewBox="0 0 780 500" fill="none" {...props}>
       <path
@@ -70,9 +74,10 @@ const DiscoverLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function Dis
       />
     </svg>
   );
-});
+};
 
-const DinersClubLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function DinersClubLogo(props, ref) {
+const DinersClubLogo = (props: BrandSvgProps) => {
+  const ref = props.ref;
   return (
     <svg ref={ref} viewBox="0 0 780 500" fill="none" {...props}>
       <path
@@ -91,9 +96,10 @@ const DinersClubLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function D
       />
     </svg>
   );
-});
+};
 
-const JcbLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function JcbLogo(props, ref) {
+const JcbLogo = (props: BrandSvgProps) => {
+  const ref = props.ref;
   return (
     <svg ref={ref} viewBox="0 0 780 500" fill="none" {...props}>
       <path
@@ -121,9 +127,10 @@ const JcbLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function JcbLogo(
       />
     </svg>
   );
-});
+};
 
-const UnionPayLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function UnionPayLogo(props, ref) {
+const UnionPayLogo = (props: BrandSvgProps) => {
+  const ref = props.ref;
   return (
     <svg ref={ref} viewBox="0 0 780 500" fill="none" {...props}>
       <path
@@ -143,9 +150,10 @@ const UnionPayLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function Uni
       />
     </svg>
   );
-});
+};
 
-const MaestroLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function MaestroLogo(props, ref) {
+const MaestroLogo = (props: BrandSvgProps) => {
+  const ref = props.ref;
   return (
     <svg ref={ref} viewBox="0 0 780 500" fill="none" {...props}>
       <path d="M465.769 113.811H314.195V386.211H465.769V113.811Z" fill="currentColor" opacity="0.2" />
@@ -161,9 +169,10 @@ const MaestroLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function Maes
       />
     </svg>
   );
-});
+};
 
-const EloLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function EloLogo(props, ref) {
+const EloLogo = (props: BrandSvgProps) => {
+  const ref = props.ref;
   return (
     <svg ref={ref} viewBox="0 0 780 500" fill="none" {...props}>
       <path
@@ -186,9 +195,10 @@ const EloLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function EloLogo(
       />
     </svg>
   );
-});
+};
 
-const MirLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function MirLogo(props, ref) {
+const MirLogo = (props: BrandSvgProps) => {
+  const ref = props.ref;
   return (
     <svg ref={ref} viewBox="0 0 780 500" fill="none" {...props}>
       <path d="M544.1 240.5v108h60v-64h68c28.6-0.2 52.9-18.5 62.1-44H544.1z" fill="currentColor" />
@@ -207,9 +217,10 @@ const MirLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function MirLogo(
       />
     </svg>
   );
-});
+};
 
-const HiperLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function HiperLogo(props, ref) {
+const HiperLogo = (props: BrandSvgProps) => {
+  const ref = props.ref;
   return (
     <svg ref={ref} viewBox="0 0 780 500" fill="none" {...props}>
       <polygon
@@ -231,9 +242,9 @@ const HiperLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function HiperL
       />
     </svg>
   );
-});
+};
 
-type BrandLogoComponent = React.ForwardRefExoticComponent<BrandSvgProps & React.RefAttributes<SVGSVGElement>>;
+type BrandLogoComponent = React.FC<BrandSvgProps>;
 
 const brandLogoMap: Partial<Record<CreditCardTypeCardBrandId, BrandLogoComponent>> = {
   visa: VisaLogo,
@@ -254,7 +265,7 @@ const brandLogoMap: Partial<Record<CreditCardTypeCardBrandId, BrandLogoComponent
 // CreditCard.BrandLogo — renders detected card brand's SVG logo
 // ---------------------------------------------------------------------------
 
-interface CreditCardBrandLogoProps extends React.ComponentPropsWithoutRef<'svg'> {
+interface CreditCardBrandLogoProps extends React.ComponentProps<'svg'> {
   /**
    * Override detected brand (from context) with a specific brand key.
    * Accepts any `CreditCardTypeCardBrandId` from the `credit-card-type` library.
@@ -266,29 +277,28 @@ interface CreditCardBrandLogoProps extends React.ComponentPropsWithoutRef<'svg'>
  * The monochrome SVG logo of the detected card brand (from the number typed into `NumberField`), with
  * an accessible label. Renders nothing when no brand is detected; use `brand` to force a specific logo.
  */
-const CreditCardBrandLogo = React.forwardRef<SVGSVGElement, CreditCardBrandLogoProps>(
-  function CreditCardBrandLogo(props, forwardedRef) {
-    const { brand: brandProp, className, ...rest } = props;
-    const { cardType, cardNiceType } = useCreditCardContext();
-    const brand = brandProp ?? cardType;
-    if (!brand) return null;
+const CreditCardBrandLogo = (props: CreditCardBrandLogoProps) => {
+  const forwardedRef = props.ref;
+  const { brand: brandProp, className, ...rest } = props;
+  const { cardType, cardNiceType } = useCreditCardContext();
+  const brand = brandProp ?? cardType;
+  if (!brand) return null;
 
-    const Logo = brandLogoMap[brand];
-    if (!Logo) return null;
+  const Logo = brandLogoMap[brand];
+  if (!Logo) return null;
 
-    const label = brandProp ? (creditCardType.getTypeInfo(brandProp)?.niceType ?? brandProp) : (cardNiceType ?? brand);
+  const label = brandProp ? (creditCardType.getTypeInfo(brandProp)?.niceType ?? brandProp) : (cardNiceType ?? brand);
 
-    return (
-      <Logo
-        ref={forwardedRef}
-        role="img"
-        aria-label={label}
-        className={classNames('fui-CreditCardBrandLogo', className)}
-        {...rest}
-      />
-    );
-  },
-);
+  return (
+    <Logo
+      ref={forwardedRef}
+      role="img"
+      aria-label={label}
+      className={classNames('fui-CreditCardBrandLogo', className)}
+      {...rest}
+    />
+  );
+};
 CreditCardBrandLogo.displayName = 'CreditCardBrandLogo';
 
 export { CreditCardBrandLogo };

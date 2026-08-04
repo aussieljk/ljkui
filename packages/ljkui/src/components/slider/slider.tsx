@@ -1,11 +1,11 @@
 'use client';
 
 import { Slider as SliderPrimitive } from '@base-ui/react/slider';
-import classNames from 'classnames';
 import * as React from 'react';
 
 import { sliderPropDefs } from './slider.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type SliderOwnProps = GetPropDefTypes<typeof sliderPropDefs>;
@@ -46,18 +46,16 @@ const Slider = (props: SliderProps) => {
 
   return (
     <SliderPrimitive.Root
-      data-accent-color={color}
       {...sliderProps}
+      data-accent-color={color}
       thumbCollisionBehavior={thumbCollisionBehavior}
-      className={classNames('fui-SliderRoot', className, `fui-r-size-${size}`, {
-        'fui-high-contrast': highContrast,
-      })}
+      className={rootClassName('fui-SliderRoot', className, { size, highContrast })}
     >
       <SliderPrimitive.Control className="fui-SliderControl">
         <SliderPrimitive.Track className="fui-SliderTrack">
           <SliderPrimitive.Indicator
-            className={classNames('fui-SliderRange', {
-              'fui-high-contrast': highContrast,
+            className={rootClassName('fui-SliderRange', undefined, {
+              highContrast,
             })}
           />
           {values.map((_, index) => (

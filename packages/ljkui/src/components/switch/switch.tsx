@@ -1,11 +1,11 @@
 'use client';
 
 import { Switch as SwitchPrimitive } from '@base-ui/react/switch';
-import classNames from 'classnames';
 import * as React from 'react';
 
 import { switchPropDefs } from './switch.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type SwitchOwnProps = GetPropDefTypes<typeof switchPropDefs>;
@@ -36,22 +36,13 @@ const Switch = (props: SwitchProps) => {
     ...switchProps
   } = props;
   return (
-    <span
-      className={classNames('fui-SwitchRoot', className, `fui-r-size-${size}`, { 'fui-high-contrast': highContrast })}
-      style={style}
-    >
+    <span className={rootClassName('fui-SwitchRoot', className, { size, highContrast })} style={style}>
       <SwitchPrimitive.Root
-        data-accent-color={color}
         {...switchProps}
-        className={classNames('fui-reset', 'fui-SwitchButton', {
-          'fui-high-contrast': highContrast,
-        })}
+        data-accent-color={color}
+        className={rootClassName('fui-SwitchButton', undefined, { highContrast }, 'fui-reset')}
       >
-        <SwitchPrimitive.Thumb
-          className={classNames('fui-SwitchThumb', {
-            'fui-high-contrast': highContrast,
-          })}
-        />
+        <SwitchPrimitive.Thumb className={rootClassName('fui-SwitchThumb', undefined, { highContrast })} />
       </SwitchPrimitive.Root>
     </span>
   );

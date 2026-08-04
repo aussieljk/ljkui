@@ -86,7 +86,8 @@ interface FieldLabelProps
  *
  * @see https://base-ui.com/react/components/field#label
  */
-const FieldLabel = React.forwardRef<HTMLLabelElement, FieldLabelProps>((props, forwardedRef) => {
+const FieldLabel = (props: FieldLabelProps) => {
+  const forwardedRef = props.ref;
   const { className, size = '2', weight = 'medium', align, trim, color, highContrast, render, ...labelProps } = props;
 
   // If user provides custom render, use it directly; otherwise use Text
@@ -110,7 +111,7 @@ const FieldLabel = React.forwardRef<HTMLLabelElement, FieldLabelProps>((props, f
       render={render ?? defaultRender}
     />
   );
-});
+};
 FieldLabel.displayName = 'FieldLabel';
 
 // ============================================================================
@@ -140,7 +141,8 @@ interface FieldControlProps extends React.ComponentProps<typeof FieldPrimitive.C
  *
  * @see https://base-ui.com/react/components/field#control
  */
-const FieldControl = React.forwardRef<HTMLInputElement, FieldControlProps>((props, forwardedRef) => {
+const FieldControl = (props: FieldControlProps) => {
+  const forwardedRef = props.ref;
   const { className, ...controlProps } = props;
   return (
     <FieldPrimitive.Control
@@ -149,7 +151,7 @@ const FieldControl = React.forwardRef<HTMLInputElement, FieldControlProps>((prop
       className={classNames('fui-FieldControl', className)}
     />
   );
-});
+};
 FieldControl.displayName = 'FieldControl';
 
 // ============================================================================
@@ -183,7 +185,8 @@ interface FieldDescriptionProps
  *
  * @see https://base-ui.com/react/components/field#description
  */
-const FieldDescription = React.forwardRef<HTMLParagraphElement, FieldDescriptionProps>((props, forwardedRef) => {
+const FieldDescription = (props: FieldDescriptionProps) => {
+  const forwardedRef = props.ref;
   const {
     className,
     size = '2',
@@ -217,7 +220,7 @@ const FieldDescription = React.forwardRef<HTMLParagraphElement, FieldDescription
       render={render ?? defaultRender}
     />
   );
-});
+};
 FieldDescription.displayName = 'FieldDescription';
 
 // ============================================================================
@@ -308,7 +311,8 @@ interface FieldErrorProps
  *
  * @see https://base-ui.com/react/components/field#error
  */
-const FieldError = React.forwardRef<HTMLDivElement, FieldErrorProps>((props, forwardedRef) => {
+const FieldError = (props: FieldErrorProps) => {
+  const forwardedRef = props.ref;
   const { className, size = '2', weight, align, trim, color = 'danger', highContrast, render, ...errorProps } = props;
 
   // If user provides custom render, use it directly; otherwise use Text
@@ -332,7 +336,7 @@ const FieldError = React.forwardRef<HTMLDivElement, FieldErrorProps>((props, for
       render={render ?? defaultRender}
     />
   );
-});
+};
 FieldError.displayName = 'FieldError';
 
 // ============================================================================

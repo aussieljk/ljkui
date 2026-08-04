@@ -51,48 +51,47 @@ function useLightboxItemGroupContext(): LightboxItemGroupContextValue {
  * navigation direction is exposed via the `data-direction` attribute
  * for CSS transitions.
  */
-const LightboxItemGroup = React.forwardRef<HTMLDivElement, LightboxItemGroupProps>(
-  function LightboxItemGroup(props, forwardedRef) {
-    const { render, preload = 1, ...elementProps } = props;
-    const { activeIndex, loop, itemCount } = useLightboxContext();
+const LightboxItemGroup = (props: LightboxItemGroupProps) => {
+  const forwardedRef = props.ref;
+  const { render, preload = 1, ...elementProps } = props;
+  const { activeIndex, loop, itemCount } = useLightboxContext();
 
-    const prevIndexRef = React.useRef(activeIndex);
-    const [direction, setDirection] = React.useState<'forward' | 'backward'>('forward');
+  const prevIndexRef = React.useRef(activeIndex);
+  const [direction, setDirection] = React.useState<'forward' | 'backward'>('forward');
 
-    React.useEffect(() => {
-      if (activeIndex !== prevIndexRef.current) {
-        setDirection(activeIndex > prevIndexRef.current ? 'forward' : 'backward');
-        prevIndexRef.current = activeIndex;
-      }
-    }, [activeIndex]);
+  React.useEffect(() => {
+    if (activeIndex !== prevIndexRef.current) {
+      setDirection(activeIndex > prevIndexRef.current ? 'forward' : 'backward');
+      prevIndexRef.current = activeIndex;
+    }
+  }, [activeIndex]);
 
-    const state = React.useMemo<LightboxItemGroupState>(() => ({ activeIndex, direction }), [activeIndex, direction]);
+  const state = React.useMemo<LightboxItemGroupState>(() => ({ activeIndex, direction }), [activeIndex, direction]);
 
-    const groupContext = React.useMemo<LightboxItemGroupContextValue>(
-      () => ({ activeIndex, preload, direction, loop, itemCount }),
-      [activeIndex, preload, direction, loop, itemCount],
-    );
+  const groupContext = React.useMemo<LightboxItemGroupContextValue>(
+    () => ({ activeIndex, preload, direction, loop, itemCount }),
+    [activeIndex, preload, direction, loop, itemCount],
+  );
 
-    return (
-      <LightboxItemGroupContext.Provider value={groupContext}>
-        {useRender({
-          render,
-          ref: forwardedRef,
-          state,
-          stateAttributesMapping: itemGroupStateAttributesMapping,
-          props: mergeProps<'div'>(
-            {
-              className: 'fui-LightboxItemGroup',
-              role: 'group',
-            } as React.ComponentPropsWithRef<'div'>,
-            elementProps as React.ComponentPropsWithRef<'div'>,
-          ),
-          defaultTagName: 'div',
-        })}
-      </LightboxItemGroupContext.Provider>
-    );
-  },
-);
+  return (
+    <LightboxItemGroupContext.Provider value={groupContext}>
+      {useRender({
+        render,
+        ref: forwardedRef,
+        state,
+        stateAttributesMapping: itemGroupStateAttributesMapping,
+        props: mergeProps<'div'>(
+          {
+            className: 'fui-LightboxItemGroup',
+            role: 'group',
+          } as React.ComponentPropsWithRef<'div'>,
+          elementProps as React.ComponentPropsWithRef<'div'>,
+        ),
+        defaultTagName: 'div',
+      })}
+    </LightboxItemGroupContext.Provider>
+  );
+};
 
 LightboxItemGroup.displayName = 'LightboxItemGroup';
 

@@ -2,6 +2,7 @@
 
 import { NumberField as NumberFieldPrimitive } from '@base-ui/react/number-field';
 import classNames from 'classnames';
+import { rootClassName } from '../../helpers';
 import * as React from 'react';
 import { IconButton } from '../icon-button';
 import { numberFieldPropDefs, numberFieldSlotPropDefs } from './number-field.props';
@@ -78,13 +79,12 @@ const NumberFieldRoot = (props: NumberFieldRootProps) => {
           data-accent-color={color}
           {...primitiveProps}
           role="group"
-          className={classNames(
+          className={rootClassName(
             'fui-NumberFieldRoot',
-            'fui-InputRoot',
-            `fui-r-size-${size}`,
-            `fui-variant-${variant}`,
-            `fui-button-layout-${buttonLayout}`,
             className,
+            { size, variant },
+            'fui-InputRoot',
+            `fui-button-layout-${buttonLayout}`,
           )}
           onPointerDown={composeEventHandlers(primitiveProps.onPointerDown, handlePointerDown)}
         />
@@ -110,7 +110,6 @@ const NumberFieldRoot = (props: NumberFieldRootProps) => {
 };
 NumberFieldRoot.displayName = 'NumberFieldRoot';
 
-type NumberFieldSlotElement = React.ElementRef<'div'>;
 type NumberFieldSlotOwnProps = GetPropDefTypes<typeof numberFieldSlotPropDefs>;
 interface NumberFieldSlotProps extends PropsWithoutColor<'div'>, NumberFieldSlotOwnProps {}
 
@@ -118,7 +117,8 @@ interface NumberFieldSlotProps extends PropsWithoutColor<'div'>, NumberFieldSlot
  * Decorative container for icons or affixes rendered inside the field, sized to match the
  * root's `size`.
  */
-const NumberFieldSlot = React.forwardRef<NumberFieldSlotElement, NumberFieldSlotProps>((props, forwardedRef) => {
+const NumberFieldSlot = (props: NumberFieldSlotProps) => {
+  const forwardedRef = props.ref;
   const { className, color = numberFieldSlotPropDefs.color.default, ...slotProps } = props;
   const context = React.useContext(NumberFieldContext);
   return (
@@ -126,10 +126,10 @@ const NumberFieldSlot = React.forwardRef<NumberFieldSlotElement, NumberFieldSlot
       data-accent-color={color}
       {...slotProps}
       ref={forwardedRef}
-      className={classNames('fui-NumberFieldSlot', className, `fui-r-size-${context?.size}`)}
+      className={rootClassName('fui-NumberFieldSlot', className, { size: context?.size })}
     />
   );
-});
+};
 NumberFieldSlot.displayName = 'NumberFieldSlot';
 
 interface NumberFieldInputProps
@@ -143,7 +143,8 @@ interface NumberFieldInputProps
  * The text input of the number field. Wraps Base UI's `NumberField.Input`; `size`, `variant`
  * and `color` are inherited from the surrounding Root but can be overridden per input.
  */
-const NumberFieldInput = React.forwardRef<HTMLInputElement, NumberFieldInputProps>((props, forwardedRef) => {
+const NumberFieldInput = (props: NumberFieldInputProps) => {
+  const forwardedRef = props.ref;
   const context = React.useContext(NumberFieldContext);
   const {
     className,
@@ -158,16 +159,10 @@ const NumberFieldInput = React.forwardRef<HTMLInputElement, NumberFieldInputProp
       data-accent-color={color}
       {...inputProps}
       ref={forwardedRef}
-      className={classNames(
-        'fui-NumberFieldInput',
-        'fui-InputControl',
-        className,
-        `fui-r-size-${size}`,
-        `fui-variant-${variant}`,
-      )}
+      className={rootClassName('fui-NumberFieldInput', className, { size, variant }, 'fui-InputControl')}
     />
   );
-});
+};
 NumberFieldInput.displayName = 'NumberFieldInput';
 
 interface NumberFieldDecrementProps extends Omit<

@@ -2,6 +2,7 @@
 
 import { ContextMenu as ContextMenuPrimitive } from '@base-ui/react/context-menu';
 import classNames from 'classnames';
+import { rootClassName } from '../../helpers';
 import * as React from 'react';
 import { ThickCheckIcon, ThickChevronRightIcon } from '../../icons';
 import { Theme, useThemeContext } from '../../theme';
@@ -127,13 +128,7 @@ const ContextMenuContent = (props: ContextMenuContentProps) => {
           render={<ContextMenuPrimitive.Popup />}
           data-accent-color={resolvedColor}
           {...popupProps}
-          className={classNames(
-            'fui-BaseMenuContent',
-            'fui-ContextMenuContent',
-            `fui-variant-${variant}`,
-            className,
-            `fui-r-size-${size}`,
-          )}
+          className={rootClassName('fui-ContextMenuContent', className, { size, variant }, 'fui-BaseMenuContent')}
         >
           <ScrollArea type="auto">
             <div className={classNames('fui-BaseMenuViewport', 'fui-ContextMenuViewport')}>
@@ -376,14 +371,13 @@ const ContextMenuSubContent = (props: ContextMenuSubContentProps) => {
           render={<ContextMenuPrimitive.Popup />}
           data-accent-color={color}
           {...popupProps}
-          className={classNames(
+          className={rootClassName(
+            'fui-ContextMenuContent',
+            className,
+            { size, variant },
             'fui-BaseMenuContent',
             'fui-BaseMenuSubContent',
-            'fui-ContextMenuContent',
             'fui-ContextMenuSubContent',
-            `fui-variant-${variant}`,
-            className,
-            `fui-r-size-${size}`,
           )}
         >
           <ScrollArea type="auto">

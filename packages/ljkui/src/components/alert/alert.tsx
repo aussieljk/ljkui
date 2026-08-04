@@ -9,6 +9,7 @@ import { Text, type TextProps } from '../typography/text';
 import { VisuallyHidden } from '../visually-hidden';
 import { alertRootPropDefs } from './alert.props';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type AlertRootOwnProps = GetPropDefTypes<typeof alertRootPropDefs>;
@@ -123,7 +124,7 @@ type AlertActionProps = Omit<PropsWithoutColor<typeof Button>, 'className'> &
 const AlertAction = (props: AlertActionProps) => {
   const { children, variant = 'primary', loading, disabled = props.loading, className, render, ...actionProps } = props;
 
-  const actionClassName = classNames('fui-reset', 'fui-AlertAction', `fui-variant-${variant}`, className);
+  const actionClassName = rootClassName('fui-AlertAction', className, { variant }, 'fui-reset');
 
   const content = loading ? (
     <>

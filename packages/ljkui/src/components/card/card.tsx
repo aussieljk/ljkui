@@ -5,6 +5,7 @@ import * as React from 'react';
 import { cardPropDefs } from './card.props';
 import { Inset } from '../inset';
 
+import { rootClassName } from '../../helpers';
 import type { GetPropDefTypes } from '../../helpers';
 
 type CardOwnProps = GetPropDefTypes<typeof cardPropDefs>;
@@ -39,7 +40,7 @@ const CardComponent = (props: CardProps) => {
     props: mergeProps(
       cardProps as React.ComponentProps<'div'>,
       {
-        className: classNames('fui-reset', 'fui-Card', className, `fui-r-size-${size}`, `fui-variant-${variant}`),
+        className: rootClassName('fui-Card', className, { size, variant }, 'fui-reset'),
         children,
       } as React.ComponentProps<'div'>,
     ),

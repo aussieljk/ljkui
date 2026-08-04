@@ -63,10 +63,10 @@ interface FormProps extends React.ComponentProps<typeof FormPrimitive> {}
  *
  * @see https://base-ui.com/react/components/form
  */
-const Form = React.forwardRef<HTMLFormElement, FormProps>((props, forwardedRef) => {
-  const { className, ...formProps } = props;
+const Form = (props: FormProps) => {
+  const { className, ref: forwardedRef, ...formProps } = props;
   return <FormPrimitive {...formProps} ref={forwardedRef} className={classNames('fui-FormRoot', className)} />;
-});
+};
 Form.displayName = 'Form';
 
 // ============================================================================

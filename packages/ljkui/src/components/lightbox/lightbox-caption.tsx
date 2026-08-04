@@ -25,37 +25,36 @@ const captionStateAttributesMapping = {
  * Renders nothing visible when no caption is set for the active item,
  * but stays in the DOM for ARIA purposes.
  */
-const LightboxCaption = React.forwardRef<HTMLDivElement, LightboxCaptionProps>(
-  function LightboxCaption(props, forwardedRef) {
-    const { render, ...elementProps } = props;
-    const { activeIndex, captionsRef } = useLightboxContext();
+const LightboxCaption = (props: LightboxCaptionProps) => {
+  const forwardedRef = props.ref;
+  const { render, ...elementProps } = props;
+  const { activeIndex, captionsRef } = useLightboxContext();
 
-    const caption = captionsRef.current.get(activeIndex);
-    const hasCaption = caption !== undefined;
+  const caption = captionsRef.current.get(activeIndex);
+  const hasCaption = caption !== undefined;
 
-    const state = React.useMemo<LightboxCaptionState>(
-      () => ({ index: activeIndex, hasCaption }),
-      [activeIndex, hasCaption],
-    );
+  const state = React.useMemo<LightboxCaptionState>(
+    () => ({ index: activeIndex, hasCaption }),
+    [activeIndex, hasCaption],
+  );
 
-    return useRender({
-      render,
-      ref: forwardedRef,
-      state,
-      stateAttributesMapping: captionStateAttributesMapping,
-      props: mergeProps<'div'>(
-        {
-          className: 'fui-LightboxCaption',
-          'aria-live': 'polite',
-          'aria-atomic': true,
-        } as React.ComponentPropsWithRef<'div'>,
-        elementProps as React.ComponentPropsWithRef<'div'>,
-        { children: hasCaption ? caption : null } as React.ComponentPropsWithRef<'div'>,
-      ),
-      defaultTagName: 'div',
-    });
-  },
-);
+  return useRender({
+    render,
+    ref: forwardedRef,
+    state,
+    stateAttributesMapping: captionStateAttributesMapping,
+    props: mergeProps<'div'>(
+      {
+        className: 'fui-LightboxCaption',
+        'aria-live': 'polite',
+        'aria-atomic': true,
+      } as React.ComponentPropsWithRef<'div'>,
+      elementProps as React.ComponentPropsWithRef<'div'>,
+      { children: hasCaption ? caption : null } as React.ComponentPropsWithRef<'div'>,
+    ),
+    defaultTagName: 'div',
+  });
+};
 
 LightboxCaption.displayName = 'LightboxCaption';
 

@@ -80,7 +80,7 @@ interface FieldsetLegendProps
  *
  * @see https://base-ui.com/react/components/fieldset#legend
  */
-const FieldsetLegend = React.forwardRef<HTMLDivElement, FieldsetLegendProps>((props, forwardedRef) => {
+const FieldsetLegend = (props: FieldsetLegendProps) => {
   const {
     className,
     variant = 'legend',
@@ -91,6 +91,7 @@ const FieldsetLegend = React.forwardRef<HTMLDivElement, FieldsetLegendProps>((pr
     color,
     highContrast,
     render,
+    ref: forwardedRef,
     ...legendProps
   } = props;
 
@@ -120,7 +121,7 @@ const FieldsetLegend = React.forwardRef<HTMLDivElement, FieldsetLegendProps>((pr
       render={render ?? defaultRender}
     />
   );
-});
+};
 FieldsetLegend.displayName = 'FieldsetLegend';
 
 // ============================================================================

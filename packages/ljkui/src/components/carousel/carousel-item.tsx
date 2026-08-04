@@ -28,7 +28,8 @@ const itemStateAttributesMapping = {
  * Provides `data-active` and `data-in-view` attributes for consumer styling.
  * The `data-in-view` attribute is managed by the Viewport's IntersectionObserver.
  */
-const CarouselItem = React.forwardRef<HTMLDivElement, CarouselItemProps>(function CarouselItem(props, forwardedRef) {
+const CarouselItem = (props: CarouselItemProps) => {
+  const forwardedRef = props.ref;
   const { render, ...elementProps } = props;
 
   const { activeIndex, registerItem, getItemElements, itemsVersion } = useScrollGalleryContext();
@@ -77,7 +78,7 @@ const CarouselItem = React.forwardRef<HTMLDivElement, CarouselItemProps>(functio
     ),
     defaultTagName: 'div',
   });
-});
+};
 
 CarouselItem.displayName = 'CarouselItem';
 

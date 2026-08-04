@@ -21,32 +21,31 @@ const stateAttributesMapping = {
 };
 
 /** The back face of the card. Marked `inert` (non-interactive) while the front face is showing. */
-const CreditCardBack = React.forwardRef<HTMLDivElement, CreditCardBackProps>(
-  function CreditCardBack(props, forwardedRef) {
-    const { render, color, ...elementProps } = props;
-    const { face, color: contextColor } = useCreditCardContext();
-    const active = face === 'back';
-    const resolvedColor = color ?? contextColor;
+const CreditCardBack = (props: CreditCardBackProps) => {
+  const forwardedRef = props.ref;
+  const { render, color, ...elementProps } = props;
+  const { face, color: contextColor } = useCreditCardContext();
+  const active = face === 'back';
+  const resolvedColor = color ?? contextColor;
 
-    const state = React.useMemo<CreditCardBackState>(() => ({ active }), [active]);
+  const state = React.useMemo<CreditCardBackState>(() => ({ active }), [active]);
 
-    return useRender({
-      render,
-      ref: forwardedRef,
-      state,
-      stateAttributesMapping,
-      props: mergeProps<'div'>(
-        {
-          className: 'fui-CreditCardBack',
-          inert: !active ? true : undefined,
-          ...(resolvedColor ? { 'data-accent-color': resolvedColor } : undefined),
-        } as React.ComponentPropsWithRef<'div'>,
-        elementProps as React.ComponentPropsWithRef<'div'>,
-      ),
-      defaultTagName: 'div',
-    });
-  },
-);
+  return useRender({
+    render,
+    ref: forwardedRef,
+    state,
+    stateAttributesMapping,
+    props: mergeProps<'div'>(
+      {
+        className: 'fui-CreditCardBack',
+        inert: !active ? true : undefined,
+        ...(resolvedColor ? { 'data-accent-color': resolvedColor } : undefined),
+      } as React.ComponentPropsWithRef<'div'>,
+      elementProps as React.ComponentPropsWithRef<'div'>,
+    ),
+    defaultTagName: 'div',
+  });
+};
 
 CreditCardBack.displayName = 'CreditCardBack';
 

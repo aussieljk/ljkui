@@ -2,6 +2,7 @@
 
 import { Autocomplete as AutocompletePrimitive } from '@base-ui/react/autocomplete';
 import classNames from 'classnames';
+import { rootClassName } from '../../helpers';
 import * as React from 'react';
 import { type GetPropDefTypes } from '../../helpers';
 import { Theme, useThemeContext } from '../../theme';
@@ -65,9 +66,10 @@ AutocompleteRoot.displayName = 'AutocompleteRoot';
 interface AutocompleteInputProps extends React.ComponentProps<typeof AutocompletePrimitive.Input> {}
 
 /** The text input that drives the autocomplete. Compose it with a styled field via `render`, e.g. `Input.Root`. */
-const AutocompleteInput = React.forwardRef<HTMLInputElement, AutocompleteInputProps>((props, forwardedRef) => {
+const AutocompleteInput = (props: AutocompleteInputProps) => {
+  const forwardedRef = props.ref;
   return <AutocompletePrimitive.Input {...props} ref={forwardedRef} />;
-});
+};
 AutocompleteInput.displayName = 'AutocompleteInput';
 
 // ============================================================================
@@ -99,7 +101,8 @@ interface AutocompleteIconProps extends Omit<
 }
 
 /** A decorative icon slot displayed inside the input, e.g. a magnifying glass. */
-const AutocompleteIcon = React.forwardRef<HTMLDivElement, AutocompleteIconProps>((props, forwardedRef) => {
+const AutocompleteIcon = (props: AutocompleteIconProps) => {
+  const forwardedRef = props.ref;
   const { className, ...iconProps } = props;
   return (
     <AutocompletePrimitive.Icon
@@ -108,7 +111,7 @@ const AutocompleteIcon = React.forwardRef<HTMLDivElement, AutocompleteIconProps>
       className={classNames('fui-AutocompleteIcon', className)}
     />
   );
-});
+};
 AutocompleteIcon.displayName = 'AutocompleteIcon';
 
 // ============================================================================
@@ -209,13 +212,7 @@ const AutocompleteContent = (props: AutocompleteContentProps) => {
           render={<AutocompletePrimitive.Popup />}
           data-accent-color={resolvedColor}
           {...contentProps}
-          className={classNames(
-            'fui-AutocompleteContent',
-            'fui-BaseMenuContent',
-            `fui-variant-${variant}`,
-            className,
-            `fui-r-size-${size}`,
-          )}
+          className={rootClassName('fui-AutocompleteContent', className, { size, variant }, 'fui-BaseMenuContent')}
         >
           <AutocompleteContentContext.Provider
             value={React.useMemo(() => ({ size, color: resolvedColor, variant }), [size, resolvedColor, variant])}
@@ -259,7 +256,8 @@ interface AutocompleteItemProps
 }
 
 /** A single selectable suggestion. Selecting it fills the input with its `value`. */
-const AutocompleteItem = React.forwardRef<HTMLDivElement, AutocompleteItemProps>((props, forwardedRef) => {
+const AutocompleteItem = (props: AutocompleteItemProps) => {
+  const forwardedRef = props.ref;
   const { className, color, ...itemProps } = props;
   return (
     <AutocompletePrimitive.Item
@@ -269,7 +267,7 @@ const AutocompleteItem = React.forwardRef<HTMLDivElement, AutocompleteItemProps>
       className={classNames('fui-AutocompleteItem', 'fui-BaseMenuItem', className)}
     />
   );
-});
+};
 AutocompleteItem.displayName = 'AutocompleteItem';
 
 // ============================================================================
@@ -353,7 +351,8 @@ interface AutocompleteRowProps extends Omit<
 }
 
 /** A row wrapper for arranging items in a grid layout (e.g. emoji pickers). */
-const AutocompleteRow = React.forwardRef<HTMLDivElement, AutocompleteRowProps>((props, forwardedRef) => {
+const AutocompleteRow = (props: AutocompleteRowProps) => {
+  const forwardedRef = props.ref;
   const { className, ...rowProps } = props;
   return (
     <AutocompletePrimitive.Row
@@ -362,7 +361,7 @@ const AutocompleteRow = React.forwardRef<HTMLDivElement, AutocompleteRowProps>((
       className={classNames('fui-AutocompleteRow', className)}
     />
   );
-});
+};
 AutocompleteRow.displayName = 'AutocompleteRow';
 
 // ============================================================================

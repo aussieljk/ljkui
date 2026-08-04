@@ -16,31 +16,30 @@ const stateAttributesMapping = {
 };
 
 /** A button that flips the card between its front and back faces. */
-const CreditCardTrigger = React.forwardRef<HTMLButtonElement, CreditCardTriggerProps>(
-  function CreditCardTrigger(props, forwardedRef) {
-    const { render, ...elementProps } = props;
-    const { face, toggle } = useCreditCardContext();
+const CreditCardTrigger = (props: CreditCardTriggerProps) => {
+  const forwardedRef = props.ref;
+  const { render, ...elementProps } = props;
+  const { face, toggle } = useCreditCardContext();
 
-    const state = React.useMemo<CreditCardTriggerState>(() => ({ face }), [face]);
+  const state = React.useMemo<CreditCardTriggerState>(() => ({ face }), [face]);
 
-    return useRender({
-      render,
-      ref: forwardedRef,
-      state,
-      stateAttributesMapping,
-      props: mergeProps<'button'>(
-        {
-          className: 'fui-CreditCardTrigger',
-          type: 'button',
-          'aria-expanded': face === 'back',
-          onClick: toggle,
-        } as React.ComponentPropsWithRef<'button'>,
-        elementProps as React.ComponentPropsWithRef<'button'>,
-      ),
-      defaultTagName: 'button',
-    });
-  },
-);
+  return useRender({
+    render,
+    ref: forwardedRef,
+    state,
+    stateAttributesMapping,
+    props: mergeProps<'button'>(
+      {
+        className: 'fui-CreditCardTrigger',
+        type: 'button',
+        'aria-expanded': face === 'back',
+        onClick: toggle,
+      } as React.ComponentPropsWithRef<'button'>,
+      elementProps as React.ComponentPropsWithRef<'button'>,
+    ),
+    defaultTagName: 'button',
+  });
+};
 
 CreditCardTrigger.displayName = 'CreditCardTrigger';
 

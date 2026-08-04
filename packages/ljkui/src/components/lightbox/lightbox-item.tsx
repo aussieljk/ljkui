@@ -49,7 +49,8 @@ const itemStateAttributesMapping = {
  * set `awaitImageDecode={false}` on `Lightbox.Root` to start the morph
  * immediately without waiting for decode.
  */
-const LightboxItem = React.forwardRef<HTMLDivElement, LightboxItemProps>(function LightboxItem(props, forwardedRef) {
+const LightboxItem = (props: LightboxItemProps) => {
+  const forwardedRef = props.ref;
   const { render, index, caption, children, ...elementProps } = props;
 
   const { registerCaption, registerItem, activeItemElementRef } = useLightboxContext();
@@ -127,7 +128,7 @@ const LightboxItem = React.forwardRef<HTMLDivElement, LightboxItemProps>(functio
   if (!isVisible) return null;
 
   return rendered;
-});
+};
 
 LightboxItem.displayName = 'LightboxItem';
 
