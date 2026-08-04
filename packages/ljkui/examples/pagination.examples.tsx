@@ -1,4 +1,3 @@
-import PaginationOverview from './demos/pagination.demo';
 import React from 'react';
 import { Pagination, VStack } from 'ljkui';
 
@@ -53,7 +52,34 @@ export const fileMeta = { group: 'Controls', layout: 'padded' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/pagination.demo.tsx` before demos folded into examples. */
-  Overview: PaginationOverview,
+  Overview() {
+    return (
+      <Pagination.Root>
+        <Pagination.Content>
+          <Pagination.Item>
+            <Pagination.Previous href="#" />
+          </Pagination.Item>
+          <Pagination.Item>
+            <Pagination.Link href="#">1</Pagination.Link>
+          </Pagination.Item>
+          <Pagination.Item>
+            <Pagination.Link href="#" isActive>
+              2
+            </Pagination.Link>
+          </Pagination.Item>
+          <Pagination.Item>
+            <Pagination.Ellipsis />
+          </Pagination.Item>
+          <Pagination.Item>
+            <Pagination.Link href="#">24</Pagination.Link>
+          </Pagination.Item>
+          <Pagination.Item>
+            <Pagination.Next href="#" />
+          </Pagination.Item>
+        </Pagination.Content>
+      </Pagination.Root>
+    );
+  },
 
   Default: <Interactive />,
 

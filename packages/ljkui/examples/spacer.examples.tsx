@@ -1,4 +1,3 @@
-import SpacerOverview from './demos/spacer.demo';
 import React from 'react';
 import { Button, HStack, Spacer } from 'ljkui';
 
@@ -19,4 +18,19 @@ function SpacerFixture() {
  */
 export const fileMeta = { group: 'Layout', layout: 'centered' } as const;
 
-export const examples = { Overview: SpacerOverview, Example: SpacerFixture };
+export const examples = {
+  Overview() {
+    return (
+      <HStack spacing={0} className="w-80 rounded-xl border border-dashed border-gray-alpha-400 p-2">
+        <Button size="1" variant="soft">
+          Leading
+        </Button>
+        <Spacer minLength={24} />
+        <Button size="1" variant="soft">
+          Trailing
+        </Button>
+      </HStack>
+    );
+  },
+  Example: SpacerFixture,
+};

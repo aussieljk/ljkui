@@ -1,4 +1,3 @@
-import RadioButtonGroupOverview from './demos/radio-button-group.demo';
 import React from 'react';
 import { Avatar, Button, Card, RadioButtonGroup, Tooltip, Typography, radioGroupPropDefs } from 'ljkui';
 
@@ -10,6 +9,8 @@ const planPrices: Record<PlanType, number> = {
   enterprise: 99,
 };
 
+const plans = ['Hobby', 'Pro', 'Enterprise'];
+
 /**
  * Where this component sits in the explorer, and how its fixtures are framed.
  * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
@@ -18,7 +19,22 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/radio-button-group.demo.tsx` before demos folded into examples. */
-  Overview: RadioButtonGroupOverview,
+  Overview() {
+    return (
+      <RadioButtonGroup.Root defaultValue="Pro">
+        <div className="flex gap-2">
+          {plans.map((plan) => (
+            <RadioButtonGroup.Item key={plan} value={plan}>
+              <div className="flex items-center gap-2 rounded-lg border border-gray-alpha-500 px-4 py-2">
+                <RadioButtonGroup.Icon />
+                <Typography.Text size="2">{plan}</Typography.Text>
+              </div>
+            </RadioButtonGroup.Item>
+          ))}
+        </div>
+      </RadioButtonGroup.Root>
+    );
+  },
 
   HighContrast() {
     const args = { color: radioGroupPropDefs.color.default, highContrast: true, disabled: false };

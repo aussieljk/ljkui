@@ -1,4 +1,3 @@
-import DatePickerOverview from './demos/date-picker.demo';
 import { DateValue, parseDate } from '@internationalized/date';
 import React from 'react';
 import { Button, Calendar, DatePicker, Popover, datePickerPropDefs } from 'ljkui';
@@ -11,7 +10,16 @@ export const fileMeta = { group: 'Controls/Dates', layout: 'centered' } as const
 
 export const examples = {
   /** The canonical usage — was `demos/date-picker.demo.tsx` before demos folded into examples. */
-  Overview: DatePickerOverview,
+  Overview() {
+    return (
+      <DatePicker
+        aria-label="Appointment date"
+        defaultValue={parseDate('2020-02-03')}
+        minValue={parseDate('2020-01-01')}
+        maxValue={parseDate('2020-12-31')}
+      />
+    );
+  },
 
   Sizes() {
     const args = {

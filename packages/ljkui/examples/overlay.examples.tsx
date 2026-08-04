@@ -1,4 +1,3 @@
-import OverlayOverview from './demos/overlay.demo';
 import React from 'react';
 import { Badge, Overlay } from 'ljkui';
 
@@ -22,4 +21,18 @@ function OverlayFixture() {
  */
 export const fileMeta = { group: 'Components', layout: 'fullscreen' } as const;
 
-export const examples = { Overview: OverlayOverview, Example: OverlayFixture };
+export const examples = {
+  Overview() {
+    return (
+      <Overlay.Root alignment="topTrailing">
+        <div className="size-40 rounded-2xl bg-accent-alpha-200" />
+        <Overlay.Root.Content>
+          <Badge color="red" variant="solid" className="m-2">
+            99+
+          </Badge>
+        </Overlay.Root.Content>
+      </Overlay.Root>
+    );
+  },
+  Example: OverlayFixture,
+};

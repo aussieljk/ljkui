@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Table, Typography } from 'ljkui';
-import { A11Y } from '../scripts/a11y-data';
+import { A11Y } from './a11y';
 import propsJson from '../src/generated/props.json';
 
 /*
  * The per-component reference that used to be Storybook's Docs tab: the prop table
  * generated from `*.props.ts` (src/generated/props.json) plus the keyboard map and ARIA
- * notes from scripts/a11y-data.ts.
+ * notes from fixture-support/a11y.ts.
  *
  * uaight has no autodocs, so this renders as a fixture — `gen-fixtures.ts` appends a
  * `Reference` entry to every component's fixture module, which puts the docs one click

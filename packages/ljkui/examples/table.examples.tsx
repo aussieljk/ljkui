@@ -1,4 +1,3 @@
-import TableOverview from './demos/table.demo';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -406,7 +405,38 @@ export const playgroundChildren = (
 
 export const examples = {
   /** The canonical usage — was `demos/table.demo.tsx` before demos folded into examples. */
-  Overview: TableOverview,
+  Overview() {
+    return (
+      <Table.Root variant="surface" className="min-w-105">
+        <Table.Table>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell>Role</Table.ColumnHeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.RowHeaderCell>Ada Lovelace</Table.RowHeaderCell>
+              <Table.Cell>ada@example.com</Table.Cell>
+              <Table.Cell>Admin</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.RowHeaderCell>Grace Hopper</Table.RowHeaderCell>
+              <Table.Cell>grace@example.com</Table.Cell>
+              <Table.Cell>Developer</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.RowHeaderCell>Alan Turing</Table.RowHeaderCell>
+              <Table.Cell>alan@example.com</Table.Cell>
+              <Table.Cell>Developer</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table.Table>
+      </Table.Root>
+    );
+  },
 
   TableFooter() {
     const args = { size: tableRootPropDefs.size.default, variant: tableRootPropDefs.variant.default };

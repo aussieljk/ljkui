@@ -1,4 +1,3 @@
-import CollapsibleOverview from './demos/collapsible.demo';
 import React from 'react';
 import { Button, Collapsible, Typography } from 'ljkui';
 
@@ -10,7 +9,18 @@ export const fileMeta = { group: 'Layout', layout: 'padded' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/collapsible.demo.tsx` before demos folded into examples. */
-  Overview: CollapsibleOverview,
+  Overview() {
+    return (
+      <Collapsible.Root>
+        <Collapsible.Trigger render={<Button variant="ghost" />}>Advanced options</Collapsible.Trigger>
+        <Collapsible.Content>
+          <Typography.Text size="2" color="gray">
+            Requests are retried three times before the job is marked as failed.
+          </Typography.Text>
+        </Collapsible.Content>
+      </Collapsible.Root>
+    );
+  },
 
   Default: (
     <Collapsible.Root>

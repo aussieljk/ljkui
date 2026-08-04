@@ -1,4 +1,3 @@
-import InputOtpOverview from './demos/input-otp.demo';
 import React from 'react';
 import { InputOTP, Typography } from 'ljkui';
 
@@ -13,7 +12,28 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/input-otp.demo.tsx` before demos folded into examples. */
-  Overview: InputOtpOverview,
+  Overview() {
+    return (
+      <InputOTP.Root
+        maxLength={6}
+        render={({ slots }) => (
+          <>
+            <InputOTP.Group>
+              {slots.slice(0, 3).map((slot, index) => (
+                <InputOTP.Slot key={index} {...slot} />
+              ))}
+            </InputOTP.Group>
+            <InputOTP.Separator />
+            <InputOTP.Group>
+              {slots.slice(3).map((slot, index) => (
+                <InputOTP.Slot key={index} {...slot} />
+              ))}
+            </InputOTP.Group>
+          </>
+        )}
+      />
+    );
+  },
 
   Default() {
     const otherArgs = {};

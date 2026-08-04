@@ -1,4 +1,3 @@
-import BreadcrumbOverview from './demos/breadcrumb.demo';
 import React from 'react';
 import { Breadcrumb, breadcrumbPropDefs } from 'ljkui';
 
@@ -10,7 +9,23 @@ export const fileMeta = { group: 'Components', layout: 'padded' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/breadcrumb.demo.tsx` before demos folded into examples. */
-  Overview: BreadcrumbOverview,
+  Overview() {
+    return (
+      <Breadcrumb.Root>
+        <Breadcrumb.Item render={<a href="#" />} nativeButton={false}>
+          Home
+        </Breadcrumb.Item>
+        <Breadcrumb.Dropdown>
+          <Breadcrumb.DropdownItem render={<a href="#">Products</a>} />
+          <Breadcrumb.DropdownItem render={<a href="#">Categories</a>} />
+        </Breadcrumb.Dropdown>
+        <Breadcrumb.Item render={<a href="#" />} nativeButton={false}>
+          Bots
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>Sneaker Bot</Breadcrumb.Item>
+      </Breadcrumb.Root>
+    );
+  },
 
   'With links'() {
     const args = {

@@ -1,4 +1,3 @@
-import CalendarOverview from './demos/calendar.demo';
 import { DateValue, getLocalTimeZone, isWeekend, parseDate, today } from '@internationalized/date';
 import { useLocale } from '@react-aria/i18n';
 import React from 'react';
@@ -12,7 +11,9 @@ export const fileMeta = { group: 'Controls/Dates', layout: 'centered' } as const
 
 export const examples = {
   /** The canonical usage — was `demos/calendar.demo.tsx` before demos folded into examples. */
-  Overview: CalendarOverview,
+  Overview() {
+    return <Calendar.Root aria-label="Appointment date" defaultValue={parseDate('2020-02-03')} />;
+  },
 
   Default() {
     const args = {

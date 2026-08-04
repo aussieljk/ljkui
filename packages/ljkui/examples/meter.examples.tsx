@@ -1,4 +1,3 @@
-import MeterOverview from './demos/meter.demo';
 import React from 'react';
 import { Meter } from 'ljkui';
 
@@ -10,7 +9,9 @@ export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/meter.demo.tsx` before demos folded into examples. */
-  Overview: MeterOverview,
+  Overview() {
+    return <Meter />;
+  },
 
   'Optimum coloring'() {
     // low=20, high=80, optimum=90 → higher is better: green above 80, amber 20-80, red below 20.

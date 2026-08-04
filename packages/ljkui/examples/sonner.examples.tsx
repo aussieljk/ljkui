@@ -1,4 +1,3 @@
-import SonnerOverview from './demos/sonner.demo';
 import { Phone } from 'lucide-react';
 import React from 'react';
 import { Avatar, Button, CircularProgress, IconButton, Theme, Typography, toast } from 'ljkui';
@@ -20,7 +19,19 @@ export const fileMeta = { group: 'Components', layout: 'fullscreen' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/sonner.demo.tsx` before demos folded into examples. */
-  Overview: SonnerOverview,
+  Overview() {
+    return (
+      <div className="flex flex-wrap gap-3">
+        <Button onClick={() => toast.success('Changes saved successfully')}>Success</Button>
+        <Button variant="soft" color="red" onClick={() => toast.error('Something went wrong')}>
+          Error
+        </Button>
+        <Button variant="soft" onClick={() => toast('A new notification has arrived')}>
+          Default
+        </Button>
+      </div>
+    );
+  },
 
   Success() {
     return <Button onClick={() => toast.success('Changes saved successfully')}>Show success toast</Button>;

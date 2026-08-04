@@ -1,4 +1,3 @@
-import HoverCardOverview from './demos/hover-card.demo';
 import React from 'react';
 import { Avatar, Button, DataTable, HoverCard, Inset, Link, Typography, hoverCardContentPropDefs } from 'ljkui';
 
@@ -46,7 +45,35 @@ export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/hover-card.demo.tsx` before demos folded into examples. */
-  Overview: HoverCardOverview,
+  Overview() {
+    return (
+      <Typography.Text>
+        Follow{' '}
+        <HoverCard.Root>
+          <HoverCard.Trigger>
+            <Link href="https://github.com/aussieljk/ljkui" target="_blank">
+              ljkui
+            </Link>
+          </HoverCard.Trigger>
+          <HoverCard.Content>
+            <div className="flex gap-4">
+              <Avatar size="3" fallback="AF" />
+              <div>
+                <Typography.Heading size="3">ljkui</Typography.Heading>
+                <Typography.Text render={<div />} size="2" color="gray">
+                  aussieljk
+                </Typography.Text>
+                <Typography.Text render={<div />} size="2" className="mt-3 max-w-75">
+                  React components library built on top of Base UI primitives.
+                </Typography.Text>
+              </div>
+            </div>
+          </HoverCard.Content>
+        </HoverCard.Root>{' '}
+        for updates.
+      </Typography.Text>
+    );
+  },
 
   Default() {
     const args = {

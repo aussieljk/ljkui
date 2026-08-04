@@ -1,4 +1,3 @@
-import DateFieldOverview from './demos/date-field.demo';
 import { getLocalTimeZone, parseDate, parseZonedDateTime, today } from '@internationalized/date';
 import React from 'react';
 import { DateField, dateFieldPropDefs } from 'ljkui';
@@ -11,7 +10,13 @@ export const fileMeta = { group: 'Controls/Dates', layout: 'centered' } as const
 
 export const examples = {
   /** The canonical usage — was `demos/date-field.demo.tsx` before demos folded into examples. */
-  Overview: DateFieldOverview,
+  Overview() {
+    return (
+      <div className="w-75">
+        <DateField aria-label="Birth date" defaultValue={parseDate('2020-02-03')} />
+      </div>
+    );
+  },
 
   MinValue() {
     const args = {

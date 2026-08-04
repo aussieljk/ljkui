@@ -14,7 +14,8 @@
  * Declarations are deduped and sorted, so the file is order-independent; the same token
  * defined with different values in different scopes (light/dark) keeps every distinct value.
  */
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { emit } from './emit.ts';
 import { join } from 'node:path';
 
 const packageRoot = join(import.meta.dirname, '..');
@@ -44,18 +45,9 @@ for (const file of SOURCES) {
 const snapshot = [...decls].sort();
 const serialized = JSON.stringify(snapshot, null, 2) + '\n';
 
-if (process.argv.includes('--check')) {
-  const current = existsSync(outFile) ? readFileSync(outFile, 'utf8') : '';
-  if (current !== serialized) {
-    console.error(
-      '✗ token snapshot is stale — the color token CSS changed without updating the snapshot.\n' +
-        '  Run `bun run generate:tokens-snapshot` and commit src/generated/tokens.snapshot.json,\n' +
-        '  then review the diff to confirm every moved value is intentional.',
-    );
-    process.exit(1);
-  }
-  console.log(`✓ token snapshot current (${snapshot.length} declarations).`);
-} else {
-  writeFileSync(outFile, serialized);
-  console.log(`✓ token snapshot: ${snapshot.length} declarations → src/generated/tokens.snapshot.json`);
-}
+emit(outFile, serialized, {
+  regenerate: 'bun run generate:tokens-snapshot',
+  detail:
+    `  The color token CSS changed without updating the ${snapshot.length}-declaration snapshot.\n` +
+    '  Review the diff afterwards to confirm every moved value is intentional.',
+});

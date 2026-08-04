@@ -1,4 +1,3 @@
-import ZStackOverview from './demos/z-stack.demo';
 import React from 'react';
 import { ZStack } from 'ljkui';
 
@@ -19,4 +18,15 @@ function ZStackFixture() {
  */
 export const fileMeta = { group: 'Layout', layout: 'padded' } as const;
 
-export const examples = { Overview: ZStackOverview, Example: ZStackFixture };
+export const examples = {
+  Overview() {
+    return (
+      <ZStack alignment="bottomTrailing">
+        <div className="size-40 rounded-2xl bg-accent-alpha-200" />
+        <div className="size-24 rounded-2xl bg-accent-alpha-400" />
+        <div className="size-10 rounded-2xl bg-accent-alpha-700" />
+      </ZStack>
+    );
+  },
+  Example: ZStackFixture,
+};

@@ -1,4 +1,3 @@
-import InsetOverview from './demos/inset.demo';
 import React from 'react';
 import { Card, Inset, Typography } from 'ljkui';
 
@@ -22,4 +21,18 @@ function InsetFixture() {
  */
 export const fileMeta = { group: 'Layout', layout: 'padded' } as const;
 
-export const examples = { Overview: InsetOverview, Example: InsetFixture };
+export const examples = {
+  Overview() {
+    return (
+      <Card size="2" className="max-w-70">
+        <Inset side="top" pb="current">
+          <div className="h-24 bg-accent-alpha-200" />
+        </Inset>
+        <Typography.Text size="2">
+          The tinted area bleeds to the card&apos;s edges; this text keeps the normal padding.
+        </Typography.Text>
+      </Card>
+    );
+  },
+  Example: InsetFixture,
+};

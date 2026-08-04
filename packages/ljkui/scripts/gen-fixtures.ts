@@ -21,7 +21,7 @@ import { basename, join, relative } from 'node:path';
 import { buildFixtureIndex, resolveUaightConfig } from 'uaight/vite';
 import { ENUMERABLE, fixtureNameFor, optionsFor } from '../fixture-support/enumerate.tsx';
 import { uaightOptions } from '../fixture-support/uaight-options.ts';
-import { A11Y } from './a11y-data.ts';
+import { A11Y } from '../fixture-support/a11y.ts';
 import { DEFAULT_CATEGORY, GUIDES, type Layout, LAYOUTS, SECTIONS, TOOLS, sectionDir } from './gen-fixtures-meta.ts';
 
 const packageRoot = join(import.meta.dirname, '..');
@@ -52,6 +52,16 @@ export interface ExampleFileMeta {
   layout: Layout;
   /** Opts a namespace component into a Playground — see `PlaygroundHint`. */
   playground?: PlaygroundHint;
+  /**
+   * Names the export the synthesised prop enumerations should drive, for a component whose
+   * bare name is a namespace rather than a component (`Typography.Text`).
+   *
+   * Deliberately not inferred from a `.Root` fallback. Most namespace roots — `Select.Root`,
+   * `DropdownMenu.Root`, `Tabs.Root` — render nothing meaningful without composed children, so
+   * a grid of them would document nothing; those components keep their hand-written examples.
+   * Only a root that stands alone with a text child belongs here.
+   */
+  enumerate?: string;
 }
 
 interface ExamplesModule {
@@ -94,6 +104,7 @@ async function readExamples(
       group: mod.fileMeta?.group ?? DEFAULT_CATEGORY,
       layout: mod.fileMeta?.layout ?? 'centered',
       playground: mod.fileMeta?.playground,
+      enumerate: mod.fileMeta?.enumerate,
     },
     hasPlaygroundChildren: mod.playgroundChildren !== undefined,
   };
@@ -154,7 +165,7 @@ async function componentModule(
       ? `import { examples, playgroundChildren } from ${quote(importPath(dir, `examples/${slug}.examples`))};`
       : `import { examples } from ${quote(importPath(dir, `examples/${slug}.examples`))};`,
   ];
-  if (jsx) {
+  if (jsx || meta_.enumerate) {
     // `jsx: "react"` (classic runtime) in the package tsconfig — JSX needs React in scope.
     imports.unshift(`import * as React from 'react';`);
   }
@@ -166,7 +177,14 @@ async function componentModule(
    */
   const hint = meta_.playground;
   const driven = hint ? hint.export : displayName(slug);
-  const rootBinding = driven.split('.')[0];
+
+  /*
+   * The export the enumerations drive. Usually the same as the Playground's, but a namespace
+   * component can opt in with `fileMeta.enumerate` alone — `Typography.Text` is worth a size
+   * grid even though its root is not something a Playground can drive.
+   */
+  const enumerateTarget = meta_.enumerate ?? (playground ? driven : undefined);
+  const rootBinding = (enumerateTarget ?? driven).split('.')[0];
 
   /*
    * Synthesised prop enumerations — the `Size` / `Variant` / `Color` grids that used to be
@@ -174,7 +192,7 @@ async function componentModule(
    * that name keeps it: hand-authored always wins, so a component with something specific to
    * say about one axis says it, and the rest come from `props.json`.
    */
-  const enumerated = playground
+  const enumerated = enumerateTarget
     ? ENUMERABLE.filter((prop) => optionsFor(slug, prop))
         .map((prop) => ({ prop, name: fixtureNameFor(prop) }))
         .filter((entry) => !names.includes(entry.name))
@@ -204,7 +222,7 @@ async function componentModule(
     const childrenProp = childrenImport ? ` renderChildren={() => playgroundChildren}` : '';
     for (const entry of enumerated) {
       entries.push(
-        `  ${key(entry.name)}: () => <Enumerate slug=${quote(slug)} prop=${quote(entry.prop)} component={${driven}} name=${quote(driven)}${childrenProp} />,`,
+        `  ${key(entry.name)}: () => <Enumerate slug=${quote(slug)} prop=${quote(entry.prop)} component={${enumerateTarget}} name=${quote(enumerateTarget!)}${childrenProp} />,`,
       );
     }
   }
@@ -301,7 +319,7 @@ description: "Documentation coverage across the ${entries.length} components, ge
 ---
 
 Shrinking the gaps (a "–" in **Props** or **A11y**) is self-directed work — add a \`*.props.ts\`
-or an entry in \`scripts/a11y-data.ts\`.
+or an entry in \`fixture-support/a11y.ts\`.
 
 - **Props:** ${propsCount} / ${entries.length}
 - **Keyboard/ARIA notes:** ${a11yCount} / ${entries.length}

@@ -1,4 +1,3 @@
-import SwitchOverview from './demos/switch.demo';
 import React from 'react';
 import { Button, Switch, Typography } from 'ljkui';
 
@@ -10,7 +9,19 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/switch.demo.tsx` before demos folded into examples. */
-  Overview: SwitchOverview,
+  Overview() {
+    return (
+      <div className="flex flex-wrap items-center gap-4">
+        <Switch size="1" defaultChecked />
+        <Switch size="2" defaultChecked />
+        <Switch size="3" defaultChecked />
+        <Typography.Text render={<label />} size="2" className="flex items-center gap-2">
+          <Switch color="orange" defaultChecked />
+          Notifications
+        </Typography.Text>
+      </div>
+    );
+  },
 
   'High Contrast'() {
     const args = { disabled: false };

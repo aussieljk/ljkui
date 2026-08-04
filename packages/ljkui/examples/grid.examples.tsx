@@ -1,4 +1,3 @@
-import GridOverview from './demos/grid.demo';
 import React from 'react';
 import { Grid, Typography } from 'ljkui';
 
@@ -51,10 +50,40 @@ function UniformColumnsFixture() {
   );
 }
 
+const cell: React.CSSProperties = {
+  minWidth: 48,
+  padding: 8,
+  display: 'grid',
+  placeItems: 'center',
+  borderRadius: 8,
+  background: 'var(--accent-alpha-200)',
+};
+
 /**
  * Where this component sits in the explorer, and how its fixtures are framed.
  * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
  */
 export const fileMeta = { group: 'Layout', layout: 'padded' } as const;
 
-export const examples = { Overview: GridOverview, Example: GridFixture, UniformColumns: UniformColumnsFixture };
+export const examples = {
+  Overview() {
+    return (
+      <Grid.Root horizontalSpacing={8} verticalSpacing={8}>
+        <Grid.Root.Row>
+          <div style={cell}>1</div>
+          <div style={cell}>2</div>
+          <div style={cell}>3</div>
+        </Grid.Root.Row>
+        <Grid.Root.Row>
+          <div style={cell}>4</div>
+          <div style={cell}>5</div>
+        </Grid.Root.Row>
+        <Typography.Text size="2" color="gray">
+          Spans every column
+        </Typography.Text>
+      </Grid.Root>
+    );
+  },
+  Example: GridFixture,
+  UniformColumns: UniformColumnsFixture,
+};

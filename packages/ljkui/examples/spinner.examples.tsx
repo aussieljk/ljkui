@@ -1,4 +1,3 @@
-import SpinnerOverview from './demos/spinner.demo';
 import React from 'react';
 import { Spinner, Switch, Typography, spinnerPropDefs } from 'ljkui';
 
@@ -10,7 +9,19 @@ export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/spinner.demo.tsx` before demos folded into examples. */
-  Overview: SpinnerOverview,
+  Overview() {
+    return (
+      <div className="flex items-center gap-6">
+        <Spinner size="1" />
+        <Spinner size="3" />
+        <Spinner size="5" />
+        {/* `loading` swaps children for a spinner while preserving their dimensions */}
+        <Spinner loading>
+          <Switch defaultChecked />
+        </Spinner>
+      </div>
+    );
+  },
 
   'With children'() {
     const args = {

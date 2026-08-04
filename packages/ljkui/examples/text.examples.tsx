@@ -1,4 +1,3 @@
-import TextOverview from './demos/text.demo';
 import React from 'react';
 import { Checkbox, Input, Kbd, Link, Typography } from 'ljkui';
 
@@ -8,89 +7,26 @@ const { Code, Em, Text } = Typography;
  * Where this component sits in the explorer, and how its fixtures are framed.
  * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
  */
-export const fileMeta = { group: 'Typography', layout: 'centered' } as const;
+export const fileMeta = { group: 'Typography', layout: 'centered', enumerate: 'Typography.Text' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/text.demo.tsx` before demos folded into examples. */
-  Overview: TextOverview,
-
-  Size() {
-    const args = {};
+  Overview() {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <Text {...args} size="0">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} size="1">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} size="2">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} size="3">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} size="4">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} size="5">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} size="6">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} size="7">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} size="8">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} size="9">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-      </div>
-    );
-  },
-
-  Weight() {
-    const args = {};
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <Text {...args} weight="light">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} weight="regular">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} weight="medium">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} weight="semi-bold">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} weight="bold">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-      </div>
-    );
-  },
-
-  Color() {
-    const args = {};
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <Text {...args} color="indigo">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} color="cyan">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} color="orange">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
-        <Text {...args} color="rose">
-          The quick brown fox jumps over the lazy dog.
-        </Text>
+      <div className="flex flex-col gap-2">
+        <Typography.Text size="1">The quick brown fox jumps over the lazy dog.</Typography.Text>
+        <Typography.Text size="2">The quick brown fox jumps over the lazy dog.</Typography.Text>
+        <Typography.Text size="3">The quick brown fox jumps over the lazy dog.</Typography.Text>
+        <Typography.Text size="4">The quick brown fox jumps over the lazy dog.</Typography.Text>
+        <Typography.Text size="3" weight="medium">
+          Medium weight
+        </Typography.Text>
+        <Typography.Text size="3" weight="bold">
+          Bold weight
+        </Typography.Text>
+        <Typography.Text size="3" color="indigo">
+          Indigo text
+        </Typography.Text>
       </div>
     );
   },

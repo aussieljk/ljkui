@@ -1,4 +1,3 @@
-import ToggleGroupNavOverview from './demos/toggle-group-nav.demo';
 import React from 'react';
 import { ToggleGroupNav, Typography } from 'ljkui';
 
@@ -10,7 +9,17 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/toggle-group-nav.demo.tsx` before demos folded into examples. */
-  Overview: ToggleGroupNavOverview,
+  Overview() {
+    return (
+      <ToggleGroupNav.Root>
+        <ToggleGroupNav.Link active href="#">
+          Account
+        </ToggleGroupNav.Link>
+        <ToggleGroupNav.Link href="#">Documents</ToggleGroupNav.Link>
+        <ToggleGroupNav.Link href="#">Settings</ToggleGroupNav.Link>
+      </ToggleGroupNav.Root>
+    );
+  },
 
   Default() {
     const args = {};

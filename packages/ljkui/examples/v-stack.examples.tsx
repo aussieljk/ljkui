@@ -1,4 +1,3 @@
-import VStackOverview from './demos/v-stack.demo';
 import React from 'react';
 import { VStack } from 'ljkui';
 
@@ -28,10 +27,30 @@ function VStackFixture() {
   );
 }
 
+const box = (width: number): React.CSSProperties => ({
+  width,
+  height: 40,
+  display: 'grid',
+  placeItems: 'center',
+  borderRadius: 8,
+  background: 'var(--accent-alpha-200)',
+});
+
 /**
  * Where this component sits in the explorer, and how its fixtures are framed.
  * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
  */
 export const fileMeta = { group: 'Layout', layout: 'padded' } as const;
 
-export const examples = { Overview: VStackOverview, Example: VStackFixture };
+export const examples = {
+  Overview() {
+    return (
+      <VStack spacing={12} alignment="leading">
+        <div style={box(64)}>1</div>
+        <div style={box(128)}>2</div>
+        <div style={box(96)}>3</div>
+      </VStack>
+    );
+  },
+  Example: VStackFixture,
+};

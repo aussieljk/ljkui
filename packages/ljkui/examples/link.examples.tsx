@@ -1,6 +1,5 @@
-import LinkOverview from './demos/link.demo';
 import React from 'react';
-import { Link, linkPropDefs } from 'ljkui';
+import { Link, linkPropDefs, Typography } from 'ljkui';
 
 /**
  * Where this component sits in the explorer, and how its fixtures are framed.
@@ -10,7 +9,29 @@ export const fileMeta = { group: 'Typography', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/link.demo.tsx` before demos folded into examples. */
-  Overview: LinkOverview,
+  Overview() {
+    return (
+      <div className="flex flex-col gap-2">
+        <Typography.Text size="3">
+          Read the <Link href="#">documentation</Link> to get started.
+        </Typography.Text>
+        <div className="flex items-center gap-4">
+          <Link href="#" underline="auto">
+            Auto underline
+          </Link>
+          <Link href="#" underline="hover">
+            Hover underline
+          </Link>
+          <Link href="#" underline="always">
+            Always underlined
+          </Link>
+          <Link href="#" color="orange">
+            Orange link
+          </Link>
+        </div>
+      </div>
+    );
+  },
 
   Underline() {
     const args = {

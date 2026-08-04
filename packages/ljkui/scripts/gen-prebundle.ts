@@ -14,7 +14,8 @@
  * The scanned set is every bare (non-relative) import specifier in `src/`, intersected with
  * the package's real dependencies, plus a few entry points nothing imports by name.
  */
-import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { emit } from './emit.ts';
 import { join } from 'node:path';
 import pkg from '../package.json' with { type: 'json' };
 
@@ -102,21 +103,7 @@ ${sorted.map((s) => `  '${s}',`).join('\n')}
 ];
 `;
 
-const check = process.argv.includes('--check');
-const current = (() => {
-  try {
-    return readFileSync(target, 'utf8');
-  } catch {
-    return '';
-  }
-})();
-
-if (current === contents) {
-  console.log(`prebundle: ${sorted.length} specifiers, up to date`);
-} else if (check) {
-  console.error('prebundle: fixture-support/prebundle.ts is out of date — run `bun run generate:prebundle`');
-  process.exit(1);
-} else {
-  writeFileSync(target, contents);
-  console.log(`prebundle: wrote ${sorted.length} specifiers to fixture-support/prebundle.ts`);
-}
+emit(target, contents, {
+  regenerate: 'bun run generate:prebundle',
+  detail: `  ${sorted.length} bare import specifiers were derived from src/.`,
+});

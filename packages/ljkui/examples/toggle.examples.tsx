@@ -1,4 +1,3 @@
-import ToggleOverview from './demos/toggle.demo';
 import React from 'react';
 import { HStack, Toggle, Typography } from 'ljkui';
 
@@ -10,7 +9,15 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/toggle.demo.tsx` before demos folded into examples. */
-  Overview: ToggleOverview,
+  Overview() {
+    return (
+      <HStack spacing={8}>
+        <Toggle defaultPressed>Bold</Toggle>
+        <Toggle>Italic</Toggle>
+        <Toggle>Underline</Toggle>
+      </HStack>
+    );
+  },
 
   Variants: (
     <HStack spacing={12} alignment="center">

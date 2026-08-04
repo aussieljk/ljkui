@@ -1,4 +1,3 @@
-import ButtonOverview from './demos/button.demo';
 import { Download as DownloadIcon } from 'lucide-react';
 import React from 'react';
 import { Button, Spinner, Typography, buttonPropDefs } from 'ljkui';
@@ -22,7 +21,24 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/button.demo.tsx` before demos folded into examples. */
-  Overview: ButtonOverview,
+  Overview() {
+    return (
+      <div className="flex flex-wrap items-center gap-3">
+        <Button variant="classic">Classic</Button>
+        <Button variant="solid">Solid</Button>
+        <Button variant="soft">Soft</Button>
+        <Button variant="surface">Surface</Button>
+        <Button variant="ghost">Ghost</Button>
+        <Button variant="solid" color="red">
+          Red
+        </Button>
+        <Button variant="solid" size="4">
+          Large
+        </Button>
+        <Button disabled>Disabled</Button>
+      </div>
+    );
+  },
 
   'Semantic color'() {
     const args = { size: buttonPropDefs.size.default, disabled: false };

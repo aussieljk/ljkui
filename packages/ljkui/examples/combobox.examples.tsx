@@ -1,4 +1,3 @@
-import ComboboxOverview from './demos/combobox.demo';
 import { Alert, Avatar, Button, Combobox, Dialog, Field, Form, Input, ScrollArea, Spinner, Typography } from 'ljkui';
 import { ChevronDown, Search as SearchIcon } from 'lucide-react';
 import * as React from 'react';
@@ -363,7 +362,29 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/combobox.demo.tsx` before demos folded into examples. */
-  Overview: ComboboxOverview,
+  Overview() {
+    return (
+      <div className="w-75">
+        <Combobox.Root items={fruits} defaultValue="Apple">
+          <Combobox.InputRoot showClear>
+            <Combobox.Input placeholder="Choose a fruit..." />
+          </Combobox.InputRoot>
+          <Combobox.Content>
+            <ScrollArea type="auto" className="max-h-75">
+              <Combobox.Empty>No fruits found.</Combobox.Empty>
+              <Combobox.List>
+                {(item) => (
+                  <Combobox.Item key={item} value={item}>
+                    {item}
+                  </Combobox.Item>
+                )}
+              </Combobox.List>
+            </ScrollArea>
+          </Combobox.Content>
+        </Combobox.Root>
+      </div>
+    );
+  },
 
   Default() {
     return (

@@ -1,4 +1,3 @@
-import CommandOverview from './demos/command.demo';
 import React from 'react';
 import { Button, Command, Typography, VStack } from 'ljkui';
 
@@ -79,7 +78,30 @@ export const fileMeta = { group: 'Controls', layout: 'fullscreen' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/command.demo.tsx` before demos folded into examples. */
-  Overview: CommandOverview,
+  Overview() {
+    return (
+      <Command.Root style={{ width: 380, boxShadow: '0 0 0 1px var(--gray-alpha-300) inset' }}>
+        <Command.Input placeholder="Type a command or search…" />
+        <Command.List>
+          <Command.Empty>No results found.</Command.Empty>
+          <Command.Group heading="Actions">
+            <Command.Item onSelect={() => console.log('invoice')}>
+              Create invoice
+              <Command.Shortcut>⌘N</Command.Shortcut>
+            </Command.Item>
+            <Command.Item onSelect={() => console.log('customer')}>
+              Add customer
+              <Command.Shortcut>⌘⇧C</Command.Shortcut>
+            </Command.Item>
+          </Command.Group>
+          <Command.Separator />
+          <Command.Group heading="Navigation">
+            <Command.Item onSelect={() => console.log('settings')}>Go to settings</Command.Item>
+          </Command.Group>
+        </Command.List>
+      </Command.Root>
+    );
+  },
 
   Default: <Palette />,
   'With selection': <WithSelection />,

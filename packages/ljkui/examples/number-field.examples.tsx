@@ -1,4 +1,3 @@
-import NumberFieldOverview from './demos/number-field.demo';
 import { DollarSign, Percent } from 'lucide-react';
 import React from 'react';
 import { Button, Field, Form, Input, NumberField, Typography, numberFieldPropDefs } from 'ljkui';
@@ -11,7 +10,25 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/number-field.demo.tsx` before demos folded into examples. */
-  Overview: NumberFieldOverview,
+  Overview() {
+    return (
+      <div className="flex w-45 flex-col gap-3">
+        <NumberField.Root defaultValue={50} min={0} max={100}>
+          <NumberField.Input />
+        </NumberField.Root>
+
+        <NumberField.Root defaultValue={5} buttonLayout="split">
+          <NumberField.Slot>Qty</NumberField.Slot>
+          <NumberField.Input />
+        </NumberField.Root>
+
+        <NumberField.Root defaultValue={99} buttonLayout="none">
+          <NumberField.Slot>$</NumberField.Slot>
+          <NumberField.Input />
+        </NumberField.Root>
+      </div>
+    );
+  },
 
   Size() {
     const args = {

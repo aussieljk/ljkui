@@ -1,4 +1,3 @@
-import ButtonGroupOverview from './demos/button-group.demo';
 import React from 'react';
 import { Button, ButtonGroup, VStack } from 'ljkui';
 
@@ -10,7 +9,15 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/button-group.demo.tsx` before demos folded into examples. */
-  Overview: ButtonGroupOverview,
+  Overview() {
+    return (
+      <ButtonGroup.Root>
+        <ButtonGroup.Text>https://</ButtonGroup.Text>
+        <Button variant="surface">example.com</Button>
+        <Button variant="solid">Copy</Button>
+      </ButtonGroup.Root>
+    );
+  },
 
   Default: (
     <ButtonGroup.Root>

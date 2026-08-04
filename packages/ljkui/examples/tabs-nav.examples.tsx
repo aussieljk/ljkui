@@ -1,4 +1,3 @@
-import TabsNavOverview from './demos/tabs-nav.demo';
 import React from 'react';
 import { TabsNav, Typography, tabsNavPropDefs } from 'ljkui';
 
@@ -10,7 +9,17 @@ export const fileMeta = { group: 'Components', layout: 'padded' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/tabs-nav.demo.tsx` before demos folded into examples. */
-  Overview: TabsNavOverview,
+  Overview() {
+    return (
+      <TabsNav.Root className="w-full max-w-100">
+        <TabsNav.Link active href="#">
+          Account
+        </TabsNav.Link>
+        <TabsNav.Link href="#">Documents</TabsNav.Link>
+        <TabsNav.Link href="#">Settings</TabsNav.Link>
+      </TabsNav.Root>
+    );
+  },
 
   Size() {
     const args = {

@@ -1,4 +1,3 @@
-import ContextMenuOverview from './demos/context-menu.demo';
 import React from 'react';
 import { Button, ContextMenu, Dialog, Input, Textarea, Typography, contextMenuContentPropDefs } from 'ljkui';
 
@@ -10,7 +9,27 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/context-menu.demo.tsx` before demos folded into examples. */
-  Overview: ContextMenuOverview,
+  Overview() {
+    return (
+      <ContextMenu.Root>
+        <ContextMenu.Trigger>
+          <div className="flex h-[150px] w-50 items-center justify-center rounded-md bg-gray-alpha-50">
+            Right-click here
+          </div>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content>
+          <ContextMenu.Item shortcut="⌘ E">Edit</ContextMenu.Item>
+          <ContextMenu.Item shortcut="⌘ D">Duplicate</ContextMenu.Item>
+          <ContextMenu.Separator />
+          <ContextMenu.Item shortcut="⌘ N">Archive</ContextMenu.Item>
+          <ContextMenu.Separator />
+          <ContextMenu.Item shortcut="⌘ ⌫" color="danger">
+            Delete
+          </ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu.Root>
+    );
+  },
 
   Default() {
     const args = {

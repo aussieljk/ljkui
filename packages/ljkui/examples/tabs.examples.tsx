@@ -1,4 +1,3 @@
-import TabsOverview from './demos/tabs.demo';
 import React from 'react';
 import { Input, Tabs, Textarea, Typography, tabsListPropDefs } from 'ljkui';
 
@@ -10,7 +9,27 @@ export const fileMeta = { group: 'Components', layout: 'padded' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/tabs.demo.tsx` before demos folded into examples. */
-  Overview: TabsOverview,
+  Overview() {
+    return (
+      <Tabs.Root defaultValue="account" className="w-full max-w-100">
+        <Tabs.List>
+          <Tabs.Trigger value="account">Account</Tabs.Trigger>
+          <Tabs.Trigger value="documents">Documents</Tabs.Trigger>
+          <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
+        </Tabs.List>
+
+        <Tabs.Content value="account" className="px-1 py-3">
+          <Typography.Text size="2">Make changes to your account.</Typography.Text>
+        </Tabs.Content>
+        <Tabs.Content value="documents" className="px-1 py-3">
+          <Typography.Text size="2">Access and update your documents.</Typography.Text>
+        </Tabs.Content>
+        <Tabs.Content value="settings" className="px-1 py-3">
+          <Typography.Text size="2">Edit your profile and preferences.</Typography.Text>
+        </Tabs.Content>
+      </Tabs.Root>
+    );
+  },
 
   // TODO: Tabs content jumping in size due to font-weight change
   // This doesn't happen in ljkui (might be due to a font in use?)

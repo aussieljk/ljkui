@@ -1,4 +1,3 @@
-import HStackOverview from './demos/h-stack.demo';
 import React from 'react';
 import { HStack } from 'ljkui';
 
@@ -39,10 +38,31 @@ function SeparatorFixture() {
   );
 }
 
+const box = (height: number): React.CSSProperties => ({
+  height,
+  width: 64,
+  display: 'grid',
+  placeItems: 'center',
+  borderRadius: 8,
+  background: 'var(--accent-alpha-200)',
+});
+
 /**
  * Where this component sits in the explorer, and how its fixtures are framed.
  * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
  */
 export const fileMeta = { group: 'Layout', layout: 'padded' } as const;
 
-export const examples = { Overview: HStackOverview, Example: HStackFixture, Separator: SeparatorFixture };
+export const examples = {
+  Overview() {
+    return (
+      <HStack spacing={12} alignment="center">
+        <div style={box(40)}>1</div>
+        <div style={box(80)}>2</div>
+        <div style={box(56)}>3</div>
+      </HStack>
+    );
+  },
+  Example: HStackFixture,
+  Separator: SeparatorFixture,
+};

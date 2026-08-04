@@ -1,5 +1,5 @@
-import VisuallyHiddenOverview from './demos/visually-hidden.demo';
-import { Button, IconButton, Typography, VisuallyHidden } from 'ljkui';
+import { lucideAdapter } from 'ljkui/icons/lucide';
+import { Button, IconButton, Typography, VisuallyHidden, IconProvider, Icons } from 'ljkui';
 
 const { Text } = Typography;
 import * as React from 'react';
@@ -12,7 +12,21 @@ export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/visually-hidden.demo.tsx` before demos folded into examples. */
-  Overview: VisuallyHiddenOverview,
+  Overview() {
+    return (
+      <IconProvider library={lucideAdapter}>
+        <div className="flex items-center gap-3">
+          <IconButton variant="soft">
+            <VisuallyHidden>Settings</VisuallyHidden>
+            <Icons.Settings />
+          </IconButton>
+          <Typography.Text size="2" color="gray">
+            Screen readers announce this button as &quot;Settings&quot;.
+          </Typography.Text>
+        </div>
+      </IconProvider>
+    );
+  },
 
   Default() {
     return (

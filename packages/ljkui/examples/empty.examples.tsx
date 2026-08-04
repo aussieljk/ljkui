@@ -1,4 +1,4 @@
-import EmptyOverview from './demos/empty.demo';
+import { lucideAdapter } from 'ljkui/icons/lucide';
 import {
   Bell,
   CircleCheck,
@@ -32,6 +32,8 @@ import {
   Shine,
   Typography,
   getColorForEmoji,
+  IconProvider,
+  Icons,
 } from 'ljkui';
 
 /**
@@ -42,7 +44,24 @@ export const fileMeta = { group: 'Components', layout: 'padded' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/empty.demo.tsx` before demos folded into examples. */
-  Overview: EmptyOverview,
+  Overview() {
+    return (
+      <IconProvider library={lucideAdapter}>
+        <Empty.Root>
+          <Empty.Header>
+            <Empty.Media>
+              <Icons.Inbox />
+            </Empty.Media>
+            <Empty.Title>No messages yet</Empty.Title>
+            <Empty.Description>When someone sends you a message, it will show up here.</Empty.Description>
+          </Empty.Header>
+          <Empty.Actions>
+            <Button variant="classic">Compose message</Button>
+          </Empty.Actions>
+        </Empty.Root>
+      </IconProvider>
+    );
+  },
 
   Default() {
     return (

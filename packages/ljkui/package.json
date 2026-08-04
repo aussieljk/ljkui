@@ -81,7 +81,6 @@
     "check:css-index": "bun scripts/gen-css-index.ts --check",
     "generate:css-index": "bun scripts/gen-css-index.ts",
     "check:tokens": "bun scripts/gen-token-snapshot.ts --check",
-    "generate:pdf": "bun scripts/generate-pdf.ts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf styles.css && rm -rf styles.lite.css && rm -rf theme.css && rm -rf dist-uaight",
     "size": "size-limit",
     "prepublishOnly": "bun scripts/check-version.ts && bun run lint && bun run build",

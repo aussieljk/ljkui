@@ -1,4 +1,3 @@
-import ItemOverview from './demos/item.demo';
 import React from 'react';
 import { Avatar, Badge, Button, Card, Item, VStack } from 'ljkui';
 
@@ -16,7 +15,24 @@ export const fileMeta = { group: 'Components', layout: 'padded' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/item.demo.tsx` before demos folded into examples. */
-  Overview: ItemOverview,
+  Overview() {
+    return (
+      <Item.Root variant="outline" style={{ maxWidth: 380 }}>
+        <Item.Media>
+          <Avatar fallback="AL" />
+        </Item.Media>
+        <Item.Content>
+          <Item.Title>Ada Lovelace</Item.Title>
+          <Item.Description>ada@example.com</Item.Description>
+        </Item.Content>
+        <Item.Actions>
+          <Button size="1" variant="surface">
+            Invite
+          </Button>
+        </Item.Actions>
+      </Item.Root>
+    );
+  },
 
   Default: (
     <Item.Root style={{ maxWidth: 420 }}>

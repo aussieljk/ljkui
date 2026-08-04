@@ -1,6 +1,5 @@
-import ShineOverview from './demos/shine.demo';
 import React from 'react';
-import { Shine, Typography } from 'ljkui';
+import { Shine, Typography, Badge } from 'ljkui';
 
 function ShineFixture() {
   const props = { puffyness: '2' } as const;
@@ -19,4 +18,22 @@ function ShineFixture() {
  */
 export const fileMeta = { group: 'Utilities', layout: 'centered' } as const;
 
-export const examples = { Overview: ShineOverview, Example: ShineFixture };
+export const examples = {
+  Overview() {
+    return (
+      <div className="flex flex-col items-center gap-4">
+        <Shine puffyness="2">
+          <Typography.Text size="9" weight="bold">
+            Shine ✨
+          </Typography.Text>
+        </Shine>
+        <Shine puffyness="1">
+          <Badge size="2" color="yellow">
+            Premium
+          </Badge>
+        </Shine>
+      </div>
+    );
+  },
+  Example: ShineFixture,
+};

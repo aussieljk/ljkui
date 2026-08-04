@@ -1,4 +1,3 @@
-import NavigationMenuOverview from './demos/navigation-menu.demo';
 import React from 'react';
 import { NavigationMenu } from 'ljkui';
 
@@ -10,7 +9,25 @@ export const fileMeta = { group: 'Controls', layout: 'fullscreen' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/navigation-menu.demo.tsx` before demos folded into examples. */
-  Overview: NavigationMenuOverview,
+  Overview() {
+    return (
+      <NavigationMenu.Root>
+        <NavigationMenu.List>
+          <NavigationMenu.Item>
+            <NavigationMenu.Trigger>Product</NavigationMenu.Trigger>
+            <NavigationMenu.Content>
+              <NavigationMenu.Link href="#overview">Overview</NavigationMenu.Link>
+              <NavigationMenu.Link href="#pricing">Pricing</NavigationMenu.Link>
+            </NavigationMenu.Content>
+          </NavigationMenu.Item>
+          <NavigationMenu.Item>
+            <NavigationMenu.Link href="#support">Support</NavigationMenu.Link>
+          </NavigationMenu.Item>
+        </NavigationMenu.List>
+        <NavigationMenu.Viewport />
+      </NavigationMenu.Root>
+    );
+  },
 
   Default: (
     <NavigationMenu.Root>

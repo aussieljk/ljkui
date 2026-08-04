@@ -1,4 +1,3 @@
-import ChartOverview from './demos/chart.demo';
 import React from 'react';
 import { Card, Chart, Separator, ToggleGroup, Typography } from 'ljkui';
 import type { ChartProps } from 'ljkui';
@@ -11,7 +10,19 @@ export const fileMeta = { group: 'Data presentation', layout: 'fullscreen' } as 
 
 export const examples = {
   /** The canonical usage — was `demos/chart.demo.tsx` before demos folded into examples. */
-  Overview: ChartOverview,
+  Overview() {
+    return (
+      <div className="w-80">
+        <Chart
+          data={[
+            { label: 'Completed', value: 60, color: 'green' },
+            { label: 'In progress', value: 25, color: 'blue' },
+            { label: 'Failed', value: 15, color: 'red' },
+          ]}
+        />
+      </div>
+    );
+  },
 
   Default() {
     const args: ChartProps = {

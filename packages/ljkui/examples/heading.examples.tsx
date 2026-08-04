@@ -1,4 +1,3 @@
-import HeadingOverview from './demos/heading.demo';
 import React from 'react';
 import { Typography } from 'ljkui';
 
@@ -8,66 +7,22 @@ const { Heading } = Typography;
  * Where this component sits in the explorer, and how its fixtures are framed.
  * Read by scripts/gen-fixtures.ts; `group` is the tree section, `layout` is the canvas.
  */
-export const fileMeta = { group: 'Typography', layout: 'centered' } as const;
+export const fileMeta = { group: 'Typography', layout: 'centered', enumerate: 'Typography.Heading' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/heading.demo.tsx` before demos folded into examples. */
-  Overview: HeadingOverview,
-
-  Size() {
-    const args = {};
+  Overview() {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-        <Heading {...args} size="0">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
-        <Heading {...args} size="1">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
-        <Heading {...args} size="2">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
-        <Heading {...args} size="3">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
-        <Heading {...args} size="4">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
-        <Heading {...args} size="5">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
-        <Heading {...args} size="6">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
-        <Heading {...args} size="7">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
-        <Heading {...args} size="8">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
-        <Heading {...args} size="9">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
-      </div>
-    );
-  },
-
-  Color() {
-    const args = {};
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-        <Heading {...args} color="indigo">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
-        <Heading {...args} color="cyan">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
-        <Heading {...args} color="orange">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
-        <Heading {...args} color="rose">
-          The quick brown fox jumps over the lazy dog.
-        </Heading>
+      <div className="flex flex-col gap-3">
+        <Typography.Heading size="3">The quick brown fox</Typography.Heading>
+        <Typography.Heading size="5">The quick brown fox</Typography.Heading>
+        <Typography.Heading size="7">The quick brown fox</Typography.Heading>
+        <Typography.Heading size="5" weight="medium">
+          Medium weight
+        </Typography.Heading>
+        <Typography.Heading size="5" color="indigo">
+          Indigo heading
+        </Typography.Heading>
       </div>
     );
   },

@@ -1,4 +1,3 @@
-import TooltipOverview from './demos/tooltip.demo';
 import React from 'react';
 import { Button, IconButton, Kbd, Tooltip, Typography, type TooltipActions } from 'ljkui';
 
@@ -39,7 +38,13 @@ export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/tooltip.demo.tsx` before demos folded into examples. */
-  Overview: TooltipOverview,
+  Overview() {
+    return (
+      <Tooltip content="This appears on hover">
+        <Button variant="surface">Hover me</Button>
+      </Tooltip>
+    );
+  },
 
   Default() {
     const args = { content: 'Add to library' };

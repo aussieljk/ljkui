@@ -1,4 +1,3 @@
-import CheckboxOverview from './demos/checkbox.demo';
 import React from 'react';
 import { Button, Checkbox, Typography, checkboxPropDefs } from 'ljkui';
 
@@ -10,7 +9,24 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/checkbox.demo.tsx` before demos folded into examples. */
-  Overview: CheckboxOverview,
+  Overview() {
+    return (
+      <div className="flex flex-col gap-2">
+        <Typography.Text render={<label />} size="2" className="flex items-center gap-2">
+          <Checkbox defaultChecked />
+          Agree to terms and conditions
+        </Typography.Text>
+        <Typography.Text render={<label />} size="2" className="flex items-center gap-2">
+          <Checkbox color="green" defaultChecked />
+          Subscribe to the newsletter
+        </Typography.Text>
+        <Typography.Text render={<label />} size="2" color="gray" className="flex items-center gap-2">
+          <Checkbox disabled />
+          Disabled option
+        </Typography.Text>
+      </div>
+    );
+  },
 
   Default() {
     const args = {

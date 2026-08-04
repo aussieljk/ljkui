@@ -1,8 +1,8 @@
 /**
  * Per-component accessibility reference — keyboard interactions and ARIA notes.
  *
- * `generate-storybook.ts` appends this to each component's autodocs page (the Docs
- * tab), so the a11y contract sits next to the examples rather than being invisible.
+ * `fixture-support/reference.tsx` renders this onto each component's `Reference` fixture, so
+ * the a11y contract sits next to the examples rather than being invisible.
  * A slug with no entry here simply gets no a11y section.
  *
  * The keyboard maps follow the WAI-ARIA Authoring Practices patterns that Base UI

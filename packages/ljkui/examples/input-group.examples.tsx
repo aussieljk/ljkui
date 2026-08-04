@@ -1,4 +1,3 @@
-import InputGroupOverview from './demos/input-group.demo';
 import React from 'react';
 import { InputGroup, VStack } from 'ljkui';
 
@@ -17,7 +16,19 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/input-group.demo.tsx` before demos folded into examples. */
-  Overview: InputGroupOverview,
+  Overview() {
+    return (
+      <InputGroup.Root style={{ maxWidth: 260 }}>
+        <InputGroup.Addon>
+          <InputGroup.Text>$</InputGroup.Text>
+        </InputGroup.Addon>
+        <InputGroup.Input placeholder="0.00" inputMode="decimal" />
+        <InputGroup.Addon>
+          <InputGroup.Text>USD</InputGroup.Text>
+        </InputGroup.Addon>
+      </InputGroup.Root>
+    );
+  },
 
   Default: (
     <InputGroup.Root style={{ maxWidth: 320 }}>

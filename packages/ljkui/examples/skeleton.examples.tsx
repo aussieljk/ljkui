@@ -1,4 +1,3 @@
-import SkeletonOverview from './demos/skeleton.demo';
 import React from 'react';
 import {
   Avatar,
@@ -118,7 +117,20 @@ export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/skeleton.demo.tsx` before demos folded into examples. */
-  Overview: SkeletonOverview,
+  Overview() {
+    return (
+      <Card size="2" className="max-w-80">
+        <div className="flex items-center gap-3">
+          <Skeleton.Avatar size="3" />
+          <div className="flex flex-1 flex-col gap-2">
+            <Skeleton.Text size="2" className="w-[60%]" />
+            <Skeleton.Text size="2" className="w-[90%]" />
+          </div>
+        </div>
+        <Skeleton.Rect className="mt-3 h-24" />
+      </Card>
+    );
+  },
 
   Avatar() {
     return <Skeleton.Avatar />;

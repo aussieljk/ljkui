@@ -1,4 +1,3 @@
-import BadgeOverview from './demos/badge.demo';
 import React from 'react';
 import { Badge, badgePropDefs } from 'ljkui';
 
@@ -10,7 +9,27 @@ export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/badge.demo.tsx` before demos folded into examples. */
-  Overview: BadgeOverview,
+  Overview() {
+    return (
+      <div className="flex flex-wrap items-center gap-2">
+        <Badge variant="solid" color="blue">
+          Solid
+        </Badge>
+        <Badge variant="soft" color="green">
+          Soft
+        </Badge>
+        <Badge variant="surface" color="orange">
+          Surface
+        </Badge>
+        <Badge variant="outline" color="rose">
+          Outline
+        </Badge>
+        <Badge size="2" color="purple">
+          Size 2
+        </Badge>
+      </div>
+    );
+  },
 
   'Semantic color'() {
     const args = {

@@ -1,4 +1,3 @@
-import SliderOverview from './demos/slider.demo';
 import React from 'react';
 import { Button, DataTable, Slider, Typography, sliderPropDefs } from 'ljkui';
 
@@ -10,7 +9,16 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/slider.demo.tsx` before demos folded into examples. */
-  Overview: SliderOverview,
+  Overview() {
+    return (
+      <div className="flex w-75 flex-col gap-4">
+        <Slider defaultValue={[50]} />
+        <Slider defaultValue={[30]} size="1" color="orange" />
+        <Slider defaultValue={[25, 75]} color="cyan" />
+        <Slider defaultValue={[60]} disabled />
+      </div>
+    );
+  },
 
   'High Contrast'() {
     const args = {

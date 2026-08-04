@@ -1,4 +1,3 @@
-import ProgressOverview from './demos/progress.demo';
 import React from 'react';
 import { Progress, progressPropDefs } from 'ljkui';
 
@@ -10,7 +9,15 @@ export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/progress.demo.tsx` before demos folded into examples. */
-  Overview: ProgressOverview,
+  Overview() {
+    return (
+      <div className="flex w-70 flex-col gap-4">
+        <Progress value={25} size="1" aria-label="25% complete" />
+        <Progress value={60} size="2" aria-label="60% complete" />
+        <Progress value={85} size="3" color="green" aria-label="85% complete" />
+      </div>
+    );
+  },
 
   'High Contrast'() {
     const args = {

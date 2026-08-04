@@ -1,4 +1,3 @@
-import FilterChipOverview from './demos/filter-chip.demo';
 import React from 'react';
 import { Button, FilterChip, Typography, filterChipPropDefs } from 'ljkui';
 
@@ -29,7 +28,18 @@ export const fileMeta = { group: 'Controls', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/filter-chip.demo.tsx` before demos folded into examples. */
-  Overview: FilterChipOverview,
+  Overview() {
+    return (
+      <div className="flex flex-wrap gap-2">
+        <FilterChip defaultChecked>In stock</FilterChip>
+        <FilterChip>On sale</FilterChip>
+        <FilterChip defaultChecked color="orange">
+          Free shipping
+        </FilterChip>
+        <FilterChip disabled>Disabled</FilterChip>
+      </div>
+    );
+  },
 
   Default() {
     const args = { children: null, size: filterChipPropDefs.size.default };

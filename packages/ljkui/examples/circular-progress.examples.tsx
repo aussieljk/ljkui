@@ -1,4 +1,3 @@
-import CircularProgressOverview from './demos/circular-progress.demo';
 import React from 'react';
 import { CircularProgress, circularProgressPropDefs } from 'ljkui';
 
@@ -10,7 +9,16 @@ export const fileMeta = { group: 'Components', layout: 'centered' } as const;
 
 export const examples = {
   /** The canonical usage — was `demos/circular-progress.demo.tsx` before demos folded into examples. */
-  Overview: CircularProgressOverview,
+  Overview() {
+    return (
+      <div className="flex items-center gap-4">
+        <CircularProgress value={25} size="3" aria-label="25% complete" />
+        <CircularProgress value={60} size="5" aria-label="60% complete" />
+        <CircularProgress value={85} size="7" color="green" aria-label="85% complete" />
+        <CircularProgress value={100} size="7" color="green" aria-label="Complete" />
+      </div>
+    );
+  },
 
   'High Contrast'() {
     const args = {
