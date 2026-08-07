@@ -94,7 +94,7 @@ for (const file of readdirSync(examplesDir).filter((f) => f.endsWith('.examples.
   }
   const layout = mod.fileMeta?.layout;
   if (layout && !LAYOUTS.includes(layout as (typeof LAYOUTS)[number])) {
-    problems.push(`examples/${file} declares layout '${layout}', which is not a uaight layout.`);
+    problems.push(`examples/${file} declares layout '${layout}', which is not a uight layout.`);
   }
 }
 

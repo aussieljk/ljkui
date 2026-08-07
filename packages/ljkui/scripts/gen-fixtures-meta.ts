@@ -42,7 +42,7 @@ export const LAYOUTS: readonly Layout[] = ['centered', 'padded', 'fullscreen'];
 /**
  * The explorer's top-level sections, in the order they should appear.
  *
- * uaight builds its tree from directories and sorts them with an `Intl.Collator`
+ * uight builds its tree from directories and sorts them with an `Intl.Collator`
  * (`numeric: true`) — `fileMeta.order` sorts files *within* a directory and has no say over
  * the directories themselves. So the intended order has to be in the name, and the numeric
  * collation is what lets `10. Utilities` sort after `9. Forms` without zero-padding. The

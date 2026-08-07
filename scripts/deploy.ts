@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Deploy the uaight static explorer to Vercel.
+ * Deploy the uight static explorer to Vercel.
  *
  *   bun scripts/deploy.ts            preview deploy
  *   bun scripts/deploy.ts --prod     production deploy
@@ -8,7 +8,7 @@
  * In CI the target is inferred instead: a push to master is production, a pull
  * request is a preview whose URL gets commented on the PR.
  *
- * `uaight build` emits a pure static site (`packages/ljkui/dist-uaight`), so we wrap
+ * `uight build` emits a pure static site (`packages/ljkui/dist-uight`), so we wrap
  * it in a Build Output API bundle (`.vercel/output/static` + a `config.json`) and
  * upload it with `vercel deploy --prebuilt`. `--prebuilt` skips Vercel's build step
  * entirely — the runner does the explorer build, and Vercel just serves the files,
@@ -22,7 +22,7 @@ import { existsSync, mkdirSync, copyFileSync, cpSync, rmSync, writeFileSync } fr
 import { join } from 'node:path';
 import { ROOT, PKG, fail, run, capture, step, summary } from './lib.ts';
 
-const STATIC = join(PKG, 'dist-uaight');
+const STATIC = join(PKG, 'dist-uight');
 const OUTPUT = join(PKG, '.vercel', 'output');
 const flags = process.argv.slice(2);
 const token = process.env.VERCEL_TOKEN;
@@ -41,7 +41,7 @@ const vercel = (...args: string[]) => ['bun', 'x', 'vercel', ...args, ...(token 
 
 step(`${production ? 'Production' : 'Preview'} deploy`);
 
-// Build the static explorer (packages/ljkui/dist-uaight).
+// Build the static explorer (packages/ljkui/dist-uight).
 run(['bun', 'run', 'build:explorer']);
 
 // The library build writes dist/llms.txt + llms-full.txt (see scripts/gen-llms-txt.ts). They

@@ -3,7 +3,7 @@
 <p align="center">ljkui — a React design system with a themeable component library, SwiftUI-style layout primitives, and pluggable icon sets</p>
 
 <h3 align="center">
-  <a href="https://ljkui.vercel.app">Documentation (uaight explorer)</a>
+  <a href="https://ljkui.vercel.app">Documentation (uight explorer)</a>
 </h3>
 
 > [!WARNING]

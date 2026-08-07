@@ -1,16 +1,16 @@
 /**
- * The uaight plugin options.
+ * The uight plugin options.
  *
  * Shared, because two things need to agree on them: `vite.config.ts` (which runs the plugin)
- * and `scripts/gen-fixtures.ts` (which calls uaight's Node API to harvest call sites at
+ * and `scripts/gen-fixtures.ts` (which calls uight's Node API to harvest call sites at
  * generate time, so the deployed explorer keeps data the dev-only scan would otherwise take
  * with it). A second copy of this config would drift silently and produce a Usages report
  * that disagrees with the ⌘K palette.
  */
-import type { UaightPluginOptions } from 'uaight/vite';
+import type { UightPluginOptions } from '@aussieljk/uight/vite';
 
 /**
- * uaight's own `DEFAULT_INVENTORY_EXCLUDE`, restated because the option replaces the list
+ * uight's own `DEFAULT_INVENTORY_EXCLUDE`, restated because the option replaces the list
  * instead of extending it. Keep in sync if the canary changes it — the load-bearing entry
  * is `node_modules`, without which the scan walks the whole store.
  */
@@ -24,11 +24,11 @@ const INVENTORY_EXCLUDE_DEFAULTS = [
   '**/__mocks__/**',
 ];
 
-export const uaightOptions: UaightPluginOptions = {
+export const uightOptions: UightPluginOptions = {
   /*
    * The package root, not `fixtures/` — the inventory and call-site scans glob from
    * `fixturesDir`, so pointing it at the generated directory would leave them with
-   * nothing but our own wrappers to look at (which uaight ignores by construction).
+   * nothing but our own wrappers to look at (which uight ignores by construction).
    * From here they see `src/` and `examples/`, which is where the real usages are.
    */
   fixturesDir: '.',
@@ -40,10 +40,10 @@ export const uaightOptions: UaightPluginOptions = {
    * too, so excluding them also threw away every call site written in an example. Separate
    * suffixes let the fixtures be generated and the examples be harvested.
    */
-  exclude: ['dist/**', 'dist-uaight/**'],
+  exclude: ['dist/**', 'dist-uight/**'],
   /*
    * Storybook is gone, so there is no CSF to read and no `.storybook/preview` to
-   * discover. Left explicit: with it on, uaight would go looking for both.
+   * discover. Left explicit: with it on, uight would go looking for both.
    */
   storybook: false,
   /*
@@ -51,7 +51,7 @@ export const uaightOptions: UaightPluginOptions = {
    * most of which nobody wants to render in isolation — the `base-*` internals
    * (base-button, base-menu, base-tabs-list, …), helpers, and the icon adapters.
    *
-   * FOOTGUN: `exclude` here *replaces* uaight's default list rather than extending it,
+   * FOOTGUN: `exclude` here *replaces* uight's default list rather than extending it,
    * and that default is what carries the `node_modules` entry. Spread DEFAULTS into any
    * exclude you add — dropping it makes the scan walk node_modules and return nothing
    * useful, which is exactly how this returned 0 the first time.
@@ -69,7 +69,7 @@ export const uaightOptions: UaightPluginOptions = {
   callSites: { max: 8 },
   /*
    * Every fixture module is generated as an explicit object literal with no spreads, so
-   * uaight's parser enumerates all 800-odd fixture names statically — measured: zero
+   * uight's parser enumerates all 800-odd fixture names statically — measured: zero
    * undecidable files. `warm` would spend a browser round-trip on every boot re-deriving
    * names it already has. `check:explorer` is what keeps that guarantee true.
    */

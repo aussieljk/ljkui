@@ -10,7 +10,7 @@ coverage
 
 # build output
 dist/
-dist-uaight/
+dist-uight/
 packages/ljkui/styles.css
 packages/ljkui/styles.lite.css
 packages/ljkui/theme.css

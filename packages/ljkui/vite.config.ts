@@ -4,16 +4,16 @@ import { resolve } from 'node:path';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
-import { uaight } from 'uaight/vite';
+import { uight } from '@aussieljk/uight/vite';
 import { PREBUNDLE } from './fixture-support/prebundle';
-import { uaightOptions } from './fixture-support/uaight-options';
+import { uightOptions } from './fixture-support/uight-options';
 import { defineConfig } from 'vite';
 
 const packageRoot = import.meta.dirname;
 
 /*
- * The library ships no site of its own — this dev server exists so uaight has a host to
- * ride on. `/uaight` is the explorer; there is nothing else to serve, which is why the
+ * The library ships no site of its own — this dev server exists so uight has a host to
+ * ride on. `/uight` is the explorer; there is nothing else to serve, which is why the
  * repo carries no index.html (the static build scaffolds its own and removes it after).
  */
 export default defineConfig({
@@ -28,7 +28,7 @@ export default defineConfig({
       }),
     },
     react(),
-    uaight(uaightOptions),
+    uight(uightOptions),
   ],
   resolve: {
     /*

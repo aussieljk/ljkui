@@ -1,8 +1,8 @@
 {
   "mcpServers": {
-    "uaight": {
+    "uight": {
       "command": "bun",
-      "args": ["x", "uaight-mcp", "--url", "http://localhost:5173"]
+      "args": ["x", "uight-mcp", "--url", "http://localhost:5173"]
     }
   }
 }

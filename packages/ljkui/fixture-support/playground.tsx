@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Typography } from 'ljkui';
-import { useFixtureInput } from 'uaight';
+import { useFixtureInput } from '@aussieljk/uight';
 import propsJson from '../src/generated/props.json';
 
 /*
@@ -11,7 +11,7 @@ import propsJson from '../src/generated/props.json';
  * such limitation — the value comes back into the render — so a component can be driven
  * directly, and the control values encode into a shareable link.
  *
- * uaight has a `docgen` option and an `InputOptions.from: { component, prop }` field that
+ * uight has a `docgen` option and an `InputOptions.from: { component, prop }` field that
  * would supply this metadata itself, but neither is implemented in 0.0.1-canary.0 ("No
  * docgen in v1", and `from` is dropped from the serialized `InputOptionsWire`). Reading
  * `props.json` is better here regardless: those are hand-authored prop definitions with real

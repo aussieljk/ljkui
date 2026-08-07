@@ -9,7 +9,7 @@ import {
   parseZonedDateTime,
 } from '@internationalized/date';
 import * as React from 'react';
-import { type CodecEditorProps, defineCodec } from 'uaight';
+import { type CodecEditorProps, defineCodec } from '@aussieljk/uight';
 
 /*
  * Codecs for the `@internationalized/date` value types.
@@ -24,7 +24,7 @@ import { type CodecEditorProps, defineCodec } from 'uaight';
  * something structured-cloneable, and `deserialize` must rebuild the real instance so the
  * component still receives a `CalendarDate` and not a string.
  *
- * A JS `Date` needs nothing here — uaight ships `dateCodec` among its built-ins, and
+ * A JS `Date` needs nothing here — uight ships `dateCodec` among its built-ins, and
  * consumer codecs are tested first, so ours never shadow it by accident.
  */
 

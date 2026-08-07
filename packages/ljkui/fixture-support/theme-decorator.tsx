@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Theme } from 'ljkui';
-import { useFixtureInput, useFixtureViewport } from 'uaight';
+import { useFixtureInput, useFixtureViewport } from '@aussieljk/uight';
 import { activeBreakpoint } from './breakpoints';
 import '../src/styles/index.css';
 import './host.css';
@@ -60,12 +60,12 @@ const badgeStyle: React.CSSProperties = {
 /**
  * Which breakpoint the fixture is currently rendering at.
  *
- * This is what replaces Storybook's breakpoint viewport presets. uaight's preset list
+ * This is what replaces Storybook's breakpoint viewport presets. uight's preset list
  * (`VIEWPORT_PRESETS`) is a private constant — Small/Mobile/Tablet/Laptop/Desktop, of which
  * only 768 and 1280 coincide with this library's scale — and there is no public option to
  * extend it, so the named-preset toolbar cannot be reproduced. What actually mattered was
  * knowing which `@custom-media` query is live; that is reported here directly, and it stays
- * correct however the width was arrived at (a uaight preset, or just resizing the window).
+ * correct however the width was arrived at (a uight preset, or just resizing the window).
  *
  * `useFixtureViewport()` is read-only, and reports the real frame viewport rather than a CSS
  * box — which is the number the media queries themselves measure.

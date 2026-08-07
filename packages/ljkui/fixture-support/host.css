@@ -42,7 +42,7 @@ samp,
  * read from `body`. Instead let the themed root — which paints its own background via
  * `hasBackground` — cover the preview area, so a dark fixture does not sit on white.
  */
-[data-uaight-inline] > .ljkui,
+[data-uight-inline] > .ljkui,
 body > .ljkui {
   min-height: 100vh;
 }

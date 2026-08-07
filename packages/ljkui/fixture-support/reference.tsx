@@ -8,7 +8,7 @@ import propsJson from '../src/generated/props.json';
  * generated from `*.props.ts` (src/generated/props.json) plus the keyboard map and ARIA
  * notes from fixture-support/a11y.ts.
  *
- * uaight has no autodocs, so this renders as a fixture — `gen-fixtures.ts` appends a
+ * uight has no autodocs, so this renders as a fixture — `gen-fixtures.ts` appends a
  * `Reference` entry to every component's fixture module, which puts the docs one click
  * from the examples instead of behind a separate tab.
  */

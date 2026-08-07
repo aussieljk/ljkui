@@ -1,14 +1,14 @@
 # Contributing to ljkui
 
 Thanks for helping out. This is a Bun + Turborepo monorepo; the library is `packages/ljkui`
-and the [uaight](https://www.npmjs.com/package/uaight) explorer is the only site (deployed as a
+and the [uight](https://www.npmjs.com/package/uight) explorer is the only site (deployed as a
 static export). There are **no unit tests** by design — the explorer is the review surface.
 
 ## Setup
 
 ```sh
 bun install
-bun run dev      # regenerates fixtures + serves the explorer on http://localhost:5173/uaight
+bun run dev      # regenerates fixtures + serves the explorer on http://localhost:5173/uight
 ```
 
 ## Before you open a PR
