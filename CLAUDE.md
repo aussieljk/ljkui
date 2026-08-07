@@ -36,7 +36,7 @@ The library ships no site of its own — it's built (tsdown + postcss) and consu
 
 ## Publishing
 
-The main package publishes to npm as `ljkui` (see `packages/ljkui`). Releases normally run from the **Release** workflow (Actions → Release → Run workflow); `bun run prod` does the same thing from this laptop.
+The main package publishes to npm as `ljkui` (see `packages/ljkui`). Releases run automatically on every push to master that touches `packages/ljkui/` (the **Release** workflow — see [CI/CD](#cicd)). Actions → Release → Run workflow forces one regardless; `bun run prod` does the same thing from this laptop.
 
 **The version stays on 0.0.1 forever.** Every release is a prerelease of it — `0.0.1-1`, `0.0.1-2`, … — so the patch number never reaches 0.0.2. To release, from `packages/ljkui`:
 
@@ -67,10 +67,16 @@ Never publish a plain `0.0.1`: it outranks every later `0.0.1-N`, and `^0.0.1` r
 
 Keep every `run:` a single line: Bun's YAML writer emits multi-line strings as quoted scalars with `\n` escapes instead of `|` blocks. Anything longer belongs in a `scripts/*.ts`, which is the point — the workflows stay a list of named one-liners and the logic is typechecked TypeScript.
 
-**Workflows**
+**Workflows** — split by *branch*, not by purpose. A master push runs Release only, so the ~20-minute check never runs twice for one commit and production is never deployed twice.
 
-- **CI** — every PR and every push to master. `check` job: workflows-in-sync, format, lint, props coverage, typecheck, build, size-limit, explorer build, package health (publint + attw). Then `deploy`: an explorer preview on PRs (URL commented on the PR), production on master.
-- **Release** — manual `workflow_dispatch` on master, with a `deploy` input. Runs `bun run check`, then `scripts/release.ts` and `scripts/deploy.ts --prod`.
+- **CI** — pull requests only. `check` job: workflows-in-sync, format, lint, props coverage, Intent skills, typecheck, build, size-limit, explorer build, package health (publint + attw). Then `deploy`: an explorer preview whose URL is commented on the PR.
+- **Release** — **every push to master**, plus a manual `workflow_dispatch` with a `deploy` input. Runs the same `bun run check`, then `scripts/release.ts`, then `scripts/deploy.ts --prod`. So a merge to master publishes to npm *and* deploys the site, with no button to press.
+
+Three things about that make it behave:
+
+- **A push publishes only when it touched `packages/ljkui/`** (`release.ts --if-changed`, comparing the push's `before` SHA against `HEAD` from the event payload). A root-docs or `ci/`-only commit deploys the site and skips the version bump. `guides/` and `examples/` *do* count — they are compiled into the shipped `llms-full.txt`. When the diff base can't be resolved (first push, force-push, clone too shallow) it fails open and publishes. A manual dispatch always publishes.
+- **The deploy step is `if: !cancelled()`**, not the default `success()`. The explorer is built from source and does not depend on the release landing, so an npm outage must not also hold back the site. The job still fails, so you still get told.
+- **The release commit must not re-trigger the workflow.** `release.ts` pushes with `GITHUB_TOKEN`, whose pushes deliberately do not start further runs — load-bearing now, because that commit edits `packages/ljkui/package.json`, which `--if-changed` counts as a library change. A PAT there would release in a loop forever.
 
 **All jobs run on GitHub-hosted `ubuntu-latest`.** This is also what npm's trusted publishing requires — it only accepts cloud-hosted runners, so an OIDC token minted on a self-hosted runner would be refused by the registry.
 
@@ -92,7 +98,7 @@ Keep every `run:` a single line: Bun's YAML writer emits multi-line strings as q
 
 A PR from a fork has no secrets, so `deploy.ts` skips with a warning instead of failing.
 
-The release commit is pushed with `GITHUB_TOKEN`, whose pushes deliberately do not trigger further workflow runs — so a release does not kick off a second CI + production deploy.
+The release commit is pushed with `GITHUB_TOKEN`, whose pushes deliberately do not trigger further workflow runs — so a release does not kick off a second Release run (which, since it edits `packages/ljkui/package.json`, would publish again, forever).
 
 ## uaight (`packages/ljkui/vite.config.ts` — the only site)
 

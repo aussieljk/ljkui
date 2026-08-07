@@ -2,21 +2,29 @@
  * The repo's CI/CD, in TypeScript. `bun run workflows` renders this file to
  * `.github/workflows/*.yml`; never edit the YAML by hand (CI checks it matches).
  *
- * Two workflows:
+ * Two workflows, split by branch rather than by purpose — a master push runs
+ * release.yml only, so the 20-minute check does not run twice per commit and
+ * production is never deployed twice:
  *
- *   ci.yml       every PR and every push to master — one `check` job (format,
- *                lint, typecheck, build, package health, this
- *                file's YAML being in sync), then a Vercel deploy: a preview
- *                URL commented on the PR, production on master.
+ *   ci.yml       pull requests. One `check` job (format, lint, typecheck, build,
+ *                package health, this file's YAML being in sync), then a Vercel
+ *                preview whose URL is commented on the PR.
  *
- *   release.yml  manual button (Actions → Release → Run workflow). Bumps
- *                0.0.1-N → N+1, publishes to npm, pushes the version commit and
- *                deploys production. The CI-side equivalent of `bun run prod`.
+ *   release.yml  every push to master, plus a manual button (Actions → Release →
+ *                Run workflow). Runs the same check, publishes to npm, pushes the
+ *                version commit, and deploys production. The CI-side `bun run prod`.
+ *
+ *                On a push it publishes only when the push touched
+ *                `packages/ljkui/` (`release.ts --if-changed`) — a root-docs or
+ *                CI-only commit still deploys the site but does not burn a version.
+ *                A manual run always publishes.
  *
  * Both run on GitHub-hosted `ubuntu-latest` runners.
  *
  * npm needs no token at all: the release publishes over OIDC (trusted
- * publishing), configured against this repo + `release.yml` on npmjs.com.
+ * publishing), configured against this repo + `release.yml` on npmjs.com. That
+ * filename is part of the trust config — publishing must stay in this workflow,
+ * or npmjs.com has to be updated to match first.
  *
  * Secrets (Settings → Secrets and variables → Actions):
  *   VERCEL_TOKEN      vercel.com/account/tokens
@@ -63,8 +71,8 @@ const VERCEL_ENV = {
 
 const ci: Workflow = {
   name: 'CI',
+  // Pull requests only. Master pushes are release.yml's, which runs the same check.
   on: {
-    push: { branches: [MASTER] },
     pull_request: { branches: [MASTER] },
   },
   // One run per branch; a new push cancels the one in flight.
@@ -131,8 +139,9 @@ const ci: Workflow = {
         setupBun(BUN_VERSION),
         cacheBunStore(),
         install(),
-        // deploy.ts picks production vs preview from the event itself, and
-        // no-ops with a warning on PRs from forks, where the secrets are absent.
+        // deploy.ts picks production vs preview from the event itself — a
+        // pull_request is always a preview — and no-ops with a warning on PRs
+        // from forks, where the secrets are absent.
         sh('Vercel', 'bun scripts/deploy.ts', {
           env: { ...VERCEL_ENV, GITHUB_TOKEN: '${{ github.token }}' },
         }),
@@ -150,10 +159,11 @@ const ci: Workflow = {
 const release: Workflow = {
   name: 'Release',
   on: {
+    push: { branches: [MASTER] },
     workflow_dispatch: {
       inputs: {
         deploy: {
-          description: 'Also deploy the explorer to production',
+          description: 'Also deploy the explorer to production (a push always does)',
           type: 'boolean',
           default: true,
         },
@@ -184,9 +194,20 @@ const release: Workflow = {
         // No NPM_TOKEN: `id-token: write` above lets npm publish authenticate
         // over OIDC. Setting NODE_AUTH_TOKEN here would send npm back down the
         // legacy token path and silently skip trusted publishing.
-        sh('Publish to npm', 'bun scripts/release.ts'),
+        //
+        // Two steps rather than one with an inline ternary: on a push the release is
+        // conditional on the library having changed, on a manual run it never is.
+        sh('Publish to npm', 'bun scripts/release.ts --if-changed', {
+          if: "github.event_name == 'push'",
+        }),
+        sh('Publish to npm (manual)', 'bun scripts/release.ts', {
+          if: "github.event_name == 'workflow_dispatch'",
+        }),
+        // `!cancelled()` rather than the default success(): the explorer is built from
+        // source and does not depend on the release landing, so a failed publish (npm
+        // outage, OIDC hiccup) must not also hold back the site.
         sh('Deploy to Vercel', 'bun scripts/deploy.ts --prod', {
-          if: '${{ inputs.deploy }}',
+          if: "!cancelled() && (github.event_name == 'push' || inputs.deploy)",
           env: VERCEL_ENV,
         }),
       ],

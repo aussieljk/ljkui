@@ -4,10 +4,13 @@
 
 name: Release
 "on":
+  push:
+    branches:
+      - master
   workflow_dispatch:
     inputs:
       deploy:
-        description: Also deploy the explorer to production
+        description: Also deploy the explorer to production (a push always does)
         type: boolean
         default: true
 concurrency:
@@ -52,10 +55,14 @@ jobs:
       - name: Check
         run: bun run check
       - name: Publish to npm
+        run: bun scripts/release.ts --if-changed
+        if: "github.event_name == 'push'"
+      - name: Publish to npm (manual)
         run: bun scripts/release.ts
+        if: "github.event_name == 'workflow_dispatch'"
       - name: Deploy to Vercel
         run: bun scripts/deploy.ts --prod
-        if: "${{ inputs.deploy }}"
+        if: "!cancelled() && (github.event_name == 'push' || inputs.deploy)"
         env:
           VERCEL_TOKEN: "${{ secrets.VERCEL_TOKEN }}"
           VERCEL_ORG_ID: "${{ secrets.VERCEL_ORG_ID }}"
