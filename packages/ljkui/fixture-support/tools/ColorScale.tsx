@@ -233,7 +233,7 @@ function useSwatchValues(enabled: boolean) {
     const observer = new MutationObserver(read);
     observer.observe(themed, {
       attributes: true,
-      attributeFilter: ['class', 'data-accent-color', 'data-gray-color'],
+      attributeFilter: ['class', 'data-accent-color'],
     });
 
     return () => {

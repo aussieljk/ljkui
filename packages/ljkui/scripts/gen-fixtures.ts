@@ -516,7 +516,7 @@ import 'ljkui/styles.css';
 
 export default function App() {
   return (
-    <Theme accentColor="blue" grayColor="auto">
+    <Theme>
       <Button>Click me</Button>
     </Theme>
   );

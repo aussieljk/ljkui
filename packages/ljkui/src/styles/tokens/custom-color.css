@@ -3,9 +3,9 @@
  *
  * <Theme accentColor="#8b5cf6"> renders data-accent-color="custom" plus inline
  * `--fui-ca-*` variables holding the JS-computed light/dark scales (see
- * createAccentScaleStyle in src/helpers/tailwind-palette.ts); same for
- * grayColor with `--fui-cg-*`. The blocks below switch between the light and
- * dark values with the inherited --fui-dark flag (0 in light, 1 in dark).
+ * createAccentScaleStyle in src/helpers/tailwind-palette.ts). The block below
+ * switches between the light and dark values with the inherited --fui-dark flag
+ * (0 in light, 1 in dark).
  */
 :root,
 .light,
@@ -84,34 +84,4 @@
     var(--fui-ca-lalpha-950),
     var(--fui-ca-dalpha-950) calc(var(--fui-dark) * 100%)
   );
-}
-
-[data-gray-color='custom'] {
-  --gray-surface: color-mix(in srgb, var(--fui-cg-ls), var(--fui-cg-ds) calc(var(--fui-dark) * 100%));
-  --gray-50-translucent: var(--fui-cg-dt);
-  --gray-700-contrast: var(--fui-cg-contrast);
-  --gray-10: color-mix(in oklab, var(--fui-cg-l10), var(--fui-cg-d10) calc(var(--fui-dark) * 100%));
-  --gray-50: color-mix(in oklab, var(--fui-cg-l50), var(--fui-cg-d50) calc(var(--fui-dark) * 100%));
-  --gray-100: color-mix(in oklab, var(--fui-cg-l100), var(--fui-cg-d100) calc(var(--fui-dark) * 100%));
-  --gray-200: color-mix(in oklab, var(--fui-cg-l200), var(--fui-cg-d200) calc(var(--fui-dark) * 100%));
-  --gray-300: color-mix(in oklab, var(--fui-cg-l300), var(--fui-cg-d300) calc(var(--fui-dark) * 100%));
-  --gray-400: color-mix(in oklab, var(--fui-cg-l400), var(--fui-cg-d400) calc(var(--fui-dark) * 100%));
-  --gray-500: color-mix(in oklab, var(--fui-cg-l500), var(--fui-cg-d500) calc(var(--fui-dark) * 100%));
-  --gray-600: color-mix(in oklab, var(--fui-cg-l600), var(--fui-cg-d600) calc(var(--fui-dark) * 100%));
-  --gray-700: color-mix(in oklab, var(--fui-cg-l700), var(--fui-cg-d700) calc(var(--fui-dark) * 100%));
-  --gray-800: color-mix(in oklab, var(--fui-cg-l800), var(--fui-cg-d800) calc(var(--fui-dark) * 100%));
-  --gray-900: color-mix(in oklab, var(--fui-cg-l900), var(--fui-cg-d900) calc(var(--fui-dark) * 100%));
-  --gray-950: color-mix(in oklab, var(--fui-cg-l950), var(--fui-cg-d950) calc(var(--fui-dark) * 100%));
-  --gray-alpha-10: color-mix(in srgb, var(--fui-cg-lalpha-10), var(--fui-cg-dalpha-10) calc(var(--fui-dark) * 100%));
-  --gray-alpha-50: color-mix(in srgb, var(--fui-cg-lalpha-50), var(--fui-cg-dalpha-50) calc(var(--fui-dark) * 100%));
-  --gray-alpha-100: color-mix(in srgb, var(--fui-cg-lalpha-100), var(--fui-cg-dalpha-100) calc(var(--fui-dark) * 100%));
-  --gray-alpha-200: color-mix(in srgb, var(--fui-cg-lalpha-200), var(--fui-cg-dalpha-200) calc(var(--fui-dark) * 100%));
-  --gray-alpha-300: color-mix(in srgb, var(--fui-cg-lalpha-300), var(--fui-cg-dalpha-300) calc(var(--fui-dark) * 100%));
-  --gray-alpha-400: color-mix(in srgb, var(--fui-cg-lalpha-400), var(--fui-cg-dalpha-400) calc(var(--fui-dark) * 100%));
-  --gray-alpha-500: color-mix(in srgb, var(--fui-cg-lalpha-500), var(--fui-cg-dalpha-500) calc(var(--fui-dark) * 100%));
-  --gray-alpha-600: color-mix(in srgb, var(--fui-cg-lalpha-600), var(--fui-cg-dalpha-600) calc(var(--fui-dark) * 100%));
-  --gray-alpha-700: color-mix(in srgb, var(--fui-cg-lalpha-700), var(--fui-cg-dalpha-700) calc(var(--fui-dark) * 100%));
-  --gray-alpha-800: color-mix(in srgb, var(--fui-cg-lalpha-800), var(--fui-cg-dalpha-800) calc(var(--fui-dark) * 100%));
-  --gray-alpha-900: color-mix(in srgb, var(--fui-cg-lalpha-900), var(--fui-cg-dalpha-900) calc(var(--fui-dark) * 100%));
-  --gray-alpha-950: color-mix(in srgb, var(--fui-cg-lalpha-950), var(--fui-cg-dalpha-950) calc(var(--fui-dark) * 100%));
 }

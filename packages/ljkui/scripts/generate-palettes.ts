@@ -24,7 +24,7 @@ import {
   tailwindPaletteStops,
   type TailwindPalette,
 } from '../src/helpers/tailwind-palette';
-import { tailwindBrightScales, tailwindGrayScales } from '../src/helpers/tailwind-colors';
+import { tailwindBrightScales } from '../src/helpers/tailwind-colors';
 
 const CHROMATIC = [
   'red',
@@ -46,8 +46,8 @@ const CHROMATIC = [
   'rose',
 ] as const;
 const NEUTRALS = ['slate', 'gray', 'zinc', 'neutral', 'stone'] as const;
-/** The neutrals selectable as the Theme `grayColor` — see src/helpers/tailwind-colors.ts. */
-const GRAYS = tailwindGrayScales;
+/** The one scale `--gray-*` points at. It is fixed — the gray scale is not themeable. */
+const GRAY = 'neutral';
 /** Palettes whose solid step is a light chip with dark text — see tailwindBrightScales. */
 const BRIGHT = tailwindBrightScales as readonly string[];
 const ALL = [...CHROMATIC, ...NEUTRALS];
@@ -125,8 +125,8 @@ function generatePalettesCss(palettes: Record<string, TailwindPalette>): string 
     `/* Accent mappings. 'gray' follows the active gray scale (--gray-*). */`,
     accentMappingCss('gray'),
     ...ALL.filter((name) => name !== 'gray').map((name) => accentMappingCss(name)),
-    `/* Gray mappings ('gray' itself is the default --gray-* scale). */`,
-    ...GRAYS.map((name) => grayMappingCss(name)),
+    `/* Gray mapping. Fixed to ${GRAY} — the gray scale is not themeable. */`,
+    grayMappingCss(GRAY),
     `/* Semantic mappings */`,
     ...Object.entries(SEMANTIC).flatMap(([kind, names]) =>
       names.map((name, i) => semanticMappingCss(kind as keyof typeof SEMANTIC, name, i === 0)),

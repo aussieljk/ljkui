@@ -63,6 +63,8 @@ jobs:
         run: bun run --filter=ljkui check:explorer
       - name: Prebundle list
         run: bun run --filter=ljkui check:prebundle
+      - name: Intent skills
+        run: bun run --filter=ljkui check:skills
       - name: Typecheck
         run: bun run typecheck
       - name: Build

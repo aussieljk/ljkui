@@ -516,9 +516,12 @@ function accentMappingCss(name: string): string {
   ]);
 }
 
-/** The `[data-gray-color='{name}']` block pointing `--gray-*` at a scale. */
+/**
+ * The block pointing `--gray-*` at a scale. The gray scale is fixed, so this is
+ * unconditional — there is no `grayColor` prop and nothing to switch on.
+ */
 function grayMappingCss(name: string): string {
-  return cssBlock(`.ljkui:where([data-gray-color='${name}'])`, [
+  return cssBlock('.ljkui', [
     `--gray-surface: var(--${name}-surface)`,
     `--gray-${SURFACE_STOP}-translucent: var(--${name}-${SURFACE_STOP}-translucent)`,
     ...mappingDeclarations('gray', name),
@@ -531,45 +534,37 @@ function semanticMappingCss(kind: 'danger' | 'warning' | 'success' | 'info', nam
   return cssBlock(selector, [`--color-surface-${kind}: var(--${name}-surface)`, ...mappingDeclarations(kind, name)]);
 }
 
-interface CreatePaletteCssOptions extends ComputeScaleOptions {
-  /** Also emit a `[data-gray-color='{name}']` mapping so the palette can be the Theme `grayColor`. */
-  gray?: boolean;
-}
-
 /**
  * Generate the ljkui CSS for one Tailwind-style palette. The returned CSS is
  * self-contained: inject it once (a css file or a <style> tag) and `name` becomes usable
  * everywhere a scale name works, e.g. `<Theme accentColor="my-brand">` or
  * `data-accent-color="my-brand"` on any subtree.
  */
-function createPaletteCss(name: string, palette: TailwindPalette, options: CreatePaletteCssOptions = {}): string {
+function createPaletteCss(name: string, palette: TailwindPalette, options: ComputeScaleOptions = {}): string {
   if (!/^[a-z][a-z0-9-]*$/.test(name)) {
     throw new Error(`Invalid palette name "${name}". Use lowercase letters, digits and dashes.`);
   }
 
   const colors = computeScale(palette, options);
-  const blocks = [scaleCss(name, colors, { gray: options.gray }), accentMappingCss(name)];
-  if (options.gray) blocks.push(grayMappingCss(name));
-  return blocks.join('\n\n') + '\n';
+  return [scaleCss(name, colors, { gray: options.gray }), accentMappingCss(name)].join('\n\n') + '\n';
 }
 
 /* * * * * * * * * * * * * * * * * * * */
 /*      Custom colors for <Theme>      */
 /* * * * * * * * * * * * * * * * * * * */
 
-function customScaleStyle(prefix: 'fui-ca' | 'fui-cg', colors: ScaleColors): Record<string, string> {
+function customScaleStyle(prefix: 'fui-ca', colors: ScaleColors): Record<string, string> {
   const vars: Record<string, string> = {};
   colors.light.steps.forEach((v, i) => (vars[`--${prefix}-l${scaleStops[i]}`] = v));
   colors.dark.steps.forEach((v, i) => (vars[`--${prefix}-d${scaleStops[i]}`] = v));
   colors.light.alphas.forEach((v, i) => (vars[`--${prefix}-lalpha-${scaleStops[i]}`] = v));
   colors.dark.alphas.forEach((v, i) => (vars[`--${prefix}-dalpha-${scaleStops[i]}`] = v));
   // One contrast var covers both modes. Chromatic scales share a solid so the two
-  // agree; where they don't (grays), take whichever mode wants dark text — white text
+  // agree; where they don't, take whichever mode wants dark text — white text
   // on a too-light solid is unreadable, the reverse is merely lower contrast.
   vars[`--${prefix}-contrast`] = colors.light.contrast === 'white' ? colors.dark.contrast : colors.light.contrast;
   vars[`--${prefix}-ls`] = colors.light.surface;
   vars[`--${prefix}-ds`] = colors.dark.surface;
-  if (prefix === 'fui-cg') vars[`--${prefix}-dt`] = colors.dark.translucent;
   return vars;
 }
 
@@ -581,42 +576,6 @@ function customScaleStyle(prefix: 'fui-ca' | 'fui-cg', colors: ScaleColors): Rec
  */
 function createAccentScaleStyle(color: string): Record<string, string> {
   return customScaleStyle('fui-ca', computeScale(createPaletteFromColor(color)));
-}
-
-/**
- * Inline-style custom properties that make an arbitrary CSS color usable as the
- * gray scale under `data-gray-color="custom"`. Used by `<Theme grayColor="#3f3f46">`.
- */
-function createGrayScaleStyle(color: string): Record<string, string> {
-  return customScaleStyle('fui-cg', computeScale(createPaletteFromColor(color), { gray: true }));
-}
-
-/**
- * The dark-mode page background (scale step 10) for an arbitrary gray color, as a hex
- * string. theme.tsx applies this to `<body>`, which no CSS scale scope reaches.
- * Reads the generated scale so it can never drift from the gray step table.
- */
-function darkPageBackgroundFromColor(color: string): string {
-  return computeScale(createPaletteFromColor(color), { gray: true }).dark.steps[0];
-}
-
-/**
- * Pick the gray scale that pairs best with an arbitrary accent color, mirroring
- * `tailwindGetMatchingGrayScale`'s hue groupings. Falls back to `neutral` for
- * achromatic or unparseable colors.
- */
-function matchingGrayFromColor(color: string): 'slate' | 'stone' | 'neutral' | 'zinc' {
-  try {
-    const c = parseColor(color);
-    if (oklabChroma(c) < 0.02) return 'neutral';
-    const hue = ((oklabHueDeg(c) % 360) + 360) % 360;
-    if (hue >= 35 && hue < 115) return 'stone'; // warm: orange/amber/yellow
-    if (hue >= 115 && hue < 190) return 'neutral'; // greens
-    if (hue >= 190 && hue < 285) return 'slate'; // cool: cyan/sky/blue/indigo
-    return 'zinc'; // reds, purples and pinks
-  } catch {
-    return 'neutral';
-  }
 }
 
 /* * * * * * * * * * * * * * * * * * * */
@@ -656,16 +615,13 @@ export {
   accentMappingCss,
   computeScale,
   createAccentScaleStyle,
-  createGrayScaleStyle,
   createPaletteCss,
   createPaletteFromColor,
   cssColorToHex,
-  darkPageBackgroundFromColor,
   grayMappingCss,
-  matchingGrayFromColor,
   scaleCss,
   scaleStops,
   semanticMappingCss,
   tailwindPaletteStops,
 };
-export type { CreatePaletteCssOptions, ScaleColors, TailwindPalette, TailwindPaletteStop };
+export type { ScaleColors, TailwindPalette, TailwindPaletteStop };

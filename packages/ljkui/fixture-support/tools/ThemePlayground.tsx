@@ -9,7 +9,6 @@ import {
   successColors,
   Theme,
   themeAccentColorsOrdered,
-  themeGrayColorsGrouped,
   Typography,
   warningColors,
 } from 'ljkui';
@@ -18,7 +17,7 @@ import * as React from 'react';
 /*
  * An interactive playground for the `<Theme>` component. The root decorator
  * (fixture-support/theme-decorator.tsx) already wraps every fixture in one `<Theme>`
- * driven by the appearance/accent/gray fixture inputs; this fixture renders its OWN
+ * driven by the appearance/accent fixture inputs; this fixture renders its OWN
  * nested `<Theme {...state}>` around a small showcase so the selectors below re-theme
  * just that panel, live, without touching the rest of the explorer. Every control maps to a real prop from `themePropDefs`
  * (src/theme-options.tsx) and offers only that prop's real value list. The output panel
@@ -28,7 +27,6 @@ import * as React from 'react';
 
 const APPEARANCES = ['inherit', 'light', 'dark'] as const;
 const ACCENT_COLORS = themeAccentColorsOrdered as readonly string[];
-const GRAY_COLORS = themeGrayColorsGrouped[0].values as readonly string[];
 
 /** The 12 role-scale steps ljkui computes for the current accent (see tailwind-palette.ts). */
 const ACCENT_STEPS = [10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
@@ -44,7 +42,6 @@ const DEFAULT_CUSTOM_HEX = '#7c3aed';
 interface ThemeState {
   appearance: (typeof APPEARANCES)[number];
   accentColor: string;
-  grayColor: string;
   dangerColor: (typeof dangerColors)[number];
   warningColor: (typeof warningColors)[number];
   successColor: (typeof successColors)[number];
@@ -55,7 +52,6 @@ interface ThemeState {
 const DEFAULT_STATE: ThemeState = {
   appearance: 'light',
   accentColor: 'blue',
-  grayColor: 'auto',
   dangerColor: 'red',
   warningColor: 'amber',
   successColor: 'green',
@@ -274,7 +270,6 @@ function buildJsx(state: ThemeState): string {
   const props: string[] = [];
   if (state.appearance !== 'inherit') props.push(`appearance="${state.appearance}"`);
   props.push(`accentColor="${state.accentColor}"`);
-  if (state.grayColor !== 'auto') props.push(`grayColor="${state.grayColor}"`);
   if (state.dangerColor !== 'red') props.push(`dangerColor="${state.dangerColor}"`);
   if (state.warningColor !== 'amber') props.push(`warningColor="${state.warningColor}"`);
   if (state.successColor !== 'green') props.push(`successColor="${state.successColor}"`);
@@ -287,7 +282,6 @@ function buildJsx(state: ThemeState): string {
 function buildAttrs(state: ThemeState): string {
   const attrs = [
     `data-accent-color="${state.accentColor}"`,
-    `data-gray-color="${state.grayColor}"`,
     `data-danger-color="${state.dangerColor}"`,
     `data-warning-color="${state.warningColor}"`,
     `data-success-color="${state.successColor}"`,
@@ -401,16 +395,8 @@ function ThemePlaygroundPage() {
                 onChange={(event) => set('accentColor', event.target.value)}
               />
             </div>
-            <p className="tp-hint">
-              Any CSS color — ljkui fits a full 12-step OKLab role scale at runtime and auto-picks a matching gray.
-            </p>
+            <p className="tp-hint">Any CSS color — ljkui fits a full 12-step OKLab role scale at runtime.</p>
           </div>
-          <SelectField
-            label="grayColor"
-            value={state.grayColor}
-            options={GRAY_COLORS}
-            onChange={(value) => set('grayColor', value)}
-          />
           <SelectField
             label="dangerColor"
             value={state.dangerColor}
@@ -452,7 +438,6 @@ function ThemePlaygroundPage() {
           <Theme
             appearance={state.appearance}
             accentColor={state.accentColor}
-            grayColor={state.grayColor}
             dangerColor={state.dangerColor}
             warningColor={state.warningColor}
             successColor={state.successColor}
@@ -501,7 +486,7 @@ function ThemePlaygroundPage() {
 
               <Card size="2" variant="surface">
                 <Typography.Text render={<div />} size="2">
-                  A surface card. The border, background, and accent links all track the current gray and accent scales.
+                  A surface card. The border, background, and accent links all track the current accent scale.
                 </Typography.Text>
               </Card>
 

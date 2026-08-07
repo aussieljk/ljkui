@@ -44,10 +44,21 @@ step(`${production ? 'Production' : 'Preview'} deploy`);
 // Build the static explorer (packages/ljkui/dist-uaight).
 run(['bun', 'run', 'build:explorer']);
 
+// The library build writes dist/llms.txt + llms-full.txt (see scripts/gen-llms-txt.ts). They
+// ship in the npm package, but an agent that has not installed ljkui can only fetch them —
+// so build the library too and serve both from the site root.
+run(['bun', 'run', 'build']);
+
 // Wrap it in a Build Output API bundle so `--prebuilt` serves it verbatim, no Vercel-side build.
 rmSync(OUTPUT, { recursive: true, force: true });
 mkdirSync(OUTPUT, { recursive: true });
 cpSync(STATIC, join(OUTPUT, 'static'), { recursive: true });
+
+for (const file of ['llms.txt', 'llms-full.txt']) {
+  const from = join(PKG, 'dist', file);
+  if (!existsSync(from)) fail(`${from} is missing — the library build should have written it`);
+  copyFileSync(from, join(OUTPUT, 'static', file));
+}
 writeFileSync(join(OUTPUT, 'config.json'), JSON.stringify({ version: 3 }) + '\n');
 
 // Vercel commands run from packages/ljkui so `--prebuilt` finds .vercel/output there. In CI the

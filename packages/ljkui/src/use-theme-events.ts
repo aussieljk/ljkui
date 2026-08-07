@@ -21,7 +21,6 @@ function validateThemeOptions(detail: unknown) {
     'accentColor',
     'appearance',
     'dangerColor',
-    'grayColor',
     'infoColor',
     'successColor',
     'warningColor',
@@ -45,14 +44,12 @@ export function useThemeEvents() {
     accentColor,
     appearance,
     dangerColor,
-    grayColor,
     infoColor,
     successColor,
     warningColor,
     onAccentColorChange,
     onAppearanceChange,
     onDangerColorChange,
-    onGrayColorChange,
     onInfoColorChange,
     onSuccessColorChange,
     onWarningColorChange,
@@ -66,7 +63,6 @@ export function useThemeEvents() {
         const d = validateThemeOptions(e.detail);
         if (d.appearance) onAppearanceChange(d.appearance);
         if (d.accentColor) onAccentColorChange(d.accentColor);
-        if (d.grayColor) onGrayColorChange(d.grayColor);
         if (d.infoColor) onInfoColorChange(d.infoColor);
         if (d.successColor) onSuccessColorChange(d.successColor);
         if (d.warningColor) onWarningColorChange(d.warningColor);
@@ -93,7 +89,6 @@ export function useThemeEvents() {
       detail: {
         appearance,
         accentColor,
-        grayColor,
         infoColor,
         successColor,
         warningColor,
@@ -101,7 +96,7 @@ export function useThemeEvents() {
       },
     });
     document.documentElement.dispatchEvent(event);
-  }, [appearance, accentColor, grayColor, infoColor, successColor, warningColor, dangerColor]);
+  }, [appearance, accentColor, infoColor, successColor, warningColor, dangerColor]);
 }
 
 export const WithThemeEvents: FC = () => {

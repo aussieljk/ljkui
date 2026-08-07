@@ -6,15 +6,13 @@ import '../src/styles/index.css';
 import './host.css';
 
 /*
- * Every fixture renders inside this. It replaces the three Storybook toolbar globals
- * (appearance / accent / gray) with fixture inputs, which is a straight upgrade: the
+ * Every fixture renders inside this. It replaces the Storybook toolbar globals
+ * (appearance / accent) with fixture inputs, which is a straight upgrade: the
  * values now live in the control panel next to the fixture's own inputs, and they ride
  * along in a shared link like any other control.
  */
 
 const ACCENTS = ['blue', 'indigo', 'violet', 'cyan', 'sky', 'green', 'amber', 'orange', 'red', 'rose', 'gray'] as const;
-
-const GRAYS = ['auto', 'slate', 'zinc', 'neutral', 'stone'] as const;
 
 const APPEARANCES = ['light', 'dark'] as const;
 
@@ -38,14 +36,8 @@ export function ThemeDecorator({ children }: { children: React.ReactNode }) {
     options: ACCENTS,
     description: 'Accent color',
   });
-  const [grayColor] = useFixtureInput<(typeof GRAYS)[number]>(`${THEME_PREFIX}gray`, 'auto', {
-    control: 'select',
-    options: GRAYS,
-    description: 'Gray scale paired with the accent',
-  });
-
   return (
-    <Theme appearance={appearance} accentColor={accentColor} grayColor={grayColor} hasBackground>
+    <Theme appearance={appearance} accentColor={accentColor} hasBackground>
       {children}
       <BreakpointBadge />
     </Theme>

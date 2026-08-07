@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Badge,
   Button,
-  Card,
   Switch,
   Theme,
   ThemePanel,
@@ -11,7 +10,6 @@ import {
   infoColors,
   successColors,
   tailwindColorScalesChromatic,
-  tailwindGrayScales,
   themePropDefs,
   warningColors,
 } from 'ljkui';
@@ -112,25 +110,6 @@ export const examples = {
     );
   },
 
-  'Gray color'() {
-    // `auto` picks the gray that matches the accent; the rest are Tailwind's neutrals.
-    const grays = ['auto', ...tailwindGrayScales] as const;
-    return (
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: 'var(--space-4)' }}>
-        {grays.map((grayColor) => (
-          <Theme key={grayColor} accentColor="blue" grayColor={grayColor}>
-            <Label>{grayColor}</Label>
-            <Card size="1">
-              <Typography.Text size="2" color="gray">
-                Gray text
-              </Typography.Text>
-            </Card>
-          </Theme>
-        ))}
-      </div>
-    );
-  },
-
   'Semantic colors'() {
     // Each semantic slot is itself themeable — `infoColor`, `successColor`, …
     return (
@@ -221,7 +200,7 @@ export const examples = {
   },
 
   'Has background'() {
-    // A nested `Theme` only paints a background when it changes appearance or gray,
+    // A nested `Theme` only paints a background when it changes appearance,
     // unless `hasBackground` says otherwise.
     return (
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 'var(--space-4)' }}>

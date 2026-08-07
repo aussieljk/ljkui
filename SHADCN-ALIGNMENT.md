@@ -181,18 +181,12 @@ reworking `Toggle`.
 
 ## 5. Default gray
 
-`packages/ljkui/src/theme-options.tsx`:
+`packages/ljkui/src/theme-options.tsx` used to expose a `grayColor` prop, defaulted here to
+`neutral`. **That prop no longer exists** — the gray scale is fixed to `neutral` and is not
+themeable. `.ljkui` maps `--gray-*` at `--neutral-*` unconditionally in
+`src/styles/tokens/palettes.css`.
 
-```diff
-- grayColor: { type: 'enum', values: grayColors, default: 'gray' },
-+ grayColor: { type: 'enum', values: grayColors, default: 'neutral' },
-```
-
-One line was enough: `[data-gray-color='neutral']` already exists in
-`src/styles/tokens/palettes.css`, and `theme.tsx` always emits the attribute rather than omitting it
-when it matches the default.
-
-Note this is the **theme** gray. Component-level `color="gray"` defaults (`Separator`, `Skeleton`,
+Note this was the **theme** gray. Component-level `color="gray"` defaults (`Separator`, `Skeleton`,
 `InputOTP`) refer to the semantic gray token and were left alone — they follow whatever the theme
 resolves `--gray-*` to, so they pick up `neutral` automatically.
 

@@ -4,8 +4,8 @@ import { DirectionProvider, mergeProps, useRender } from '@base-ui/react';
 import { Tooltip as TooltipPrimitive } from '@base-ui/react/tooltip';
 import classNames from 'classnames';
 import * as React from 'react';
-import { createAccentScaleStyle, createGrayScaleStyle, darkPageBackgroundFromColor } from './helpers/tailwind-palette';
-import { getMatchingGrayColor, isCustomAccentColor, isCustomGrayColor, themePropDefs } from './theme-options';
+import { createAccentScaleStyle } from './helpers/tailwind-palette';
+import { isCustomAccentColor, themePropDefs } from './theme-options';
 
 import type { ThemeOptions } from './theme-options';
 import { WithThemeEvents } from './use-theme-events';
@@ -15,16 +15,13 @@ const noop = () => {};
 interface ThemeChangeHandlers {
   onAppearanceChange: (appearance: ThemeOptions['appearance']) => void;
   onAccentColorChange: (accentColor: ThemeOptions['accentColor']) => void;
-  onGrayColorChange: (grayColor: ThemeOptions['grayColor']) => void;
   onInfoColorChange: (infoColor: ThemeOptions['infoColor']) => void;
   onWarningColorChange: (warningColor: ThemeOptions['warningColor']) => void;
   onSuccessColorChange: (successColor: ThemeOptions['successColor']) => void;
   onDangerColorChange: (dangerColor: ThemeOptions['dangerColor']) => void;
 }
 
-interface ThemeContextValue extends ThemeOptions, ThemeChangeHandlers {
-  resolvedGrayColor: ThemeOptions['grayColor'];
-}
+interface ThemeContextValue extends ThemeOptions, ThemeChangeHandlers {}
 const ThemeContext = React.createContext<ThemeContextValue | undefined>(undefined);
 
 function useThemeContext() {
@@ -57,7 +54,6 @@ const ThemeRoot = (props: ThemeRootProps) => {
   const {
     appearance: appearanceProp = themePropDefs.appearance.default,
     accentColor: accentColorProp = themePropDefs.accentColor.default,
-    grayColor: grayColorProp = themePropDefs.grayColor.default,
     infoColor: infoColorProp = themePropDefs.infoColor.default,
     successColor: successColorProp = themePropDefs.successColor.default,
     warningColor: warningColorProp = themePropDefs.warningColor.default,
@@ -70,9 +66,6 @@ const ThemeRoot = (props: ThemeRootProps) => {
 
   const [accentColor, setAccentColor] = React.useState(accentColorProp);
   React.useEffect(() => setAccentColor(accentColorProp), [accentColorProp]);
-
-  const [grayColor, setGrayColor] = React.useState(grayColorProp);
-  React.useEffect(() => setGrayColor(grayColorProp), [grayColorProp]);
 
   const [infoColor, setInfoColor] = React.useState(infoColorProp);
   React.useEffect(() => setInfoColor(infoColorProp), [infoColorProp]);
@@ -102,18 +95,9 @@ const ThemeRoot = (props: ThemeRootProps) => {
   // Client-side only changes when `appearance` prop is changed while developing
   React.useEffect(() => updateThemeAppearanceClass(appearanceProp), [appearanceProp]);
 
-  const resolvedGrayColor = grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor;
-
-  // Custom gray colors have no global `--{name}-1` token, so compute the dark page
-  // background directly (it is applied to <body>, outside any theme scope).
-  let darkPageBackground = `var(--${resolvedGrayColor}-10)`;
-  if (isCustomGrayColor(resolvedGrayColor)) {
-    try {
-      darkPageBackground = darkPageBackgroundFromColor(resolvedGrayColor);
-    } catch {
-      darkPageBackground = 'var(--gray-10)';
-    }
-  }
+  // The dark page background is applied to <body>, which no theme scope reaches, so it
+  // names the fixed gray scale directly rather than reading `--gray-10`.
+  const darkPageBackground = 'var(--neutral-10)';
 
   return (
     <>
@@ -143,7 +127,6 @@ body { background-color: var(--color-page-background); }
         //
         appearance={appearance}
         accentColor={accentColor}
-        grayColor={grayColor}
         infoColor={infoColor}
         successColor={successColor}
         warningColor={warningColor}
@@ -151,7 +134,6 @@ body { background-color: var(--color-page-background); }
         //
         onAppearanceChange={setAppearance}
         onAccentColorChange={setAccentColor}
-        onGrayColorChange={setGrayColor}
         onInfoColorChange={setInfoColor}
         onSuccessColorChange={setSuccessColor}
         onWarningColorChange={setWarningColor}
@@ -195,7 +177,6 @@ const ThemeImpl = (props: ThemeImplProps) => {
     //
     appearance = context?.appearance ?? themePropDefs.appearance.default,
     accentColor = context?.accentColor ?? themePropDefs.accentColor.default,
-    grayColor = context?.resolvedGrayColor ?? themePropDefs.grayColor.default,
     dangerColor = context?.dangerColor ?? themePropDefs.dangerColor.default,
     warningColor = context?.warningColor ?? themePropDefs.warningColor.default,
     successColor = context?.successColor ?? themePropDefs.successColor.default,
@@ -203,7 +184,6 @@ const ThemeImpl = (props: ThemeImplProps) => {
     //
     onAppearanceChange = noop,
     onAccentColorChange = noop,
-    onGrayColorChange = noop,
     onInfoColorChange = noop,
     onSuccessColorChange = noop,
     onWarningColorChange = noop,
@@ -211,38 +191,25 @@ const ThemeImpl = (props: ThemeImplProps) => {
     //
     ...themeProps
   } = props;
-  const resolvedGrayColor = grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor;
   const isExplicitAppearance = props.appearance !== undefined && props.appearance !== 'inherit';
-  const isExplicitGrayColor = props.grayColor !== undefined;
-  const shouldHaveBackground =
-    !isRoot && (hasBackground === true || (hasBackground !== false && (isExplicitAppearance || isExplicitGrayColor)));
+  const shouldHaveBackground = !isRoot && (hasBackground === true || (hasBackground !== false && isExplicitAppearance));
 
-  // Custom (non-named) colors render as data-*-color="custom" plus inline scale vars;
-  // the blocks in tokens/custom-color.css turn them into --accent-* / --gray-*.
+  // A custom (non-named) accent renders as data-accent-color="custom" plus inline scale
+  // vars; the block in tokens/custom-color.css turns them into --accent-*.
   const custom = React.useMemo(() => {
-    const style: Record<string, string> = {};
+    let style: Record<string, string> | undefined;
     let accentAttr = accentColor;
-    let grayAttr = resolvedGrayColor;
     if (isCustomAccentColor(accentColor)) {
       try {
-        Object.assign(style, createAccentScaleStyle(accentColor));
+        style = createAccentScaleStyle(accentColor);
         accentAttr = 'custom';
       } catch {
         console.warn(`ljkui: unsupported accentColor "${accentColor}". Use #hex, rgb() or oklch().`);
         accentAttr = themePropDefs.accentColor.default;
       }
     }
-    if (isCustomGrayColor(resolvedGrayColor)) {
-      try {
-        Object.assign(style, createGrayScaleStyle(resolvedGrayColor));
-        grayAttr = 'custom';
-      } catch {
-        console.warn(`ljkui: unsupported grayColor "${resolvedGrayColor}". Use #hex, rgb() or oklch().`);
-        grayAttr = themePropDefs.grayColor.default;
-      }
-    }
-    return { style: Object.keys(style).length > 0 ? style : undefined, accentAttr, grayAttr };
-  }, [accentColor, resolvedGrayColor]);
+    return { style, accentAttr };
+  }, [accentColor]);
 
   const element = useRender({
     render,
@@ -255,7 +222,6 @@ const ThemeImpl = (props: ThemeImplProps) => {
         'data-warning-color': warningColor,
         'data-success-color': successColor,
         'data-info-color': infoColor,
-        'data-gray-color': custom.grayAttr,
         ...(custom.style ? { style: custom.style as React.CSSProperties } : null),
         // for nested `Theme` background
         'data-has-background': shouldHaveBackground ? 'true' : 'false',
@@ -293,12 +259,9 @@ const ThemeImpl = (props: ThemeImplProps) => {
           warningColor,
           successColor,
           infoColor,
-          grayColor,
-          resolvedGrayColor,
           //
           onAppearanceChange,
           onAccentColorChange,
-          onGrayColorChange,
           onInfoColorChange,
           onSuccessColorChange,
           onWarningColorChange,
@@ -311,12 +274,9 @@ const ThemeImpl = (props: ThemeImplProps) => {
           warningColor,
           successColor,
           infoColor,
-          grayColor,
-          resolvedGrayColor,
           //
           onAppearanceChange,
           onAccentColorChange,
-          onGrayColorChange,
           onInfoColorChange,
           onSuccessColorChange,
           onWarningColorChange,

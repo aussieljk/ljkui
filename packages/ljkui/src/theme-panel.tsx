@@ -4,14 +4,13 @@ import { Button, Kbd, ScrollArea, Tooltip, Typography } from './components';
 import { Theme, updateThemeAppearanceClass, useThemeContext } from './theme';
 import {
   dangerColors,
-  getMatchingGrayColor,
   infoColors,
   successColors,
   themeAccentColorsOrdered,
   themePropDefs,
   warningColors,
 } from './theme-options';
-import { tailwindGrayScales, useCallbackRef } from './helpers';
+import { useCallbackRef } from './helpers';
 
 import React from 'react';
 import type { ThemeOptions } from './theme-options';
@@ -43,8 +42,6 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
     onAppearanceChange,
     accentColor,
     onAccentColorChange,
-    grayColor,
-    onGrayColorChange,
     infoColor,
     onInfoColorChange,
     successColor,
@@ -73,15 +70,11 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
     [onAppearanceChange, hasOnAppearanceChangeProp, handleAppearanceChangeProp],
   );
 
-  const autoMatchedGray = getMatchingGrayColor(accentColor);
-  const resolvedGrayColor = grayColor === 'auto' ? autoMatchedGray : grayColor;
-
   const [copyState, setCopyState] = React.useState<'idle' | 'copying' | 'copied'>('idle');
   async function handleCopyThemeConfig() {
     const theme: Partial<ThemeOptions> = {
       appearance: appearance === themePropDefs.appearance.default ? undefined : appearance,
       accentColor: accentColor === themePropDefs.accentColor.default ? undefined : accentColor,
-      grayColor: grayColor === themePropDefs.grayColor.default ? undefined : grayColor,
     };
 
     const props = Object.keys(theme)
@@ -229,9 +222,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
           >
             {themeAccentColorsOrdered.map((color) => (
               <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-700)` }}>
-                <Tooltip
-                  content={`${upperFirst(color)}${accentColor === 'gray' ? ` (${upperFirst(resolvedGrayColor)})` : ''}`}
-                >
+                <Tooltip content={upperFirst(color)}>
                   <input
                     className="fui-ThemePanelSwatchInput"
                     type="radio"
@@ -239,56 +230,6 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
                     value={color}
                     checked={accentColor === color}
                     onChange={(event) => onAccentColorChange(event.target.value as ThemeOptions['accentColor'])}
-                  />
-                </Tooltip>
-              </label>
-            ))}
-          </div>
-
-          <Typography.Text
-            render={<p />}
-            id="gray-color-title"
-            size="2"
-            weight="medium"
-            style={{
-              marginTop: 24,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            Gray color
-          </Typography.Text>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(10, 1fr)',
-              gap: 'var(--space-2)',
-              marginTop: 12,
-            }}
-            role="group"
-            aria-labelledby="gray-color-title"
-          >
-            {['auto', ...tailwindGrayScales].map((gray) => (
-              <label
-                key={gray}
-                className="fui-ThemePanelSwatch"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: gray === 'auto' ? `var(--${autoMatchedGray}-700)` : `var(--${gray}-700)`,
-                }}
-              >
-                <Tooltip content={`${upperFirst(gray)}${gray === 'auto' ? ` (${upperFirst(autoMatchedGray)})` : ''}`}>
-                  <input
-                    className="fui-ThemePanelSwatchInput"
-                    type="radio"
-                    name="grayColor"
-                    value={gray}
-                    checked={grayColor === gray}
-                    onChange={(event) => onGrayColorChange(event.target.value as ThemeOptions['grayColor'])}
                   />
                 </Tooltip>
               </label>

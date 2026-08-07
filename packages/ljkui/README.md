@@ -47,3 +47,21 @@ export default function () {
   );
 }
 ```
+
+## For AI agents
+
+ljkui ships the docs an agent needs to use it, inside the package.
+
+**TanStack Intent skills** — `skills/getting-started`, `skills/components`, `skills/forms`.
+Agents that support [Intent](https://tanstack.com/intent/latest) load these automatically
+from `node_modules/ljkui/skills/*/SKILL.md`.
+
+**Cheatsheet** — `node_modules/ljkui/dist/llms.txt`, also at
+<https://ljkui.vercel.app/llms.txt>. One page: setup, the rules that break things when
+ignored, and every component with the exact values each prop accepts.
+
+**Everything** — `dist/llms-full.txt` / <https://ljkui.vercel.app/llms-full.txt>. All the
+guides, plus a working code example for every component.
+
+All of it is generated from the source at build time (`scripts/gen-llms-txt.ts`), so it
+cannot drift from the real API.

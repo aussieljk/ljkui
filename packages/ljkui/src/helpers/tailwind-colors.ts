@@ -36,63 +36,12 @@ const tailwindBrightScales = ['amber', 'yellow', 'lime', 'sky'] as const;
 /** Tailwind's five neutral palettes. All are usable as an accent. */
 const tailwindNeutralScales = ['slate', 'gray', 'zinc', 'neutral', 'stone'] as const;
 
-/**
- * The neutrals offered as the theme's gray scale. `gray` is left out: `--gray-*`
- * already *is* the tailwind gray scale, so picking it does nothing.
- *
- * `slate` is the blue-tinted one. Cool accents (blue/sky/cyan) pair with a cool gray
- * and reds and purples with a warmer one; that tinting is a visible part of the look,
- * and dropping slate flattened every cool theme onto zinc.
- */
-const tailwindGrayScales = ['slate', 'zinc', 'neutral', 'stone'] as const;
-
 const tailwindColorScales = [...tailwindColorScalesChromatic, ...tailwindNeutralScales] as const;
 
 type TailwindColorScale = (typeof tailwindColorScales)[number];
-type TailwindGrayScale = (typeof tailwindGrayScales)[number];
 
 function isTailwindColorScale(color: string): color is TailwindColorScale {
   return (tailwindColorScales as readonly string[]).includes(color);
-}
-
-/** Pairs each accent with a neutral of matching temperature, from Tailwind's four offered grays. */
-function tailwindGetMatchingGrayScale(colorScale: TailwindColorScale): TailwindGrayScale {
-  switch (colorScale) {
-    // Warm hues pair with the warm gray.
-    case 'orange':
-    case 'amber':
-    case 'yellow':
-      return 'stone';
-    // Greens pair with the pure gray: Tailwind has no green-tinted neutral, so the
-    // untinted one is the closest available.
-    case 'lime':
-    case 'green':
-    case 'emerald':
-    case 'teal':
-      return 'neutral';
-    // Cool hues pair with the blue-tinted gray.
-    case 'cyan':
-    case 'sky':
-    case 'blue':
-    case 'indigo':
-      return 'slate';
-    // Reds, purples and pinks pair with the mauve-ish gray.
-    case 'red':
-    case 'violet':
-    case 'purple':
-    case 'fuchsia':
-    case 'pink':
-    case 'rose':
-      return 'zinc';
-    // A neutral accent pairs with itself, or with its nearest offered gray.
-    case 'gray':
-      return 'neutral';
-    case 'slate':
-    case 'zinc':
-    case 'neutral':
-    case 'stone':
-      return colorScale;
-  }
 }
 
 export {
@@ -100,8 +49,6 @@ export {
   tailwindBrightScales,
   tailwindColorScales,
   tailwindColorScalesChromatic,
-  tailwindGetMatchingGrayScale,
-  tailwindGrayScales,
   tailwindNeutralScales,
 };
-export type { TailwindColorScale, TailwindGrayScale };
+export type { TailwindColorScale };

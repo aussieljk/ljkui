@@ -8,7 +8,7 @@ All theming happens through the `Theme` component and CSS variables.
 ```tsx
 import { Theme } from 'ljkui';
 
-<Theme accentColor="blue" grayColor="neutral" appearance="inherit">
+<Theme accentColor="blue" appearance="inherit">
   <App />
 </Theme>;
 ```
@@ -19,8 +19,6 @@ Configuration is managed and applied via `<Theme />`, including the semantic col
 <Theme
   // Sets Light or Dark mode
   appearance="dark"
-  // Neutral color of the UI
-  grayColor="neutral"
   // Accent color (mainly used as a default color for interactive elements)
   accentColor="blue"
   // Semantic colors
@@ -84,14 +82,10 @@ directly. Once the CSS is injected, the name works everywhere a scale name does:
 // var(--my-brand-9), var(--my-brand-a3), …
 ```
 
-Pass `{ gray: true }` as the third argument to also emit the mapping that lets the palette be
-used as the Theme `grayColor`.
-
 ## Gray scale
 
-`grayColor` selects the neutral scale: `zinc`, `neutral`, `stone`, or `auto`
-(picks the gray that matches your accent). `slate` and `gray` are accent-only — `--gray-*`
-already is the tailwind gray scale, and slate is a near-duplicate of zinc.
+The gray scale is fixed. `--gray-10` through `--gray-950` are always Tailwind's `neutral`
+palette, in both light and dark mode. There is no prop for it.
 
 ## Light and dark
 

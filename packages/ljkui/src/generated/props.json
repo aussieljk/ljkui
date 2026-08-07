@@ -1404,10 +1404,6 @@
       "type": "\"red\" | \"orange\" | \"amber\" | \"yellow\" | \"lime\" | \"green\" | \"emerald\" | \"teal\" | \"cyan\" | \"sky\" | \"blue\" | \"indigo\" | \"violet\" | \"purple\" | \"fuchsia\" | \"pink\" | \"rose\" | \"slate\" | \"gray\" | \"zinc\" | \"neutral\" | \"stone\"",
       "default": "blue"
     },
-    "grayColor": {
-      "type": "\"slate\" | \"zinc\" | \"neutral\" | \"stone\" | \"auto\"",
-      "default": "neutral"
-    },
     "dangerColor": {
       "type": "\"red\" | \"rose\"",
       "default": "red"

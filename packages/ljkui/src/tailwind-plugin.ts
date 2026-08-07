@@ -1,19 +1,17 @@
 // Forked from https://github.com/needim/ljkui-themes-with-tailwind
 import plugin, { type PluginAPI } from 'tailwindcss/plugin';
+import { tailwindNeutralScales } from './helpers/tailwind-colors';
 import { scaleStops } from './helpers/tailwind-palette';
-import { semanticColors, themeAccentColorsGrouped, themeGrayColorsGrouped } from './theme-options';
+import { semanticColors, themeAccentColorsGrouped } from './theme-options';
 
 export const accentColorNames: string[] = [];
-export const grayColorNames: string[] = [];
+/** The neutral palettes. Only these carry a `-50-translucent` step. */
+const neutralColorNames: string[] = [...tailwindNeutralScales];
 
 type LJKUIColorScales = (typeof scaleStops)[number];
 
 themeAccentColorsGrouped.map((group) => {
   accentColorNames.push(...group.values.filter((color) => color !== 'gray'));
-});
-
-themeGrayColorsGrouped.map((group) => {
-  grayColorNames.push(...group.values.filter((color) => color !== 'auto'));
 });
 
 export function getColorTokenName(stop: LJKUIColorScales, alpha?: boolean): number | string {
@@ -67,14 +65,14 @@ export const ljkuiThemePlugin: ReturnType<typeof plugin.withOptions> = plugin.wi
         ...getColorDefinitions(colorName, true),
       };
 
-      if (grayColorNames.includes(colorName)) {
+      if (neutralColorNames.includes(colorName)) {
         c[`${getColorTokenName(50, false)}-translucent`] = `var(--${colorName}-50-translucent)`;
       }
 
       return c;
     }
 
-    const allLJKUIColors = [...accentColorNames, ...semanticColors, ...grayColorNames].reduce<
+    const allLJKUIColors = [...accentColorNames, ...semanticColors, ...neutralColorNames].reduce<
       Record<string, Record<string, string>>
     >((acc, colorName) => {
       acc[colorName] = { ...generateTailwindColors(colorName) };
