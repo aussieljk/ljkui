@@ -29,6 +29,17 @@ export default defineConfig({
     },
     react(),
     uight(uightOptions),
+    /*
+     * uight generates the explorer's document itself (dev and static build alike) and has no
+     * favicon option, so inject the link. `public/favicon.png` is copied to the site root by
+     * Vite, and served from there in dev.
+     */
+    {
+      name: 'ljkui:favicon',
+      transformIndexHtml: () => [
+        { tag: 'link', attrs: { rel: 'icon', type: 'image/png', href: '/favicon.png' }, injectTo: 'head' as const },
+      ],
+    },
   ],
   resolve: {
     /*
