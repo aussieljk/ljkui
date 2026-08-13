@@ -26,9 +26,6 @@
       "ljkui/icons": [
         "./src/icons"
       ],
-      "ljkui/icons/*": [
-        "./src/icons/adapters/*"
-      ]
     }
   },
   "include": [

@@ -50,11 +50,8 @@ Then make sure the component has all of the following — the CI gates enforce m
 
 - **Never hand-edit `.github/workflows/*.yml`** — they're generated from `ci/workflows.ts`
   (`bun run workflows`); CI fails if they've drifted.
-- **Never edit files under `fixtures/`, `src/icons/adapters/`, or `palettes.css`** —
-  all generated. Edit the source + rerun the generator.
-- **`sideEffects` in the package must stay `["./dist/icons/adapters/*"]`** — `false`
-  tree-shakes the self-registering icon adapters away. The `{ Button }` size-limit budget
-  guards this.
+- **Never edit files under `fixtures/` or `palettes.css`** — both generated. Edit the
+  source + rerun the generator.
 - The library ships **no font-family and no remote `@import`** — see the CLAUDE.md note.
 
 ## Commits

@@ -90,22 +90,21 @@ export const GUIDES: Array<{ file: string; title: string }> = [
   { file: 'color.mdx', title: '4. Color' },
   { file: 'breakpoints.mdx', title: '5. Breakpoints' },
   { file: 'tailwind.mdx', title: '6. Tailwind plugin' },
-  { file: 'icons.mdx', title: '7. Icons' },
-  { file: 'render-prop.mdx', title: '8. Render Prop (Composition)' },
+  { file: 'render-prop.mdx', title: '7. Render Prop (Composition)' },
   /*
    * `forms.mdx` and `oscar.mdx` were written for the Fumadocs site and never made it into
    * the Storybook guide list, so they sat in `guides/` unreferenced and unrendered for
    * months. `check:explorer` is what surfaced them.
    */
-  { file: 'forms.mdx', title: '9. Forms & Field Binding' },
-  { file: 'theming.mdx', title: '10. Theming' },
-  { file: 'layout.mdx', title: '11. Layout' },
-  { file: 'adopting-tokens.mdx', title: '12. Adopting Tokens' },
-  { file: 'oscar.mdx', title: '13. Oscar (a tour)' },
+  { file: 'forms.mdx', title: '8. Forms & Field Binding' },
+  { file: 'theming.mdx', title: '9. Theming' },
+  { file: 'layout.mdx', title: '10. Layout' },
+  { file: 'adopting-tokens.mdx', title: '11. Adopting Tokens' },
+  { file: 'oscar.mdx', title: '12. Oscar (a tour)' },
 ];
 
 /**
- * The hand-authored explorer tools. These were the three hand-written `*.stories.tsx`
+ * The hand-authored explorer tools. These were the hand-written `*.stories.tsx`
  * modules that lived alongside the generated ones; their components now sit in
  * `fixture-support/tools/`, each exporting a `fixtures` object, and this wraps them the
  * same way a component's examples are wrapped.
@@ -115,6 +114,5 @@ export const GUIDES: Array<{ file: string; title: string }> = [
  */
 export const TOOLS: Array<{ module: string; name: string; layout: Layout }> = [
   { module: 'ColorScale', name: 'ColorScale', layout: 'fullscreen' },
-  { module: 'IconBrowser', name: 'IconBrowser', layout: 'fullscreen' },
   { module: 'ThemePlayground', name: 'ThemePlayground', layout: 'fullscreen' },
 ];

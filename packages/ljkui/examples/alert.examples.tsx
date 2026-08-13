@@ -1,7 +1,6 @@
-import { lucideAdapter } from 'ljkui/icons/lucide';
 import { Info } from 'lucide-react';
 import React from 'react';
-import { Alert, Link, Typography, IconProvider, Icons } from 'ljkui';
+import { Alert, Link, Typography } from 'ljkui';
 
 /**
  * Where this component sits in the explorer, and how its fixtures are framed.
@@ -29,19 +28,17 @@ export const examples = {
   /** The canonical usage — was `demos/alert.demo.tsx` before demos folded into examples. */
   Overview() {
     return (
-      <IconProvider library={lucideAdapter}>
-        <Alert.Root color="warning" className="max-w-105">
-          <Alert.Icon>
-            <Icons.Info />
-          </Alert.Icon>
-          <Alert.Title>Your trial ends in 3 days</Alert.Title>
-          <Alert.Description>Upgrade to keep access to analytics and priority support.</Alert.Description>
-          <Alert.Actions>
-            <Alert.Action>Upgrade</Alert.Action>
-            <Alert.Action variant="secondary">Remind me later</Alert.Action>
-          </Alert.Actions>
-        </Alert.Root>
-      </IconProvider>
+      <Alert.Root color="warning" className="max-w-105">
+        <Alert.Icon>
+          <Info />
+        </Alert.Icon>
+        <Alert.Title>Your trial ends in 3 days</Alert.Title>
+        <Alert.Description>Upgrade to keep access to analytics and priority support.</Alert.Description>
+        <Alert.Actions>
+          <Alert.Action>Upgrade</Alert.Action>
+          <Alert.Action variant="secondary">Remind me later</Alert.Action>
+        </Alert.Actions>
+      </Alert.Root>
     );
   },
 

@@ -23,26 +23,6 @@
       "types": "./dist/icons/index.d.ts",
       "import": "./dist/icons/index.js"
     },
-    "./icons/heroicons": {
-      "types": "./dist/icons/adapters/heroicons.d.ts",
-      "import": "./dist/icons/adapters/heroicons.js"
-    },
-    "./icons/hugeicons": {
-      "types": "./dist/icons/adapters/hugeicons.d.ts",
-      "import": "./dist/icons/adapters/hugeicons.js"
-    },
-    "./icons/lucide": {
-      "types": "./dist/icons/adapters/lucide.d.ts",
-      "import": "./dist/icons/adapters/lucide.js"
-    },
-    "./icons/phosphor": {
-      "types": "./dist/icons/adapters/phosphor.d.ts",
-      "import": "./dist/icons/adapters/phosphor.js"
-    },
-    "./icons/tabler": {
-      "types": "./dist/icons/adapters/tabler.d.ts",
-      "import": "./dist/icons/adapters/tabler.js"
-    },
     "./props.json": "./dist/props.json",
     "./llms.txt": "./dist/llms.txt",
     "./llms-full.txt": "./dist/llms-full.txt"
@@ -50,9 +30,7 @@
   "bin": {
     "ljkui-lint-raw-colors": "./dist/bin/lint-raw-colors.js"
   },
-  "sideEffects": [
-    "./dist/icons/adapters/*"
-  ],
+  "sideEffects": false,
   "license": "MIT",
   "files": [
     "dist/**",
@@ -73,7 +51,6 @@
     "lint:js": "bun x oxlint src examples fixture-support",
     "lint:css": "stylelint \"src/**/*.css\"",
     "generate:emoji-colors": "bun scripts/emoji-colors/generate.ts",
-    "generate:icon-adapters": "bun scripts/generate-icon-adapters.ts",
     "generate:palettes": "bun scripts/generate-palettes.ts && bun run generate:tokens-snapshot",
     "generate:props": "bun scripts/gen-props.ts",
     "generate:tokens-snapshot": "bun scripts/gen-token-snapshot.ts",
@@ -112,38 +89,14 @@
     "tslib": "^2.8.1"
   },
   "peerDependencies": {
-    "@heroicons/react": "^2.0.0",
     "tailwindcss": "^4.0.0",
-    "@hugeicons/core-free-icons": ">=1.0.0",
-    "@hugeicons/react": ">=1.0.0",
-    "@phosphor-icons/react": "^2.0.0",
-    "@tabler/icons-react": ">=2.0.0",
     "@types/react": "*",
     "@types/react-dom": "*",
-    "lucide-react": ">=0.300.0",
     "react": "^17.0 || ^18.0 || ^19.0",
     "react-dom": "^17.0 || ^18.0 || ^19.0"
   },
   "peerDependenciesMeta": {
-    "@heroicons/react": {
-      "optional": true
-    },
-    "@hugeicons/core-free-icons": {
-      "optional": true
-    },
-    "@hugeicons/react": {
-      "optional": true
-    },
-    "@phosphor-icons/react": {
-      "optional": true
-    },
-    "@tabler/icons-react": {
-      "optional": true
-    },
     "tailwindcss": {
-      "optional": true
-    },
-    "lucide-react": {
       "optional": true
     },
     "@types/react": {
@@ -155,15 +108,10 @@
   },
   "devDependencies": {
     "@aussieljk/uight": "0.0.1-canary.3",
-    "@heroicons/react": "^2.2.0",
-    "@hugeicons/core-free-icons": "^4.2.3",
-    "@hugeicons/react": "^1.1.9",
     "@mdx-js/react": "^3.1.1",
     "@mdx-js/rollup": "^3.1.1",
     "@napi-rs/canvas": "^1.0.2",
-    "@phosphor-icons/react": "^2.1.10",
     "@size-limit/preset-small-lib": "^13.0.2",
-    "@tabler/icons-react": "^3.45.0",
     "@tanstack/react-form": "^1.33.2",
     "@tanstack/react-table": "^8.21.3",
     "@types/color-convert": "^2.0.4",

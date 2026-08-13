@@ -3,56 +3,30 @@
     "name": "core — import * (full public surface, tree-shaken)",
     "path": "dist/index.js",
     "import": "*",
-    "ignore": ["react", "react-dom"],
+    "ignore": [
+      "react",
+      "react-dom"
+    ],
     "limit": "280 kB"
   },
   {
     "name": "core — { Button } (single component, guards tree-shaking)",
     "path": "dist/index.js",
     "import": "{ Button }",
-    "ignore": ["react", "react-dom"],
+    "ignore": [
+      "react",
+      "react-dom"
+    ],
     "limit": "8 kB"
   },
   {
     "name": "core — { Theme } (theming runtime only)",
     "path": "dist/index.js",
     "import": "{ Theme }",
-    "ignore": ["react", "react-dom"],
+    "ignore": [
+      "react",
+      "react-dom"
+    ],
     "limit": "42 kB"
-  },
-  {
-    "name": "icons/lucide — adapter glue (guards sideEffects tree-shaking)",
-    "path": "dist/icons/adapters/lucide.js",
-    "import": "*",
-    "ignore": ["react", "react-dom", "lucide-react"],
-    "limit": "3 kB"
-  },
-  {
-    "name": "icons/heroicons — adapter glue (guards sideEffects tree-shaking)",
-    "path": "dist/icons/adapters/heroicons.js",
-    "import": "*",
-    "ignore": ["react", "react-dom", "@heroicons/react"],
-    "limit": "3 kB"
-  },
-  {
-    "name": "icons/phosphor — adapter glue (guards sideEffects tree-shaking)",
-    "path": "dist/icons/adapters/phosphor.js",
-    "import": "*",
-    "ignore": ["react", "react-dom", "@phosphor-icons/react"],
-    "limit": "3 kB"
-  },
-  {
-    "name": "icons/tabler — adapter glue (guards sideEffects tree-shaking)",
-    "path": "dist/icons/adapters/tabler.js",
-    "import": "*",
-    "ignore": ["react", "react-dom", "@tabler/icons-react"],
-    "limit": "3 kB"
-  },
-  {
-    "name": "icons/hugeicons — adapter glue (different runtime shape; guards tree-shaking)",
-    "path": "dist/icons/adapters/hugeicons.js",
-    "import": "*",
-    "ignore": ["react", "react-dom", "@hugeicons/react", "@hugeicons/core-free-icons"],
-    "limit": "3 kB"
   }
 ]

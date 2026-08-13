@@ -206,7 +206,7 @@ const rules = [
   '- Size, variant and radius props are strings, not numbers: `size="2"`, not `size={2}`.',
   '- `<color>` below means any of: danger, warning, success, info, red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia, pink, rose, slate, gray, zinc, neutral, stone.',
   '- The gray scale is fixed. There is no prop for it and no token to override — just use `color="gray"` or `var(--gray-*)`.',
-  "- Icons are a peer dependency. Pick one set and register it once at the root: `import 'ljkui/icons/lucide'` (or `/heroicons`, `/phosphor`, `/tabler`, `/hugeicons`).",
+  '- The library ships no icon set. Import icons from whatever library you like and pass them as children: `<Button><Search /> Search</Button>`. Inside a Button or IconButton they are sized automatically, so an icon that carries no width/height of its own still comes out right.',
   "- The library ships no font. Text inherits the host page's font; `--font-mono` is used for code if you define it.",
   '- ESM only. There is no CommonJS build.',
 ];

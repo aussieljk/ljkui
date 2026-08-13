@@ -30,32 +30,12 @@ if (!tarball) fail('npm pack produced no ljkui-*.tgz');
 // A throwaway consumer project, installed from the tarball only.
 const app = mkdtempSync(join(tmpdir(), 'ljkui-smoke-'));
 writeFileSync(join(app, 'package.json'), JSON.stringify({ name: 'smoke', private: true, type: 'module' }) + '\n');
-// The tarball plus the peers a real consumer installs: react, and every optional icon package the
-// adapters wrap (each adapter re-exports from its provider, so without the provider it can't resolve).
-const peers = [
-  'react',
-  'react-dom',
-  'tailwindcss',
-  'lucide-react',
-  '@heroicons/react',
-  '@hugeicons/react',
-  '@hugeicons/core-free-icons',
-  '@phosphor-icons/react',
-  '@tabler/icons-react',
-];
+// The tarball plus the peers a real consumer installs.
+const peers = ['react', 'react-dom', 'tailwindcss'];
 run(['bun', 'add', tarball!, ...peers], { cwd: app });
 
 // Every public entry point, exactly as a consumer would import it.
-const entries = [
-  'ljkui',
-  'ljkui/tailwind',
-  'ljkui/icons',
-  'ljkui/icons/lucide',
-  'ljkui/icons/heroicons',
-  'ljkui/icons/hugeicons',
-  'ljkui/icons/phosphor',
-  'ljkui/icons/tabler',
-];
+const entries = ['ljkui', 'ljkui/tailwind', 'ljkui/icons'];
 
 /*
  * Import each entry in a child. A *resolution* failure (ERR_MODULE_NOT_FOUND / "Cannot find

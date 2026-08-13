@@ -1,39 +1,19 @@
 'use client';
 
 import * as React from 'react';
-import { useAdapterIcon } from './registry';
-import type { CanonicalIconName } from './types';
 
 interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {
   children?: never;
   color?: string;
 }
 
-/**
- * Wraps a built-in inline-SVG icon so a registered icon adapter overrides it
- * when the adapter maps the matching canonical name. Without an adapter (the
- * out-of-the-box case) the built-in SVG renders, so components keep working
- * with zero configuration.
- */
-function createInternalIcon(
-  canonicalName: CanonicalIconName,
-  displayName: string,
-  intrinsicSize: number,
-  Fallback: (props: IconProps) => React.JSX.Element,
-) {
-  const InternalIcon = (props: IconProps) => {
-    const Override = useAdapterIcon(canonicalName);
-    if (Override) {
-      const AnyOverride = Override as React.ComponentType<Record<string, unknown>>;
-      return <AnyOverride width={intrinsicSize} height={intrinsicSize} {...props} />;
-    }
-    return <Fallback {...props} />;
-  };
-  InternalIcon.displayName = displayName;
-  return InternalIcon;
+/** Names a built-in inline-SVG icon for React devtools. */
+function createInternalIcon(displayName: string, Icon: React.FC<IconProps>): React.FC<IconProps> {
+  Icon.displayName = displayName;
+  return Icon;
 }
 
-const ThickCheckIcon = createInternalIcon('Check', 'ThickCheckIcon', 9, (props) => {
+const ThickCheckIcon = createInternalIcon('ThickCheckIcon', (props) => {
   const { color = 'currentColor', ...restProps } = props;
   return (
     <svg width="9" height="9" viewBox="0 0 9 9" fill={color} xmlns="http://www.w3.org/2000/svg" {...restProps}>
@@ -46,7 +26,7 @@ const ThickCheckIcon = createInternalIcon('Check', 'ThickCheckIcon', 9, (props) 
   );
 });
 
-const ThickChevronRightIcon = createInternalIcon('ChevronRight', 'ThickChevronRightIcon', 9, (props) => {
+const ThickChevronRightIcon = createInternalIcon('ThickChevronRightIcon', (props) => {
   const { color = 'currentColor', ...restProps } = props;
   return (
     <svg width="9" height="9" viewBox="0 0 9 9" fill={color} xmlns="http://www.w3.org/2000/svg" {...restProps}>
@@ -59,7 +39,7 @@ const ThickChevronRightIcon = createInternalIcon('ChevronRight', 'ThickChevronRi
   );
 });
 
-const ChevronRightIcon = createInternalIcon('ChevronRight', 'ChevronRightIcon', 10, (props) => {
+const ChevronRightIcon = createInternalIcon('ChevronRightIcon', (props) => {
   const { color = 'currentColor', ...restProps } = props;
   return (
     <svg width="6" height="10" viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg" fill={color} {...restProps}>
@@ -68,7 +48,6 @@ const ChevronRightIcon = createInternalIcon('ChevronRight', 'ChevronRightIcon', 
   );
 });
 
-// No canonical equivalent (a filled triangle, not a chevron) — never overridden.
 const TriangleDownIcon = (props: IconProps) => {
   const { color = 'currentColor', ...restProps } = props;
   return (
@@ -84,7 +63,7 @@ const TriangleDownIcon = (props: IconProps) => {
 };
 TriangleDownIcon.displayName = 'TriangleDownIcon';
 
-const InfoCircledIcon = createInternalIcon('Info', 'InfoCircledIcon', 15, (props) => {
+const InfoCircledIcon = createInternalIcon('InfoCircledIcon', (props) => {
   const { color = 'currentColor', ...restProps } = props;
   return (
     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...restProps}>
@@ -98,15 +77,7 @@ const InfoCircledIcon = createInternalIcon('Info', 'InfoCircledIcon', 15, (props
   );
 });
 
-const CALENDAR_ICON_PX: Record<'1' | '2' | '3' | '4', number> = { '1': 12, '2': 16, '3': 20, '4': 20 };
-
 function CalendarIcon({ size }: { size: '1' | '2' | '3' | '4' }): React.JSX.Element {
-  const Override = useAdapterIcon('Calendar');
-  if (Override) {
-    const px = CALENDAR_ICON_PX[size];
-    const AnyOverride = Override as React.ComponentType<Record<string, unknown>>;
-    return <AnyOverride width={px} height={px} style={{ color: 'var(--gray-alpha-900)' }} />;
-  }
   switch (size) {
     case '1':
       return (
@@ -160,7 +131,7 @@ function CalendarIcon({ size }: { size: '1' | '2' | '3' | '4' }): React.JSX.Elem
 }
 CalendarIcon.displayName = 'CalendarIcon';
 
-const XIcon = createInternalIcon('Close', 'XIcon', 16, (props) => {
+const XIcon = createInternalIcon('XIcon', (props) => {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path

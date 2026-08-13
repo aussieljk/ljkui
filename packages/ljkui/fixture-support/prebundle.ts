@@ -51,7 +51,6 @@ export const PREBUNDLE = [
   'classnames',
   'color-convert',
   'credit-card-type',
-  'lucide-react',
   'react',
   'react-aria-components',
   'react-dom',

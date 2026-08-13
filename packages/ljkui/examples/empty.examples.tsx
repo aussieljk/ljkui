@@ -1,4 +1,3 @@
-import { lucideAdapter } from 'ljkui/icons/lucide';
 import {
   Bell,
   CircleCheck,
@@ -8,6 +7,7 @@ import {
   FolderPlus,
   Frown,
   Hand,
+  Inbox,
   MessageCircle,
   Plus,
   Search,
@@ -32,8 +32,6 @@ import {
   Shine,
   Typography,
   getColorForEmoji,
-  IconProvider,
-  Icons,
 } from 'ljkui';
 
 /**
@@ -46,20 +44,18 @@ export const examples = {
   /** The canonical usage — was `demos/empty.demo.tsx` before demos folded into examples. */
   Overview() {
     return (
-      <IconProvider library={lucideAdapter}>
-        <Empty.Root>
-          <Empty.Header>
-            <Empty.Media>
-              <Icons.Inbox />
-            </Empty.Media>
-            <Empty.Title>No messages yet</Empty.Title>
-            <Empty.Description>When someone sends you a message, it will show up here.</Empty.Description>
-          </Empty.Header>
-          <Empty.Actions>
-            <Button variant="classic">Compose message</Button>
-          </Empty.Actions>
-        </Empty.Root>
-      </IconProvider>
+      <Empty.Root>
+        <Empty.Header>
+          <Empty.Media>
+            <Inbox />
+          </Empty.Media>
+          <Empty.Title>No messages yet</Empty.Title>
+          <Empty.Description>When someone sends you a message, it will show up here.</Empty.Description>
+        </Empty.Header>
+        <Empty.Actions>
+          <Button variant="classic">Compose message</Button>
+        </Empty.Actions>
+      </Empty.Root>
     );
   },
 

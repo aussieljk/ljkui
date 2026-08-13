@@ -44,8 +44,8 @@ export default defineConfig({
   resolve: {
     /*
      * Regex `find`s, and the array form, are both load-bearing. A bare `ljkui: …/src`
-     * string alias also rewrites every subpath as a prefix, so `ljkui/icons/lucide`
-     * resolves to `src/icons/lucide` — a path that does not exist — and the build dies
+     * string alias also rewrites every subpath as a prefix, so `ljkui/styles.css`
+     * resolves to `src/styles.css` — a path that does not exist — and the build dies
      * with UNLOADABLE_DEPENDENCY.
      *
      * Pointing at `src` rather than `dist` keeps a single module instance, so there is
@@ -54,7 +54,6 @@ export default defineConfig({
     alias: [
       { find: /^ljkui$/, replacement: resolve(packageRoot, 'src') },
       { find: /^ljkui\/icons$/, replacement: resolve(packageRoot, 'src/icons') },
-      { find: /^ljkui\/icons\/(.+)$/, replacement: resolve(packageRoot, 'src/icons/adapters/$1') },
     ],
   },
   optimizeDeps: {

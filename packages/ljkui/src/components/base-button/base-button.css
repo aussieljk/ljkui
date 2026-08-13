@@ -11,6 +11,20 @@
   &:where([aria-busy]) {
     position: relative;
   }
+
+  /*
+   * Size any icon passed as a child. Without this an SVG carrying only a
+   * `viewBox` (heroicons, or a hand-written `<svg>`) falls back to the CSS
+   * default replaced-element size of 300x150. Zero-specificity so a consumer
+   * utility (`size-5`) wins, while still beating the presentation attributes
+   * libraries like lucide hardcode.
+   */
+  /* stylelint-disable-next-line selector-max-type */
+  & :where(svg) {
+    width: var(--base-button-icon-size);
+    height: var(--base-button-icon-size);
+    flex-shrink: 0;
+  }
 }
 
 /***************************************************************************************************
@@ -29,24 +43,28 @@
     --base-button-height: var(--space-5);
     border-radius: 6px;
     --base-button-spinner-size: 12px;
+    --base-button-icon-size: 12px;
   }
   &:where(.fui-r-size-2) {
     --base-button-classic-active-padding-top: 2px;
     --base-button-height: var(--space-6);
     border-radius: 8px;
     --base-button-spinner-size: 16px;
+    --base-button-icon-size: 16px;
   }
   &:where(.fui-r-size-3) {
     --base-button-classic-active-padding-top: 2px;
     --base-button-height: var(--space-7);
     border-radius: 10px;
     --base-button-spinner-size: 18px;
+    --base-button-icon-size: 18px;
   }
   &:where(.fui-r-size-4) {
     --base-button-classic-active-padding-top: 2px;
     --base-button-height: var(--space-8);
     border-radius: 14px;
     --base-button-spinner-size: 22px;
+    --base-button-icon-size: 22px;
   }
 }
 

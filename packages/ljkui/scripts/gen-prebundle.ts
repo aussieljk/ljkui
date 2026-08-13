@@ -32,20 +32,18 @@ const ALWAYS = ['react', 'react-dom', 'react-dom/client', 'react/jsx-runtime', '
 
 /**
  * Only pre-bundle things the package actually depends on. A peer the consumer may not have
- * installed (every icon set but lucide) must not be forced into the optimizer, or a fresh
- * clone without it fails to boot.
+ * installed must not be forced into the optimizer, or a fresh clone without it fails to boot.
  */
 const installed = new Set([...Object.keys(pkg.dependencies ?? {}), ...Object.keys(pkg.devDependencies ?? {})]);
 
 /**
- * Optional peers are installed here for development but absent in a real consumer, and only
- * `src/icons/adapters/*` touches them — one subpath each, loaded on demand. Forcing them
- * through the optimizer on boot costs every `bun run dev` a few seconds for modules almost
- * nobody opens. `lucide-react` is the default adapter and stays.
+ * Optional peers are installed here for development but absent in a real consumer. Forcing
+ * them through the optimizer on boot costs every `bun run dev` a few seconds for modules
+ * almost nobody opens.
  */
 const OPTIONAL_PEERS = new Set(
   Object.entries(pkg.peerDependenciesMeta ?? {})
-    .filter(([name, meta]) => (meta as { optional?: boolean }).optional && name !== 'lucide-react')
+    .filter(([, meta]) => (meta as { optional?: boolean }).optional)
     .map(([name]) => name),
 );
 

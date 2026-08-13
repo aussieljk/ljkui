@@ -73,35 +73,30 @@ The plugin subpath is `ljkui/tailwind`, and the plugin is a function you call.
 
 ## Icons
 
-ljkui ships a small set of inline icons and uses them by default, so icons work with no
-setup. You only need an icon set if you want a different look, or an icon the built-in
-set does not have.
-
-To swap the whole set, install one library and register its adapter once at the root.
-The import has a side effect and exports nothing.
+ljkui ships no icon set and has no opinion about which one you use. Import icons from
+your own library and pass them as children:
 
 ```sh
 bun add lucide-react
 ```
 
 ```tsx
-import 'ljkui/icons/lucide';
-```
-
-The adapters are `ljkui/icons/lucide`, `/heroicons`, `/phosphor`, `/tabler` and
-`/hugeicons`. Register exactly one.
-
-Either way, you use icons through the `Icons` namespace, with names that are the same
-across every set:
-
-```tsx
-import { Button, Icons } from 'ljkui';
+import { Button } from 'ljkui';
+import { Search } from 'lucide-react';
 
 <Button>
-  <Icons.Search />
+  <Search />
   Search
 </Button>;
 ```
+
+Inside a `Button` or `IconButton` the icon is sized to match the button's `size`, so an
+icon that carries no intrinsic `width` / `height` (heroicons, or a hand-written `<svg>`)
+still comes out right. To pick your own size, set it on the icon — a `className` such as
+Tailwind's `size-5` wins over the library rule.
+
+Components that need an icon internally (the select tick, the calendar glyph) use a
+built-in inline SVG. There is nothing to configure.
 
 ## Fonts
 

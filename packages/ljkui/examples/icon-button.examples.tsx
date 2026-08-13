@@ -1,6 +1,6 @@
-import { lucideAdapter } from 'ljkui/icons/lucide';
+import { Bell, Heart, Plus, Search, Settings, Star, Trash } from 'lucide-react';
 import React from 'react';
-import { IconButton, buttonPropDefs, IconProvider, Icons } from 'ljkui';
+import { IconButton, buttonPropDefs } from 'ljkui';
 
 const ExampleIcon = ({ size }: { size: number }) => (
   <svg width={size} height={size} viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,31 +23,29 @@ export const examples = {
   /** The canonical usage — was `demos/icon-button.demo.tsx` before demos folded into examples. */
   Overview() {
     return (
-      <IconProvider library={lucideAdapter}>
-        <div className="flex flex-wrap items-center gap-3">
-          <IconButton variant="classic" aria-label="Search">
-            <Icons.Search />
-          </IconButton>
-          <IconButton variant="solid" aria-label="Add">
-            <Icons.Plus />
-          </IconButton>
-          <IconButton variant="soft" aria-label="Favorite">
-            <Icons.Heart />
-          </IconButton>
-          <IconButton variant="surface" aria-label="Settings">
-            <Icons.Settings />
-          </IconButton>
-          <IconButton variant="ghost" aria-label="Notifications">
-            <Icons.Bell />
-          </IconButton>
-          <IconButton variant="solid" color="red" aria-label="Delete">
-            <Icons.Trash />
-          </IconButton>
-          <IconButton variant="soft" loading aria-label="Loading">
-            <Icons.Star />
-          </IconButton>
-        </div>
-      </IconProvider>
+      <div className="flex flex-wrap items-center gap-3">
+        <IconButton variant="classic" aria-label="Search">
+          <Search />
+        </IconButton>
+        <IconButton variant="solid" aria-label="Add">
+          <Plus />
+        </IconButton>
+        <IconButton variant="soft" aria-label="Favorite">
+          <Heart />
+        </IconButton>
+        <IconButton variant="surface" aria-label="Settings">
+          <Settings />
+        </IconButton>
+        <IconButton variant="ghost" aria-label="Notifications">
+          <Bell />
+        </IconButton>
+        <IconButton variant="solid" color="red" aria-label="Delete">
+          <Trash />
+        </IconButton>
+        <IconButton variant="soft" loading aria-label="Loading">
+          <Star />
+        </IconButton>
+      </div>
     );
   },
 

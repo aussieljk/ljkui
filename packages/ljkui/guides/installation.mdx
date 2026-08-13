@@ -9,9 +9,22 @@ description: Install ljkui and wire its CSS up correctly — the layer order is 
 bun add ljkui
 ```
 
-`ljkui` ships ESM only and lists `react` / `react-dom` as peers. The icon adapters
-(`ljkui/icons/lucide`, `ljkui/icons/heroicons`, …) each have an optional peer on the
-matching icon package — install only the one you use.
+`ljkui` ships ESM only and lists `react` / `react-dom` as peers.
+
+The library ships no icon set and has no opinion about which one you use. Import icons
+from your own library and pass them as children:
+
+```tsx
+import { Search } from 'lucide-react';
+
+<Button>
+  <Search /> Search
+</Button>;
+```
+
+Inside a `Button` or `IconButton` the icon is sized to match the button's `size`, so an
+icon that carries no intrinsic `width` / `height` still comes out right. To override,
+give the icon its own size — a `className` such as Tailwind's `size-5` wins.
 
 ## The three stylesheets
 

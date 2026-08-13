@@ -16,7 +16,7 @@
     },
     "packages/ljkui": {
       "name": "ljkui",
-      "version": "0.0.1-8",
+      "version": "0.0.1-10",
       "bin": {
         "ljkui-lint-raw-colors": "./dist/bin/lint-raw-colors.js",
       },
@@ -38,15 +38,10 @@
       },
       "devDependencies": {
         "@aussieljk/uight": "0.0.1-canary.3",
-        "@heroicons/react": "^2.2.0",
-        "@hugeicons/core-free-icons": "^4.2.3",
-        "@hugeicons/react": "^1.1.9",
         "@mdx-js/react": "^3.1.1",
         "@mdx-js/rollup": "^3.1.1",
         "@napi-rs/canvas": "^1.0.2",
-        "@phosphor-icons/react": "^2.1.10",
         "@size-limit/preset-small-lib": "^13.0.2",
-        "@tabler/icons-react": "^3.45.0",
         "@tanstack/react-form": "^1.33.2",
         "@tanstack/react-table": "^8.21.3",
         "@types/color-convert": "^2.0.4",
@@ -81,27 +76,15 @@
         "zod": "^4.4.3",
       },
       "peerDependencies": {
-        "@heroicons/react": "^2.0.0",
-        "@hugeicons/core-free-icons": ">=1.0.0",
-        "@hugeicons/react": ">=1.0.0",
-        "@phosphor-icons/react": "^2.0.0",
-        "@tabler/icons-react": ">=2.0.0",
         "@types/react": "*",
         "@types/react-dom": "*",
-        "lucide-react": ">=0.300.0",
         "react": "^17.0 || ^18.0 || ^19.0",
         "react-dom": "^17.0 || ^18.0 || ^19.0",
         "tailwindcss": "^4.0.0",
       },
       "optionalPeers": [
-        "@heroicons/react",
-        "@hugeicons/core-free-icons",
-        "@hugeicons/react",
-        "@phosphor-icons/react",
-        "@tabler/icons-react",
         "@types/react",
         "@types/react-dom",
-        "lucide-react",
         "tailwindcss",
       ],
     },
@@ -234,12 +217,6 @@
     "@formatjs/icu-skeleton-parser": ["@formatjs/icu-skeleton-parser@1.8.16", "", { "dependencies": { "@formatjs/ecma402-abstract": "2.3.6", "tslib": "^2.8.0" } }, "sha512-H13E9Xl+PxBd8D5/6TVUluSpxGNvFSlN/b3coUp0e0JpuWXXnQDiavIpY3NnvSp4xhEMoXyyBvVfdFX8jglOHQ=="],
 
     "@formatjs/intl-localematcher": ["@formatjs/intl-localematcher@0.6.2", "", { "dependencies": { "tslib": "^2.8.0" } }, "sha512-XOMO2Hupl0wdd172Y06h6kLpBz6Dv+J4okPLl4LPtzbr8f66WbIoy4ev98EBuZ6ZK4h5ydTN6XneT4QVpD7cdA=="],
-
-    "@heroicons/react": ["@heroicons/react@2.2.0", "", { "peerDependencies": { "react": ">= 16 || ^19.0.0-rc" } }, "sha512-LMcepvRaS9LYHJGsF0zzmgKCUim/X3N/DQKc4jepAXJ7l8QxJ1PmxJzqplF2Z3FE4PqBAIGyJAQ/w4B5dsqbtQ=="],
-
-    "@hugeicons/core-free-icons": ["@hugeicons/core-free-icons@4.2.3", "", {}, "sha512-fpiU0qFZkv4ABi23xJ2m4qNr0BBfuIaYjPboN8WDA6aj9D+OzXa7eykxKOpACZRuGbDz1U9S5DsNx1d5KNnsgA=="],
-
-    "@hugeicons/react": ["@hugeicons/react@1.1.9", "", { "peerDependencies": { "react": ">=16.0.0" } }, "sha512-O+lWSWjbijoAvMCxn4K2bQWCGN5+mP1y5j+X99j23mXMj+s0X25fs71T6t9YJLaBodwmZdaewD27dzS/PiboQw=="],
 
     "@internationalized/date": ["@internationalized/date@3.12.2", "", { "dependencies": { "@swc/helpers": "^0.5.0" } }, "sha512-FY1Y+H64NDs+HAF6omlnWxm3mEpfgaCSWtL5l551ZZfImA+kGjPFgrnJrGjH6lfmLL0g8Z/mBu1R3kufeCp6Jw=="],
 
@@ -553,8 +530,6 @@
 
     "@oxlint/binding-win32-x64-msvc": ["@oxlint/binding-win32-x64-msvc@1.75.0", "", { "os": "win32", "cpu": "x64" }, "sha512-DSxnNkBUAYARPwJtR12Ig3deWr8w0H997xP6jy33i+e0SyYJw8FKuz4+cZtpmPEhQmvlPJE3X/2vNxDmLkd/rA=="],
 
-    "@phosphor-icons/react": ["@phosphor-icons/react@2.1.10", "", { "peerDependencies": { "react": ">= 16.8", "react-dom": ">= 16.8" } }, "sha512-vt8Tvq8GLjheAZZYa+YG/pW7HDbov8El/MANW8pOAz4eGxrwhnbfrQZq0Cp4q8zBEu8NIhHdnr+r8thnfRSNYA=="],
-
     "@quansync/fs": ["@quansync/fs@1.0.0", "", { "dependencies": { "quansync": "^1.0.0" } }, "sha512-4TJ3DFtlf1L5LDMaM6CanJ/0lckGNtJcMjQ1NAV6zDmA0tEHKZtxNKin8EgPaVX1YzljbxckyT2tJrpQKAtngQ=="],
 
     "@react-aria/calendar": ["@react-aria/calendar@3.10.1", "", { "dependencies": { "@swc/helpers": "^0.5.0", "react-aria": "^3.48.0", "react-stately": "^3.46.0" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1", "react-dom": "^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1" } }, "sha512-0QYoKYyCHFVvfOlXgftTzDttTXtbnYa0GQ6i970Rjdx/0VrMdJe2TXSm60OEISwB3w0aZWAnn3CBiDVtOYQtEw=="],
@@ -670,10 +645,6 @@
     "@size-limit/preset-small-lib": ["@size-limit/preset-small-lib@13.0.2", "", { "dependencies": { "@size-limit/esbuild": "13.0.2", "@size-limit/file": "13.0.2", "size-limit": "13.0.2" } }, "sha512-BC/f3be0XHBJHJGln4fuFYnaOj2Vr+juUS72JDvg4dhlJVyt+fHeu9zJ4fKzWdrSzuxsFgvsrFtF6XbaCe1cSQ=="],
 
     "@swc/helpers": ["@swc/helpers@0.5.23", "", { "dependencies": { "tslib": "^2.8.0" } }, "sha512-5lSsMOTXURePglDfvuAQUqkGek9Hg2kksOYay2m0+XR++b2NWYL/4sWyuvVBIs8oKnJaxkdi9whaL/sqN13afw=="],
-
-    "@tabler/icons": ["@tabler/icons@3.45.0", "", {}, "sha512-jiATwV8+zGYLTZ7gMLGivCic+KtsMZXcDmufIG8umlLxoHhI6902hGYIEt0Oa9Y9SXblNzUlrisHm5jOFMxOQA=="],
-
-    "@tabler/icons-react": ["@tabler/icons-react@3.45.0", "", { "dependencies": { "@tabler/icons": "3.45.0" }, "peerDependencies": { "react": ">= 16" } }, "sha512-t/AuKs7ALMDDTY+B9IvfZnlO0mbLlP/lJxP/HnGC49QkM8mCsTN38kYyxjXxgrb1+TeK53ioVBJqIV7n/eysXQ=="],
 
     "@tanstack/devtools-event-client": ["@tanstack/devtools-event-client@0.4.4", "", { "bin": { "intent": "./bin/intent.js" } }, "sha512-6T5Yop/793YI+H+5J8Hsyj4kCih9sl4t3ElLgKioW5hk3ocn+ZdSJ94tT7vL7uabxSugWYBZlOTMPzEw2puvQw=="],
 

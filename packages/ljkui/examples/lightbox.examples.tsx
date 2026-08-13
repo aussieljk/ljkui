@@ -1,20 +1,6 @@
-import { lucideAdapter } from 'ljkui/icons/lucide';
 import { ChevronLeft, ChevronRight, Globe, Heart, Mail, MessageSquare, Play, Upload, X } from 'lucide-react';
 import React, { useRef, useState } from 'react';
-import {
-  Avatar,
-  Badge,
-  Button,
-  Carousel,
-  IconButton,
-  Lightbox,
-  Link,
-  Separator,
-  Tooltip,
-  Typography,
-  IconProvider,
-  Icons,
-} from 'ljkui';
+import { Avatar, Badge, Button, Carousel, IconButton, Lightbox, Link, Separator, Tooltip, Typography } from 'ljkui';
 
 const images = [
   {
@@ -3582,62 +3568,60 @@ export const examples = {
   /** The canonical usage — was `demos/lightbox.demo.tsx` before demos folded into examples. */
   Overview() {
     return (
-      <IconProvider library={lucideAdapter}>
-        <Lightbox.Root viewTransition>
-          <div className="grid max-w-105 grid-cols-3 gap-3">
-            {overviewImages.map((img, i) => (
-              <Lightbox.Trigger
-                key={img.seed}
-                index={i}
-                crossfade
-                className="cursor-pointer border-none bg-transparent p-0"
-              >
-                <img
-                  src={`https://picsum.photos/seed/${img.seed}/200/200`}
-                  alt={img.alt}
-                  className="block h-25 w-full rounded-xl object-cover"
-                />
-              </Lightbox.Trigger>
-            ))}
+      <Lightbox.Root viewTransition>
+        <div className="grid max-w-105 grid-cols-3 gap-3">
+          {overviewImages.map((img, i) => (
+            <Lightbox.Trigger
+              key={img.seed}
+              index={i}
+              crossfade
+              className="cursor-pointer border-none bg-transparent p-0"
+            >
+              <img
+                src={`https://picsum.photos/seed/${img.seed}/200/200`}
+                alt={img.alt}
+                className="block h-25 w-full rounded-xl object-cover"
+              />
+            </Lightbox.Trigger>
+          ))}
+        </div>
+
+        <Lightbox.Content aria-label="Photo gallery">
+          <div className="absolute top-4 right-4 z-1">
+            <Lightbox.Close aria-label="Close" render={navButton}>
+              <X />
+            </Lightbox.Close>
           </div>
 
-          <Lightbox.Content aria-label="Photo gallery">
-            <div className="absolute top-4 right-4 z-1">
-              <Lightbox.Close aria-label="Close" render={navButton}>
-                <Icons.Close />
-              </Lightbox.Close>
-            </div>
+          <Lightbox.ItemGroup>
+            {overviewImages.map((img, i) => (
+              <Lightbox.Item key={img.seed} index={i}>
+                <img
+                  src={`https://picsum.photos/seed/${img.seed}/1200/800`}
+                  alt={img.alt}
+                  className="max-h-[75vh] max-w-[90vw] rounded-lg object-contain"
+                />
+              </Lightbox.Item>
+            ))}
+          </Lightbox.ItemGroup>
 
-            <Lightbox.ItemGroup>
-              {overviewImages.map((img, i) => (
-                <Lightbox.Item key={img.seed} index={i}>
-                  <img
-                    src={`https://picsum.photos/seed/${img.seed}/1200/800`}
-                    alt={img.alt}
-                    className="max-h-[75vh] max-w-[90vw] rounded-lg object-contain"
-                  />
-                </Lightbox.Item>
-              ))}
-            </Lightbox.ItemGroup>
-
-            <div className="flex items-center gap-3 p-3">
-              <Lightbox.Previous aria-label="Previous" render={navButton}>
-                <Icons.ChevronLeft />
-              </Lightbox.Previous>
-              <Lightbox.Counter>
-                {({ current, total }) => (
-                  <Typography.Text size="2" className="min-w-12 text-center text-white/70">
-                    {current} / {total}
-                  </Typography.Text>
-                )}
-              </Lightbox.Counter>
-              <Lightbox.Next aria-label="Next" render={navButton}>
-                <Icons.ChevronRight />
-              </Lightbox.Next>
-            </div>
-          </Lightbox.Content>
-        </Lightbox.Root>
-      </IconProvider>
+          <div className="flex items-center gap-3 p-3">
+            <Lightbox.Previous aria-label="Previous" render={navButton}>
+              <ChevronLeft />
+            </Lightbox.Previous>
+            <Lightbox.Counter>
+              {({ current, total }) => (
+                <Typography.Text size="2" className="min-w-12 text-center text-white/70">
+                  {current} / {total}
+                </Typography.Text>
+              )}
+            </Lightbox.Counter>
+            <Lightbox.Next aria-label="Next" render={navButton}>
+              <ChevronRight />
+            </Lightbox.Next>
+          </div>
+        </Lightbox.Content>
+      </Lightbox.Root>
     );
   },
 
