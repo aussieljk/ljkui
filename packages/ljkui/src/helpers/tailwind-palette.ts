@@ -517,6 +517,18 @@ function accentMappingCss(name: string): string {
 }
 
 /**
+ * The `[data-accent-color='{kind}']` block for a semantic alias. `color="success"` is
+ * a valid value everywhere an accent colour is, so it must point `--accent-*` at the
+ * semantic scale — which itself follows the `successColor` prop.
+ */
+function semanticAccentMappingCss(kind: 'danger' | 'warning' | 'success' | 'info'): string {
+  return cssBlock(`[data-accent-color='${kind}']`, [
+    `--color-surface-accent: var(--color-surface-${kind})`,
+    ...mappingDeclarations('accent', kind),
+  ]);
+}
+
+/**
  * The block pointing `--gray-*` at a scale. The gray scale is fixed, so this is
  * unconditional — there is no `grayColor` prop and nothing to switch on.
  */
@@ -621,6 +633,7 @@ export {
   grayMappingCss,
   scaleCss,
   scaleStops,
+  semanticAccentMappingCss,
   semanticMappingCss,
   tailwindPaletteStops,
 };

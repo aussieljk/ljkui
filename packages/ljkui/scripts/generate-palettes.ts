@@ -16,6 +16,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import {
   accentMappingCss,
+  semanticAccentMappingCss,
   computeScale,
   grayMappingCss,
   scaleCss,
@@ -127,6 +128,8 @@ function generatePalettesCss(palettes: Record<string, TailwindPalette>): string 
     ...ALL.filter((name) => name !== 'gray').map((name) => accentMappingCss(name)),
     `/* Gray mapping. Fixed to ${GRAY} — the gray scale is not themeable. */`,
     grayMappingCss(GRAY),
+    `/* Accent mappings for the semantic aliases; each follows its own \`{kind}Color\` prop. */`,
+    ...(Object.keys(SEMANTIC) as (keyof typeof SEMANTIC)[]).map((kind) => semanticAccentMappingCss(kind)),
     `/* Semantic mappings */`,
     ...Object.entries(SEMANTIC).flatMap(([kind, names]) =>
       names.map((name, i) => semanticMappingCss(kind as keyof typeof SEMANTIC, name, i === 0)),
